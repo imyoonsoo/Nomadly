@@ -15,3 +15,11 @@ export interface SuccessModalProps {
   message: string;
   buttonText?: string;
 }
+
+export interface WarningModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  message: string;
+  buttonTextLeft?: string;
+  buttonTextRight?: string;
+}

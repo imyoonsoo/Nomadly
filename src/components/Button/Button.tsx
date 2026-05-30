@@ -1,5 +1,5 @@
 "use client";
-
+import { twMerge } from "tailwind-merge";
 import { Google, Kakao } from "@/constants/icons";
 import { ButtonProps } from "./type";
 
@@ -86,16 +86,14 @@ const Button = ({
       ? iconPositionStyle[iconPosition]
       : basicStyle;
 
-  const selfMergeButtonStyle = [
+  const selfMergeButtonStyle = twMerge(
     basic,
     sizes[size],
     buttonStyle.layout,
     buttonStyle.size[size],
     buttonStyle.state,
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   const socialIcon = currentSocial ? currentSocial.icon : icon;
   const hasIcon = !!socialIcon || !!iconPosition;

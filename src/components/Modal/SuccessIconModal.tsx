@@ -27,7 +27,7 @@ const SuccessIconModal = ({
       </div>
 
       <Button
-        className="text-14-bold w-[180px] h-[41px] md:w-[200px] md:h-[47px] md:text-16-bold"
+        className="w-[180px] h-[41px] md:w-[200px] md:h-[47px] md:text-16-bold text-14-bold text-white"
         onClick={onClose}
       >
         {buttonText}
