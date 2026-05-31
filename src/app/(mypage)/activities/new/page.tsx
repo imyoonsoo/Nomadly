@@ -5,7 +5,7 @@ import Button from "@/components/Button/Button";
 
 const CreateActivityForm = () => {
   return (
-    <div className="w-full">
+    <div className="w-full lg:px-[150px]">
       <h1 className="py-5 text-18-bold text-gray-950">내 체험 등록</h1>
       <form className="w-full flex flex-col justify-center gap-6 md:gap-7.5">
         <TextInput
