@@ -2,10 +2,15 @@
 
 import { ChangeEvent, useEffect, useId, useState } from "react";
 import { DefaultProfile } from "@/constants/images";
-import ImageInputProps from "./type";
+import { ProfileImageInputProps } from "./type";
 import { Edit } from "@/constants/icons";
 
-const ProfileImageInput = ({ id, name, label, ...props }: ImageInputProps) => {
+const ProfileImageInput = ({
+  id,
+  name,
+  label,
+  ...props
+}: ProfileImageInputProps) => {
   const inputId = id ?? useId();
   const [preview, setPreview] = useState<string | null>(null);
 
