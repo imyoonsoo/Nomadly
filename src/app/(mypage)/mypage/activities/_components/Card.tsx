@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { CardProps } from "./CardList";
+import type { CardProps } from "../page";
 import StarIcon from "@/assets/icons/star-on.svg";
 
 const Card = ({
