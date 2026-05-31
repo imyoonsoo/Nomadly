@@ -1,9 +1,15 @@
+"use client";
+
 import MultiImageInput from "@/components/ImageInput/MultiImageInput";
 import TextArea from "@/components/Input/TextArea";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
+import AddressSearchButton from "./_components/AddressSearchButton/AddressSearchButton";
+import { useState } from "react";
 
 const CreateActivityForm = () => {
+  const [address, setAddress] = useState("");
+
   return (
     <div className="w-full lg:px-[150px]">
       <h1 className="py-5 text-18-bold text-gray-950">내 체험 등록</h1>
@@ -38,8 +44,10 @@ const CreateActivityForm = () => {
             label="주소"
             placeholder="주소를 입력해 주세요"
             className="flex-1"
+            value={address}
+            disabled
           />
-          <Button className="flex-0">주소 찾기</Button>
+          <AddressSearchButton onSelect={setAddress} />
         </div>
         <div>
           <p>예약 가능한 시간대</p>
