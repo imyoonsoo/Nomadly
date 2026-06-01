@@ -16,7 +16,9 @@ const SuccessModal = ({
     >
       <p className="text-16-bold md:text-18-bold">{message}</p>
       <Button
-        className="w-[180px] h-[41px] md:w-[200px] md:h-[47px]"
+        styleVariant="fillPrimaryBlue"
+        heightSize="custom"
+        className="w-[180px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[200px] md:h-[47px] md:py-[14px]"
         onClick={onClose}
       >
         {buttonText}
