@@ -25,7 +25,7 @@ const ReservationStatusPage = () => {
 
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const handleClickDate = (date: string) => {
+  const handleDateClick = (date: string) => {
     setSelectedDate(date);
   };
 
@@ -51,7 +51,7 @@ const ReservationStatusPage = () => {
 
           <ReservationCalendar
             reservations={selectedReservations}
-            onClickDate={handleClickDate}
+            onClickDate={handleDateClick}
           />
 
           <ReservationStatusModal

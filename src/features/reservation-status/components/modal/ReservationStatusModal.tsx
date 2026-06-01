@@ -12,7 +12,9 @@ const ReservationStatusModal = ({
   selectedDate,
   onClose,
 }: ReservationStatusModalProps) => {
-  if (!open || !selectedDate) return null;
+  if (!open || !selectedDate) {
+    return null;
+  }
 
   return (
     <>
