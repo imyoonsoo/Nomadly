@@ -3,7 +3,7 @@
 import { Kakao as KakaoIcon } from "@/constants/icons";
 import { ButtonProps } from "./type";
 
-const based = `flex items-center 
+const BASE_STYLE = `flex items-center 
   disabled:cursor-not-allowed disabled:opacity-70 
   [&_svg]:shrink-0 [&_svg]:aspect-square`;
 
