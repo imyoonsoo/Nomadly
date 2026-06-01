@@ -9,7 +9,7 @@ const DEFAULT_SETTING = `flex items-center
 
 const VARIANTS: { [key: string]: string } = {
   mainBlue: `bg-primary-500
-    text-white font-bold tracking-[0.1px]
+    text-white
     active:bg-[#2b8de0]
     disabled:bg-gray-200 disabled:text-gray-50 disabled:[&_svg]:text-gray-400`,
 
@@ -27,7 +27,7 @@ const VARIANTS: { [key: string]: string } = {
 
   crystal: `bg-transparent
   border-2 border-primary-100
-  text-gray-600 font-medium tracking-[-0.1px]
+  text-gray-600
   [&_svg]:text-gray-600
   active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-[#2b8de0]`,
 
