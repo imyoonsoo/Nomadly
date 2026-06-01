@@ -1,7 +1,15 @@
+"use client";
+import { useState } from "react";
 import ReservedCard from "./components/ReservedCard";
 import ReservedCardList from "./components/ReservedCardList";
+import ReviewSubmitModal from "./components/ReviewSubmitModal";
 
 const ReservationsPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClick = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div className="max-sm:px-[20px]">
       <header className="flex flex-col gap-">
@@ -14,6 +22,8 @@ const ReservationsPage = () => {
       </header>
       {/* Todo: 필터 버튼 추가 */}
       <ReservedCardList />
+      <button onClick={handleClick}>모달 열기</button>
+      <ReviewSubmitModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 };
