@@ -28,18 +28,8 @@ const WarningModal = ({
       </div>
 
       <div className="flex gap-2 md:gap-3 justify-center items-center">
-        <Button
-          className="bg-white text-14-medium w-[131px] h-[41px] md:w-[135px] md:h-[47px] md:text-16-medium outline outline-1 outline-gray-200 text-gray-600"
-          onClick={onClose}
-        >
-          {buttonTextLeft}
-        </Button>
-        <Button
-          className="w-[131px] h-[41px] md:w-[135px] md:h-[47px] md:text-16-bold text-14-bold md:text-16-bold text-white"
-          onClick={onClose}
-        >
-          {buttonTextRight}
-        </Button>
+        <Button onClick={onClose}>{buttonTextLeft}</Button>
+        <Button onClick={onClose}>{buttonTextRight}</Button>
       </div>
     </Modal>
   );

@@ -1,113 +1,111 @@
 "use client";
-import { twMerge } from "tailwind-merge";
-import { Google, Kakao } from "@/constants/icons";
+
+import { Kakao as KakaoIcon } from "@/constants/icons";
 import { ButtonProps } from "./type";
 
-const basic =
-  "flex items-center [&_svg]:shrink-0 [&_svg]:aspect-square disabled:cursor-not-allowed disabled:opacity-70";
+const based = `flex items-center 
+  disabled:cursor-not-allowed disabled:opacity-70 
+  [&_svg]:shrink-0 [&_svg]:aspect-square`;
 
-const sizes = {
-  lg: "h-13.5 rounded-2xl text-base [&_svg]:size-6",
-  md: "h-12 rounded-[14px] text-base [&_svg]:size-5",
-  sm: "h-10.3 rounded-xl text-sm [&_svg]:size-4",
-} as const;
+const variantStyle: { [key: string]: string } = {
+  fillTransparent: `bg-transparent
+  border-2 border-primary-100
+  text-gray-600 font-medium tracking-[-0.1px]
+    active:bg-primary-100 active:border-primary-500 active:text-primary-500 active:[&_svg]:text-primary-500
+    [&_svg]:text-gray-600`,
 
-const iconPositionStyle = {
-  start: {
-    layout:
-      "justify-start w-fit min-w-28.75 gap-2 tracking-[-0.35px] font-medium",
-    size: {
-      lg: "py-3 pr-10 pl-5",
-      md: "py-3.5 pr-10 pl-5",
-      sm: "py-3 pr-10 pl-5",
-    },
-    state: `bg-transparent text-[#1f1f22] border-none [&_svg]:text-gray-500
-      active:bg-primary-100 active:text-[#1f1f22] active:[&_svg]:text-primary-500
-      disabled:bg-gray-50 disabled:text-[#1f1f22] disabled:[&_svg]:text-primary-500`,
-  },
-  center: {
-    layout:
-      "justify-center w-85.5 min-w-auto gap-1 tracking-[-0.4px] font-medium",
-    size: {
-      lg: "py-3 px-10",
-      md: "py-3.5 px-10",
-      sm: "py-1 px-5 h-8.5",
-    },
-    state: `bg-white text-[#3c1e1e] border border-gray-200
-      [&_svg]:text-[#3c1e1e]
-      active:bg-white active:border-1.7 active:border-[#e6cf00]
-      disabled:bg-white disabled:text-gray-200 disabled:border-gray-200
-      disabled:[&_svg]:text-gray-500`,
-  },
-} as const;
-
-const basicStyle = {
-  layout: "justify-center w-85.5 min-w-auto gap-1 tracking-[-0.4px] font-bold",
-  size: {
-    lg: "py-3.5 px-10",
-    md: "py-3.5 px-10",
-    sm: "py-3 px-10",
-  },
-  state: `bg-primary-500 text-white border-none
-    active:bg-[#2b8de0]
+  fillWhite: `bg-white
+    border-2 border-gray-50
+    text-gray-600 
+    active:bg-[#FCFCFC] active:border-[#B2B1B9] active:text-gray-600
     disabled:bg-gray-200 disabled:text-gray-50`,
+
+  fillPrimaryBlue: `bg-primary-500
+    text-white font-bold tracking-[0.1px]
+    active:bg-[#2b8de0] active:text-white
+    disabled:bg-gray-200 disabled:text-gray-50 disabled:[&_svg]:text-gray-400`,
+
+  fillGray50: `bg-gray-50
+    text-gray-300 font-medium tracking-[-0.35px]
+    active:bg-[#F6F6F6] active:text-gray-400
+    disabled:bg-white disabled:border-gray-300 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
+
+  fillGray200: `bg-gray-200
+    text-white font-bold tracking-[-0.1px]
+    active:bg-gray-300 active:text-white
+    disabled:bg-gray-100 disabled:text-gray-300 disabled:[&_svg]:text-gray-300`,
+
+  fillGray300: `bg-gray-300
+    text-gray-50 font-bold tracking-[-0.1px]
+    active:bg-gray-400 active:text-gray-50
+    disabled:bg-gray-100 disabled:text-gray-300 disabled:[&_svg]:text-gray-300`,
+
+  kakaoButton: `bg-white
+  border-2 border-[#FFF9A3]
+    text-[#E8D800]
+    [&_svg]:text-[#3c1e1e]
+    active:bg-white active:border active:border-[#e6cf00]
+    disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
 };
 
-const socialStyle = {
-  kakao: {
-    icon: <Kakao />,
-    state: `bg-white text-[#e6cf00] border border-gray-200
-      [&_svg]:text-[#3c1e1e]
-      active:bg-white active:border-1.7 active:border-[#e6cf00]
-      disabled:bg-white disabled:text-gray-200 disabled:border-gray-200
-      disabled:[&_svg]:text-gray-500`,
+const sizeStyle: { [key: string]: string } = {
+  lg54: `h-[54px] rounded-2xl text-base [&_svg]:size-6`,
+  md47: `h-[47px] rounded-[14px] text-base [&_svg]:size-5`,
+  sm41: `h-[41px] rounded-xl text-sm [&_svg]:size-6`,
+  h29: `h-[29px] rounded-lg text-sm`,
+  h50: `h-[50px] rounded-[14px] text-base`,
+  custom: ``,
+};
+
+const iconJustify = {
+  left: {
+    lg54: `justify-start py-3 pr-10 pl-5 gap-2`,
+    md47: `justify-start py-3.5 pr-10 pl-5 gap-2`,
+    sm41: `justify-start py-3 px-10 pl-5 gap-[6px]`,
+    h29: `justify-start py-1 pr-6 pl-3 gap-1`,
+    h50: `justify-start py-3 pr-10 pl-5 gap-2`,
   },
-  google: {
-    icon: <Google />,
-    state: `bg-white text-[#1f1f22] border border-gray-200
-      active:bg-gray-25
-      disabled:bg-gray-200 disabled:text-gray-50`,
+  center: {
+    lg54: `justify-center py-3 px-10 gap-1`,
+    md47: `justify-center py-[14px] px-10 gap-1`,
+    sm41: `justify-center py-1 px-5`,
+    h29: `justify-center py-1 px-6 gap-1`,
+    h50: `justify-center py-3 px-10 gap-2`,
   },
-} as const;
+};
 
 const Button = ({
+  styleVariant,
+  heightSize,
+  setIcon,
   iconPosition,
-  size = "lg",
-  icon,
-  social,
   className,
   ...restProps
 }: ButtonProps) => {
-  const currentSocial = social && socialStyle[social];
-
-  const buttonStyle = currentSocial
-    ? { ...iconPositionStyle.center, state: currentSocial.state }
-    : iconPosition
-      ? iconPositionStyle[iconPosition]
-      : basicStyle;
-
-  const selfMergeButtonStyle = twMerge(
-    basic,
-    sizes[size],
-    buttonStyle.layout,
-    buttonStyle.size[size],
-    buttonStyle.state,
-    className,
-  );
-
-  const socialIcon = currentSocial ? currentSocial.icon : icon;
-  const hasIcon = !!socialIcon || !!iconPosition;
+  const { children, ...restDefaultButtonAttributes } = restProps;
+  const iconStatusValue =
+    styleVariant === "kakaoButton" ? <KakaoIcon /> : setIcon;
+  const isIconWhere = iconPosition ?? (iconStatusValue ? "center" : undefined);
 
   return (
-    <button className={selfMergeButtonStyle} {...restProps}>
-      {hasIcon ? (
-        <>
-          {socialIcon}
-          {restProps.children}
-        </>
-      ) : (
-        restProps.children
-      )}
+    <button
+      className={[
+        based,
+        styleVariant ? variantStyle[styleVariant] : null,
+        sizeStyle[heightSize],
+        isIconWhere && heightSize !== "custom"
+          ? iconJustify[isIconWhere][heightSize]
+          : isIconWhere
+            ? "justify-center"
+            : "justify-center px-3.5",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...restDefaultButtonAttributes}
+    >
+      {iconStatusValue}
+      {children}
     </button>
   );
 };
