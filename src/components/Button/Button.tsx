@@ -48,7 +48,7 @@ const VARIANT_STYLE: { [key: string]: string } = {
     disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
 };
 
-const sizeStyle: { [key: string]: string } = {
+const SIZE_STYLE: { [key: string]: string } = {
   lg54: `h-[54px] rounded-2xl text-base [&_svg]:size-6`,
   md47: `h-[47px] rounded-[14px] text-base [&_svg]:size-5`,
   sm41: `h-[41px] rounded-xl text-sm [&_svg]:size-6`,
