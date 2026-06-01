@@ -75,27 +75,27 @@ const ICON_JUSTIFY = {
 };
 
 const Button = ({
-  styleVariant,
-  heightSize,
-  setIcon,
-  iconPosition,
+  variant,
+  height,
+  icon,
+  iconJustify = "center",
   className,
   ...restProps
 }: ButtonProps) => {
   const { children, ...restDefaultButtonAttributes } = restProps;
-  const iconStatusValue =
-    styleVariant === "kakaoButton" ? <KakaoIcon /> : setIcon;
-  const isIconWhere = iconPosition ?? (iconStatusValue ? "center" : undefined);
+  const iconStatusValue = variant === "kakaoButton" ? <KakaoIcon /> : icon;
+  const resolvedIconPosition =
+    iconJustify ?? (iconStatusValue ? "center" : undefined);
 
   return (
     <button
       className={[
-        based,
-        styleVariant ? variantStyle[styleVariant] : null,
-        sizeStyle[heightSize],
-        isIconWhere && heightSize !== "custom"
-          ? iconJustify[isIconWhere][heightSize]
-          : isIconWhere
+        BASE_STYLE,
+        variant ? VARIANT_STYLE[variant] : null,
+        SIZE_STYLE[height],
+        resolvedIconPosition && height !== "custom"
+          ? ICON_JUSTIFY[resolvedIconPosition][height]
+          : resolvedIconPosition
             ? "justify-center"
             : "justify-center px-3.5",
         className,
