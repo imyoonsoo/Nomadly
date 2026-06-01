@@ -1,5 +1,5 @@
-interface StarRaingProps {
+interface StarRatingProps {
   rating: number;
 }
 
-export default StarRaingProps;
+export default StarRatingProps;
