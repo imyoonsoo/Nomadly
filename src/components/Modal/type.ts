@@ -19,6 +19,7 @@ export interface SuccessModalProps {
 export interface WarningModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onConfirm: () => void;
   message: string;
   buttonTextLeft?: string;
   buttonTextRight?: string;

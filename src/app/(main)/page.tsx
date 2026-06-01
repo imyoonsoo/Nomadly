@@ -22,26 +22,16 @@ const Home = () => {
   };
   return (
     <>
-      <h1>홈페이지</h1>;<button onClick={handleClick}>모달</button>;
-      <button onClick={handleClick2}>모달</button>;
-      <button onClick={handleClick3}>모달</button>;
-      <SuccessModal
-        isOpen={isOpen}
-        onClose={onClose}
-        message="test"
-      ></SuccessModal>
+      <h1>홈페이지</h1>
+      <button onClick={handleClick}>모달</button>
       <br />
-      <SuccessIconModal
-        isOpen={isOpen2}
-        onClose={onClose2}
-        message="test"
-      ></SuccessIconModal>
+      <button onClick={handleClick2}>모달</button>
       <br />
-      <WarningModal
-        isOpen={isOpen3}
-        onClose={onClose3}
-        message="test"
-      ></WarningModal>
+      <button onClick={handleClick3}>모달</button>
+
+      <SuccessModal isOpen={isOpen} onClose={onClose} message="test" />
+      <SuccessIconModal isOpen={isOpen2} onClose={onClose2} message="test" />
+      <WarningModal isOpen={isOpen3} onClose={onClose3} message="test" />
     </>
   );
 };

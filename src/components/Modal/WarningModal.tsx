@@ -6,6 +6,7 @@ import Image from "next/image";
 const WarningModal = ({
   isOpen,
   onClose,
+  onConfirm,
   message,
   buttonTextLeft = "아니요",
   buttonTextRight = "네",
@@ -18,8 +19,8 @@ const WarningModal = ({
     >
       <div>
         <Image
-          src="/warningIcon.svg"
-          alt="성공 아이콘"
+          src="/warning-icon.svg"
+          alt="경고 아이콘"
           width={88}
           height={88}
           className="w-[49px] h-[49px] md:w-[88px] md:h-[88px]"
@@ -40,7 +41,7 @@ const WarningModal = ({
           styleVariant="fillPrimaryBlue"
           heightSize="custom"
           className="w-[113px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px]"
-          onClick={onClose}
+          onClick={onConfirm || onClose}
         >
           {buttonTextRight}
         </Button>
