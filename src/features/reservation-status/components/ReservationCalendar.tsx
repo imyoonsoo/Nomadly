@@ -32,11 +32,11 @@ const ReservationCalendar = ({
     return new Map(reservations.map((item) => [item.date, item]));
   }, [reservations]);
 
-  const handlePrevMonth = () => {
+  const handlePrevMonthButtonClick = () => {
     setCurrentDate(new Date(year, month - 1, 1));
   };
 
-  const handleNextMonth = () => {
+  const handleNextMonthButtonClick = () => {
     setCurrentDate(new Date(year, month + 1, 1));
   };
 
@@ -45,7 +45,7 @@ const ReservationCalendar = ({
       <div className="flex items-center justify-center h-11 gap-8 px-7 mb-2 md:mt-5 md:mb-[30px]">
         <button
           type="button"
-          onClick={handlePrevMonth}
+          onClick={handlePrevMonthButtonClick}
           className="w-6 h-6 hover:-translate-y-px"
         >
           <AltLeft className="w-full h-full" />
@@ -57,7 +57,7 @@ const ReservationCalendar = ({
 
         <button
           type="button"
-          onClick={handleNextMonth}
+          onClick={handleNextMonthButtonClick}
           className="w-6 h-6 hover:-translate-y-px"
         >
           <AltRight className="w-full h-full" />

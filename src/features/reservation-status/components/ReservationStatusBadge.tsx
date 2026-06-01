@@ -9,7 +9,9 @@ const ReservationStatusBadge = ({
   count,
   color,
 }: ReservationStatusBadgeProps) => {
-  if (count === 0) return null;
+  if (count === 0) {
+    return null;
+  }
 
   const colorClass = {
     gray: "bg-gray-50 text-gray-500",
