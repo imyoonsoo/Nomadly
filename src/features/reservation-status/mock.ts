@@ -3,7 +3,7 @@ import {
   ReservationDashboardItem,
   ReservationStatus,
   ReservedScheduleItem,
-} from "./type";
+} from "@/features/reservation-status/type";
 
 export const mockActivities = [
   { id: 1, title: "함께 배우면 즐거운 스트릿 댄스" },

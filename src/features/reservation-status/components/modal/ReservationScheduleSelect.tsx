@@ -1,5 +1,5 @@
-import { ReservedScheduleItem } from "../../type";
-import ReservationDropdown from "../ReservationDropdown";
+import { ReservedScheduleItem } from "@/features/reservation-status/type";
+import ReservationDropdown from "@/features/reservation-status/components/ReservationDropdown";
 
 interface ReservationScheduleSelectProps {
   schedules: ReservedScheduleItem[];

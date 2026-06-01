@@ -1,11 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { mockActivities, mockReservationDashboardByActivityId } from "../mock";
-import ReservationCalendar from "./ReservationCalendar";
-import EmptyReservationStatus from "./EmptyReservationStatus";
-import ReservationStatusModal from "./modal/ReservationStatusModal";
-import ReservationDropdown from "./ReservationDropdown";
+import {
+  mockActivities,
+  mockReservationDashboardByActivityId,
+} from "@/features/reservation-status/mock";
+import ReservationCalendar from "@/features/reservation-status/components/ReservationCalendar";
+import EmptyReservationStatus from "@/features/reservation-status/components//EmptyReservationStatus";
+import ReservationStatusModal from "@/features/reservation-status/components/modal/ReservationStatusModal";
+import ReservationDropdown from "@/features/reservation-status/components/ReservationDropdown";
 
 const ReservationStatusPage = () => {
   const acitivitiOptions = mockActivities.map((activity) => ({

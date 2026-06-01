@@ -1,4 +1,4 @@
-import { ReservationStatus } from "../../type";
+import { ReservationStatus } from "@/features/reservation-status/type";
 
 interface ReservationStatusTabProps {
   selectedStatus: ReservationStatus;

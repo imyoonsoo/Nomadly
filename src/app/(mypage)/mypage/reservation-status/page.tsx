@@ -1,4 +1,4 @@
-import ReservationStatusPage from "../../../../features/reservation-status/components/ReservationStatusPage";
+import ReservationStatusPage from "@/features/reservation-status/components/ReservationStatusPage";
 
 const Page = () => {
   return <ReservationStatusPage />;

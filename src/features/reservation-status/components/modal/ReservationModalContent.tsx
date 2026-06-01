@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ReservationStatus, ReservationCardItem } from "../../type";
+import {
+  ReservationStatus,
+  ReservationCardItem,
+} from "@/features/reservation-status/type";
 import {
   mockReservationByScheduleId,
   mockReservedScheduleByDate,
-} from "../../mock";
-import ReservationStatusTab from "./ReservationStatusTab";
-import ReservationScheduleSelect from "./ReservationScheduleSelect";
-import ReservationCard from "./ReservationCard";
+} from "@/features/reservation-status/mock";
+import ReservationStatusTab from "@/features/reservation-status/components/modal/ReservationStatusTab";
+import ReservationScheduleSelect from "@/features/reservation-status/components/modal/ReservationScheduleSelect";
+import ReservationCard from "@/features/reservation-status/components/modal/ReservationCard";
 import { Delete } from "@/constants/icons";
-import { formatKoreanDate } from "../../utils";
+import { formatKoreanDate } from "@/features/reservation-status/utils";
 
 interface ReservationModalContentProps {
   selectedDate: string;

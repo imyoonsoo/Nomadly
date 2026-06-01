@@ -1,5 +1,5 @@
-import MobileReservationStatusModal from "./MobileReservationStatusModal";
-import PcReservationStatusModal from "./PcReservationStatusModal";
+import MobileReservationStatusModal from "@/features/reservation-status/components/modal/MobileReservationStatusModal";
+import PcReservationStatusModal from "@/features/reservation-status/components/modal/PcReservationStatusModal";
 
 interface ReservationStatusModalProps {
   open: boolean;

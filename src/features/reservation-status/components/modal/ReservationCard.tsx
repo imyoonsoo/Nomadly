@@ -1,5 +1,8 @@
 import StateBadge from "@/components/StateBadge/StateBadge";
-import { ReservationCardItem, ReservationStatus } from "../../type";
+import {
+  ReservationCardItem,
+  ReservationStatus,
+} from "@/features/reservation-status/type";
 
 interface ReservationCardProps {
   reservation: ReservationCardItem;

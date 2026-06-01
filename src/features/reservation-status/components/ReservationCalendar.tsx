@@ -1,11 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ReservationDashboardItem } from "../type";
-import { formatDateKey, getCalendarDates } from "../utils";
+import { ReservationDashboardItem } from "@/features/reservation-status/type";
+import {
+  formatDateKey,
+  getCalendarDates,
+} from "@/features/reservation-status/utils";
 import { AltLeft } from "@/constants/icons";
 import { AltRight } from "@/constants/icons";
-import CalendarCell from "./CalendarCell";
+import CalendarCell from "@/features/reservation-status/components/CalendarCell";
 
 const WEEK_DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 

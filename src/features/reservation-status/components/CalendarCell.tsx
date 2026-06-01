@@ -1,6 +1,6 @@
-import { ReservationDashboardItem } from "../type";
-import { formatDateKey } from "../utils";
-import ReservationStatusBadge from "./ReservationStatusBadge";
+import { ReservationDashboardItem } from "@/features/reservation-status/type";
+import { formatDateKey } from "@/features/reservation-status/utils";
+import ReservationStatusBadge from "@/features/reservation-status/components/ReservationStatusBadge";
 
 interface CalendarCellProps {
   date: Date;
