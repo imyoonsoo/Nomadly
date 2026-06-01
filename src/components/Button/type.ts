@@ -18,6 +18,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   * 높이 29, 41, 47, 50, 54 제외한 사이즈에 설정을 className으로 넘기기 위해 custom 추가
   */
   heightSize: "lg54" | "md47" | "sm41" | "h29" | "h50" | "custom";
-  setIcon?: ReactNode;
+  icon?: ReactNode;
   iconPosition?: "left" | "center";
 }
