@@ -3,7 +3,7 @@ import ReservedCardList from "./components/ReservedCardList";
 
 const ReservationsPage = () => {
   return (
-    <>
+    <div className="max-sm:px-[30px]">
       <header className="flex flex-col gap-">
         <div>
           <h1 className="text-18-bold text-gray-950 mb-[10px]">예약 내역</h1>
@@ -14,7 +14,7 @@ const ReservationsPage = () => {
       </header>
       {/* Todo: 필터 버튼 추가 */}
       <ReservedCardList />
-    </>
+    </div>
   );
 };
 
