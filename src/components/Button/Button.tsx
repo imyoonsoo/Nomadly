@@ -7,7 +7,7 @@ const BASE_STYLE = `flex items-center
   disabled:cursor-not-allowed disabled:opacity-70 
   [&_svg]:shrink-0 [&_svg]:aspect-square`;
 
-const variantStyle: { [key: string]: string } = {
+const VARIANT_STYLE: { [key: string]: string } = {
   fillTransparent: `bg-transparent
   border-2 border-primary-100
   text-gray-600 font-medium tracking-[-0.1px]
