@@ -10,7 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     | "fillGray300"
     | "kakaoButton";
 
-  heightSize: "lg54" | "md47" | "sm41" | "h29" | "h50" | "custom";
+  height: "lg54" | "md47" | "sm41" | "h29" | "h50" | "custom";
   icon?: ReactNode;
-  iconPosition?: "left" | "center";
+  iconJustify?: "left" | "center";
 }
