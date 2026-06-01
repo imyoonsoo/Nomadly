@@ -20,7 +20,12 @@ const Title = ({
         <p className="text-14-medium text-gray-500">{description}</p>
       </div>
       {buttonText && (
-        <Button size="md" onClick={onButtonClick} className="w-full md:w-34.5">
+        <Button
+          styleVariant="fillPrimaryBlue"
+          heightSize="md47"
+          onClick={onButtonClick}
+          className="w-full md:w-34.5"
+        >
           {buttonText}
         </Button>
       )}
