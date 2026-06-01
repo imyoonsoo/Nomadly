@@ -57,7 +57,7 @@ const SIZE_STYLE: { [key: string]: string } = {
   custom: ``,
 };
 
-const iconJustify = {
+const ICON_JUSTIFY = {
   left: {
     lg54: `justify-start py-3 pr-10 pl-5 gap-2`,
     md47: `justify-start py-3.5 pr-10 pl-5 gap-2`,
