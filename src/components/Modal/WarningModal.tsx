@@ -19,7 +19,7 @@ const WarningModal = ({
     >
       <div>
         <Image
-          src="/warning-icon.svg"
+          src="/warningIcon.svg"
           alt="경고 아이콘"
           width={88}
           height={88}
@@ -30,16 +30,16 @@ const WarningModal = ({
 
       <div className="flex gap-2 md:gap-3 justify-center items-center">
         <Button
-          styleVariant="fillWhite"
-          heightSize="custom"
+          variant="whitenGray"
+          height="custom"
           className="w-[113px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px]"
           onClick={onClose}
         >
           {buttonTextLeft}
         </Button>
         <Button
-          styleVariant="fillPrimaryBlue"
-          heightSize="custom"
+          variant="mainBlue"
+          height="custom"
           className="w-[113px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px]"
           onClick={onConfirm || onClose}
         >
