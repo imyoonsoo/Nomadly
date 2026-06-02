@@ -28,7 +28,7 @@ const Header = ({ user }: HeaderProps) => {
 
   return (
     <header
-      className={`w-full h-12 fixed top-0 left-0 z-[999] md:h-20 flex justify-center transition-colors duration-300 ${isScrolled ? "bg-white" : "bg-transparent"}`}
+      className={`w-full h-12 fixed top-0 left-0 z-100 md:h-20 flex justify-center transition-colors duration-300 ${isScrolled ? "bg-white" : "bg-transparent"}`}
     >
       <div className="w-full max-w-380 flex items-center justify-between mx-auto px-6 md:px-7.5">
         <Link href="/" className="flex items-center py-2.5 cursor-pointer">
