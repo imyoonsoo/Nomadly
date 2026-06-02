@@ -1,15 +1,23 @@
 "use client";
 
+import { useState } from "react";
+import {
+  useForm,
+  Controller,
+  useFieldArray,
+  SubmitHandler,
+} from "react-hook-form";
+
 import MultiImageInput from "@/components/ImageInput/MultiImageInput";
 import TextArea from "@/components/Input/TextArea";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
+
 import AddressSearchButton from "./_components/AddressSearchButton/AddressSearchButton";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
 import DatePicker from "./_components/DatePicker";
 import SelectDropdown from "./_components/SelectDropdown";
 import TimePicker from "./_components/TimePicker";
-import { useState } from "react";
+
 import PlusIcon from "@/assets/icons/plus.svg";
 import MinusIcon from "@/assets/icons/minus.svg";
 
@@ -23,10 +31,10 @@ interface ActivityFormValues {
   category: string;
   description: string;
   address: string;
-  price: string;
+  price: number | string;
   schedules: Schedule[];
-  bannerImageUrl: string;
-  subImageUrls: string[];
+  bannerImageUrl: File | null;
+  subImageUrls: File[];
 }
 
 const categoryOptions = [
@@ -54,12 +62,10 @@ const CreateActivityForm = () => {
       address: "",
       price: "",
       schedules: [],
-      bannerImageUrl: "",
-      subImageUrls: [],
     },
   });
 
-  const { fields, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "schedules",
   });
@@ -75,7 +81,7 @@ const CreateActivityForm = () => {
       return;
     }
 
-    prepend({
+    append({
       date: currentDate,
       startTime: currentStartTime,
       endTime: currentEndTime,
@@ -86,10 +92,36 @@ const CreateActivityForm = () => {
     setCurrentEndTime("");
   };
 
+  const onSubmit: SubmitHandler<ActivityFormValues> = (data) => {
+    if (!data.bannerImageUrl) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("category", data.category);
+    formData.append("description", data.description);
+    formData.append("address", data.address);
+    formData.append("price", String(data.price));
+    formData.append("schedules", JSON.stringify(data.schedules));
+
+    formData.append("bannerImage", data.bannerImageUrl);
+
+    data.subImageUrls.forEach((file) => {
+      formData.append("subImages", file);
+    });
+
+    // axios.post('/api/activity', formData) ... 형태로 서버에 전송!
+    console.log("서버로 보낼 최종 FormData 구성 완료!");
+  };
+
   return (
     <div className="w-full lg:px-[150px]">
       <h1 className="py-5 text-18-bold text-gray-950">내 체험 등록</h1>
-      <form className="w-full flex flex-col justify-center gap-6 md:gap-7.5">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex flex-col justify-center gap-6 md:gap-7.5"
+      >
         <TextInput
           {...register("title")}
           label="제목"
@@ -165,101 +197,103 @@ const CreateActivityForm = () => {
           <p className="text-16-medium mb-2.5 block">예약 가능한 시간대</p>
 
           <div className="flex flex-col gap-5">
-            <div className="w-full flex items-center gap-3.5">
-              <div className="flex-2">
+            <div className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5">
+              <div className="w-full">
                 <label className="text-16-medium mb-2.5 block">날짜</label>
                 <DatePicker value={currentDate} onChange={setCurrentDate} />
               </div>
 
-              <div className="flex-1">
-                <TimePicker
-                  value={currentStartTime}
-                  onChange={
-                    currentStartTime
-                      ? (val) => setCurrentStartTime(String(val))
-                      : setCurrentStartTime
-                  }
-                  label="시작 시간"
-                />
-              </div>
+              <div className="w-full flex items-center gap-3.5">
+                <div className="w-full flex-1">
+                  <TimePicker
+                    value={currentStartTime}
+                    onChange={(val) => setCurrentStartTime(String(val))}
+                    label={<span className="hidden md:block">시작 시간</span>}
+                  />
+                </div>
 
-              <div className="w-2 h-0.5 mt-8 bg-gray-800"></div>
+                <div className="w-2 h-0.5 mt-8 bg-gray-800"></div>
 
-              <div className="flex-1">
-                <TimePicker
-                  value={currentEndTime}
-                  onChange={
-                    currentEndTime
-                      ? (val) => setCurrentEndTime(String(val))
-                      : setCurrentEndTime
-                  }
-                  label="종료 시간"
-                  minTime={currentStartTime}
-                />
-              </div>
+                <div className="w-full flex-1">
+                  <TimePicker
+                    value={currentEndTime}
+                    onChange={(val) => setCurrentEndTime(String(val))}
+                    label={<span className="hidden md:block">종료 시간</span>}
+                    minTime={currentStartTime}
+                  />
+                </div>
 
-              <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={handleAddSchedule}
-                  className="w-10.5 h-10.5 flex items-center justify-center bg-primary-500 text-white rounded-full hover:brightness-90 transition"
-                >
-                  <PlusIcon width={24} height={24} />
-                </button>
+                <div className="pt-6">
+                  <button
+                    type="button"
+                    onClick={handleAddSchedule}
+                    className="w-10.5 h-10.5 flex items-center justify-center bg-primary-500 text-white rounded-full hover:brightness-90 transition"
+                  >
+                    <PlusIcon width={24} height={24} />
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="w-full h-px bg-gray-100 "></div>
+            {fields.length > 0 && (
+              <div className="w-full h-px bg-gray-100"></div>
+            )}
 
             {/* 추가된 예약 시간대 */}
             <div className="flex flex-col gap-5">
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="w-full flex items-center gap-3.5"
+                  className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5"
                 >
-                  <div className="flex-2">
-                    <div className="h-13.5 border border-gray-200 rounded-2xl flex items-center px-5 bg-gray-50 text-gray-500 text-16-medium">
-                      {field.date}
+                  <Controller
+                    control={control}
+                    name={`schedules.${index}.date`}
+                    render={({ field: dateField }) => (
+                      <DatePicker
+                        value={dateField.value}
+                        onChange={dateField.onChange}
+                      />
+                    )}
+                  />
+                  <div className="w-full flex items-center gap-3.5">
+                    <div className="w-full flex-1">
+                      <Controller
+                        control={control}
+                        name={`schedules.${index}.startTime`}
+                        render={({ field: startField }) => (
+                          <TimePicker
+                            value={startField.value}
+                            onChange={startField.onChange}
+                          />
+                        )}
+                      />
                     </div>
-                  </div>
 
-                  <div className="flex-1">
-                    <Controller
-                      control={control}
-                      name={`schedules.${index}.startTime`}
-                      render={({ field }) => (
-                        <TimePicker
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      )}
-                    />
-                  </div>
+                    <div className="w-2 h-0.5 bg-gray-800"></div>
 
-                  <div className="w-2 h-0.5 bg-gray-800"></div>
+                    <div className="w-full flex-1">
+                      <Controller
+                        control={control}
+                        name={`schedules.${index}.endTime`}
+                        render={({ field: endField }) => (
+                          <TimePicker
+                            value={endField.value}
+                            onChange={endField.onChange}
+                          />
+                        )}
+                      />
+                    </div>
 
-                  <div className="flex-1">
-                    <Controller
-                      control={control}
-                      name={`schedules.${index}.endTime`}
-                      render={({ field }) => (
-                        <TimePicker
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      )}
-                    />
-                  </div>
-
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => remove(index)}
-                      className="w-10.5 h-10.5 flex items-center justify-center bg-gray-50 text-black rounded-full hover:bg-gray-100 transition"
-                    >
-                      <MinusIcon width={24} height={24} />
-                    </button>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => remove(index)}
+                        className="w-10.5 h-10.5 flex items-center justify-center bg-gray-50 text-black rounded-full hover:bg-gray-100 transition"
+                      >
+                        <MinusIcon width={24} height={24} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -267,14 +301,44 @@ const CreateActivityForm = () => {
           </div>
         </div>
 
-        <MultiImageInput
+        {/* <Controller
+          control={control}
           name="bannerImageUrl"
-          label="배너 이미지 등록"
-          maxCount={1}
+          render={({ field }) => (
+            <MultiImageInput
+              name="bannerImageUrl"
+              label="배너 이미지 등록"
+              maxCount={1}
+              onChange={(e) => {
+                const files = e.target.files;
+                const targetFile = files && files.length > 0 ? files[0] : null;
+                // 오직 훅 폼에만 파일 넘겨주기!
+                field.onChange(targetFile);
+              }}
+            />
+          )}
         />
-        <MultiImageInput name="subImages" label="소개 이미지 등록" />
 
-        <Button>등록하기</Button>
+        <Controller
+          control={control}
+          name="subImageUrls"
+          render={({ field }) => (
+            <MultiImageInput
+              name="subImageUrls"
+              label="소개 이미지 등록"
+              maxCount={4}
+              onChange={(e) => {
+                const fileList = e.target.files
+                  ? Array.from(e.target.files)
+                  : [];
+                // 오직 훅 폼에만 파일 배열 넘겨주기!
+                field.onChange(fileList);
+              }}
+            />
+          )}
+        /> */}
+
+        <Button type="submit">등록하기</Button>
       </form>
     </div>
   );

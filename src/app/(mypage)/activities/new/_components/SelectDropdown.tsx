@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { ReactNode, useEffect, useId, useRef, useState } from "react";
 import { AltDown } from "@/constants/icons";
 
 export interface ActivityOption {
@@ -13,7 +13,7 @@ interface ActivitySelectProps {
   selectedValue: number | string;
   onChange: (value: number | string) => void;
   placeholder?: string;
-  fieldLabel?: string;
+  fieldLabel?: string | ReactNode;
 }
 
 const SelectDropdown = ({
@@ -61,7 +61,7 @@ const SelectDropdown = ({
         className={`w-full h-13.5 flex justify-between items-center text-16-medium px-4 py-5 border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)] ${selectedOption ? "text-gray-950" : "text-gray-400"}`}
       >
         <span>{selectedOption?.label ?? placeholder}</span>
-        <AltDown className="w-5 h-5" />
+        <AltDown className="w-5 h-5 text-gray-950" />
       </button>
 
       {isOpen && (

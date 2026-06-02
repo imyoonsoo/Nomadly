@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
 import SelectDropdown from "./SelectDropdown";
 
 interface TimePickerProps {
   value: string;
   onChange: (value: string) => void;
-  label?: string;
+  label?: string | ReactNode;
   minTime?: string;
 }
 
