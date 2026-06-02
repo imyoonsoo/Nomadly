@@ -25,16 +25,16 @@ const ReservedCard = () => {
             </p>
             <div className="hidden lg:flex gap-[8px] ">
               <Button
-                styleVariant="fillWhite"
-                heightSize="h29"
+                variant="whitenGray"
+                height="h29"
                 className="px-[10px] py-[6px] !border"
               >
                 예약 변경
               </Button>
               <Button
-                styleVariant="fillGray50"
-                heightSize="custom"
-                className="h-[29px] px-[10px] py-[6px] rounded-lg text-14-medium !text-gray-600"
+                variant="onlyGray"
+                height="custom"
+                className="h-[29px] px-[10px] py-[6px] rounded-lg text-14-medium"
               >
                 예약 취소
               </Button>
@@ -52,16 +52,16 @@ const ReservedCard = () => {
       </div>
       <div className="flex w-full gap-[12px] lg:hidden">
         <Button
-          styleVariant="fillWhite"
-          heightSize="custom"
+          variant="whitenGray"
+          height="custom"
           className="flex-1 h-[37px] rounded-lg p-[10px]"
         >
           예약 변경
         </Button>
         <Button
-          styleVariant="fillGray50"
-          heightSize="custom"
-          className="flex-1 h-[37px] rounded-lg p-[10px] !text-gray-600"
+          variant="onlyGray"
+          height="custom"
+          className="flex-1 h-[37px] rounded-lg p-[10px]"
         >
           예약 취소
         </Button>
