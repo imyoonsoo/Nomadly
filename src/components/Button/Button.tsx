@@ -25,7 +25,7 @@ const VARIANTS: { [key: string]: string } = {
     active:bg-[#FCFCFC] active:border-[#B2B1B9] active:text-gray-600
     disabled:bg-gray-200 disabled:text-gray-50`,
 
-  crystal: `bg-transparent
+  clear: `bg-transparent
   border-2 border-primary-100
   text-gray-600
   [&_svg]:text-gray-600
