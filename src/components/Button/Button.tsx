@@ -14,37 +14,37 @@ const VARIANTS: { [key: string]: string } = {
     disabled:bg-gray-200 disabled:text-gray-50 disabled:[&_svg]:text-gray-400`,
 
   whitenBlue: `bg-white
-    border-2 border-gray-200
+    border border-gray-200
     text-gray-600
     active:bg-primary-500 active:border-none active:text-white
     disabled:bg-gray-25 disabled:text-gray-200`,
 
   whitenGray: `bg-white
-    border-2 border-gray-200
+    border border-gray-200
     text-gray-600
     active:bg-[#FCFCFC] active:border-[#B2B1B9] active:text-gray-600
     disabled:bg-gray-200 disabled:text-gray-50`,
 
-  onlyGray: `bg-gray-100
+  onlyGray: `bg-gray-50
     text-gray-600
-    active:bg-[#d8d9e0] active:border active:border-2 active:border-[#B2B1B9]
+    active:bg-[#d8d9e0] active:border active:border active:border-[#B2B1B9]
     disabled:bg-[#f3f3f5] disabled:text-[#c0c0c5]`,
 
   clear: `bg-transparent
-  border-2 border-primary-100
+  border border-primary-100
   text-gray-600
   [&_svg]:text-gray-600
   active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-[#2b8de0]`,
 
   kakao: `bg-white 
-  border-2 border-[#FFF9A3]
+  border border-[#FFF9A3]
     text-[#E8D800]
     [&_svg]:text-[#3c1e1e]
     active:bg-white active:border active:border-[#E8D800]
     disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
 
   reviewMore: `bg-white
-  border-2 border-[#79747E]
+  border border-[#79747E]
   text-[#808080]
   active:bg-[#FCFCFC] active:border-[#4A4550] active:text-[#4A4550]
   disabled:border disabled:border-[#C4C4C4] disabled:text-[#C4C4C4]
