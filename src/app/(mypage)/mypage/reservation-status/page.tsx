@@ -1,7 +1,14 @@
-import ReservationStatusPage from "@/features/reservation-status/components/ReservationStatusPage";
+"use client";
 
-const Page = () => {
-  return <ReservationStatusPage />;
+import Pagination from "@/components/Pagination/Pagination";
+import { useState } from "react";
+
+const Home = () => {
+  const [page, setPage] = useState(1);
+
+  return (
+    <Pagination currentPage={page} totalPages={10} onPageChange={setPage} />
+  );
 };
 
-export default Page;
+export default Home;
