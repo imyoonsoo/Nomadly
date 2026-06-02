@@ -212,7 +212,7 @@ const CreateActivityForm = () => {
                   />
                 </div>
 
-                <div className="w-2 h-0.5 mt-8 bg-gray-800"></div>
+                <div className="w-2 h-0.5 mt-3 md:mt-8 bg-gray-800"></div>
 
                 <div className="w-full flex-1">
                   <TimePicker
@@ -223,14 +223,15 @@ const CreateActivityForm = () => {
                   />
                 </div>
 
-                <div className="pt-6">
-                  <button
+                <div className="mt-2.5 md:mt-8">
+                  <Button
+                    variant="mainBlue"
                     type="button"
                     onClick={handleAddSchedule}
-                    className="w-10.5 h-10.5 flex items-center justify-center bg-primary-500 text-white rounded-full hover:brightness-90 transition"
-                  >
-                    <PlusIcon width={24} height={24} />
-                  </button>
+                    icon={<PlusIcon width={24} height={24} />}
+                    iconJustify="center"
+                    className="w-10.5 h-10.5 rounded-full hover:brightness-90 transition"
+                  />
                 </div>
               </div>
             </div>
@@ -286,13 +287,14 @@ const CreateActivityForm = () => {
                     </div>
 
                     <div>
-                      <button
+                      <Button
+                        variant="onlyGray"
                         type="button"
                         onClick={() => remove(index)}
-                        className="w-10.5 h-10.5 flex items-center justify-center bg-gray-50 text-black rounded-full hover:bg-gray-100 transition"
-                      >
-                        <MinusIcon width={24} height={24} />
-                      </button>
+                        icon={<MinusIcon width={24} height={24} />}
+                        iconJustify="center"
+                        className="w-10.5 h-10.5 rounded-full hover:bg-gray-100 transition"
+                      />
                     </div>
                   </div>
                 </div>
@@ -301,7 +303,7 @@ const CreateActivityForm = () => {
           </div>
         </div>
 
-        {/* <Controller
+        <Controller
           control={control}
           name="bannerImageUrl"
           render={({ field }) => (
@@ -336,9 +338,16 @@ const CreateActivityForm = () => {
               }}
             />
           )}
-        /> */}
+        />
 
-        <Button type="submit">등록하기</Button>
+        <Button
+          variant="mainBlue"
+          height="h50"
+          type="submit"
+          className="w-full md:w-[320px] md:mx-auto hover:brightness-90"
+        >
+          등록하기
+        </Button>
       </form>
     </div>
   );

@@ -11,7 +11,13 @@ export default function AddressSearchButton({
   const { openPostcode } = useDaumPostcode();
 
   return (
-    <Button type="button" onClick={() => openPostcode(onSelect)}>
+    <Button
+      variant="mainBlue"
+      height="h50"
+      type="button"
+      onClick={() => openPostcode(onSelect)}
+      className="hover:brightness-90"
+    >
       주소 찾기
     </Button>
   );
