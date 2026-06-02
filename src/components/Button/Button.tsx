@@ -25,6 +25,11 @@ const VARIANTS: { [key: string]: string } = {
     active:bg-[#FCFCFC] active:border-[#B2B1B9] active:text-gray-600
     disabled:bg-gray-200 disabled:text-gray-50`,
 
+  onlyGray: `bg-gray-100
+    text-gray-600
+    active:bg-[#d8d9e0] active:border active:border-2 active:border-[#B2B1B9]
+    disabled:bg-[#f3f3f5] disabled:text-[#c0c0c5]`,
+
   clear: `bg-transparent
   border-2 border-primary-100
   text-gray-600
@@ -37,6 +42,13 @@ const VARIANTS: { [key: string]: string } = {
     [&_svg]:text-[#3c1e1e]
     active:bg-white active:border active:border-[#E8D800]
     disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
+
+  reviewMore: `bg-white
+  border-2 border-[#79747E]
+  text-[#808080]
+  active:bg-[#FCFCFC] active:border-[#4A4550] active:text-[#4A4550]
+  disabled:border disabled:border-[#C4C4C4] disabled:text-[#C4C4C4]
+  `,
 };
 
 const SIZES: { [key: string]: string } = {
