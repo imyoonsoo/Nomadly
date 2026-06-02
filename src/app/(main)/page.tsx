@@ -1,3 +1,4 @@
+// 추가
 "use client";
 
 import Pagination from "@/components/Pagination/Pagination";
