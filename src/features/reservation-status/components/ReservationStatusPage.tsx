@@ -6,7 +6,7 @@ import {
   mockReservationDashboardByActivityId,
 } from "@/features/reservation-status/mock";
 import ReservationCalendar from "@/features/reservation-status/components/ReservationCalendar";
-import EmptyReservationStatus from "@/features/reservation-status/components/modal/EmptyReservationStatus";
+import EmptyReservationStatus from "@/features/reservation-status/components//EmptyReservationStatus";
 import ReservationStatusModal from "@/features/reservation-status/components/modal/ReservationStatusModal";
 import ReservationDropdown from "@/features/reservation-status/components/ReservationDropdown";
 
