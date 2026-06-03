@@ -4,7 +4,7 @@ import Modal from "@/components/Modal/Modal";
 import DeleteIcon from "@/assets/icons/delete.svg";
 import StarOn from "@/assets/icons/star-on.svg";
 import StarOff from "@/assets/icons/star-off.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextArea from "@/components/Input/TextArea";
 import Button from "@/components/Button/Button";
 
@@ -15,6 +15,12 @@ interface ReviewSubmitModalProps {
 
 const ReviewSubmitModal = ({ isOpen, onClose }: ReviewSubmitModalProps) => {
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setRating(0);
+    }
+  }, [isOpen]);
 
   return (
     <>
