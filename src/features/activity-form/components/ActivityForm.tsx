@@ -27,17 +27,18 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     handleSubmit,
     setValue,
     watch,
-
     formState: { errors, isValid },
   } = useForm<ActivityFormValues>({
     mode: "onChange",
     defaultValues: {
-      title: "",
-      category: "",
-      description: "",
-      address: "",
-      price: "",
-      schedules: [],
+      title: defaultValues?.title ?? "",
+      category: defaultValues?.category ?? "",
+      description: defaultValues?.description ?? "",
+      address: defaultValues?.address ?? "",
+      price: defaultValues?.price ?? "",
+      schedules: defaultValues?.schedules ?? [],
+      bannerImageUrl: defaultValues?.bannerImageUrl ?? "",
+      subImageUrls: defaultValues?.subImageUrls ?? [],
     },
   });
 
@@ -64,7 +65,9 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
 
   return (
     <div className="w-full mb-12 lg:px-[150px]">
-      <h1 className="py-5 text-18-bold text-gray-950">📍내 체험 등록</h1>
+      <h1 className="py-5 text-18-bold text-gray-950">
+        {mode === "create" ? "📍내 체험 등록" : "📍내 체험 수정"}
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col justify-center gap-6 md:gap-7.5"
@@ -105,7 +108,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
             className="flex-1"
             value={watch("address")}
             disabled
-            errorMessage={errors.description?.message}
+            errorMessage={errors.address?.message}
           />
           <AddressSearchButton
             onSelect={(address) => {
@@ -141,7 +144,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
           className="w-full md:w-60 md:mx-auto hover:brightness-90"
           disabled={!isValid || hasScheduleDuplicate}
         >
-          등록하기
+          {mode === "create" ? "등록하기" : "수정하기"}
         </Button>
       </form>
     </div>

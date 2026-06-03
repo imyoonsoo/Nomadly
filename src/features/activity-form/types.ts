@@ -11,8 +11,8 @@ export interface ActivityFormValues {
   address: string;
   price: number | string;
   schedules: Schedule[];
-  bannerImageUrl: File | null;
-  subImageUrls: File[];
+  bannerImageUrl: File | string;
+  subImageUrls: Array<File | string>;
 }
 
 export type AddressSearchButtonProps = {
