@@ -1,32 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import {
-  useForm,
-  Controller,
-  useFieldArray,
-  SubmitHandler,
-} from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-import MultiImageInput from "@/components/ImageInput/MultiImageInput";
 import TextArea from "@/components/Input/TextArea";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 
+import FormSelectDropdown from "./_components/FormSelectDropdown";
+import FormMultiImageInput from "./_components/FormMultiImageInput";
 import AddressSearchButton from "./_components/AddressSearchButton/AddressSearchButton";
-import DatePicker from "./_components/DatePicker";
-import SelectDropdown from "./_components/SelectDropdown";
-import TimePicker from "./_components/TimePicker";
-
-import PlusIcon from "@/assets/icons/plus.svg";
-import MinusIcon from "@/assets/icons/minus.svg";
+import ScheduleSection from "./_components/ScheduleSection";
 
 interface Schedule {
   date: string;
   startTime: string;
   endTime: string;
 }
-interface ActivityFormValues {
+export interface ActivityFormValues {
   title: string;
   category: string;
   description: string;
@@ -54,7 +45,9 @@ const CreateActivityForm = () => {
     watch,
     setError,
     clearErrors,
+    formState: { isValid },
   } = useForm<ActivityFormValues>({
+    mode: "onChange",
     defaultValues: {
       title: "",
       category: "",
@@ -65,85 +58,49 @@ const CreateActivityForm = () => {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "schedules",
-  });
-
-  const [currentDate, setCurrentDate] = useState("");
-  const [currentStartTime, setCurrentStartTime] = useState("");
-  const [currentEndTime, setCurrentEndTime] = useState("");
-
-  const handleAddSchedule = () => {
-    if (!currentDate || !currentStartTime || !currentEndTime) {
-      // Todo: toast 알림
-      alert("날짜와 시간을 모두 입력해주세요");
-      return;
-    }
-
-    append({
-      date: currentDate,
-      startTime: currentStartTime,
-      endTime: currentEndTime,
-    });
-
-    setCurrentDate("");
-    setCurrentStartTime("");
-    setCurrentEndTime("");
-  };
+  const [hasScheduleDuplicate, setHasScheduleDuplicate] = useState(false);
 
   const onSubmit: SubmitHandler<ActivityFormValues> = (data) => {
     if (!data.bannerImageUrl) {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("category", data.category);
-    formData.append("description", data.description);
-    formData.append("address", data.address);
-    formData.append("price", String(data.price));
-    formData.append("schedules", JSON.stringify(data.schedules));
-
-    formData.append("bannerImage", data.bannerImageUrl);
-
-    data.subImageUrls.forEach((file) => {
-      formData.append("subImages", file);
+    console.log("기본 텍스트 및 배열 데이터:", {
+      title: data.title,
+      category: data.category,
+      description: data.description,
+      address: data.address,
+      price: data.price,
+      schedules: data.schedules,
     });
-
-    // axios.post('/api/activity', formData) ... 형태로 서버에 전송!
-    console.log("서버로 보낼 최종 FormData 구성 완료!");
+    console.log("배너 이미지 파일:", data.bannerImageUrl);
+    console.log("소개 이미지 파일 배열:", data.subImageUrls);
   };
 
   return (
-    <div className="w-full lg:px-[150px]">
+    <div className="w-full mb-12 lg:px-[150px]">
       <h1 className="py-5 text-18-bold text-gray-950">내 체험 등록</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col justify-center gap-6 md:gap-7.5"
       >
         <TextInput
-          {...register("title")}
+          {...register("title", { required: true })}
           label="제목"
           placeholder="제목을 입력해 주세요"
         />
 
-        <Controller
+        <FormSelectDropdown
           control={control}
           name="category"
-          render={({ field }) => (
-            <SelectDropdown
-              selectedValue={field.value}
-              options={categoryOptions}
-              onChange={field.onChange}
-              placeholder="카테고리를 선택해주세요"
-              fieldLabel="카테고리"
-            />
-          )}
+          options={categoryOptions}
+          placeholder="카테고리를 선택해주세요"
+          fieldLabel="카테고리"
+          rules={{ required: true }}
         />
 
         <TextArea
-          {...register("description")}
+          {...register("description", { required: true })}
           label="설명"
           placeholder="체험에 대한 설명을 입력해 주세요"
           textareaClassName="h-[140px] md:h-[200px]"
@@ -152,6 +109,7 @@ const CreateActivityForm = () => {
         <Controller
           control={control}
           name="price"
+          rules={{ required: true }}
           render={({ field, fieldState }) => (
             <TextInput
               name="price"
@@ -179,7 +137,7 @@ const CreateActivityForm = () => {
 
         <div className="flex items-end gap-3">
           <TextInput
-            {...register("address")}
+            {...register("address", { required: true })}
             label="주소"
             placeholder="주소를 입력해 주세요"
             className="flex-1"
@@ -188,163 +146,37 @@ const CreateActivityForm = () => {
           />
           <AddressSearchButton
             onSelect={(address) => {
-              setValue("address", address);
+              setValue("address", address, { shouldValidate: true });
             }}
           />
         </div>
 
-        <div className="w-full">
-          <p className="text-16-medium mb-2.5 block">예약 가능한 시간대</p>
+        <ScheduleSection
+          control={control}
+          onDuplicateChange={setHasScheduleDuplicate}
+        />
 
-          <div className="flex flex-col gap-5">
-            <div className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5">
-              <div className="w-full">
-                <label className="text-16-medium mb-2.5 block">날짜</label>
-                <DatePicker value={currentDate} onChange={setCurrentDate} />
-              </div>
-
-              <div className="w-full flex items-center gap-3.5">
-                <div className="w-full flex-1">
-                  <TimePicker
-                    value={currentStartTime}
-                    onChange={(val) => setCurrentStartTime(String(val))}
-                    label={<span className="hidden md:block">시작 시간</span>}
-                  />
-                </div>
-
-                <div className="w-2 h-0.5 mt-3 md:mt-8 bg-gray-800"></div>
-
-                <div className="w-full flex-1">
-                  <TimePicker
-                    value={currentEndTime}
-                    onChange={(val) => setCurrentEndTime(String(val))}
-                    label={<span className="hidden md:block">종료 시간</span>}
-                    minTime={currentStartTime}
-                  />
-                </div>
-
-                <div className="mt-2.5 md:mt-8">
-                  <Button
-                    variant="mainBlue"
-                    type="button"
-                    onClick={handleAddSchedule}
-                    icon={<PlusIcon width={24} height={24} />}
-                    iconJustify="center"
-                    className="w-10.5 h-10.5 rounded-full hover:brightness-90 transition"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {fields.length > 0 && (
-              <div className="w-full h-px bg-gray-100"></div>
-            )}
-
-            {/* 추가된 예약 시간대 */}
-            <div className="flex flex-col gap-5">
-              {fields.map((field, index) => (
-                <div
-                  key={field.id}
-                  className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5"
-                >
-                  <Controller
-                    control={control}
-                    name={`schedules.${index}.date`}
-                    render={({ field: dateField }) => (
-                      <DatePicker
-                        value={dateField.value}
-                        onChange={dateField.onChange}
-                      />
-                    )}
-                  />
-                  <div className="w-full flex items-center gap-3.5">
-                    <div className="w-full flex-1">
-                      <Controller
-                        control={control}
-                        name={`schedules.${index}.startTime`}
-                        render={({ field: startField }) => (
-                          <TimePicker
-                            value={startField.value}
-                            onChange={startField.onChange}
-                          />
-                        )}
-                      />
-                    </div>
-
-                    <div className="w-2 h-0.5 bg-gray-800"></div>
-
-                    <div className="w-full flex-1">
-                      <Controller
-                        control={control}
-                        name={`schedules.${index}.endTime`}
-                        render={({ field: endField }) => (
-                          <TimePicker
-                            value={endField.value}
-                            onChange={endField.onChange}
-                          />
-                        )}
-                      />
-                    </div>
-
-                    <div>
-                      <Button
-                        variant="onlyGray"
-                        type="button"
-                        onClick={() => remove(index)}
-                        icon={<MinusIcon width={24} height={24} />}
-                        iconJustify="center"
-                        className="w-10.5 h-10.5 rounded-full hover:bg-gray-100 transition"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <Controller
+        {/* <FormMultiImageInput
           control={control}
           name="bannerImageUrl"
-          render={({ field }) => (
-            <MultiImageInput
-              name="bannerImageUrl"
-              label="배너 이미지 등록"
-              maxCount={1}
-              onChange={(e) => {
-                const files = e.target.files;
-                const targetFile = files && files.length > 0 ? files[0] : null;
-                // 오직 훅 폼에만 파일 넘겨주기!
-                field.onChange(targetFile);
-              }}
-            />
-          )}
+          label="배너 이미지 등록"
+          maxCount={1}
+          rules={{ required: true }}
         />
 
-        <Controller
+        <FormMultiImageInput
           control={control}
           name="subImageUrls"
-          render={({ field }) => (
-            <MultiImageInput
-              name="subImageUrls"
-              label="소개 이미지 등록"
-              maxCount={4}
-              onChange={(e) => {
-                const fileList = e.target.files
-                  ? Array.from(e.target.files)
-                  : [];
-                // 오직 훅 폼에만 파일 배열 넘겨주기!
-                field.onChange(fileList);
-              }}
-            />
-          )}
-        />
+          label="소개 이미지 등록"
+          maxCount={4}
+        /> */}
 
         <Button
           variant="mainBlue"
-          height="h50"
+          height="47md"
           type="submit"
-          className="w-full md:w-[320px] md:mx-auto hover:brightness-90"
+          className="w-full md:w-60 md:mx-auto hover:brightness-90"
+          disabled={!isValid || hasScheduleDuplicate}
         >
           등록하기
         </Button>

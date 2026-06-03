@@ -97,7 +97,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
           placeholder="yy/mm/dd"
           value={value ?? ""}
           readOnly
-          className="w-full outline-none text-16-medium text-gray-950 placeholder-gray-400 bg-transparent"
+          className="w-full outline-none text-16-medium text-gray-950 placeholder-gray-400 bg-transparent cursor-pointer"
         />
         <div className="w-6 h-6 flex items-center justify-center shrink-0">
           <CalendarIcon width={24} height={24} />
@@ -105,7 +105,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
       </div>
 
       {isCalendarOpen && (
-        <div className="absolute top-full right-0 mt-2 z-20 w-full bg-white px-5 py-7 border border-gray-100 rounded-2xl shadow-2xl select-none">
+        <div className="absolute top-full right-0 mt-2 z-20 w-[320px] md:w-full bg-white px-5 py-7 border border-gray-100 rounded-2xl shadow-2xl select-none">
           {/* 날짜 이동 */}
           <div className="flex justify-between items-center mb-5 px-1">
             <button
@@ -148,7 +148,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
           </div>
 
           {/* 달력 */}
-          <div className="grid grid-cols-7 gap-1 text-center">
+          <div className="grid grid-cols-7 gap-2 place-items-center text-center">
             {days.map((day, index) => {
               if (day === null) {
                 return <div key={`empty-${index}`} />;
@@ -170,7 +170,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
                   type="button"
                   disabled={isPastDay}
                   onClick={() => handleDateClick(day)}
-                  className={`w-9 h-9 text-14-medium flex items-center justify-center rounded-xl transition-all
+                  className={`w-10 h-10 text-14-medium text-center flex items-center justify-center rounded-xl transition-all
                     ${
                       isSelected
                         ? "bg-primary-500 text-white font-bold"
