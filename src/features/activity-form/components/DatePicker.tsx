@@ -1,7 +1,8 @@
-import CalendarIcon from "@/assets/icons/calendar.svg";
 import { useEffect, useRef, useState } from "react";
 import PrevIcon from "@/assets/icons/alt-arrow-left.svg";
 import NextIcon from "@/assets/icons/alt-arrow-right.svg";
+import CalendarIcon from "@/assets/icons/calendar.svg";
+import { DAYS, MONTH_NAMES_EN } from "../constants";
 
 interface DatePickerProps {
   value: string;
@@ -19,8 +20,6 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
 
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
-
-  const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
   const generateCalendarDays = () => {
     const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
@@ -100,46 +99,51 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
           className="w-full outline-none text-16-medium text-gray-950 placeholder-gray-400 bg-transparent cursor-pointer"
         />
         <div className="w-6 h-6 flex items-center justify-center shrink-0">
-          <CalendarIcon width={24} height={24} />
+          <CalendarIcon
+            width={24}
+            height={24}
+            className={value ? "text-gray-950" : "text-gray-400"}
+          />
         </div>
       </div>
 
       {isCalendarOpen && (
         <div className="absolute top-full right-0 mt-2 z-20 w-[320px] md:w-full bg-white px-5 py-7 border border-gray-100 rounded-2xl shadow-2xl select-none">
           {/* 날짜 이동 */}
-          <div className="flex justify-between items-center mb-5 px-1">
-            <button
-              type="button"
-              disabled={isPrevDisabled}
-              onClick={handlePrevMonth}
-              className={`w-8 h-8 flex items-center justify-center rounded-lg transition
+          <div className="flex justify-between items-center mb-5 px-2">
+            <span className="text-16-bold text-gray-950 tracking-wide">
+              {MONTH_NAMES_EN[currentMonth]} {currentYear}
+            </span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                disabled={isPrevDisabled}
+                onClick={handlePrevMonth}
+                className={`w-8 h-8 flex items-center justify-center rounded-lg transition
                 ${
                   isPrevDisabled
                     ? "text-gray-200 cursor-not-allowed bg-gray-50 opacity-80 border-gray-100"
                     : "text-gray-600 hover:bg-gray-50 hover:text-gray-950"
                 }`}
-            >
-              <PrevIcon width={20} height={20} />
-            </button>
+              >
+                <PrevIcon width={20} height={20} />
+              </button>
 
-            <span className="text-16-bold text-gray-950 tracking-wide">
-              {currentYear}.{String(currentMonth + 1).padStart(2, "0")}
-            </span>
-
-            <button
-              type="button"
-              onClick={handleNextMonth}
-              className="w-8 h-8 flex items-center justify-center rounded-lg transition hover:bg-gray-50 hover:text-gray-950"
-            >
-              <NextIcon width={20} height={20} />
-            </button>
+              <button
+                type="button"
+                onClick={handleNextMonth}
+                className="w-8 h-8 flex items-center justify-center rounded-lg transition hover:bg-gray-50 hover:text-gray-950"
+              >
+                <NextIcon width={20} height={20} />
+              </button>
+            </div>
           </div>
 
           {/* 요일 */}
           <div className="grid grid-cols-7 gap-1 text-center mb-2">
             {DAYS.map((day, index) => (
               <span
-                key={day}
+                key={`${day}-${index}`}
                 className={`text-14-medium ${index === 0 ? "text-red-500" : index === 6 ? "text-primary-500" : "text-gray-500"}`}
               >
                 {day}

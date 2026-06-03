@@ -7,7 +7,7 @@ import TimePicker from "./TimePicker";
 
 import PlusIcon from "@/assets/icons/plus.svg";
 import MinusIcon from "@/assets/icons/minus.svg";
-import { ActivityFormValues } from "../page";
+import { ActivityFormValues } from "@/features/activity-form/types";
 import Button from "@/components/Button/Button";
 import FormController from "@/components/Form/FormController";
 

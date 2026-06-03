@@ -19,10 +19,10 @@ interface FormControllerProps<
     RegisterOptions<TFieldValues, TName>,
     "valueAsNumber" | "valueAsData" | "setValueAs" | "disabled"
   >;
-  render: (
-    field: ControllerRenderProps<TFieldValues, TName>,
-    fieldState: ControllerFieldState,
-  ) => ReactElement;
+  render: (props: {
+    field: ControllerRenderProps<TFieldValues, TName>;
+    fieldState: ControllerFieldState;
+  }) => ReactElement;
 }
 
 const FormController = <
@@ -39,7 +39,7 @@ const FormController = <
       control={control}
       name={name}
       rules={rules}
-      render={({ field, fieldState }) => render(field, fieldState)}
+      render={({ field, fieldState }) => render({ field, fieldState })}
     />
   );
 };

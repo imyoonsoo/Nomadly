@@ -1,10 +1,4 @@
-import {
-  Control,
-  Controller,
-  FieldValues,
-  Path,
-  RegisterOptions,
-} from "react-hook-form";
+import { Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import FormController from "@/components/Form/FormController";
 import SelectDropdown from "./SelectDropdown";
 
@@ -14,7 +8,10 @@ interface FormSelectDropdownProps<
 > {
   control: Control<TFieldValues>;
   name: TName;
-  options: { value: number | string; label: string }[];
+  options: readonly {
+    value: number | string;
+    label: string;
+  }[];
   placeholder?: string;
   fieldLabel?: string;
   rules?: Omit<
@@ -37,7 +34,7 @@ const FormSelectDropdown = <
       control={control}
       name={name}
       rules={rules}
-      render={(field) => (
+      render={({ field }) => (
         <SelectDropdown
           {...props}
           selectedValue={field.value}

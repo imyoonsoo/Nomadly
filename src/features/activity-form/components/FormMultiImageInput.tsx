@@ -32,7 +32,7 @@ const FormMultiImageInput = <
       control={control}
       name={name}
       rules={rules}
-      render={(field) => (
+      render={({ field }) => (
         <MultiImageInput
           {...props}
           name={name}
