@@ -5,6 +5,7 @@ import StateBadge from "@/components/StateBadge/StateBadge";
 import Image from "next/image";
 import ReviewSubmitModal from "./ReviewSubmitModal";
 import { useState } from "react";
+import WarningModal from "@/components/Modal/WarningModal";
 
 export type ReservationStatus =
   | "pending"
@@ -77,6 +78,7 @@ const ReservedCard = ({
                     variant="onlyGray"
                     height="custom"
                     className="h-[29px] px-[10px] py-[6px] rounded-lg text-14-medium !text-gray-600"
+                    onClick={handleWarningModalButton}
                   >
                     예약 취소
                   </Button>
@@ -116,6 +118,7 @@ const ReservedCard = ({
               variant="onlyGray"
               height="custom"
               className="flex-1 h-[37px] rounded-lg p-[10px]"
+              onClick={handleWarningModalButton}
             >
               예약 취소
             </Button>
@@ -135,6 +138,14 @@ const ReservedCard = ({
       <ReviewSubmitModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
+      />
+      <WarningModal
+        isOpen={isWarningModalOpen}
+        onClose={() => setIsWarningModalOpen(false)}
+        // Todo: onConfirm 함수 만들기
+        onConfirm={() => setIsWarningModalOpen(false)}
+        message="예약을 취소하시겠어요?"
+        buttonTextRight="취소하기"
       />
     </>
   );

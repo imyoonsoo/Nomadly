@@ -8,7 +8,7 @@ const WarningModal = ({
   onClose,
   onConfirm,
   message,
-  buttonTextLeft = "아니요",
+  buttonTextLeft = "아니오",
   buttonTextRight = "네",
 }: WarningModalProps) => {
   return (
@@ -17,7 +17,7 @@ const WarningModal = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <Image
           src="/warningIcon.svg"
           alt="경고 아이콘"
