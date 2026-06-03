@@ -10,6 +10,7 @@ const MultiImageInput = ({
   label,
   maxCount = 4,
   accept = "image/*",
+  onChange,
   ...props
 }: MultiImageInputProps) => {
   const inputId = id ?? useId();
@@ -63,6 +64,11 @@ const MultiImageInput = ({
     const updatedPreviews = [...previews, ...nextPreviews];
     setPreviews(updatedPreviews);
     syncInputImages(updatedPreviews.map((preview) => preview.file));
+
+    if (onChange) {
+      onChange(event);
+    }
+
     event.target.value = "";
   };
 
@@ -78,6 +84,15 @@ const MultiImageInput = ({
     );
     setPreviews(updatedPreviews);
     syncInputImages(updatedPreviews.map((preview) => preview.file));
+
+    if (onChange && inputRef.current) {
+      const changeEvent = {
+        target: inputRef.current,
+        currentTarget: inputRef.current,
+      } as ChangeEvent<HTMLInputElement>;
+
+      onChange(changeEvent);
+    }
   };
 
   return (

@@ -156,7 +156,7 @@ const CreateActivityForm = () => {
           onDuplicateChange={setHasScheduleDuplicate}
         />
 
-        {/* <FormMultiImageInput
+        <FormMultiImageInput
           control={control}
           name="bannerImageUrl"
           label="배너 이미지 등록"
@@ -169,7 +169,7 @@ const CreateActivityForm = () => {
           name="subImageUrls"
           label="소개 이미지 등록"
           maxCount={4}
-        /> */}
+        />
 
         <Button
           variant="mainBlue"
