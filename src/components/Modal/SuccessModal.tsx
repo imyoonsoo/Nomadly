@@ -18,7 +18,7 @@ const SuccessModal = ({
       <Button
         variant="mainBlue"
         height="custom"
-        className="w-[180px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[200px] md:h-[47px] md:py-[14px]"
+        className="w-[180px] h-[41px] px-[20px] py-[4px] md:px-10 md:py-3 text-[14px] rounded-xl md:w-[200px] md:h-[47px] md:py-[14px]"
         onClick={onClose}
       >
         {buttonText}
