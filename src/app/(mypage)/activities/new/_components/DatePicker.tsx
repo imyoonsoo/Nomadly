@@ -20,7 +20,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
 
-  const DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+  const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
   const generateCalendarDays = () => {
     const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();

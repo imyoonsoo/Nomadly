@@ -159,7 +159,7 @@ const ScheduleSection = ({
             </div>
 
             {scheduleError && (
-              <p className="text-red-500 text-sm">{scheduleError}</p>
+              <p className="text-red-500 text-14-medium">{scheduleError}</p>
             )}
 
             {fields.length > 0 && (
@@ -231,7 +231,7 @@ const ScheduleSection = ({
               ))}
 
               {hasDuplicate && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-14-medium">
                   시간대가 겹치는 체험이 있습니다.
                 </p>
               )}

@@ -77,9 +77,11 @@ const CreateActivityForm = () => {
     console.log("소개 이미지 파일 배열:", data.subImageUrls);
   };
 
+  // Todo: 페이지 이탈 확인 로직
+
   return (
     <div className="w-full mb-12 lg:px-[150px]">
-      <h1 className="py-5 text-18-bold text-gray-950">내 체험 등록</h1>
+      <h1 className="py-5 text-18-bold text-gray-950">📍 내 체험 등록</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col justify-center gap-6 md:gap-7.5"
