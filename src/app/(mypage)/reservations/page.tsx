@@ -1,4 +1,3 @@
-import ReservedCard from "./components/ReservedCard";
 import ReservedCardList from "./components/ReservedCardList";
 
 const ReservationsPage = () => {
