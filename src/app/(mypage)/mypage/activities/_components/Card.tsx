@@ -1,15 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import type { CardProps } from "../page";
 import StarIcon from "@/assets/icons/star-on.svg";
 import Button from "@/components/Button/Button";
+import { useRouter } from "next/navigation";
 
 const Card = ({
+  id,
   title,
   rating,
   reviewCount,
   price,
   bannerImageUrl,
 }: CardProps) => {
+  const router = useRouter();
+
   return (
     <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.2)] flex justify-between items-center">
       <div className="w-full flex flex-col justify-center items-start gap-3">
@@ -29,13 +35,19 @@ const Card = ({
         </div>
         <div className="flex items-center gap-3 pt-3 lg:pt-5">
           {/* Todo: api 연결 후 버튼 클릭 이벤트 생성 */}
-          <Button variant="whitenGray" height="h29" className="px-2.5 py-1.5">
+          <Button
+            variant="whitenGray"
+            height="h29"
+            className="px-2.5 py-1.5"
+            onClick={() => router.push(`/activites/${id}/edit`)}
+          >
             수정하기
           </Button>
           <Button
             variant="onlyGray"
             height="h29"
             className="px-2.5 py-1.5 rounded-lg text-14-medium"
+            onClick={() => alert("삭제")} // Todo: 모달 연결
           >
             삭제하기
           </Button>
