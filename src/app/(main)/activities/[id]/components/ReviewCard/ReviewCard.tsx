@@ -1,4 +1,5 @@
 import { StarOn } from "@/constants/icons";
+import { DefaultProfile } from "@/constants/images";
 import ReviewCardProps from "./type";
 
 const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
@@ -7,8 +8,16 @@ const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
       <div className="flex">
         <div className="flex grow">
           <div className="flex gap-3">
-            <div className="w-10.5 h-10.5 border-2 border-white rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
-              <img src={user.profileImageUrl} />
+            <div className="h-10.5 w-10.5 overflow-hidden rounded-full border-2 border-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+              {user.profileImageUrl ? (
+                <img
+                  src={user.profileImageUrl}
+                  alt={`${user.nickname} 프로필`}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <DefaultProfile className="h-full w-full object-cover" />
+              )}
             </div>
             <div className="flex justify-start items-center gap-2">
               <span className="text-14-bold md:text-16-bold font-semibold text-gray-950">

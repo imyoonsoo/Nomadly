@@ -15,7 +15,36 @@ export interface Review {
 }
 
 export interface ReviewUser {
-  profileImageUrl: string;
+  profileImageUrl?: string;
   nickname: string;
   id: number;
+}
+
+export interface ActivityDetailResponse {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  subImages: ActivityImage[];
+  schedules: ActivitySchedule[];
+  reviewCount: number;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ActivityImage {
+  id: number;
+  imageUrl: string;
+}
+
+export interface ActivitySchedule {
+  id: number;
+  date: string;
+  startTime: string;
+  endTime: string;
 }
