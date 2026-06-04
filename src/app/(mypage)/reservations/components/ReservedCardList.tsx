@@ -1,6 +1,27 @@
+"use client";
+import { useState } from "react";
+import FilterButton from "@/components/FilterButton/FilterButton";
 import ReservedCard, { ReservedCardProps } from "./ReservedCard";
 
+const FILTERS = [
+  "예약 완료",
+  "예약 취소",
+  "예약 승인",
+  "예약 거절",
+  "체험 완료",
+];
+
+const FILTER_STATUS_MAP: Record<string, string> = {
+  "예약 완료": "confirmed",
+  "예약 취소": "canceled",
+  "예약 승인": "pending",
+  "예약 거절": "declined",
+  "체험 완료": "completed",
+};
+
 const ReservedCardList = () => {
+  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
+
   const mockReservations: ReservedCardProps[] = [
     {
       date: "2023.02.14",
@@ -48,11 +69,44 @@ const ReservedCardList = () => {
       headCount: 2,
     },
   ];
+
+  const handleFilterButton = (filter: string) => {
+    setActiveFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(filter)) {
+        next.delete(filter);
+      } else {
+        next.add(filter);
+      }
+      return next;
+    });
+  };
+
+  const filteredReservations =
+    activeFilters.size === 0
+      ? mockReservations
+      : mockReservations.filter((r) =>
+          [...activeFilters].some((f) => FILTER_STATUS_MAP[f] === r.status),
+        );
+
   return (
-    <div className="flex flex-col gap-[30px]">
-      {mockReservations.map((reservation, index) => (
-        <ReservedCard key={index} {...reservation} />
-      ))}
+    <div className="flex flex-col gap-[30px] mt-[24px]">
+      <div className="flex gap-[8px] overflow-x-auto scrollbar-hide">
+        {FILTERS.map((filter) => (
+          <FilterButton
+            key={filter}
+            isActive={activeFilters.has(filter)}
+            onClick={() => handleFilterButton(filter)}
+          >
+            {filter}
+          </FilterButton>
+        ))}
+      </div>
+      <div className="flex flex-col gap-[30px]">
+        {filteredReservations.map((reservation, index) => (
+          <ReservedCard key={index} {...reservation} />
+        ))}
+      </div>
     </div>
   );
 };
