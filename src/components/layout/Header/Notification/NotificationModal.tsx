@@ -14,12 +14,6 @@ interface NotificationModalProps {
   onNotificationClick: (notificationId: number) => void;
 }
 
-const getNotificationTitle = (content: string) => {
-  if (content.includes("승인")) return "예약 승인";
-  if (content.includes("거절")) return "예약 거절";
-  return "알림";
-};
-
 const NotificationModal = ({
   notifications,
   totalCount,

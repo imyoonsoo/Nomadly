@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <main
       className="flex min-h-screen flex-col items-center bg-cover bg-[position:0%_center] bg-no-repeat text-center"
@@ -41,4 +41,6 @@ export default function NotFound() {
       </div>
     </main>
   );
-}
+};
+
+export default NotFound;
