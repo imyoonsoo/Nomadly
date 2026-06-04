@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import type { CardProps } from "../page";
 import StarIcon from "@/assets/icons/star-on.svg";

@@ -7,7 +7,7 @@ export type CardProps = {
   id: number;
   title: string;
   price: number;
-  bannerImageUrl: string;
+  bannerImageUrl?: string; // api 연동 후 수정
   rating: number;
   reviewCount: number;
 };
@@ -20,8 +20,8 @@ const MOCK_CARDS: CardProps[] = [
     price: 10000,
     rating: 4.9,
     reviewCount: 293,
-    bannerImageUrl:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    // bannerImageUrl:
+    //   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   },
   {
     id: 2,
@@ -29,8 +29,8 @@ const MOCK_CARDS: CardProps[] = [
     price: 25000,
     rating: 4.5,
     reviewCount: 12,
-    bannerImageUrl:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    // bannerImageUrl:
+    //   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   },
   {
     id: 3,
@@ -38,8 +38,8 @@ const MOCK_CARDS: CardProps[] = [
     price: 25000,
     rating: 4.8,
     reviewCount: 12,
-    bannerImageUrl:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    // bannerImageUrl:
+    //   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   },
 ];
 
