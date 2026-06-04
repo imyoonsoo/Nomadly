@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { StarOn } from "@/constants/icons";
 import { DefaultProfile } from "@/constants/images";
 import ReviewCardProps from "./type";
@@ -10,10 +11,11 @@ const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
           <div className="flex gap-3">
             <div className="h-10.5 w-10.5 overflow-hidden rounded-full border-2 border-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
               {user.profileImageUrl ? (
-                <img
+                <Image
                   src={user.profileImageUrl}
                   alt={`${user.nickname} 프로필`}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <DefaultProfile className="h-full w-full object-cover" />

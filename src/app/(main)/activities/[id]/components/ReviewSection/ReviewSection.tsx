@@ -9,10 +9,8 @@ const ReviewSection = () => {
   const data = ReviewMockData;
 
   const latestReviews = [...data.reviews]
-    .sort(
-      (firstReview, secondReview) =>
-        new Date(secondReview.updatedAt).getTime() -
-        new Date(firstReview.updatedAt).getTime(),
+    .sort((firstReview, secondReview) =>
+      secondReview.updatedAt.localeCompare(firstReview.updatedAt),
     )
     .slice(0, REVIEW_DISPLAY_COUNT);
 

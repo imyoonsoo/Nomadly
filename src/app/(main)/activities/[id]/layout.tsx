@@ -1,11 +1,11 @@
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 
-interface MyPageLayoutProps {
+interface ActivityLayoutProps {
   children: React.ReactNode;
 }
 
-const MyPageLayout = ({ children }: MyPageLayoutProps) => {
+const ActivityLayout = ({ children }: ActivityLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -16,5 +16,4 @@ const MyPageLayout = ({ children }: MyPageLayoutProps) => {
     </div>
   );
 };
-
-export default MyPageLayout;
+export default ActivityLayout;
