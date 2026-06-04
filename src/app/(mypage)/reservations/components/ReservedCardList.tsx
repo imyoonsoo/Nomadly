@@ -70,7 +70,7 @@ const ReservedCardList = () => {
     },
   ];
 
-  const handleFilterButton = (filter: string) => {
+  const handleFilterButtonClick = (filter: string) => {
     setActiveFilters((prev) => {
       const next = new Set(prev);
       if (next.has(filter)) {
@@ -96,7 +96,7 @@ const ReservedCardList = () => {
           <FilterButton
             key={filter}
             isActive={activeFilters.has(filter)}
-            onClick={() => handleFilterButton(filter)}
+            onClick={() => handleFilterButtonClick(filter)}
           >
             {filter}
           </FilterButton>
