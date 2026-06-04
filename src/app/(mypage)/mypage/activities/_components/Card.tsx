@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { CardProps } from "../page";
 import StarIcon from "@/assets/icons/star-on.svg";
+import Button from "@/components/Button/Button";
 
 const Card = ({
   title,
@@ -27,12 +28,21 @@ const Card = ({
           </span>
         </div>
         <div className="flex items-center gap-3 pt-3 lg:pt-5">
-          <button className="border border-gray-50 rounded-lg px-2.5 py-1.5 bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-200 active:scale-95 transition">
+          {/* Todo: api 연결 후 버튼 클릭 이벤트 생성 */}
+          <Button
+            variant="whitenGray"
+            height="h29"
+            className="px-2.5 py-1.5 !border"
+          >
             수정하기
-          </button>
-          <button className="border border-gray-50 rounded-lg px-3 py-1.5 bg-gray-50 text-gray-600 hover:bg-red-100 hover:text-red-600 hover:border-red-100 active:scale-95 transition">
+          </Button>
+          <Button
+            variant="onlyGray"
+            height="h29"
+            className="px-2.5 py-1.5 rounded-lg text-14-medium"
+          >
             삭제하기
-          </button>
+          </Button>
         </div>
       </div>
       <div className="relative overflow-hidden shrink-0 w-20.5 h-20.5 rounded-3xl lg:w-35.5 lg:h-35.5 lg:rounded-4xl">

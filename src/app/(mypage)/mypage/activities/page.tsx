@@ -1,3 +1,4 @@
+import ActivityBanner from "./_components/ActivityBanner";
 import CardList from "./_components/CardList";
 import EmptyCardList from "./_components/EmptyCardList";
 
@@ -43,8 +44,10 @@ const MOCK_CARDS: CardProps[] = [
 ];
 
 const Activities = () => {
+  const activityCount = MOCK_CARDS.length;
+
   return (
-    <div>
+    <div className="mb-30">
       <div className="flex flex-col justify-center items-start gap-3.5 mb-7.5 md:flex-row md:justify-between md:items-center">
         <div className="flex flex-col justify-center items-start gap-2.5">
           <h1 className="text-18-bold text-gray-950">내 체험 관리</h1>
@@ -56,7 +59,9 @@ const Activities = () => {
         <button>체험 등록하기</button>
       </div>
 
-      {MOCK_CARDS.length === 0 ? (
+      <ActivityBanner count={activityCount} />
+
+      {activityCount === 0 ? (
         <EmptyCardList />
       ) : (
         <CardList cards={MOCK_CARDS} />
