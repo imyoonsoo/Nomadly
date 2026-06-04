@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import type { CardProps } from "../page";
 import StarIcon from "@/assets/icons/star-on.svg";
@@ -31,11 +29,7 @@ const Card = ({
         </div>
         <div className="flex items-center gap-3 pt-3 lg:pt-5">
           {/* Todo: api 연결 후 버튼 클릭 이벤트 생성 */}
-          <Button
-            variant="whitenGray"
-            height="h29"
-            className="px-2.5 py-1.5 !border"
-          >
+          <Button variant="whitenGray" height="h29" className="px-2.5 py-1.5">
             수정하기
           </Button>
           <Button
@@ -47,13 +41,14 @@ const Card = ({
           </Button>
         </div>
       </div>
-      <div className="relative overflow-hidden shrink-0 w-20.5 h-20.5 rounded-3xl lg:w-35.5 lg:h-35.5 lg:rounded-4xl">
-        <Image
+      <div className="relative overflow-hidden shrink-0 w-20.5 h-20.5 rounded-3xl lg:w-35.5 lg:h-35.5 lg:rounded-4xl bg-primary-100">
+        {/* Todo: api 연결 후 이미지 url next.config.ts에 설정 추가 */}
+        {/* <Image
           src={bannerImageUrl}
           alt="배너 이미지"
           fill
           className="object-cover"
-        />
+        /> */}
       </div>
     </div>
   );
