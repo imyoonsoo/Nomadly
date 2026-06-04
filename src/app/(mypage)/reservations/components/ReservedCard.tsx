@@ -36,10 +36,10 @@ const ReservedCard = ({
 }: ReservedCardProps) => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
-  const handleReviewModalButton = () => {
+  const handleReviewModalButtonClick = () => {
     setIsReviewModalOpen(true);
   };
-  const handleWarningModalButton = () => {
+  const handleWarningModalButtonClick = () => {
     setIsWarningModalOpen(true);
   };
 
@@ -78,7 +78,7 @@ const ReservedCard = ({
                     variant="onlyGray"
                     height="custom"
                     className="h-[29px] px-[10px] py-[6px] rounded-lg text-14-medium !text-gray-600"
-                    onClick={handleWarningModalButton}
+                    onClick={handleWarningModalButtonClick}
                   >
                     예약 취소
                   </Button>
@@ -89,7 +89,7 @@ const ReservedCard = ({
                   variant="mainBlue"
                   height="custom"
                   className="hidden lg:block h-[29px] px-[10px] rounded-lg text-14-medium"
-                  onClick={handleReviewModalButton}
+                  onClick={handleReviewModalButtonClick}
                 >
                   후기 작성
                 </Button>
@@ -118,7 +118,7 @@ const ReservedCard = ({
               variant="onlyGray"
               height="custom"
               className="flex-1 h-[37px] rounded-lg p-[10px]"
-              onClick={handleWarningModalButton}
+              onClick={handleWarningModalButtonClick}
             >
               예약 취소
             </Button>
@@ -129,7 +129,7 @@ const ReservedCard = ({
             variant="mainBlue"
             height="custom"
             className="lg:hidden sm:block md:block w-full h-[37px] px-[10px] rounded-[8px]"
-            onClick={handleReviewModalButton}
+            onClick={handleReviewModalButtonClick}
           >
             후기 작성
           </Button>

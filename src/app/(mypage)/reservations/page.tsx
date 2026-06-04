@@ -3,7 +3,7 @@ import ReservedCardList from "./components/ReservedCardList";
 const ReservationsPage = () => {
   return (
     <div className="max-sm:px-[20px]">
-      <header className="flex flex-col gap-">
+      <header className="flex flex-col">
         <div>
           <h1 className="text-18-bold text-gray-950 mb-[10px]">예약 내역</h1>
           <p className="text-14-medium text-gray-500">
