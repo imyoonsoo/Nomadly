@@ -37,7 +37,7 @@ const ProfileEditForm = () => {
     }
 
     if (Object.keys(updatedData).length === 0) {
-      console.log("변경된 내 정보가 없습니다.");
+      alert("변경된 내 정보가 없습니다.");
       console.log("변경된 내 정보가 없습니다.");
       return;
     }
@@ -61,7 +61,7 @@ const ProfileEditForm = () => {
       {/* 프로필이미지 + 연필 아이콘버튼 */}
       <ProfileImageInput name="profileImage" label="프로필" />
 
-      {/* 마이페이지 - 내정보 변경폼  */}
+      {/* 마이페이지 내 정보 구현하기 폼  */}
       <form
         onSubmit={handleSubmit(editProfile)}
         className="flex flex-col items-center gap-6 self-stretch"
