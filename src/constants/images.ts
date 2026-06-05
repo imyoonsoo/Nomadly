@@ -1,7 +1,6 @@
 import DefaultProfile from "@/assets/images/default-profile.svg";
 import LogoPcTablet from "@/assets/images/logo-pctablet-withtext.svg";
 import LogoMobile from "@/assets/images/logo-mobile-onlyimage.svg";
-import LogoGlobalNomadText from "@/assets/images/text-globalnomad.svg";
 import Empty from "@/assets/images/empty.svg";
 import MockImage1 from "@/assets/images/mock-image1.png";
 import MockImage2 from "@/assets/images/mock-image2.png";
@@ -15,5 +14,4 @@ export {
   MockImage3,
   LogoPcTablet,
   LogoMobile,
-  LogoGlobalNomadText,
 };
