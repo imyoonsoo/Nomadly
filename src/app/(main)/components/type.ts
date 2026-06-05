@@ -10,3 +10,7 @@ export type CardItem = {
   link: string;
   reviewCount: number;
 };
+
+export type CardListProps = {
+  items: CardItem[];
+};

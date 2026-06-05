@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { CardItem } from "./type";
+import { CardItem, CardListProps } from "./type";
 import { ArrowRight } from "@/constants/icons";
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,9 +9,6 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
-type CardListProps = {
-  items: CardItem[];
-};
 const MainBanner = ({ items }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   if (items.length === 0) {

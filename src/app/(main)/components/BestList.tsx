@@ -1,6 +1,6 @@
 "use client";
 import ActivitiesCard from "./ActivitiesCard";
-import { CardItem } from "./type";
+import { CardItem, CardListProps } from "./type";
 import { useRef } from "react";
 import { ArrowRight } from "@/constants/icons";
 
@@ -9,9 +9,6 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
-type CardListProps = {
-  items: CardItem[];
-};
 const CardList = ({ items }: CardListProps) => {
   const bestItems = [...items]
     .sort((a, b) => b.reviewCount - a.reviewCount)
