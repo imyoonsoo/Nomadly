@@ -96,7 +96,7 @@ const EditMyProfile = () => {
           {...register("email")}
         />
 
-        {/* 새 비밀번호 압력 */}
+        {/* 새 비밀번호 입력 */}
         <TextInput
           label="새 비밀번호"
           type="password"
