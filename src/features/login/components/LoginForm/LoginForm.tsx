@@ -27,17 +27,16 @@ const LoginForm = () => {
 
   const loginForm = async (authData: LoginFormInputFields) => {
     try {
-      //
-      console.log(authData);
-      router.push("/"); // 로그인 성공 시 메인으로 푸시, 아니라면 alert 모달창
+      // [로직]
+      router.push("/");
     } catch (error) {
       setModalMessage("비밀번호가 일치하지 않습니다.");
     }
   };
 
   return (
-    <div className="w-full sm:w-81.75 md:w-119 lg:w-160 mx-auto flex flex-col items-center gap-6 px-4">
-      {/* 로고 클릭: 메인(/)페이지로 이동 */}
+    <div className="w-full md:w-160 lg:w-160 mx-auto flex flex-col items-center gap-6 md:gap-7.5 px-6 md:px-0">
+      {/* 로고 클릭: 메인(/) 이동 */}
       <Link
         href="/"
         aria-label="GlobalNoamd 메인으로 이동"
@@ -91,7 +90,7 @@ const LoginForm = () => {
         <Button
           type="submit"
           variant="mainBlue"
-          height="47md"
+          height="54lg"
           disabled={!isValid}
           className="self-stretch"
         >
@@ -109,10 +108,10 @@ const LoginForm = () => {
       <Button
         type="button"
         variant="kakao"
-        height="47md"
+        height="custom"
         className="self-stretch"
         onClick={() => {
-          //
+          // [로직] 카카오 간편로그인
         }}
       >
         카카오 로그인
