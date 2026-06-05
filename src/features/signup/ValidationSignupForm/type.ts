@@ -1,4 +1,4 @@
-export interface SignupFormInputFields {
+export interface ValidationSignupFormInputfields {
   email: string;
   nickname: string;
   password: string;
