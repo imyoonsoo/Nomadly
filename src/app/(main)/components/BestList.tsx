@@ -9,7 +9,7 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
-const CardList = ({ items }: CardListProps) => {
+const BestList = ({ items }: CardListProps) => {
   const bestItems = [...items]
     .sort((a, b) => b.reviewCount - a.reviewCount)
     .slice(0, 5);
@@ -59,4 +59,4 @@ const CardList = ({ items }: CardListProps) => {
   );
 };
 
-export default CardList;
+export default BestList;

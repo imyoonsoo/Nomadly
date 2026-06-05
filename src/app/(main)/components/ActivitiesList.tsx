@@ -53,7 +53,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
 
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
-  const handleSelect = (option: string) => {
+  const handleSortOptionClick = (option: string) => {
     setSelectedText(option);
     setIsOpen(false);
   };
@@ -111,7 +111,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
   });
   return (
     <div className="relative w-full">
-      {keyword == "" && (
+      {keyword === "" && (
         <div className="flex justify-between mb-[25px] items-end">
           <div>
             <div
@@ -133,7 +133,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
               </button>
 
               {isOpen2 && (
-                <div className="absolute right-0 top-[50px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-1 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
+                <div className="absolute right-0 top-[50px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-10 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
                   {CATEGORIES.map((item) => (
                     <button
                       key={item.id}
@@ -192,13 +192,13 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
             </button>
 
             {isOpen && (
-              <ul className="absolute right-0 top-[40px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full  z-1 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
+              <ul className="absolute right-0 top-[40px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full  z-10 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
                 {OPTIONS.map((option) => (
                   <li key={option}>
                     <button
                       type="button"
                       onClick={() => {
-                        handleSelect(option);
+                        handleSortOptionClick(option);
                       }}
                     >
                       {option}

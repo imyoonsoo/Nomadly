@@ -2,7 +2,7 @@
 
 import SearchBox from "./components/SearchBox";
 import MainBanner from "./components/MainBanner";
-import CardList from "./components/BestList";
+import BestList from "./components/BestList";
 import {
   Cloude,
   MainBannertest,
@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import ActivitiesList from "./components/ActivitiesList";
 
-export const MockData = [
+export const MOCKDATA = [
   {
     id: 1,
     title: "영남알프스 온천마을호텔 등산 여행(알레버스)",
@@ -65,23 +65,25 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const onSearch = () => {
+  const handleSearch = () => {
     setKeyword(search);
   };
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearchInputKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     if (e.key === "Enter") {
-      onSearch();
+      handleSearch();
     }
   };
   const getFilter = () => {
     if (keyword.trim() === "") {
-      return MockData;
+      return MOCKDATA;
     }
-    return MockData.filter((item) =>
+    return MOCKDATA.filter((item) =>
       item.title.toLowerCase().includes(keyword.toLowerCase()),
     );
   };
@@ -99,7 +101,7 @@ const Home = () => {
     >
       {/* 메인배너 */}
       <div className="mx-auto max-w-[1200px] px-6 pt-[122px] md:px-10 md:pt-[183px]">
-        <MainBanner items={MockData} />
+        <MainBanner items={MOCKDATA} />
       </div>
       {/* 체험검색 */}
       <div className="mx-auto my-4 max-w-[1120px] px-5 py-4 md:my-12 md:px-10 md:py-8">
@@ -107,9 +109,9 @@ const Home = () => {
           무엇을 체험하고 싶으신가요?
         </p>
         <SearchBox
-          onKeyDown={onKeyDown}
-          onChange={onChange}
-          onSearch={onSearch}
+          onKeyDown={handleSearchInputKeyDown}
+          onChange={handleSearchInputChange}
+          onSearch={handleSearch}
         />
       </div>
       {/* 인기체험 */}
@@ -120,7 +122,7 @@ const Home = () => {
               🔥 인기 체험
             </h2>
             <div className="flex">
-              <CardList items={MockData} />
+              <BestList items={MOCKDATA} />
             </div>
           </div>
         )}

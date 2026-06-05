@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CardItem } from "./type";
 import { StarOn } from "@/constants/icons";
 
-const CardDetail = ({
+const ActivitiesCard = ({
   title,
   imageUrl,
   link,
@@ -45,4 +45,4 @@ const CardDetail = ({
   );
 };
 
-export default CardDetail;
+export default ActivitiesCard;
