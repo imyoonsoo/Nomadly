@@ -101,7 +101,7 @@ const ValidationSignupForm = () => {
         </div>
 
         <TextInput
-          label="닉네임"
+          label="닉네임 설정"
           placeholder="닉네임을 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.nickname?.message}
@@ -131,7 +131,7 @@ const ValidationSignupForm = () => {
 
         {/* 유효성검사: 비밀번호 확인 */}
         <TextInput
-          label="비밀번호 재입력"
+          label="비밀번호 확인"
           type="password"
           placeholder="비밀번호를 한 번 더 입력해 주세요"
           className="self-stretch"
