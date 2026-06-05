@@ -14,7 +14,7 @@ const mockDataList = [
     profileImageUrl: "",
   },
   {
-    id: 2,
+    id: 3,
     nickname: "융수",
     email: "imyoonsoo@codeit.com",
     profileImageUrl: "",
