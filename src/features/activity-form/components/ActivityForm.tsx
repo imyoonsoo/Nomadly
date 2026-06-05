@@ -16,6 +16,8 @@ import AddressSearchButton from "./AddressSearchButton";
 import ScheduleSection from "./ScheduleSection";
 import { useRouter } from "next/navigation";
 import { useLeaveBlocker } from "../hooks/useLeaveBlocker";
+import WarningModal from "@/components/Modal/WarningModal";
+import SuccessIconModal from "@/components/Modal/SuccessIconModal";
 
 interface ActivityFormProps {
   mode: "create" | "edit";
@@ -105,7 +107,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     router.back();
   };
 
-  // Todo: 페이지 이탈 확인 로직
+  // 페이지 이탈 확인 로직
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (!isDirty) return;
@@ -204,55 +206,25 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
         </Button>
       </form>
 
-      {/* Todo: 공통모달로 변경 작업 */}
       {isWarningOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white p-6 rounded-2xl max-w-sm w-full mx-4 shadow-xl">
-            <h3 className="text-18-bold text-gray-950 mb-2">
-              변경사항 저장 안 됨
-            </h3>
-            <p className="text-14-medium text-gray-500 mb-6">
-              지금 페이지를 나가하시면 작성 중인 변경사항이 모두 삭제됩니다.
-              정말 나가시겠습니까?
-            </p>
-            <div className="flex gap-3 justify-end">
-              <button
-                type="button"
-                onClick={handleCancelLeave}
-                className="px-4 py-2.5 bg-gray-100 text-gray-700 text-14-medium rounded-xl hover:bg-gray-200 transition"
-              >
-                아니오 (계속 수정)
-              </button>
-              <button
-                type="button"
-                onClick={handleConfirmLeave}
-                className="px-4 py-2.5 bg-red-500 text-white text-14-medium rounded-xl hover:bg-red-600 transition"
-              >
-                예 (나가기)
-              </button>
-            </div>
-          </div>
-        </div>
+        <WarningModal
+          isOpen={isWarningOpen}
+          onClose={() => setIsWarningOpen(false)}
+          onConfirm={handleConfirmLeave}
+          message={"저장되지 않았습니다.\n정말 뒤로 가시겠습니까?"}
+        />
       )}
 
-      {/* 2. 등록/수정 완료 알림 모달 */}
       {isSuccessOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white p-6 rounded-2xl max-w-sm w-full mx-4 shadow-xl text-center">
-            <h3 className="text-18-bold text-gray-950 mb-2">완료</h3>
-            <p className="text-14-medium text-gray-500 mb-6">
-              체험 {mode === "create" ? "등록" : "수정"}이 성공적으로
-              완료되었습니다!
-            </p>
-            <button
-              type="button"
-              onClick={handleSuccessConfirm}
-              className="w-full py-2.5 bg-gray-950 text-white text-14-medium rounded-xl hover:bg-gray-800 transition"
-            >
-              확인
-            </button>
-          </div>
-        </div>
+        <SuccessIconModal
+          isOpen={isSuccessOpen}
+          onClose={handleSuccessConfirm}
+          message={
+            mode === "create"
+              ? "체험 등록이 완료되었습니다."
+              : "수정이 완료되었습니다."
+          }
+        />
       )}
     </div>
   );

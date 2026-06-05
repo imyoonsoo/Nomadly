@@ -15,7 +15,7 @@ const SuccessIconModal = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <Image
           src="/successIcon.svg"
           alt="성공 아이콘"

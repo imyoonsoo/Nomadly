@@ -25,7 +25,9 @@ const WarningModal = ({
           height={88}
           className="w-[49px] h-[49px] md:w-[88px] md:h-[88px]"
         />
-        <p className="text-center text-16-bold md:text-18-bold">{message}</p>
+        <p className="text-center text-16-bold md:text-18-bold whitespace-pre-line">
+          {message}
+        </p>
       </div>
 
       <div className="flex gap-2 md:gap-3 justify-center items-center">
