@@ -7,15 +7,8 @@ import ProfileImageInput from "@/components/ImageInput/ProfileImageInput";
 import Button from "@/components/Button/Button";
 import mockDataList from "@/features/mypage/mock";
 
-const EditMyProfile = () => {
-  //const Eugenekmp = mockDataList[0];
-  const JuHeonParkk = mockDataList[1];
-  const imyoonsoo = mockDataList[2];
-  const ejlee6742 = mockDataList[3];
-  const hhhnseo = mockDataList[4];
-  const Hanbh97 = mockDataList[5];
-
-  const user = imyoonsoo;
+const ProfileEditForm = () => {
+  const user = mockDataList[0];
   const {
     register,
     handleSubmit,
@@ -141,4 +134,4 @@ const EditMyProfile = () => {
   );
 };
 
-export default EditMyProfile;
+export default ProfileEditForm;
