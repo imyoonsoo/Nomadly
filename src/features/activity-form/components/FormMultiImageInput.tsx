@@ -1,10 +1,10 @@
 "use client";
 
-import FormController from "@/components/Form/FormController";
-import MultiImageInput from "@/components/ImageInput/MultiImageInput";
+import { ChangeEvent } from "react";
 import { Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import { MultiImageInputProps } from "@/components/ImageInput/type";
-import { ChangeEvent } from "react";
+import FormController from "@/components/Form/FormController";
+import MultiImageInput from "@/components/ImageInput/MultiImageInput";
 
 interface FormMultiImageInputProps<
   TFieldValues extends FieldValues,

@@ -5,9 +5,9 @@ import { Control, useFieldArray, Controller, useWatch } from "react-hook-form";
 import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
 
-import PlusIcon from "@/assets/icons/plus.svg";
-import MinusIcon from "@/assets/icons/minus.svg";
 import { ActivityFormValues } from "@/features/activity-form/types";
+import { Plus as PlusIcon, Minus as MinusIcon } from "@/constants/icons";
+
 import Button from "@/components/Button/Button";
 import FormController from "@/components/Form/FormController";
 

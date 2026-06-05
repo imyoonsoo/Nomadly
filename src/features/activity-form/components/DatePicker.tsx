@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import PrevIcon from "@/assets/icons/alt-arrow-left.svg";
-import NextIcon from "@/assets/icons/alt-arrow-right.svg";
-import CalendarIcon from "@/assets/icons/calendar.svg";
 import { DAYS, MONTH_NAMES_EN } from "../constants";
+import {
+  AltLeft as PrevIcon,
+  AltRight as NextIcon,
+  Calendar as CalendarIcon,
+} from "@/constants/icons";
 
 interface DatePickerProps {
   value: string;

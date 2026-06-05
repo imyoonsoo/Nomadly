@@ -16,6 +16,7 @@ interface ActivitySelectProps {
   fieldLabel?: string | ReactNode;
 }
 
+// Todo: 공통 컴포넌트로 변경
 const SelectDropdown = ({
   options,
   selectedValue,
