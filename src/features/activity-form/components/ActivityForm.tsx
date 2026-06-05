@@ -200,7 +200,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
           height="47md"
           type="submit"
           className="w-full md:w-60 md:mx-auto hover:brightness-90"
-          disabled={!isValid || hasScheduleDuplicate}
+          disabled={!isDirty || !isValid || hasScheduleDuplicate}
         >
           {mode === "create" ? "등록하기" : "수정하기"}
         </Button>
