@@ -7,9 +7,17 @@ import Dropdown from "@/components/Dropdown/Dropdown";
 
 import BellIcon from "@/assets/icons/bell.svg";
 import DefaultProfileImage from "@/assets/images/default-profile.svg";
+import { useState } from "react";
+import { Notification } from "@/components/layout/Header/Notification/type";
+import { mockNotifications } from "@/components/layout/Header/Notification/mock";
+import NotificationModal from "./Notification/NotificationModal";
 
 const HeaderUserMenu = ({ user }: { user: User }) => {
   const router = useRouter();
+
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [notifications, setNotifications] =
+    useState<Notification[]>(mockNotifications);
 
   const profileMenus = [
     {
@@ -27,15 +35,40 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
     },
   ];
 
+  const handleNotificationClick = (notificationId: number) => {
+    setNotifications((prev) =>
+      prev.filter((notification) => notification.id !== notificationId),
+    );
+
+    setIsNotificationOpen(false);
+
+    router.push("/mypage/reservations");
+  };
+
   return (
     <div className="flex justify-center items-center gap-5">
       {/* Todo: 알림 기능 구현 */}
-      <button
-        aria-label="알림"
-        className="p-2 rounded-lg text-gray-600 hover:bg-gray-25 hover:text-primary-500 active:opacity-70 transition"
-      >
-        <BellIcon width={24} height={24} />
-      </button>
+      <div className="relative">
+        <button
+          type="button"
+          aria-label="알림"
+          onClick={() => setIsNotificationOpen((prev) => !prev)}
+          className={`p-2 rounded-lg text-gray-600 hover:bg-gray-25 hover:text-primary-500 active:opacity-70 transition ${
+            isNotificationOpen ? "text-primary-500" : "text-gray-600"
+          }`}
+        >
+          <BellIcon width={24} height={24} />
+        </button>
+
+        {isNotificationOpen && (
+          <NotificationModal
+            notifications={notifications}
+            totalCount={notifications.length}
+            onClose={() => setIsNotificationOpen(false)}
+            onNotificationClick={handleNotificationClick}
+          />
+        )}
+      </div>
       <div className="w-px h-3.5 bg-gray-100" />
       <Dropdown options={profileMenus}>
         {({ toggle }) => (
