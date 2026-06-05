@@ -179,7 +179,7 @@ const ReservationModalContent = ({
           onScroll={handleScrollReservationList}
           className={`
             scrollbar-hide overflow-y-auto pr-1
-            h-[240px]
+            h-60
             md:h-[min(350px,calc(85vh-280px))]
             xl:h-[230px]
             ${isFullPage ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]" : ""}  

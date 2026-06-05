@@ -24,7 +24,7 @@ const ReservationStatusTab = ({
   const selectedIndex = tabs.findIndex((tab) => tab.value === selectedStatus);
 
   return (
-    <div className="relative mt-4  border-b border-gray-300">
+    <div className="relative mt-4 border-b border-gray-300">
       <div className="grid grid-cols-3">
         {tabs.map((tab) => (
           <button
