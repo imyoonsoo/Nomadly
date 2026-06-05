@@ -1,0 +1,42 @@
+import type {
+  EditMyReservationsParams,
+  GetMyReservationsParams,
+  SubmitReviewParams,
+} from "./types";
+import axios from "axios";
+
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/my-reservations`;
+
+export async function getMyReservations(params?: GetMyReservationsParams) {
+  const response = await axios.get(BASE_URL, { params });
+  return response.data;
+}
+
+export async function deleteMyReservations(reservationId: number) {
+  const response = await axios.patch(`${BASE_URL}/${reservationId}`, {
+    status: "canceled",
+  });
+  return response.data;
+}
+
+export async function editMyReservations(
+  reservationId: number,
+  body: EditMyReservationsParams,
+) {
+  const response = await axios.patch(
+    `${BASE_URL}/${reservationId}/application`,
+    body,
+  );
+  return response.data;
+}
+
+export async function submitReview(
+  reservationId: number,
+  body: SubmitReviewParams,
+) {
+  const response = await axios.post(
+    `${BASE_URL}/${reservationId}/reviews`,
+    body,
+  );
+  return response.data;
+}
