@@ -4,7 +4,7 @@ export type TextInputProps = {
   label?: string;
   placeholder?: string;
   errorMessage?: string;
-  type?: "text" | "password";
+  type?: "text" | "password" | "email";
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
