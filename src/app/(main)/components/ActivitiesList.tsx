@@ -11,7 +11,7 @@ type CardListProps = {
   keyword: string;
 };
 
-const CATEGIRES = [
+const CATEGORIES = [
   {
     id: 1,
     name: "전체",
@@ -90,7 +90,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
 
   // 체험리스트 필터링
 
-  const selectedCategoryItem = CATEGIRES.find(
+  const selectedCategoryItem = CATEGORIES.find(
     (item) => item.name === selectedCategory,
   );
   const filteredItems =
@@ -134,7 +134,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
 
               {isOpen2 && (
                 <div className="absolute right-0 top-[50px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-1 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
-                  {CATEGIRES.map((item) => (
+                  {CATEGORIES.map((item) => (
                     <button
                       key={item.id}
                       type="button"
@@ -154,7 +154,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
             </div>
 
             <div className="hidden gap-1 md:flex">
-              {CATEGIRES.map((item) => (
+              {CATEGORIES.map((item) => (
                 <FilterButton
                   key={item.id}
                   onClick={() => {
