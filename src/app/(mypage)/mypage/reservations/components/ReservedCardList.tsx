@@ -90,7 +90,7 @@ const ReservedCardList = () => {
         );
 
   return (
-    <div className="flex flex-col gap-[30px] mt-[24px]">
+    <div className="flex flex-col gap-[30px]">
       <div className="flex gap-[8px] overflow-x-auto scrollbar-hide">
         {FILTERS.map((filter) => (
           <FilterButton
