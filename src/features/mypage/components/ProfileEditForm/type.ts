@@ -1,4 +1,4 @@
-export interface ProfileEditFormValues {
+export interface ProfileEditFormFields {
   nickname: string;
   email: string;
   password: string;

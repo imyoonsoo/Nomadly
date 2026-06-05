@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { ProfileEditFormValues } from "./type";
+import { ProfileEditFormFields } from "./type";
 import TextInput from "@/components/Input/TextInput";
 import ProfileImageInput from "@/components/ImageInput/ProfileImageInput";
 import Button from "@/components/Button/Button";
@@ -14,7 +14,7 @@ const ProfileEditForm = () => {
     handleSubmit,
     watch,
     formState: { errors, isValid, isDirty, dirtyFields },
-  } = useForm<ProfileEditFormValues>({
+  } = useForm<ProfileEditFormFields>({
     mode: "onBlur",
     defaultValues: {
       nickname: user.nickname,
@@ -26,7 +26,7 @@ const ProfileEditForm = () => {
 
   const password = watch("password");
 
-  const editProfile = (data: ProfileEditFormValues) => {
+  const editProfile = (data: ProfileEditFormFields) => {
     const updatedData: { nickname?: string; password?: string } = {};
 
     if (dirtyFields.nickname) {
@@ -37,7 +37,8 @@ const ProfileEditForm = () => {
     }
 
     if (Object.keys(updatedData).length === 0) {
-      console.log("변경된 내용이 없습니다.");
+      console.log("변경된 내 정보가 없습니다.");
+      console.log("변경된 내 정보가 없습니다.");
       return;
     }
 
@@ -80,7 +81,7 @@ const ProfileEditForm = () => {
           })}
         />
 
-        {/* Mypage에서 닉네임, 비밀번호만 수정 가능하므로 disabled 처리 */}
+        {/* 닉네임, 비밀번호, 프로필이미지만 수정 가능하므로 이메일 disabled 처리 */}
         <TextInput
           label="이메일"
           placeholder={user.email}
