@@ -8,7 +8,7 @@ const WarningModal = ({
   onClose,
   onConfirm,
   message,
-  buttonTextLeft = "아니요",
+  buttonTextLeft = "아니오",
   buttonTextRight = "네",
 }: WarningModalProps) => {
   return (
@@ -17,7 +17,7 @@ const WarningModal = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <Image
           src="/warningIcon.svg"
           alt="경고 아이콘"
@@ -32,7 +32,7 @@ const WarningModal = ({
         <Button
           variant="whitenGray"
           height="custom"
-          className="w-[113px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px]"
+          className="w-[113px] h-[41px] px-[20px] py-[4px] md:px-10 md:py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px]"
           onClick={onClose}
         >
           {buttonTextLeft}
@@ -40,8 +40,8 @@ const WarningModal = ({
         <Button
           variant="mainBlue"
           height="custom"
-          className="w-[113px] h-[41px] px-10 py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px]"
-          onClick={onConfirm || onClose}
+          className="w-[113px] h-[41px] px-[20px] py-[4px] md:px-10 md:py-3 text-[14px] rounded-xl md:w-[135px] md:h-[47px] md:py-[14px] "
+          onClick={onConfirm}
         >
           {buttonTextRight}
         </Button>

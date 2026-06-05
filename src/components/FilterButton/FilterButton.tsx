@@ -20,7 +20,8 @@ const sizes = {
 } as const;
 
 const stateStyle = {
-  active: "bg-[#333] text-white [&_svg]:text-white border-none font-bold",
+  active:
+    "bg-[#333] text-white [&_svg]:text-white border border-transparent font-medium",
   inactive:
     "bg-white text-gray-950 [&_svg]:text-black border border-[#D8D8D8] font-medium",
 } as const;
