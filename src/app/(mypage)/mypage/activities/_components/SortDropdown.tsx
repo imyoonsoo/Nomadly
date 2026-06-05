@@ -16,7 +16,7 @@ interface SortDropdownProps {
 
 const SortDropdown = ({ currentSort, onChange }: SortDropdownProps) => {
   return (
-    <div className="w-38 mr-auto mb-5">
+    <div className="w-30 md:w-38 mr-auto mb-5">
       <SelectDropdown
         options={sortOptions}
         selectedValue={currentSort}

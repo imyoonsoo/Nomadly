@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import Title from "@/app/(mypage)/_components/Title";
 import ActivitiesList from "./_components/ActivitiesList";
 
 // Todo: api 연동 후 type 분리
@@ -26,8 +30,8 @@ const MOCK_CARDS: CardProps[] = [
     category: "댄스",
     price: 15000,
     address: "서울시 마포구",
-    bannerImageUrl:
-      "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad",
+    // bannerImageUrl:
+    //   "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad",
     rating: 4.9,
     reviewCount: 293, // 리뷰 가장 많음
     createdAt: "2026-05-01T10:00:00.000Z",
@@ -41,7 +45,7 @@ const MOCK_CARDS: CardProps[] = [
     category: "댄스",
     price: 35000,
     address: "서울시 강남구",
-    bannerImageUrl: "https://images.unsplash.com/photo-1547153760-18fc86324498",
+    // bannerImageUrl: "https://images.unsplash.com/photo-1547153760-18fc86324498",
     rating: 4.5,
     reviewCount: 12,
     createdAt: "2026-06-01T14:20:00.000Z",
@@ -55,8 +59,8 @@ const MOCK_CARDS: CardProps[] = [
     category: "댄스",
     price: 10000,
     address: "서울시 성동구",
-    bannerImageUrl:
-      "https://images.unsplash.com/photo-1504609773096-104ff2c73ba4",
+    // bannerImageUrl:
+    //   "https://images.unsplash.com/photo-1504609773096-104ff2c73ba4",
     rating: 4.8,
     reviewCount: 84,
     createdAt: "2026-06-04T16:30:00.000Z",
@@ -65,18 +69,15 @@ const MOCK_CARDS: CardProps[] = [
 ];
 
 const Activities = () => {
+  const router = useRouter();
   return (
     <div className="mb-30">
-      {/* Todo: 공통 컴포넌트 Title 연결 */}
-      <div className="flex flex-col justify-center items-start gap-3.5 mb-7.5 md:flex-row md:justify-between md:items-center">
-        <div className="flex flex-col justify-center items-start gap-2.5">
-          <h1 className="text-18-bold text-gray-950">내 체험 관리</h1>
-          <p className="text-14-medium text-gray-500">
-            체험을 등록하거나 수정 및 삭제가 가능합니다.
-          </p>
-        </div>
-        <button>체험 등록하기</button>
-      </div>
+      <Title
+        title="내 체험 관리"
+        description="체험을 등록하거나 수정 및 삭제가 가능합니다."
+        buttonText="체험 등록하기"
+        onButtonClick={() => router.push("/activities/new")}
+      />
 
       <ActivitiesList initialCards={MOCK_CARDS} />
     </div>
