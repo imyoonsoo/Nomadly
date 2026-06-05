@@ -20,7 +20,7 @@ const Card = ({
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirmButtonClick = () => {
     // Todo: api 연동 후 삭제 작업
     alert("삭제");
     setIsModalOpen(false);
@@ -78,7 +78,7 @@ const Card = ({
         <WarningModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onConfirm={handleDeleteConfirm}
+          onConfirm={handleDeleteConfirmButtonClick}
           message="삭제하시겠습니까?"
         />
       )}

@@ -26,10 +26,7 @@ const ActivitiesList = ({ initialCards }: ActivitiesListProps) => {
     } else if (currentSort === "review") {
       return cardList.sort((a, b) => b.reviewCount - a.reviewCount);
     } else {
-      return cardList.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      );
+      return cardList.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     }
   }, [initialCards, currentSort]);
 

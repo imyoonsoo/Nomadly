@@ -20,6 +20,8 @@ const SelectDropdown = ({
   );
 
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleClickOutside = (e: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -32,7 +34,7 @@ const SelectDropdown = ({
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isOpen]);
 
   return (
     <div ref={dropdownRef} className="relative w-full">
