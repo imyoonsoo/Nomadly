@@ -48,7 +48,7 @@ const ProfileEditForm = () => {
   };
 
   return (
-    <div className="w-full lg:w-160 sm:w-[327px] md:w-119 mx-auto flex flex-col items-center gap-6 px-4">
+    <div className="w-full lg:w-160 sm:w-81.75 md:w-119 mx-auto flex flex-col items-center gap-6 px-4">
       <div className="flex flex-col gap-1 self-stretch py-2.5">
         <h2 className="text-lg font-bold text-gray-950 tracking-[-0.45px]">
           내 정보
