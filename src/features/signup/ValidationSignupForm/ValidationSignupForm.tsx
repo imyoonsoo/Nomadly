@@ -94,7 +94,7 @@ const ValidationSignupForm = () => {
             variant="onlyGray"
             height="custom"
             onClick={handleEmailRedundancy}
-            className="absolute right-5 bottom-3.25 h-7 w-15 text-xs rounded-md z-10"
+            className="bg-gray-900 text-white absolute right-5 bottom-3.25 w-20 h-7.5 md:w-25 text-s rounded-lg z-10 whitespace-nowrap"
           >
             중복확인
           </Button>
