@@ -7,7 +7,7 @@ import Link from "next/link";
 import { LoginFormInputFields } from "./type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
-import { LogoPcTb, LogoMobile } from "@/constants/images";
+import { LogoPcTablet, LogoMobile } from "@/constants/images";
 import SuccessModal from "@/components/Modal/SuccessModal";
 
 const LoginForm = () => {
@@ -40,11 +40,14 @@ const LoginForm = () => {
       {/* 로고 클릭: 메인(/)페이지로 이동 */}
       <Link
         href="/"
-        aria-label="GlobalNoamd 메인페이지로 이동"
+        aria-label="GlobalNoamd 메인으로 이동"
         className="flex flex-col items-center gap-6"
       >
         {/* 데스크탑/태블릿 */}
-        <LogoPcTb className="hidden md:block w-63.75 h-50" aria-hidden="true" />
+        <LogoPcTablet
+          className="hidden md:block w-63.75 h-50"
+          aria-hidden="true"
+        />
         {/* 모바일 */}
         <LogoMobile className="block md:hidden w-36 h-36" aria-hidden="true" />
       </Link>
