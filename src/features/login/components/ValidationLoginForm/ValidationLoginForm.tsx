@@ -4,20 +4,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LoginFormInputFields } from "./type";
+import { ValidationLoginFormFields } from "./type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import { LogoPcTablet, LogoMobile } from "@/constants/images";
 import SuccessModal from "@/components/Modal/SuccessModal";
 
-const LoginForm = () => {
+const ValidationLoginForm = () => {
   const [modalMessage, setModalMessage] = useState("");
   const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginFormInputFields>({
+  } = useForm<ValidationLoginFormFields>({
     mode: "onBlur",
     defaultValues: {
       email: "",
@@ -25,9 +25,9 @@ const LoginForm = () => {
     },
   });
 
-  const loginForm = async (authData: LoginFormInputFields) => {
+  const globalnomadLogin = async (authData: ValidationLoginFormFields) => {
     try {
-      // [로직]
+      // [로직] 로그인
       router.push("/");
     } catch (error) {
       setModalMessage("비밀번호가 일치하지 않습니다.");
@@ -52,7 +52,7 @@ const LoginForm = () => {
       </Link>
 
       <form
-        onSubmit={handleSubmit(loginForm)}
+        onSubmit={handleSubmit(globalnomadLogin)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
         {/* 유효성검사: 이메일 */}
@@ -135,4 +135,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ValidationLoginForm;

@@ -1,9 +1,9 @@
 "use client";
 
-import LoginForm from "@/features/login/components/LoginForm/LoginForm";
+import ValidationLoginForm from "@/features/login/components/ValidationLoginForm/ValidationLoginForm";
 
 const LoginPage = () => {
-  return <LoginForm></LoginForm>;
+  return <ValidationLoginForm></ValidationLoginForm>;
 };
 
 export default LoginPage;
