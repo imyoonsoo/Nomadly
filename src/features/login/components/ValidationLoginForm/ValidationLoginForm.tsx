@@ -27,7 +27,6 @@ const ValidationLoginForm = () => {
 
   const globalnomadLogin = async (authData: ValidationLoginFormFields) => {
     try {
-      // [로직] 로그인
       router.push("/");
     } catch (error) {
       setModalMessage("비밀번호가 일치하지 않습니다.");
@@ -111,7 +110,8 @@ const ValidationLoginForm = () => {
         height="54lg"
         className="self-stretch"
         onClick={() => {
-          // [로직] 카카오 간편로그인
+          const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
+          window.location.href = EASYAUTH_KAKAO_URL;
         }}
       >
         카카오 간편로그인
