@@ -52,13 +52,13 @@ const VARIANTS: { [key: string]: string } = {
 };
 
 const SIZES: { [key: string]: string } = {
-  "54lg": `h-[54px] rounded-2xl text-base font-bold py-[14px] px-[40px] [&_svg]:size-6`,
-  "47md": `h-[47px] rounded-[14px] text-base font-bold py-[14px] px-[40px] [&_svg]:size-5`,
-  "41sm": `h-[41px] rounded-xl text-sm font-normal py-[12px] px-[40px] [&_svg]:size-4`,
-  h50: `h-[29px] rounded-[14px] text-base font-bold py-[14px] px-[40px] [&_svg]:size-6`,
-  h37: `h-[50px] rounded-lg text-sm font-normal p-[10px] [&_svg]:size-5`,
-  h29: `h-[29px] rounded-lg text-sm font-normal py-[6px] px-[10px] [&_svg]:size-4`,
-  h23: `h-[23px] rounded-lg text-sm font-normal py-[6px] px-[10px] [&_svg]:size-4`,
+  "54lg": `h-[54px] rounded-2xl text-base font-bold py-[14px] px-[40px] [&_svg]:size-6 gap-1`,
+  "47md": `h-[47px] rounded-[14px] text-base font-bold py-[14px] px-[40px] [&_svg]:size-5 gap-1`,
+  "41sm": `h-[41px] rounded-xl text-sm font-normal py-[12px] px-[40px] [&_svg]:size-4 gap-1`,
+  h50: `h-[50px] rounded-[14px] text-base font-bold py-[14px] px-[40px] [&_svg]:size-6 gap-1`,
+  h37: `h-[37px] rounded-lg text-sm font-normal p-[10px] [&_svg]:size-5 gap-1`,
+  h29: `h-[29px] rounded-lg text-sm font-normal py-[6px] px-[10px] [&_svg]:size-4 gap-1`,
+  h23: `h-[23px] rounded-lg text-sm font-normal py-[6px] px-[10px] [&_svg]:size-4 gap-1`,
   custom: ``,
 };
 
