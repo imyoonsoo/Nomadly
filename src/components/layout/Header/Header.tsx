@@ -10,8 +10,17 @@ import HeaderGuestMenu from "./HeaderGuestMenu";
 import LogoVertical from "@/assets/images/logo-vertical.svg";
 import LogoSymbol from "@/assets/images/logo-symbol.svg";
 
+const TEST_USER = {
+  id: 1,
+  email: "test@test.com",
+  nickname: "정만철",
+  profileImageUrl: "",
+};
+
 const Header = ({ user }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const testUser = user ?? TEST_USER;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +37,7 @@ const Header = ({ user }: HeaderProps) => {
 
   return (
     <header
-      className={`w-full h-12 fixed top-0 left-0 z-100 md:h-20 flex justify-center transition-colors duration-300 ${isScrolled ? "bg-white" : "bg-transparent"}`}
+      className={`w-full h-12 fixed top-0 left-0 z-[120] md:z-100 md:h-20 flex justify-center transition-colors duration-300 ${isScrolled ? "bg-white" : "bg-transparent"}`}
     >
       <div className="w-full max-w-380 flex items-center justify-between mx-auto px-6 md:px-7.5">
         <Link href="/" className="flex items-center py-2.5 cursor-pointer">
@@ -48,6 +57,7 @@ const Header = ({ user }: HeaderProps) => {
         <nav>
           {/* Todo: 로그인 기능 완료 후 수정 */}
           {user ? <HeaderUserMenu user={user} /> : <HeaderGuestMenu />}
+          {/* <HeaderUserMenu user={testUser} /> */}
         </nav>
       </div>
     </header>
