@@ -32,10 +32,10 @@ const ValidationSignupForm = () => {
 
   // react-hook-form의 watch로 비밀번호 실시간값 알아냄
   const password = watch("password");
-  const globalnomadSignup = async (data: ValidationSignupFormInputfields) => {
+  const signUpGlobalNomad = async (data: ValidationSignupFormInputfields) => {
     try {
-      const { passwordValidation, ...SignupData } = data;
-      alert(SignupData);
+      const { passwordValidation, ...signupData } = data;
+      console.log(signupData);
       setIsSignupSucceed(true);
     } catch (error) {
       if (error instanceof Error) {
@@ -70,7 +70,7 @@ const ValidationSignupForm = () => {
         <LogoMobile className="block md:hidden w-36 h-36" aria-hidden="true" />
       </Link>
       <form
-        onSubmit={handleSubmit(globalnomadSignup)}
+        onSubmit={handleSubmit(signUpGlobalNomad)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
         {/* 유효성검사: 이메일, 중복확인 */}
@@ -192,7 +192,7 @@ const ValidationSignupForm = () => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message="🎉GlobalNomad 회원가입이 완료되었습니다!\n확인 버튼 클릭 시 로그인 화면으로 이동합니다."
+        message={`🎉GlobalNomad 회원가입이 완료!\n확인 버튼 클릭 시 로그인 화면으로 이동~`}
       />
 
       {/* alert 모달 */}
