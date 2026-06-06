@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface UseLeaveBlockerProps {
   isDirty: boolean;
@@ -6,6 +6,12 @@ interface UseLeaveBlockerProps {
 }
 
 export const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
+  const onBlockRef = useRef(onBlock);
+
+  useEffect(() => {
+    onBlockRef.current = onBlock;
+  }, [onBlock]);
+
   // 브라우저 새로고침 및 창 닫기 방어
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -22,10 +28,14 @@ export const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
   useEffect(() => {
     if (!isDirty) return;
 
+    window.history.pushState({ blocked: true }, "");
+
     // 뒤로 가기 방어
-    const handlePopState = () => {
-      window.history.pushState(null, "", window.location.href);
-      onBlock("back");
+    const handlePopState = (e: PopStateEvent) => {
+      if (!e.state?.blocked) {
+        window.history.pushState({ blocked: true }, "");
+        onBlockRef.current("back");
+      }
     };
 
     // 내부 네비게이션 링크 클릭 방어
@@ -39,23 +49,27 @@ export const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
         // 내부 링크이면서, 현재 페이지와 다른 곳으로 갈 때만 차단
         if (
           href &&
+          !anchor.getAttribute("target") &&
           !href.startsWith("#") &&
           href !== window.location.pathname
         ) {
           e.preventDefault();
-          onBlock(href);
+          onBlockRef.current(href);
         }
       }
     };
 
     // 초기 상태 세팅 및 이벤트 등록
-    window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", handlePopState);
     document.addEventListener("click", handleAnchorClick, true);
 
     return () => {
       window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("click", handleAnchorClick, true);
+
+      if (window.history.state?.blocked) {
+        window.history.back();
+      }
     };
-  }, [isDirty, onBlock]);
+  }, [isDirty]);
 };

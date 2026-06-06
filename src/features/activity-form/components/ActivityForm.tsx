@@ -63,18 +63,17 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
 
   const handleConfirmLeave = () => {
     setIsWarningOpen(false);
-
-    if (pendingUrl === "back") {
-      router.back();
-    } else if (pendingUrl) {
-      router.back();
-
-      setTimeout(() => {
-        router.push(pendingUrl);
-      }, 50);
-    }
-
+    const url = pendingUrl;
     setPendingUrl(null);
+
+    if (url === "back") {
+      window.history.go(-2);
+    } else if (url) {
+      window.history.back();
+      setTimeout(() => {
+        router.push(url);
+      }, 10);
+    }
   };
 
   const handleCancelLeave = () => {
@@ -84,7 +83,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
 
   const handleSuccessConfirm = () => {
     setIsSuccessOpen(false);
-    router.back();
+    router.push("/mypage/activities");
   };
 
   const onSubmit: SubmitHandler<ActivityFormValues> = (data) => {
@@ -104,22 +103,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     });
 
     setIsSuccessOpen(true);
-    router.back();
   };
-
-  // 페이지 이탈 확인 로직
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (!isDirty) return;
-
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [isDirty]);
 
   return (
     <div className="w-full mb-12 lg:px-[150px]">
@@ -209,7 +193,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
       {isWarningOpen && (
         <WarningModal
           isOpen={isWarningOpen}
-          onClose={() => setIsWarningOpen(false)}
+          onClose={handleCancelLeave}
           onConfirm={handleConfirmLeave}
           message={"저장되지 않았습니다.\n정말 뒤로 가시겠습니까?"}
         />
