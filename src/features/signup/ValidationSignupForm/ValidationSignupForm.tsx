@@ -48,7 +48,7 @@ const ValidationSignupForm = () => {
   };
 
   // 이메일 중복확인 핸들러함수
-  const handleEmailRedundancy = () => {
+  const handleEmailDuplicationCheckonClick = () => {
     // Todo: 스웨거 API 분석해서 axios 중복확인 내부 로직 작성하기
     alert("이메일이 중복되었습니다.");
   };
@@ -93,7 +93,7 @@ const ValidationSignupForm = () => {
             type="button"
             variant="onlyGray"
             height="custom"
-            onClick={handleEmailRedundancy}
+            onClick={handleEmailDuplicationCheckonClick}
             className="bg-gray-900 text-white absolute right-5 bottom-3.25 w-20 h-7.5 md:w-25 text-s rounded-lg z-10 whitespace-nowrap"
           >
             중복확인
