@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { ActivityFormValues } from "@/features/activity-form/types";
-import { useLeaveBlocker } from "../hooks/useLeaveBlocker";
+import useLeaveBlocker from "@/features/activity-form/hooks/useLeaveBlocker";
 import { CATEGORY_OPTIONS } from "@/features/activity-form/constants";
 
 import TextArea from "@/components/Input/TextArea";

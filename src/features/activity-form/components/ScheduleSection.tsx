@@ -27,11 +27,11 @@ const ScheduleSection = ({
     name: "schedules",
   });
 
-  const schedulesValue = useWatch({
+  const schedulesValue = (useWatch({
     control,
     name: "schedules",
     defaultValue: [],
-  }) as ScheduleItem[];
+  }) ?? []) as ScheduleItem[];
 
   const hasDuplicate = useMemo(() => {
     for (let i = 0; i < schedulesValue.length; i++) {

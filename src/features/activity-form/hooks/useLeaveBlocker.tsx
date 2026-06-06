@@ -5,7 +5,7 @@ interface UseLeaveBlockerProps {
   onBlock: (targetUrl: string) => void; // 이동이 차단되었을 때 모달을 열어줄 함수
 }
 
-export const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
+const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
   const onBlockRef = useRef(onBlock);
 
   useEffect(() => {
@@ -73,3 +73,5 @@ export const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
     };
   }, [isDirty]);
 };
+
+export default useLeaveBlocker;

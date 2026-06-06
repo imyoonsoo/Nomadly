@@ -1,5 +1,5 @@
 import type { AddressSearchButtonProps } from "@/features/activity-form/types";
-import { useDaumPostcode } from "@/features/activity-form/hooks/useDaumPostcode";
+import useDaumPostcode from "@/features/activity-form/hooks/useDaumPostcode";
 import Button from "@/components/Button/Button";
 
 export default function AddressSearchButton({

@@ -1,4 +1,4 @@
-export const useDaumPostcode = () => {
+const useDaumPostcode = () => {
   const openPostcode = (onComplete: (address: string) => void) => {
     if (!window.daum?.Postcode) {
       console.error("Daum Postcode script not loaded");
@@ -14,3 +14,5 @@ export const useDaumPostcode = () => {
 
   return { openPostcode };
 };
+
+export default useDaumPostcode;
