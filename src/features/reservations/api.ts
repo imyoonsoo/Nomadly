@@ -1,13 +1,16 @@
 import type {
   EditMyReservationsParams,
   GetMyReservationsParams,
+  GetMyReservationsResponse,
   SubmitReviewParams,
 } from "./types";
 import axios from "axios";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/my-reservations`;
 
-export async function getMyReservations(params?: GetMyReservationsParams) {
+export async function getMyReservations(
+  params?: GetMyReservationsParams,
+): Promise<GetMyReservationsResponse> {
   const response = await axios.get(BASE_URL, { params });
   return response.data;
 }

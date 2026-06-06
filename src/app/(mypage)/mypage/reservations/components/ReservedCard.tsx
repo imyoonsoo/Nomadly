@@ -6,34 +6,16 @@ import Image from "next/image";
 import ReviewSubmitModal from "./ReviewSubmitModal";
 import { useState } from "react";
 import WarningModal from "@/components/Modal/WarningModal";
-
-export type ReservationStatus =
-  | "pending"
-  | "confirmed"
-  | "declined"
-  | "canceled"
-  | "completed";
+import type { Reservation } from "@/features/reservations/types";
 
 export interface ReservedCardProps {
-  date: string;
-  title: string;
-  status: ReservationStatus;
-  startTime: string;
-  endTime: string;
-  totalPrice: number;
-  headCount: number;
-  // Todo: bannerImage 추가
+  reservation: Reservation;
 }
 
-const ReservedCard = ({
-  date,
-  title,
-  status,
-  startTime,
-  endTime,
-  totalPrice,
-  headCount,
-}: ReservedCardProps) => {
+const ReservedCard = ({ reservation }: ReservedCardProps) => {
+  const { date, activity, status, startTime, endTime, totalPrice, headCount } =
+    reservation;
+
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const handleReviewModalButtonClick = () => {
@@ -52,7 +34,7 @@ const ReservedCard = ({
             <StateBadge status={status} />
             <div className="flex flex-col">
               <h1 className="text-14-bold text-gray-950 lg:text-18-bold">
-                {title}
+                {activity.title}
               </h1>
               <p className="text-13-medium text-gray-500 lg:text-16-medium">
                 {startTime} - {endTime}
