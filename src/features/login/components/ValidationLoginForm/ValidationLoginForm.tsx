@@ -54,9 +54,10 @@ const ValidationLoginForm = () => {
         onSubmit={handleSubmit(globalnomadLogin)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 유효성검사: 이메일 */}
+        {/* 이메일 */}
         <TextInput
           label="이메일"
+          type="email"
           placeholder="이메일을 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.email?.message}
