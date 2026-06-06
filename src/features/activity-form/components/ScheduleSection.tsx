@@ -73,6 +73,11 @@ const ScheduleSection = ({
       return;
     }
 
+    if (currentStartTime >= currentEndTime) {
+      setScheduleError("종료 시간은 시작 시간보다 이후여야 합니다.");
+      return;
+    }
+
     const isDuplicated = schedulesValue.some((schedule) => {
       if (!schedule.date || !schedule.startTime || !schedule.endTime) {
         return false;
