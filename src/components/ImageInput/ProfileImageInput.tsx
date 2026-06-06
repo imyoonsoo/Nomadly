@@ -13,28 +13,21 @@ const ProfileImageInput = ({
   ...props
 }: ProfileImageInputProps) => {
   const inputId = id ?? useId();
-  const previewRef = useRef<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-
-  previewRef.current = preview;
 
   useEffect(() => {
     return () => {
-      if (previewRef.current) {
-        URL.revokeObjectURL(previewRef.current);
+      if (preview) {
+        URL.revokeObjectURL(preview);
       }
     };
-  }, []);
+  }, [preview]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) {
       return;
-    }
-
-    if (previewRef.current) {
-      URL.revokeObjectURL(previewRef.current);
     }
 
     const objectUrl = URL.createObjectURL(file);
