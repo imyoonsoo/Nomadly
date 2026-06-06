@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useId, useState } from "react";
+import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 import { DefaultProfile } from "@/constants/images";
 import { ProfileImageInputProps } from "./type";
 import { Edit } from "@/constants/icons";
@@ -9,26 +9,37 @@ const ProfileImageInput = ({
   id,
   name,
   label,
+  onFileSelect,
   ...props
 }: ProfileImageInputProps) => {
   const inputId = id ?? useId();
+  const previewRef = useRef<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+
+  previewRef.current = preview;
 
   useEffect(() => {
     return () => {
-      if (preview) {
-        URL.revokeObjectURL(preview);
+      if (previewRef.current) {
+        URL.revokeObjectURL(previewRef.current);
       }
     };
-  }, [preview]);
+  }, []);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (file) {
-      const objectUrl = URL.createObjectURL(file);
-      setPreview(objectUrl);
+    if (!file) {
+      return;
     }
+
+    if (previewRef.current) {
+      URL.revokeObjectURL(previewRef.current);
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
+    onFileSelect?.(file);
   };
 
   return (
@@ -45,21 +56,19 @@ const ProfileImageInput = ({
 
       <label
         htmlFor={inputId}
-        className="relative inline-flex items-center justify-center overflow-hidden cursor-pointer w-32 h-32"
+        className="relative inline-flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden"
       >
         {preview ? (
           <img
             src={preview}
             alt={`${label} 미리보기`}
-            className="object-cover object-center w-30 h-30 rounded-full"
+            className="h-30 w-30 rounded-full object-cover object-center"
           />
         ) : (
-          <div className="w-full h-full">
-            <DefaultProfile className="h-full w-full object-cover" />
-          </div>
+          <DefaultProfile className="h-30 w-30 object-cover" />
         )}
-        <div className="flex items-center justify-center absolute bottom-3 right-2.5 w-7.5 h-7.5 bg-gray-300 rounded-full">
-          <Edit className="w-4 h-4 text-white" />
+        <div className="absolute bottom-3 right-2.5 flex h-7.5 w-7.5 items-center justify-center rounded-full bg-gray-300">
+          <Edit className="h-4 w-4 text-white" />
         </div>
       </label>
     </div>
