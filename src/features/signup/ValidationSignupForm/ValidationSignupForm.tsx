@@ -154,14 +154,12 @@ const ValidationSignupForm = () => {
           GlobalNomad 회원가입하기
         </Button>
       </form>
-
       {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-200" />
         <span className="text-sm text-gray-500">SNS 계정으로 회원가입하기</span>
         <hr className="flex-1 border-gray-200" />
       </div>
-
       {/* 카카오 간편 회원가입하기 */}
       <Button
         type="button"
@@ -176,7 +174,6 @@ const ValidationSignupForm = () => {
       >
         카카오 간편 회원가입
       </Button>
-
       {/* 회원이신가요?로그인하기 바닥글 */}
       <p className="text-sm text-gray-500">
         회원이신가요?{" "}
@@ -184,7 +181,6 @@ const ValidationSignupForm = () => {
           로그인하기
         </Link>
       </p>
-
       {/* 회원가입 완료 이후 가입성공 모달 오픈 */}
       <SuccessModal
         isOpen={isSignupSucceed}
@@ -192,9 +188,8 @@ const ValidationSignupForm = () => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={`🎉GlobalNomad 회원가입이 완료!\n확인 버튼 클릭 시 로그인 화면으로 이동~`}
+        message={"GlobalNomad 회원가입 완료! 🌐🎉"}
       />
-
       {/* alert 모달 */}
       <SuccessModal
         isOpen={!!errorMessage}
