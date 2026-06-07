@@ -76,7 +76,7 @@ const MobileReservationFooter = ({
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex flex-col gap-3 border-t border-gray-300 bg-white px-6 py-4.5 lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex flex-col gap-3 border-t border-gray-300 bg-white px-6 py-4.5 md:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <span className="text-18-bold text-gray-950">

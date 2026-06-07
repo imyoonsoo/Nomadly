@@ -5,6 +5,7 @@ import ReservationSection from "./components/ReservationSection/ReservationSecti
 import DescriptionSection from "./components/DescriptionSection/DescriptionSection";
 import MapSection from "./components/MapSection/MapSection";
 import MobileReservationFooter from "./components/MobileReservationFooter/MobileReservationFooter";
+import TabletReservationFooter from "./components/TabletReservationFooter/TabletReservationFooter";
 import bannerImageData from "./mock/bannerImageData";
 import activitiesData from "./mock/activitiesData";
 
@@ -50,6 +51,7 @@ const ActivitiesPage = ({ params }: { params: Promise<{ id: string }> }) => {
       </div>
 
       <MobileReservationFooter price={data.price} schedules={data.schedules} />
+      <TabletReservationFooter price={data.price} schedules={data.schedules} />
     </div>
   );
 };

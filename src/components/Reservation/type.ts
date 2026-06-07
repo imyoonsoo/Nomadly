@@ -33,6 +33,16 @@ export interface HeadCountSelectorProps {
   className?: string;
 }
 
+export interface TabletReservationPickerProps {
+  schedules: ActivitySchedule[];
+  defaultSelectedSchedule?: SelectedSchedule | null;
+  defaultHeadCount?: number;
+  onConfirm: (payload: {
+    schedule: SelectedSchedule;
+    headCount: number;
+  }) => void;
+}
+
 export interface CalendarProps {
   selectedTimestamp: number;
   selectedYearAndMonth: YearAndMonth;
