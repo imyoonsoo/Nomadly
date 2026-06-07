@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import SearchBox from "./components/SearchBox";
 import MainBanner from "./components/MainBanner";
 import BestList from "./components/BestList";
@@ -129,10 +129,20 @@ const Home = () => {
       </>
       {/* 모든체험 */}
       <div className="px-6 md:px-10 mt-10 max-w-[1200px] mx-auto">
-        {keyword == "" ? (
+        {keyword === "" ? (
           <h2 className="text-18-bold md:text-32-bold mb-3.5 md:mb-5">
             🎠 모든 체험
           </h2>
+        ) : getFiltered.length === 0 ? (
+          <div className="flex flex-col items-center pb-50 pt-20">
+            <Image
+              src="/notFound/404-earth.svg"
+              alt="404 지구 일러스트"
+              width={150}
+              height={150}
+            />
+            <p className="text-center text-gray-400">검색결과가 없습니다</p>
+          </div>
         ) : (
           <div className="mb-9.5">
             <p className="text-18-medium md:text-24-medium">
@@ -143,6 +153,7 @@ const Home = () => {
             </p>
           </div>
         )}
+
         <div className="flex mb-[218px]">
           <ActivitiesList items={getFiltered} keyword={keyword} />
         </div>

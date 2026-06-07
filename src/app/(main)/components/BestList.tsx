@@ -1,7 +1,8 @@
 "use client";
+
 import ActivitiesCard from "./ActivitiesCard";
-import { CardItem, CardListProps } from "./type";
-import { useRef } from "react";
+import { CardListProps } from "./type";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "@/constants/icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,20 +11,38 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
 const BestList = ({ items }: CardListProps) => {
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
   const bestItems = [...items]
     .sort((a, b) => b.reviewCount - a.reviewCount)
     .slice(0, 5);
 
-  const swiperRef = useRef<SwiperType | null>(null);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className="relative w-full pb-2">
       <Swiper
         modules={[Autoplay]}
-        loop={true}
+        loop={bestItems.length > 4}
         slidesPerView={4}
         spaceBetween={24}
+        observer={true}
+        observeParents={true}
+        resizeObserver={true}
+        updateOnWindowResize={true}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
+
+          setTimeout(() => {
+            swiper.update();
+          }, 0);
         }}
         breakpoints={{
           0: {
