@@ -1,5 +1,7 @@
-import HouseIcon from "@/assets/icons/house.svg";
-import CalendarIcon from "@/assets/icons/calendar.svg";
+import {
+  House as HouseIcon,
+  Calendar as CalendarIcon,
+} from "@/constants/icons";
 
 interface ActivityBannerProps {
   count: number;
@@ -10,7 +12,7 @@ const ActivityBanner = ({ count = 0 }: ActivityBannerProps) => {
     <div className="w-full bg-primary-100 px-7.5 py-5 mb-5 rounded-3xl flex items-center justify-between gap-4">
       <div className="flex items-center gap-4 md:gap-5 min-w-0">
         <div className="bg-white w-11 h-11 md:w-14 md:h-14 rounded-full flex justify-center items-center shrink-0">
-          <HouseIcon className="w-6 h-6 text-primary-500 md:w-7.5 md:h-7.5" />
+          <HouseIcon className="w-6 h-8.5 text-primary-500 md:w-7.5 md:h-10" />
         </div>
         <div className="flex flex-col justify-center items-start gap-2 min-w-0">
           <h1 className="text-14-bold md:text-16-bold text-gray-950 whitespace-nowrap">

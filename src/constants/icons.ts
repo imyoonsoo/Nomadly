@@ -36,6 +36,7 @@ import Warning from "@/assets/icons/warning.svg";
 import Wellbeing from "@/assets/icons/wellbeing.svg";
 import SnsX from "@/assets/icons/sns-x.svg";
 import Youtube from "@/assets/icons/youtube.svg";
+import House from "@/assets/icons/house.svg";
 
 export {
   AltDown,
@@ -76,4 +77,5 @@ export {
   Wellbeing,
   SnsX,
   Youtube,
+  House,
 };

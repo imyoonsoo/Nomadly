@@ -7,7 +7,7 @@ const sortOptions = [
   { value: "price_desc", label: "가격 높은순" },
   { value: "price_asc", label: "가격 낮은순" },
   { value: "review", label: "리뷰많은 순" },
-];
+] as const;
 
 interface SortDropdownProps {
   currentSort: string | number;
