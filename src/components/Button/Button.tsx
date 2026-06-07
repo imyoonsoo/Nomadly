@@ -36,7 +36,7 @@ const VARIANTS: { [key: string]: string } = {
   [&_svg]:text-gray-600
   active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-[#2b8de0]`,
 
-  easykakao: `bg-white 
+  easyKakao: `bg-white 
   border border-[#FCE000] 
     text-[#fae100]
     [&_svg]:text-[#3c1e1e]
@@ -70,7 +70,7 @@ const Button = ({
   ...restProps
 }: ButtonProps) => {
   const { children: text, ...restDefaultButtonAttributes } = restProps;
-  const displayIcon = variant === "easykakao" ? <KakaoIcon /> : icon;
+  const displayIcon = variant === "easyKakao" ? <KakaoIcon /> : icon;
   const isJustifyCustomized = className?.includes("justify-");
 
   return (
