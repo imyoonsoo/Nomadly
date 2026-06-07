@@ -107,7 +107,7 @@ const ValidationLoginForm = () => {
       {/* 카카오 간편로그인 */}
       <Button
         type="button"
-        variant="easykakao"
+        variant="easyKakao"
         height="54lg"
         className="self-stretch"
         onClick={() => {
