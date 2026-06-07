@@ -163,7 +163,7 @@ const ValidationSignupForm = () => {
       {/* 카카오 간편 회원가입하기 */}
       <Button
         type="button"
-        variant="kakao"
+        variant="easykakao"
         height="54lg"
         className="self-stretch"
         onClick={() => {
