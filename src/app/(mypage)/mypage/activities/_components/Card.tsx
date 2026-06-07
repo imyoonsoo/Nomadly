@@ -27,7 +27,7 @@ const Card = ({
   };
 
   return (
-    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.2)] flex justify-between items-center">
+    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.2)] flex justify-between items-center gap-4">
       <div className="w-full flex flex-col justify-center items-start gap-3">
         <h2 className="text-16-bold lg:text-18-bold text-gray-950">{title}</h2>
         <div className="flex items-center gap-0.5 text-13-medium lg:text-16-medium text-gray-500">
