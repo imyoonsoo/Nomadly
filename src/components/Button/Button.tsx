@@ -71,7 +71,11 @@ const Button = ({
 }: ButtonProps) => {
   const { children: text, ...restDefaultButtonAttributes } = restProps;
   const displayIcon = variant === "easyKakao" ? <KakaoIcon /> : icon;
-  const isJustifyCustomized = className?.includes("justify-");
+  const isJustifyCustomized = className
+    ? /\bjustify-(start|end|center|between|around|evenly|normal|stretch)\b/.test(
+        className,
+      )
+    : false;
 
   return (
     <button
