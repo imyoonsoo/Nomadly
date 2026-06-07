@@ -35,7 +35,7 @@ const CalendarCell = ({
         </span>
 
         {hasReservation && (
-          <span className="absolute ml-5 mt-0.5 h-1 w-1 md:h-[6px] md:w-[6px] rounded-full bg-red-500" />
+          <span className="absolute ml-5 mt-0.5 h-1 w-1 md:h-1.5 md:w-1.5 rounded-full bg-red-500" />
         )}
       </div>
 

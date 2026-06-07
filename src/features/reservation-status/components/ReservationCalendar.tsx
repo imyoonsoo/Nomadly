@@ -44,7 +44,7 @@ const ReservationCalendar = ({
   };
 
   return (
-    <div className="w-full max-w-[640px] overflow-hidden rounded-[24px] bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+    <div className="w-full max-w-[640px] overflow-hidden rounded-3xl bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
       <div className="flex items-center justify-center h-11 gap-8 px-7 mb-2 md:mt-5 md:mb-[30px]">
         <button
           type="button"

@@ -20,9 +20,11 @@ import Instagram from "@/assets/icons/instagram.svg";
 import Kakao from "@/assets/icons/kakao.svg";
 import List from "@/assets/icons/list.svg";
 import Map from "@/assets/icons/map.svg";
+import MapBlue from "@/assets/icons/map-blue.svg";
 import Minus from "@/assets/icons/minus.svg";
 import More from "@/assets/icons/more.svg";
 import Plus from "@/assets/icons/plus.svg";
+import ReviewBlue from "@/assets/icons/review-blue.svg";
 import Search from "@/assets/icons/search.svg";
 import Setting from "@/assets/icons/setting.svg";
 import Sport from "@/assets/icons/sport.svg";
@@ -58,9 +60,11 @@ export {
   Kakao,
   List,
   Map,
+  MapBlue,
   Minus,
   More,
   Plus,
+  ReviewBlue,
   Search,
   Setting,
   Sport,

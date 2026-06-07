@@ -51,7 +51,7 @@ const PcReservationStatusModal = ({
   return (
     <div className="pointer-events-none fixed inset-0 z-50 hidden xl:block">
       <div
-        className="pointer-events-auto fixed w-[340px] rounded-[24px] bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
+        className="pointer-events-auto fixed w-[340px] rounded-3xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
         style={{
           left: "50%",
           top: "50%",
