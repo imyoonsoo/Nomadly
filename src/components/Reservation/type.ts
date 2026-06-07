@@ -5,10 +5,32 @@ export interface YearAndMonth {
   month: number;
 }
 
+export interface SelectedSchedule {
+  scheduleId: number;
+  date: string;
+  startTime: string;
+  endTime: string;
+}
+
 export interface ReservationProps {
   price: number;
   schedules: ActivitySchedule[];
+  className?: string;
+  showPrice?: boolean;
+  showHeadCount?: boolean;
+  showTotalPrice?: boolean;
+  submitLabel?: string;
+  defaultSelectedSchedule?: SelectedSchedule | null;
   onReserve?: (payload: { scheduleId: number; headCount: number }) => void;
+  onScheduleSelect?: (schedule: SelectedSchedule) => void;
+}
+
+export interface HeadCountSelectorProps {
+  headCount: number;
+  onHeadCountChange: (headCount: number) => void;
+  onConfirm?: (headCount: number) => void;
+  onBackButtonClick: () => void;
+  className?: string;
 }
 
 export interface CalendarProps {

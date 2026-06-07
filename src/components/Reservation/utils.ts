@@ -103,3 +103,9 @@ export const getSelectableDateKeys = (schedules: ActivitySchedule[]) => {
 export const formatPrice = (price: number) => {
   return new Intl.NumberFormat("ko-KR").format(price);
 };
+
+export const formatDisplayDate = (dateKey: string) => {
+  const [year, month, day] = dateKey.split("-");
+
+  return `${year}/${month}/${day}`;
+};

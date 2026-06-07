@@ -17,7 +17,18 @@ import {
 const MIN_HEAD_COUNT = 1;
 const MAX_HEAD_COUNT = 10;
 
-const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
+const Reservation = ({
+  price,
+  schedules,
+  className,
+  showPrice = true,
+  showHeadCount = true,
+  showTotalPrice = true,
+  submitLabel = "예약하기",
+  defaultSelectedSchedule = null,
+  onReserve,
+  onScheduleSelect,
+}: ReservationProps) => {
   const todayTimestamp = getTodayTimestamp();
   const selectableDateKeys = useMemo(
     () => getSelectableDateKeys(schedules),
@@ -25,6 +36,10 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
   );
 
   const initialTimestamp = useMemo(() => {
+    if (defaultSelectedSchedule) {
+      return parseDateKey(defaultSelectedSchedule.date);
+    }
+
     const firstAvailableDateKey = Array.from(selectableDateKeys).sort()[0];
 
     if (!firstAvailableDateKey) {
@@ -32,14 +47,14 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
     }
 
     return parseDateKey(firstAvailableDateKey);
-  }, [selectableDateKeys, todayTimestamp]);
+  }, [defaultSelectedSchedule, selectableDateKeys, todayTimestamp]);
 
   const [selectedTimestamp, setSelectedTimestamp] = useState(initialTimestamp);
   const [selectedYearAndMonth, setSelectedYearAndMonth] = useState(() =>
     getYearAndMonthFromTimestamp(initialTimestamp),
   );
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(
-    null,
+    defaultSelectedSchedule?.scheduleId ?? null,
   );
   const [headCount, setHeadCount] = useState(MIN_HEAD_COUNT);
 
@@ -69,7 +84,7 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
   }, [availableSchedules, selectedScheduleId]);
 
   const totalPrice = price * headCount;
-  const isReservable = selectedScheduleId !== null;
+  const isSubmittable = selectedScheduleId !== null;
 
   const handleSelectTimestamp = (timestamp: number) => {
     setSelectedTimestamp(timestamp);
@@ -84,8 +99,26 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
     setHeadCount((prev) => Math.min(MAX_HEAD_COUNT, prev + 1));
   };
 
-  const handleReserveClick = () => {
+  const handleSubmitClick = () => {
     if (!selectedScheduleId) {
+      return;
+    }
+
+    const selectedSchedule = availableSchedules.find(
+      (schedule) => schedule.id === selectedScheduleId,
+    );
+
+    if (!selectedSchedule) {
+      return;
+    }
+
+    if (onScheduleSelect) {
+      onScheduleSelect({
+        scheduleId: selectedSchedule.id,
+        date: selectedSchedule.date,
+        startTime: selectedSchedule.startTime,
+        endTime: selectedSchedule.endTime,
+      });
       return;
     }
 
@@ -93,11 +126,15 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-6 rounded-3xl border border-gray-200 bg-white p-7.5">
-      <p className="flex gap-1.25 items-center text-24-bold text-gray-950">
-        ₩ {formatPrice(price)}
-        <span className="text-20-medium text-gray-600">/ 인</span>
-      </p>
+    <div
+      className={`flex w-full flex-col gap-6 rounded-3xl border border-gray-200 bg-white p-7.5 ${className ?? ""}`}
+    >
+      {showPrice && (
+        <p className="flex items-center gap-1.25 text-24-bold text-gray-950">
+          ₩ {formatPrice(price)}
+          <span className="text-20-medium text-gray-600">/ 인</span>
+        </p>
+      )}
 
       <div className="flex flex-col gap-2">
         <h3 className="text-16-bold text-gray-950">날짜</h3>
@@ -110,32 +147,34 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
         />
       </div>
 
-      <div className="flex justify-between items-center">
-        <h3 className="text-16-bold text-gray-950">참여 인원 수</h3>
-        <div className="flex items-center justify-between rounded-3xl border border-gray-100 px-2.25">
-          <button
-            type="button"
-            aria-label="인원 감소"
-            disabled={headCount <= MIN_HEAD_COUNT}
-            onClick={handleDecreaseHeadCount}
-            className="flex h-10 w-10 items-center justify-center disabled:opacity-40"
-          >
-            <Minus className="h-5 w-5" />
-          </button>
-          <span className="flex h-10 w-10 items-center justify-center text-center text-16-bold text-gray-800">
-            {headCount}
-          </span>
-          <button
-            type="button"
-            aria-label="인원 증가"
-            disabled={headCount >= MAX_HEAD_COUNT}
-            onClick={handleIncreaseHeadCount}
-            className="flex h-10 w-10 items-center justify-center disabled:opacity-40"
-          >
-            <Plus className="h-5 w-5" />
-          </button>
+      {showHeadCount && (
+        <div className="flex items-center justify-between">
+          <h3 className="text-16-bold text-gray-950">참여 인원 수</h3>
+          <div className="flex items-center justify-between rounded-3xl border border-gray-100 px-2.25">
+            <button
+              type="button"
+              aria-label="인원 감소"
+              disabled={headCount <= MIN_HEAD_COUNT}
+              onClick={handleDecreaseHeadCount}
+              className="flex h-10 w-10 items-center justify-center disabled:opacity-40"
+            >
+              <Minus className="h-5 w-5" />
+            </button>
+            <span className="flex h-10 w-10 items-center justify-center text-center text-16-bold text-gray-800">
+              {headCount}
+            </span>
+            <button
+              type="button"
+              aria-label="인원 증가"
+              disabled={headCount >= MAX_HEAD_COUNT}
+              onClick={handleIncreaseHeadCount}
+              className="flex h-10 w-10 items-center justify-center disabled:opacity-40"
+            >
+              <Plus className="h-5 w-5" />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex flex-col gap-3.5 pb-2.25">
         <h3 className="text-16-bold text-gray-950">예약 가능한 시간</h3>
@@ -157,23 +196,35 @@ const Reservation = ({ price, schedules, onReserve }: ReservationProps) => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center border-t border-gray-200 pt-5 pb-2.5">
-        <div className="flex items-center justify-between gap-1.5">
-          <span className="text-20-medium text-gray-600">총 합계</span>
-          <span className="text-20-bold text-gray-950">
-            ₩ {formatPrice(totalPrice)}
-          </span>
+      {showTotalPrice ? (
+        <div className="flex items-center justify-between border-t border-gray-200 pt-5 pb-2.5">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-20-medium text-gray-600">총 합계</span>
+            <span className="text-20-bold text-gray-950">
+              ₩ {formatPrice(totalPrice)}
+            </span>
+          </div>
+          <Button
+            type="button"
+            variant="mainBlue"
+            height="h50"
+            disabled={!isSubmittable}
+            onClick={handleSubmitClick}
+          >
+            {submitLabel}
+          </Button>
         </div>
+      ) : (
         <Button
           type="button"
           variant="mainBlue"
           height="h50"
-          disabled={!isReservable}
-          onClick={handleReserveClick}
+          disabled={!isSubmittable}
+          onClick={handleSubmitClick}
         >
-          예약하기
+          {submitLabel}
         </Button>
-      </div>
+      )}
     </div>
   );
 };
