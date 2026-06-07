@@ -36,8 +36,8 @@ const VARIANTS: { [key: string]: string } = {
   [&_svg]:text-gray-600
   active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-[#2b8de0]`,
 
-  kakao: `bg-white 
-  border border-[#FCE000]
+  easykakao: `bg-white 
+  border border-[#FCE000] 
     text-[#fae100]
     [&_svg]:text-[#3c1e1e]
     active:bg-white active:border active:border-[#FAF285]
@@ -62,21 +62,16 @@ const SIZES: { [key: string]: string } = {
   custom: ``,
 };
 
-const ICON_JUSTIFY = {
-  left: "justify-start",
-  center: "justify-center",
-};
-
 const Button = ({
   variant,
   height,
   icon,
-  iconJustify,
   className,
   ...restProps
 }: ButtonProps) => {
-  const { children, ...restDefaultButtonAttributes } = restProps;
-  const Icon = variant === "kakao" ? <KakaoIcon /> : icon;
+  const { children: text, ...restDefaultButtonAttributes } = restProps;
+  const displayIcon = variant === "easykakao" ? <KakaoIcon /> : icon;
+  const isJustifyCustomized = className?.includes("justify-");
 
   return (
     <button
@@ -84,15 +79,15 @@ const Button = ({
         DEFAULT_SETTING,
         variant ? VARIANTS[variant] : null,
         height ? SIZES[height] : null,
-        iconJustify ? ICON_JUSTIFY[iconJustify] : "justify-center",
+        isJustifyCustomized ? null : "justify-center",
         className,
       ]
         .filter(Boolean)
         .join(" ")}
       {...restDefaultButtonAttributes}
     >
-      {Icon}
-      {children}
+      {displayIcon}
+      {text}
     </button>
   );
 };
