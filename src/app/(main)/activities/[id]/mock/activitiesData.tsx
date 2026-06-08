@@ -21,15 +21,39 @@ const activitiesData: ActivityDetailResponse = {
   schedules: [
     {
       id: 1,
-      date: "2023-12-01",
+      date: "2026-06-08",
+      startTime: "10:00",
+      endTime: "11:00",
+    },
+    {
+      id: 2,
+      date: "2026-06-09",
+      startTime: "11:00",
+      endTime: "12:00",
+    },
+    {
+      id: 3,
+      date: "2026-06-09",
       startTime: "12:00",
       endTime: "13:00",
     },
     {
-      id: 2,
-      date: "2023-12-05",
+      id: 4,
+      date: "2026-06-09",
+      startTime: "14:00",
+      endTime: "15:00",
+    },
+    {
+      id: 5,
+      date: "2026-06-10",
       startTime: "12:00",
       endTime: "13:00",
+    },
+    {
+      id: 6,
+      date: "2026-06-15",
+      startTime: "16:00",
+      endTime: "17:00",
     },
   ],
   reviewCount: 5,

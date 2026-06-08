@@ -1,5 +1,5 @@
 import Title from "../../_components/Title";
-import ReservedCardList from "./components/ReservedCardList";
+import ReservedCardList from "../../../../features/reservations/components/ReservedCardList";
 
 const ReservationsPage = () => {
   return (
