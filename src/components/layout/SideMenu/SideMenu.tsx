@@ -115,7 +115,7 @@ const SideMenu = () => {
           onClick={handleToggleButtonClick}
           aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
           aria-expanded={isOpen}
-          className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-full z-[115] w-8.75 h-40 rounded-r-xl flex items-center justify-center bg-white border border-gray-50 shadow-[0_4px_24px_rgba(156,180,202,0.2)] md:hidden"
+          className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-full z-[115] w-6 h-40 rounded-r-xl flex items-center justify-center bg-white border border-gray-50 shadow-[0_4px_24px_rgba(156,180,202,0.2)] md:hidden"
         >
           {isOpen ? (
             <ArrowLeft width={24} height={24} />
