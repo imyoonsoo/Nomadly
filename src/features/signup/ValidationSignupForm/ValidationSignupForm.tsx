@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -7,7 +8,6 @@ import Link from "next/link";
 import { ValidationSignupFormInputfields } from "./type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
-import { LogoPcTablet, LogoMobile } from "@/constants/images";
 import SuccessModal from "@/components/Modal/SuccessModal";
 
 const ValidationSignupForm = () => {
@@ -30,19 +30,30 @@ const ValidationSignupForm = () => {
     },
   });
 
-  // react-hook-form의 watch로 비밀번호 실시간값 알아냄
+  // react-hook-form의 watch로 회원가입폼에서 password, email 겟함
   const password = watch("password");
+  // [추가] 중복확인 버튼 조건부 렌더링용
+  const email = watch("email");
+  const isEmailValid = email && !errors.email;
+
   const signUpGlobalNomad = async (data: ValidationSignupFormInputfields) => {
     try {
       const { passwordValidation, ...signupData } = data;
       console.log(signupData);
       setIsSignupSucceed(true);
     } catch (error) {
-      if (error instanceof Error) {
-        // Todo: 에러코드 400(올바른 이메일 형식), 409(중복된 이메일) 로직 axios로 작성하기
-        setErrorMessage(error.message);
+      // InProcess: ai코드리뷰 반영하여 axios로 400(올바른 이메일 형식), 409(중복된 이메일) 분기시킴
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 409) {
+          setErrorMessage("이미 사용 중인 이메일입니다.");
+        } else if (status === 400) {
+          setErrorMessage("올바른 이메일 형식이 아닙니다.");
+        } else {
+          setErrorMessage("회원가입에 실패했습니다.");
+        }
       } else {
-        setErrorMessage("에러 발생");
+        setErrorMessage("알 수 없는 에러가 발생했습니다.");
       }
     }
   };
@@ -50,25 +61,11 @@ const ValidationSignupForm = () => {
   // 이메일 중복확인 핸들러함수
   const handleEmailDuplicationCheckonClick = () => {
     // Todo: 스웨거 API 분석해서 axios 중복확인 내부 로직 작성하기
-    alert("이메일이 중복되었습니다.");
+    console.log("이메일이 중복되었습니다.");
   };
 
   return (
-    <div className="w-full md:w-160 lg:w-160 mx-auto flex flex-col items-center gap-6 md:gap-7.5 px-6 md:px-0">
-      {/* 로고 클릭: / 이동 */}
-      <Link
-        href="/"
-        aria-label="GlobalNoamd 메인"
-        className="flex flex-col items-center gap-6"
-      >
-        {/* 데스크탑/태블릿: 텍스트+이미지 */}
-        <LogoPcTablet
-          className="hidden md:block w-63.75 h-50"
-          aria-hidden="true"
-        />
-        {/* 모바일 메인로고: 이미지만 */}
-        <LogoMobile className="block md:hidden w-36 h-36" aria-hidden="true" />
-      </Link>
+    <>
       <form
         onSubmit={handleSubmit(signUpGlobalNomad)}
         className="flex flex-col items-center gap-6 self-stretch"
@@ -89,15 +86,18 @@ const ValidationSignupForm = () => {
               },
             })}
           />
-          <Button
-            type="button"
-            variant="onlyGray"
-            height="custom"
-            onClick={handleEmailDuplicationCheckonClick}
-            className="bg-gray-900 text-white absolute right-5 bottom-3.25 w-20 h-7.5 md:w-25 text-s rounded-lg z-10 whitespace-nowrap"
-          >
-            중복확인
-          </Button>
+          {isEmailValid && (
+            <Button
+              type="button"
+              height="custom"
+              onClick={handleEmailDuplicationCheckonClick}
+              className="bg-[#4dabf7] text-white absolute right-5 top-11.5 w-19 h-7.5 md:w-21.25 text-s rounded-lg z-10 whitespace-nowrap
+  active:bg-[#1c9af0]
+  disabled:bg-[#bce0fb] disabled:text-white/70 disabled:cursor-not-allowed"
+            >
+              중복확인
+            </Button>
+          )}
         </div>
 
         <TextInput
@@ -108,8 +108,8 @@ const ValidationSignupForm = () => {
           {...register("nickname", {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
-              value: 12,
-              message: "닉네임을 입력해 주세요.",
+              value: 10,
+              message: "열 자 이하로 작성해 주세요.",
             },
           })}
         />
@@ -154,12 +154,14 @@ const ValidationSignupForm = () => {
           GlobalNomad 회원가입하기
         </Button>
       </form>
+
       {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-200" />
         <span className="text-sm text-gray-500">SNS 계정으로 회원가입하기</span>
         <hr className="flex-1 border-gray-200" />
       </div>
+
       {/* 카카오 간편 회원가입하기 */}
       <Button
         type="button"
@@ -174,6 +176,7 @@ const ValidationSignupForm = () => {
       >
         카카오 간편 회원가입
       </Button>
+
       {/* 회원이신가요?로그인하기 바닥글 */}
       <p className="text-sm text-gray-500">
         회원이신가요?{" "}
@@ -181,6 +184,7 @@ const ValidationSignupForm = () => {
           로그인하기
         </Link>
       </p>
+
       {/* 회원가입 완료 이후 가입성공 모달 오픈 */}
       <SuccessModal
         isOpen={isSignupSucceed}
@@ -196,7 +200,7 @@ const ValidationSignupForm = () => {
         onClose={() => setErrorMessage("")}
         message={errorMessage}
       />
-    </div>
+    </>
   );
 };
 
