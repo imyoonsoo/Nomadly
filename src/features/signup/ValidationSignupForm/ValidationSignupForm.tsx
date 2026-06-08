@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -37,15 +38,18 @@ const ValidationSignupForm = () => {
       console.log(signupData);
       setIsSignupSucceed(true);
     } catch (error) {
-      if (error instanceof Error) {
-        // Todo: 에러코드 400(올바른 이메일 형식), 409(중복된 이메일) 로직 axios로 작성하기
-        setErrorMessage(
-          error.message ||
-            "올바른 이메일 형식이 아닙니다" ||
-            "이메일이 중복되었습니다.",
-        );
+      // InProcess: ai코드리뷰 반영하여 axios로 400(올바른 이메일 형식), 409(중복된 이메일) 분기시킴
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 409) {
+          setErrorMessage("이미 사용 중인 이메일입니다.");
+        } else if (status === 400) {
+          setErrorMessage("올바른 이메일 형식이 아닙니다.");
+        } else {
+          setErrorMessage("회원가입에 실패했습니다.");
+        }
       } else {
-        setErrorMessage("알 수 없는 에러 발생");
+        setErrorMessage("알 수 없는 에러가 발생했습니다.");
       }
     }
   };
@@ -53,7 +57,7 @@ const ValidationSignupForm = () => {
   // 이메일 중복확인 핸들러함수
   const handleEmailDuplicationCheckonClick = () => {
     // Todo: 스웨거 API 분석해서 axios 중복확인 내부 로직 작성하기
-    alert("이메일이 중복되었습니다.");
+    console.log("이메일이 중복되었습니다.");
   };
 
   return (
@@ -80,10 +84,9 @@ const ValidationSignupForm = () => {
           />
           <Button
             type="button"
-            variant="onlyGray"
             height="custom"
             onClick={handleEmailDuplicationCheckonClick}
-            className="bg-gray-900 text-white absolute right-5 bottom-3.25 w-20 h-7.5 md:w-25 text-s rounded-lg z-10 whitespace-nowrap"
+            className="bg-[#0055DA] text-white absolute font-medium right-5 top-11.5 w-20 h-7.5 md:w-23 text-s rounded-lg z-10 whitespace-nowrap active:bg-[#0044B0]"
           >
             중복확인
           </Button>
@@ -95,10 +98,10 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "열 자 이하로 작성해주세요.",
+            required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "열 자 이하로 작성해주세요.",
+              message: "열 자 이하로 작성해 주세요.",
             },
           })}
         />
@@ -126,7 +129,7 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.passwordValidation?.message}
           {...register("passwordValidation", {
-            required: "비밀번호가 일치하지 않습니다.",
+            required: "비밀번호를 한 번 더 입력해 주세요.",
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
           })}
