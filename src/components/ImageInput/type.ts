@@ -1,5 +1,5 @@
 import React from "react";
-import type { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes, ChangeEvent } from "react";
 
 export interface PreviewImage {
   id: string;
@@ -15,13 +15,15 @@ export interface MultiImageInputProps extends Omit<
   name: string;
   label: string;
   maxCount?: number;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface ProfileImageInputProps extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "name" | "type"
+  InputHTMLAttributes<HTMLInputElement>,
+  "name" | "type" | "onChange"
 > {
   id?: string;
   name: string;
   label: string;
+  onFileSelect?: (file: File) => void;
 }
