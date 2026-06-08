@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CardProps } from "../page";
+import { ActivitiesProps } from "@/features/myActivities/type";
 
 import SortDropdown from "./SortDropdown";
 import ActivityBanner from "./ActivityBanner";
@@ -9,7 +9,7 @@ import EmptyCardList from "./EmptyCardList";
 import CardList from "./CardList";
 
 interface ActivitiesListProps {
-  initialCards: CardProps[];
+  initialCards?: ActivitiesProps[];
 }
 
 const ActivitiesList = ({ initialCards }: ActivitiesListProps) => {
