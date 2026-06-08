@@ -7,7 +7,6 @@ import Link from "next/link";
 import { ValidationLoginFormFields } from "./type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
-import { LogoPcTablet, LogoMobile } from "@/constants/images";
 import SuccessModal from "@/components/Modal/SuccessModal";
 
 const ValidationLoginForm = () => {
@@ -29,32 +28,22 @@ const ValidationLoginForm = () => {
     try {
       router.push("/");
     } catch (error) {
-      setModalMessage("비밀번호가 일치하지 않습니다.");
+      if (error instanceof Error) {
+        // Todo: 에러코드 400(올바른 이메일 형식), 409(중복된 이메일) 로직 axios로 작성하기
+        setModalMessage(error.message || "비밀번호가 일치하지 않습니다.");
+      } else {
+        setModalMessage("알 수 없는 에러 발생");
+      }
     }
   };
 
   return (
-    <div className="w-full md:w-160 lg:w-160 mx-auto flex flex-col items-center gap-6 md:gap-7.5 px-6 md:px-0">
-      {/* 로고 클릭: 메인(/) 이동 */}
-      <Link
-        href="/"
-        aria-label="GlobalNoamd 메인으로 이동"
-        className="flex flex-col items-center gap-6"
-      >
-        {/* 데스크탑/태블릿 */}
-        <LogoPcTablet
-          className="hidden md:block w-63.75 h-50"
-          aria-hidden="true"
-        />
-        {/* 모바일 */}
-        <LogoMobile className="block md:hidden w-36 h-36" aria-hidden="true" />
-      </Link>
-
+    <>
       <form
         onSubmit={handleSubmit(globalnomadLogin)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일 */}
+        {/* 유효성검사: 이메일 */}
         <TextInput
           label="이메일"
           type="email"
@@ -62,7 +51,7 @@ const ValidationLoginForm = () => {
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
-            required: "이메일을 입력해 주세요",
+            required: "올바른 이메일 형식으로 작성해 주세요.",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "올바른 이메일 형식으로 작성해 주세요.",
@@ -78,7 +67,7 @@ const ValidationLoginForm = () => {
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "비밀번호를 입력해 주세요.",
+            required: "8자 이상 입력해 주세요.",
             minLength: {
               value: 8,
               message: "8자 이상 입력해 주세요.",
@@ -132,7 +121,7 @@ const ValidationLoginForm = () => {
         onClose={() => setModalMessage("")}
         message={modalMessage}
       />
-    </div>
+    </>
   );
 };
 
