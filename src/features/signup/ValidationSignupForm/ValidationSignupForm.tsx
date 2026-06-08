@@ -82,7 +82,7 @@ const ValidationSignupForm = () => {
             className="self-stretch"
             errorMessage={errors.email?.message}
             {...register("email", {
-              required: "이메일을 입력해 주세요.",
+              required: "올바른 이메일 형식으로 입력해 주세요.",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: "올바른 이메일 형식으로 입력해 주세요.",
@@ -109,7 +109,7 @@ const ValidationSignupForm = () => {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 12,
-              message: "12글자 아래로 입력해 주세요.",
+              message: "닉네임을 입력해 주세요.",
             },
           })}
         />
@@ -121,7 +121,7 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "비밀번호를 입력해 주세요.",
+            required: "8자 이상 입력해 주세요.",
             minLength: {
               value: 8,
               message: "8자 이상 입력해 주세요.",
@@ -188,7 +188,7 @@ const ValidationSignupForm = () => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={"GlobalNomad 회원가입 완료! 🌐🎉"}
+        message={"GlobalNomad 회원가입 완료되었습니다!"}
       />
       {/* alert 모달 */}
       <SuccessModal
