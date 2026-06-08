@@ -30,8 +30,12 @@ const ValidationSignupForm = () => {
     },
   });
 
-  // react-hook-form의 watch로 비밀번호 실시간값 알아냄
+  // react-hook-form의 watch로 회원가입폼에서 password, email 겟함
   const password = watch("password");
+  // [추가] 중복확인 버튼 조건부 렌더링용
+  const email = watch("email");
+  const isEmailValid = email && !errors.email;
+
   const signUpGlobalNomad = async (data: ValidationSignupFormInputfields) => {
     try {
       const { passwordValidation, ...signupData } = data;
@@ -82,14 +86,18 @@ const ValidationSignupForm = () => {
               },
             })}
           />
-          <Button
-            type="button"
-            height="custom"
-            onClick={handleEmailDuplicationCheckonClick}
-            className="bg-[#0055DA] text-white absolute font-medium right-5 top-11.5 w-20 h-7.5 md:w-23 text-s rounded-lg z-10 whitespace-nowrap active:bg-[#0044B0]"
-          >
-            중복확인
-          </Button>
+          {isEmailValid && (
+            <Button
+              type="button"
+              height="custom"
+              onClick={handleEmailDuplicationCheckonClick}
+              className="bg-[#4dabf7] text-white absolute right-5 top-11.5 w-19 h-7.5 md:w-21.25 text-s rounded-lg z-10 whitespace-nowrap
+  active:bg-[#1c9af0]
+  disabled:bg-[#bce0fb] disabled:text-white/70 disabled:cursor-not-allowed"
+            >
+              중복확인
+            </Button>
+          )}
         </div>
 
         <TextInput
