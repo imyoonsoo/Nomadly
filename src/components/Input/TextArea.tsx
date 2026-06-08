@@ -37,7 +37,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-16-bold mb-2.5 block md:text-18-bold"
+            className="text-16-bold mb-[10px] block md:text-18-bold"
           >
             {label}
           </label>

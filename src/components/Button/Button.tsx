@@ -1,115 +1,98 @@
 "use client";
 
-import { Google, Kakao } from "@/constants/icons";
+import { Kakao as KakaoIcon } from "@/constants/icons";
 import { ButtonProps } from "./type";
 
-const basic =
-  "flex items-center [&_svg]:shrink-0 [&_svg]:aspect-square disabled:cursor-not-allowed disabled:opacity-70";
+const DEFAULT_SETTING = `flex items-center 
+  disabled:cursor-not-allowed disabled:opacity-70 
+  [&_svg]:shrink-0 [&_svg]:aspect-square`;
 
-const sizes = {
-  lg: "h-13.5 rounded-2xl text-base [&_svg]:size-6",
-  md: "h-12 rounded-[14px] text-base [&_svg]:size-5",
-  sm: "h-10.3 rounded-xl text-sm [&_svg]:size-4",
-} as const;
-
-const iconPositionStyle = {
-  start: {
-    layout:
-      "justify-start w-fit min-w-28.75 gap-2 tracking-[-0.35px] font-medium",
-    size: {
-      lg: "py-3 pr-10 pl-5",
-      md: "py-3.5 pr-10 pl-5",
-      sm: "py-3 pr-10 pl-5",
-    },
-    state: `bg-transparent text-[#1f1f22] border-none [&_svg]:text-gray-500
-      active:bg-primary-100 active:text-[#1f1f22] active:[&_svg]:text-primary-500
-      disabled:bg-gray-50 disabled:text-[#1f1f22] disabled:[&_svg]:text-primary-500`,
-  },
-  center: {
-    layout:
-      "justify-center w-85.5 min-w-auto gap-1 tracking-[-0.4px] font-medium",
-    size: {
-      lg: "py-3 px-10",
-      md: "py-3.5 px-10",
-      sm: "py-1 px-5 h-8.5",
-    },
-    state: `bg-white text-[#3c1e1e] border border-gray-200
-      [&_svg]:text-[#3c1e1e]
-      active:bg-white active:border-1.7 active:border-[#e6cf00]
-      disabled:bg-white disabled:text-gray-200 disabled:border-gray-200
-      disabled:[&_svg]:text-gray-500`,
-  },
-} as const;
-
-const basicStyle = {
-  layout: "justify-center w-85.5 min-w-auto gap-1 tracking-[-0.4px] font-bold",
-  size: {
-    lg: "py-3.5 px-10",
-    md: "py-3.5 px-10",
-    sm: "py-3 px-10",
-  },
-  state: `bg-primary-500 text-white border-none
+const VARIANTS: { [key: string]: string } = {
+  mainBlue: `bg-primary-500
+    text-white
     active:bg-[#2b8de0]
+    disabled:bg-gray-200 disabled:text-gray-50 disabled:[&_svg]:text-gray-400`,
+
+  whitenBlue: `bg-white
+    border border-gray-200
+    text-gray-600
+    active:bg-primary-500 active:border-none active:text-white
+    disabled:bg-gray-25 disabled:text-gray-200`,
+
+  whitenGray: `bg-white
+    border border-gray-200
+    text-gray-600
+    active:bg-[#FCFCFC] active:border-[#B2B1B9] active:text-gray-600
     disabled:bg-gray-200 disabled:text-gray-50`,
+
+  onlyGray: `bg-gray-50
+    text-gray-600
+    active:bg-[#d8d9e0] active:border active:border active:border-[#B2B1B9]
+    disabled:bg-[#f3f3f5] disabled:text-[#c0c0c5]`,
+
+  clear: `bg-transparent
+  border border-primary-100
+  text-gray-600
+  [&_svg]:text-gray-600
+  active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-[#2b8de0]`,
+
+  kakao: `bg-white 
+  border border-[#FFF9A3]
+    text-[#E8D800]
+    [&_svg]:text-[#3c1e1e]
+    active:bg-white active:border active:border-[#E8D800]
+    disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
+
+  reviewMore: `bg-white
+  border border-[#79747E]
+  text-[#808080]
+  active:bg-[#FCFCFC] active:border-[#4A4550] active:text-[#4A4550]
+  disabled:border disabled:border-[#C4C4C4] disabled:text-[#C4C4C4]
+  `,
 };
 
-const socialStyle = {
-  kakao: {
-    icon: <Kakao />,
-    state: `bg-white text-[#e6cf00] border border-gray-200
-      [&_svg]:text-[#3c1e1e]
-      active:bg-white active:border-1.7 active:border-[#e6cf00]
-      disabled:bg-white disabled:text-gray-200 disabled:border-gray-200
-      disabled:[&_svg]:text-gray-500`,
-  },
-  google: {
-    icon: <Google />,
-    state: `bg-white text-[#1f1f22] border border-gray-200
-      active:bg-gray-25
-      disabled:bg-gray-200 disabled:text-gray-50`,
-  },
-} as const;
+const SIZES: { [key: string]: string } = {
+  "54lg": `h-[54px] rounded-2xl text-base font-bold py-[14px] px-[40px] [&_svg]:size-6 gap-1`,
+  "47md": `h-[47px] rounded-[14px] text-base font-bold py-[14px] px-[40px] [&_svg]:size-5 gap-1`,
+  "41sm": `h-[41px] rounded-xl text-sm font-normal py-[12px] px-[40px] [&_svg]:size-4 gap-1`,
+  h50: `h-[50px] rounded-[14px] text-base font-bold py-[14px] px-[40px] [&_svg]:size-6 gap-1`,
+  h37: `h-[37px] rounded-lg text-sm font-normal p-[10px] [&_svg]:size-5 gap-1`,
+  h29: `h-[29px] rounded-lg text-sm font-normal py-[6px] px-[10px] [&_svg]:size-4 gap-1`,
+  h23: `h-[23px] rounded-lg text-sm font-normal py-[6px] px-[10px] [&_svg]:size-4 gap-1`,
+  custom: ``,
+};
+
+const ICON_JUSTIFY = {
+  left: "justify-start",
+  center: "justify-center",
+};
 
 const Button = ({
-  iconPosition,
-  size = "lg",
+  variant,
+  height,
   icon,
-  social,
+  iconJustify,
   className,
   ...restProps
 }: ButtonProps) => {
-  const currentSocial = social && socialStyle[social];
-
-  const buttonStyle = currentSocial
-    ? { ...iconPositionStyle.center, state: currentSocial.state }
-    : iconPosition
-      ? iconPositionStyle[iconPosition]
-      : basicStyle;
-
-  const selfMergeButtonStyle = [
-    basic,
-    sizes[size],
-    buttonStyle.layout,
-    buttonStyle.size[size],
-    buttonStyle.state,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const socialIcon = currentSocial ? currentSocial.icon : icon;
-  const hasIcon = !!socialIcon || !!iconPosition;
+  const { children, ...restDefaultButtonAttributes } = restProps;
+  const Icon = variant === "kakao" ? <KakaoIcon /> : icon;
 
   return (
-    <button className={selfMergeButtonStyle} {...restProps}>
-      {hasIcon ? (
-        <>
-          {socialIcon}
-          {restProps.children}
-        </>
-      ) : (
-        restProps.children
-      )}
+    <button
+      className={[
+        DEFAULT_SETTING,
+        variant ? VARIANTS[variant] : null,
+        height ? SIZES[height] : null,
+        iconJustify ? ICON_JUSTIFY[iconJustify] : "justify-center",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...restDefaultButtonAttributes}
+    >
+      {Icon}
+      {children}
     </button>
   );
 };
