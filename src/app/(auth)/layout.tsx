@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { LogoPcTablet, LogoMobile } from "@/constants/images";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className="flex items-center justify-center w-full
@@ -34,4 +30,6 @@ export default function AuthLayout({
       </div>
     </div>
   );
-}
+};
+
+export default AuthLayout;
