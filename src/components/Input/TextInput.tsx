@@ -30,13 +30,13 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     return (
       <div className={className}>
         {label && (
-          <label htmlFor={inputId} className="text-16-medium mb-[10px] block">
+          <label htmlFor={inputId} className="text-16-medium mb-2.5 block">
             {label}
           </label>
         )}
 
         <div
-          className={`relative h-[54px] border-2 border-gray-100 rounded-[16px] shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]
+          className={`relative h-13.5 border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]
           ${status === "focus" ? "border-primary-500" : ""}
           ${status === "error" ? "border-red-500" : ""}`}
         >
@@ -55,8 +55,8 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               onBlur?.(e);
             }}
             className={`w-full h-full ${
-              type === "password" ? "pr-[56px]" : "pr-[20px]"
-            } pl-[20px] border-none rounded-[16px] outline-none text-16-medium bg-white placeholder-gray-400 autofill-white disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200`}
+              type === "password" ? "pr-14" : "pr-5"
+            } pl-5 border-none rounded-2xl outline-none text-16-medium bg-white placeholder-gray-400 autofill-white disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200`}
           />
 
           {type === "password" && (
@@ -76,7 +76,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 text-14-medium mt-[6px] ml-2">
+          <p className="text-red-500 text-14-medium mt-1.5 ml-2">
             {errorMessage}
           </p>
         )}

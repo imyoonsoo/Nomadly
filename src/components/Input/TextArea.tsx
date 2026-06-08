@@ -44,7 +44,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         )}
 
         <div
-          className={`relative border-2 border-gray-100 rounded-[16px] shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]
+          className={`relative border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]
             ${status === "focus" ? "border-primary-500" : ""}
             ${status === "error" ? "border-red-500" : ""}
             ${textareaClassName}`}
@@ -62,7 +62,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
               onBlur?.(e);
             }}
             maxLength={textCount ? maxLength : undefined}
-            className="w-full h-full p-[20px] border-none rounded-[16px] outline-none focus:outline-none focus:ring-0 text-16-medium bg-white placeholder-gray-400 disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200 resize-none"
+            className="w-full h-full p-5 border-none rounded-2xl outline-none focus:outline-none focus:ring-0 text-16-medium bg-white placeholder-gray-400 disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200 resize-none"
           />
         </div>
 
