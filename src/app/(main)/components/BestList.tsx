@@ -58,10 +58,10 @@ const BestList = ({ items }: CardListProps) => {
             spaceBetween: 24,
           },
         }}
-        className="w-full !py-2"
+        className="w-full p-2!"
       >
-        {bestItems.map((item) => (
-          <SwiperSlide key={item.id}>
+        {bestItems.map((item, ranking) => (
+          <SwiperSlide key={item.id} className="relative">
             <ActivitiesCard {...item} />
           </SwiperSlide>
         ))}

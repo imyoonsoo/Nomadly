@@ -28,7 +28,7 @@ const MainBanner = ({ items }: CardListProps) => {
       >
         {items.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="relative w-full aspect-[1/0.5] rounded-3xl overflow-hidden">
+            <div className="relative w-full aspect-[1/0.6] md:aspect-[1/0.5] rounded-3xl overflow-hidden">
               <Link href={item.link}>
                 <div className="w-full h-full">
                   <Image
@@ -37,7 +37,7 @@ const MainBanner = ({ items }: CardListProps) => {
                     className="object-cover"
                     fill
                   />
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-[60%]"></div>
+                  <div className="absolute top-0 left-0 w-full h-full bg-linear-to-t from-black to-transparent opacity-60"></div>
                 </div>
 
                 <div className="absolute top-1/2 md:top-[60%] w-full text-center text-white px-10">

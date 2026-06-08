@@ -112,11 +112,11 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
   return (
     <div className="relative w-full">
       {keyword === "" && (
-        <div className="flex justify-between mb-[25px] items-end">
+        <div className="flex justify-between mb-4 md:mb-6.25 items-end">
           <div>
             <div
               ref={categoryDropdownRef}
-              className="relative block md:hidden w-[150px]"
+              className="relative block md:hidden w-37.5"
             >
               <button
                 type="button"
@@ -133,7 +133,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
               </button>
 
               {isOpen2 && (
-                <div className="absolute right-0 top-[50px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-10 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
+                <div className="absolute right-0 top-12.5 bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-10 shadow-[0_4px_16px_rgb(187_187_187/50%)]">
                   {CATEGORIES.map((item) => (
                     <button
                       key={item.id}
@@ -165,7 +165,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
                     flex gap-4
                     ${
                       selectedCategory === item.name
-                        ? "!bg-primary-500 border-primary-500 !text-white "
+                        ? "bg-primary-500! border-primary-500 text-white!"
                         : ""
                     }`}
                 >
@@ -180,7 +180,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
           <div ref={sortDropdownRef} className="relative">
             <button
               type="button"
-              className="h-[36px] px-3 flex items-center"
+              className="h-9 px-3 flex items-center"
               onClick={() => setIsOpen((prev) => !prev)}
             >
               {selectedText}
@@ -192,7 +192,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
             </button>
 
             {isOpen && (
-              <ul className="absolute right-0 top-[40px] bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full  z-10 shadow-[0_4px_16px_rgb(187_187_187_/_50%)]">
+              <ul className="absolute right-0 top-10 bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full  z-10 shadow-[0_4px_16px_rgb(187_187_187/50%)]">
                 {OPTIONS.map((option) => (
                   <li key={option}>
                     <button
@@ -220,7 +220,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-[30px]">
+      <div className="flex justify-center mt-7.5">
         <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
       </div>
     </div>

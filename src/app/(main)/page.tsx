@@ -12,6 +12,7 @@ import {
 } from "@/constants/images";
 import { useState } from "react";
 import ActivitiesList from "./components/ActivitiesList";
+import { ArrowRight } from "@/constants/icons";
 
 export const MOCKDATA = [
   {
@@ -104,7 +105,7 @@ const Home = () => {
         <MainBanner items={MOCKDATA} />
       </div>
       {/* 체험검색 */}
-      <div className="mx-auto my-4 max-w-[1120px] px-5 py-4 md:my-12 md:px-10 md:py-8">
+      <div className="mx-auto my-4 max-w-[1120px] px-5 py-4 my-10 md:my-12 md:px-10 md:py-8">
         <p className="mb-3 text-center text-16-bold md:mb-9 md:text-32-bold">
           무엇을 체험하고 싶으신가요?
         </p>
@@ -130,9 +131,7 @@ const Home = () => {
       {/* 모든체험 */}
       <div className="px-6 md:px-10 mt-10 max-w-[1200px] mx-auto">
         {keyword === "" ? (
-          <h2 className="text-18-bold md:text-32-bold mb-3.5 md:mb-5">
-            🎠 모든 체험
-          </h2>
+          <h2 className="text-18-bold md:text-32-bold mb-5">🎠 모든 체험</h2>
         ) : getFiltered.length === 0 ? (
           <div className="flex flex-col items-center pb-50 pt-20">
             <Image

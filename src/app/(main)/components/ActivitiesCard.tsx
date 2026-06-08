@@ -11,16 +11,17 @@ const ActivitiesCard = ({
   reviewCount,
 }: CardItem) => {
   return (
-    <div className="w-full">
+    <div className="w-full hover:transform-[translateY(-5px)] transition ease-in">
       <Link href={link}>
-        <div className="aspect-[1/1.1] md:rounded-[32px] rounded-[18px] overflow-hidden">
+        <div className="aspect-[1/1.1] md:rounded-4xl rounded-[18px] overflow-hidden">
           <Image
             src={imageUrl}
             alt="인기이벤트이미지"
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="relative bg-white px-[17px] md:px-[30px] py-[16px] md:py-[20px] mt-[-50px] z-auto rounded-[18px] md:rounded-[32px] shadow-[0_2px_6px_0_rgba(0,0,0,0.1)]">
+
+        <div className="relative bg-white px-4.25 md:px-7.5 py-4 md:py-5 -mt-12.5 z-auto rounded-[18px] md:rounded-4xl shadow-[0_2px_6px_0_rgba(0,0,0,0.1)]">
           <p className="text-14-medium md:text-18-medium truncate">{title}</p>
           <div className="flex items-center gap-1 mt-0.5">
             <StarOn className="w-4 h-4" />
