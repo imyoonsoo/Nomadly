@@ -86,6 +86,9 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     router.push("/mypage/activities");
   };
 
+  const isSubmitDisabled =
+    (mode === "create" && !isDirty) || !isValid || hasScheduleDuplicate;
+
   const onSubmit: SubmitHandler<ActivityFormValues> = (data) => {
     if (!data.bannerImageUrl) {
       return;
@@ -184,7 +187,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
           height="47md"
           type="submit"
           className="w-full md:w-60 md:mx-auto hover:brightness-90"
-          disabled={!isDirty || !isValid || hasScheduleDuplicate}
+          disabled={isSubmitDisabled}
         >
           {mode === "create" ? "등록하기" : "수정하기"}
         </Button>
