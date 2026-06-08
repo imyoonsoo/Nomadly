@@ -33,7 +33,7 @@ export interface GetMyReservationsParams {
 }
 
 export interface EditMyReservationsParams {
-  schduleId: number;
+  scheduleId: number;
   headCount: number;
 }
 
