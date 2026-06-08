@@ -4,6 +4,8 @@ import TitleSection from "./components/TitleSection/TitleSection";
 import ReservationSection from "./components/ReservationSection/ReservationSection";
 import DescriptionSection from "./components/DescriptionSection/DescriptionSection";
 import MapSection from "./components/MapSection/MapSection";
+import MobileReservationFooter from "./components/MobileReservationFooter/MobileReservationFooter";
+import TabletReservationFooter from "./components/TabletReservationFooter/TabletReservationFooter";
 import bannerImageData from "./mock/bannerImageData";
 import activitiesData from "./mock/activitiesData";
 
@@ -11,12 +13,9 @@ const ActivitiesPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const data = activitiesData;
 
   return (
-    <div className="flex w-full flex-col gap-5 px-6 pb-5 md:px-7.5 lg:grid lg:grid-cols-[670px_minmax(0,1fr)] lg:items-start lg:gap-x-12 lg:gap-y-5 lg:px-10">
-      <div className="lg:col-start-1">
+    <div className="flex w-full flex-col gap-5 px-6 pb-5 md:px-7.5 lg:px-10">
+      <div className="flex flex-col gap-5 lg:hidden">
         <BannerImageSection images={bannerImageData} />
-      </div>
-
-      <div className="flex flex-col gap-5 lg:col-start-2 lg:row-start-1 lg:self-start">
         <TitleSection
           id={data.id}
           title={data.title}
@@ -25,22 +24,34 @@ const ActivitiesPage = ({ params }: { params: Promise<{ id: string }> }) => {
           reviewCount={data.reviewCount}
           rating={data.rating}
         />
-        <div className="hidden lg:block">
-          <ReservationSection />
+        <DescriptionSection description={data.description} />
+        <MapSection address={data.address} />
+        <ReviewSection />
+      </div>
+
+      <div className="hidden lg:grid lg:grid-cols-[670px_410px] lg:items-start lg:gap-x-12">
+        <div className="flex flex-col gap-5">
+          <BannerImageSection images={bannerImageData} />
+          <DescriptionSection description={data.description} />
+          <MapSection address={data.address} />
+          <ReviewSection />
+        </div>
+
+        <div className="flex w-[410px] flex-col gap-5">
+          <TitleSection
+            id={data.id}
+            title={data.title}
+            category={data.category}
+            address={data.address}
+            reviewCount={data.reviewCount}
+            rating={data.rating}
+          />
+          <ReservationSection price={data.price} schedules={data.schedules} />
         </div>
       </div>
 
-      <div className="lg:col-start-1">
-        <DescriptionSection description={data.description} />
-      </div>
-
-      <div className="lg:col-start-1">
-        <MapSection address={data.address} />
-      </div>
-
-      <div className="lg:col-start-1">
-        <ReviewSection />
-      </div>
+      <MobileReservationFooter price={data.price} schedules={data.schedules} />
+      <TabletReservationFooter price={data.price} schedules={data.schedules} />
     </div>
   );
 };
