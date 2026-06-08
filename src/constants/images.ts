@@ -1,4 +1,6 @@
 import DefaultProfile from "@/assets/images/default-profile.svg";
+import LogoPcTablet from "@/assets/images/logo-pctablet-withtext.svg";
+import LogoMobile from "@/assets/images/logo-mobile-onlyimage.svg";
 import Empty from "@/assets/images/empty.svg";
 import MockImage1 from "@/assets/images/mock-image1.png";
 import MockImage2 from "@/assets/images/mock-image2.png";
@@ -9,9 +11,9 @@ import Cloude from "@/assets/images/bg-cloude.png";
 export {
   DefaultProfile,
   Empty,
-  MainBannertest,
-  Cloude,
   MockImage1,
   MockImage2,
   MockImage3,
+  LogoPcTablet,
+  LogoMobile,
 };
