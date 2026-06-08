@@ -1,4 +1,3 @@
-import React from "react";
 import type { InputHTMLAttributes } from "react";
 
 export interface PreviewImage {
@@ -18,10 +17,11 @@ export interface MultiImageInputProps extends Omit<
 }
 
 export interface ProfileImageInputProps extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "name" | "type"
+  InputHTMLAttributes<HTMLInputElement>,
+  "name" | "type" | "onChange"
 > {
   id?: string;
   name: string;
   label: string;
+  onFileSelect?: (file: File) => void;
 }
