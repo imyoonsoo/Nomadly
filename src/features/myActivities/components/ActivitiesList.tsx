@@ -1,34 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ActivitiesProps } from "@/features/myActivities/type";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { myActivitiesQuery } from "@/features/myActivities/queries";
+import { getSortedActivities } from "../utils";
 
 import SortDropdown from "./SortDropdown";
 import ActivityBanner from "./ActivityBanner";
 import EmptyCardList from "./EmptyCardList";
 import CardList from "./CardList";
 
-interface ActivitiesListProps {
-  initialCards?: ActivitiesProps[];
-}
-
-const ActivitiesList = ({ initialCards }: ActivitiesListProps) => {
-  const activityCount = initialCards.length;
+const ActivitiesList = () => {
   const [currentSort, setCurrentSort] = useState<string | number>("latest");
+  const { data, isLoading } = useQuery({
+    ...myActivitiesQuery({
+      size: 10,
+    }),
+  });
 
-  const sortedList = useMemo(() => {
-    const cardList = [...initialCards];
+  if (isLoading) return <div>로딩 중입니다...</div>;
+  const cards = data?.activities || [];
 
-    if (currentSort === "price_desc") {
-      return cardList.sort((a, b) => b.price - a.price);
-    } else if (currentSort === "price_asc") {
-      return cardList.sort((a, b) => a.price - b.price);
-    } else if (currentSort === "review") {
-      return cardList.sort((a, b) => b.reviewCount - a.reviewCount);
-    } else {
-      return cardList.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-    }
-  }, [initialCards, currentSort]);
+  const activityCount = cards.length;
+  const sortedList = getSortedActivities(cards, currentSort);
 
   return (
     <>

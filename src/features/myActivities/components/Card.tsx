@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { CardProps } from "../page";
+import { ActivitiesProps } from "../type";
 
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
@@ -16,7 +16,7 @@ const Card = ({
   reviewCount,
   price,
   bannerImageUrl,
-}: CardProps) => {
+}: ActivitiesProps) => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

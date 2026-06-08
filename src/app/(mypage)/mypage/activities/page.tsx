@@ -3,20 +3,9 @@
 import { useRouter } from "next/navigation";
 import Title from "@/app/(mypage)/_components/Title";
 import ActivitiesList from "@/features/myActivities/components/ActivitiesList";
-import { useQuery } from "@tanstack/react-query";
-import { myActivitiesQuery } from "@/features/myActivities/queries";
 
 const Activities = () => {
   const router = useRouter();
-
-  const { data, isLoading } = useQuery({
-    ...myActivitiesQuery({
-      size: 10,
-    }),
-  });
-
-  if (isLoading) return <div>로딩 중입니다...</div>;
-  const cards = data?.activities || [];
 
   return (
     <div>
@@ -27,7 +16,7 @@ const Activities = () => {
         onButtonClick={() => router.push("/activities/new")}
       />
 
-      <ActivitiesList initialCards={cards} />
+      <ActivitiesList />
     </div>
   );
 };
