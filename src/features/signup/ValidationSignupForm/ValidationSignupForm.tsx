@@ -66,8 +66,8 @@ const ValidationSignupForm = () => {
     }
   };
 
-  // 이메일 중복확인 핸들러함수
-  const handleEmailDuplicationCheckonClick = () => {};
+  // 이메일 중복확인 핸들러함수 ➝ 스웨거 API 존재X
+  // const handleEmailDuplicationCheckonClick = () => {};
 
   return (
     <>
@@ -95,7 +95,6 @@ const ValidationSignupForm = () => {
             <Button
               type="button"
               height="custom"
-              onClick={handleEmailDuplicationCheckonClick}
               className="bg-[#4dabf7] text-white absolute right-5 top-11.5 w-19 h-7.5 md:w-21.25 text-s rounded-lg z-10 whitespace-nowrap
   active:bg-[#1c9af0]
   disabled:bg-[#bce0fb] disabled:text-white/70 disabled:cursor-not-allowed"
