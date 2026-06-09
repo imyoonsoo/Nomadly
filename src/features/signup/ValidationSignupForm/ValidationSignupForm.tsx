@@ -187,7 +187,7 @@ const ValidationSignupForm = () => {
       </Button>
 
       {/* 회원이신가요?로그인하기 바닥글 */}
-      <p className="text-base font-sm tracking-[-0.4px] text-gray-400">
+      <p className="text-base font-medium tracking-[-0.4px] text-gray-400">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
           로그인하기
