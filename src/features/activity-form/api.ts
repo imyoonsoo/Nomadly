@@ -8,7 +8,7 @@ import {
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
 const TEST_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MDk5MTI5OSwiZXhwIjoxNzgwOTkzMDk5LCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.TCPBShqEmcGj38IjfNfUJURSk1v4iJ_s1Rt0EppBcEA";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MDk5NDAzMCwiZXhwIjoxNzgwOTk1ODMwLCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.O2tUosWk-P3Jyn7Rj92ytjAuKaS5HgWcHjYCE0u_A9g";
 
 // 체험 등록
 export const createActivity = async (
