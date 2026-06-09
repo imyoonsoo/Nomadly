@@ -37,7 +37,7 @@ const ValidationSignupForm = () => {
 
   const postSignup = async (data: ValidationSignupFormInputfields) => {
     try {
-      // 상태코드: 201
+      // 상태코드: 201 ➝ 성공
       const { passwordValidation, ...signupData } = data;
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
@@ -47,27 +47,27 @@ const ValidationSignupForm = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const statusCode = error.response?.status;
-        // 상태코드: 400
-        if (statusCode === 400) {
-          setErrorMessage("올바른 이메일 형식으로 작성해 주세요.");
-        } else if (statusCode === 409) {
-          // 상태코드: 409
+        // 상태코드: 409 ➝ 이메일 중복
+        if (statusCode === 409) {
           setErrorMessage("이미 사용 중인 이메일입니다.");
         } else {
-          // 상태코드: none
-          setErrorMessage(error.message || "알 수 없는 에러가 발생했습니다.");
+          // 상태코드: 409 외
+          setErrorMessage(
+            error.message ||
+              "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          );
         }
       } else {
-        setErrorMessage("회원가입에 실패했습니다.");
+        // 그 외 에러
+        setErrorMessage(
+          "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        );
       }
     }
   };
 
   // 이메일 중복확인 핸들러함수
-  const handleEmailDuplicationCheckonClick = () => {
-    // Todo: 스웨거 API 분석해서 axios 중복확인 내부 로직 작성하기
-    console.log("이메일이 중복되었습니다.");
-  };
+  const handleEmailDuplicationCheckonClick = () => {};
 
   return (
     <>
@@ -142,7 +142,7 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.passwordValidation?.message}
           {...register("passwordValidation", {
-            required: "비밀번호를 한 번 더 입력해 주세요.",
+            required: "비밀번호가 일치하지 않습니다.",
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
           })}
@@ -162,9 +162,9 @@ const ValidationSignupForm = () => {
 
       {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
-        <hr className="flex-1 border-gray-200" />
+        <hr className="flex-1 border-gray-100" />
         <span className="text-sm text-gray-500">SNS 계정으로 회원가입하기</span>
-        <hr className="flex-1 border-gray-200" />
+        <hr className="flex-1 border-gray-100" />
       </div>
 
       {/* 카카오 간편 회원가입하기 */}
