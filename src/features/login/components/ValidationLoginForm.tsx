@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ValidationLoginFormFields } from "./type";
+import { ValidationLoginFormFields } from "../type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import { LogoPcTablet, LogoMobile } from "@/constants/images";
 import SuccessModal from "@/components/Modal/SuccessModal";
+import { loginAction } from "../actions";
 
 const ValidationLoginForm = () => {
   const [modalMessage, setModalMessage] = useState("");
@@ -27,9 +28,10 @@ const ValidationLoginForm = () => {
 
   const globalnomadLogin = async (authData: ValidationLoginFormFields) => {
     try {
+      await loginAction(authData);
       router.push("/");
     } catch (error) {
-      setModalMessage("비밀번호가 일치하지 않습니다.");
+      setModalMessage("이메일 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 

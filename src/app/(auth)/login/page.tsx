@@ -1,6 +1,6 @@
 "use client";
 
-import ValidationLoginForm from "@/features/login/components/ValidationLoginForm/ValidationLoginForm";
+import ValidationLoginForm from "@/features/login/components/ValidationLoginForm";
 
 const LoginPage = () => {
   return (
