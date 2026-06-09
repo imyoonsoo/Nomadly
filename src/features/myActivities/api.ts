@@ -1,9 +1,14 @@
 import axios from "axios";
-import { GetMyActivitiesParams, GetMyActivitiesResponse } from "./type";
+import {
+  GetMyActivitiesParams,
+  GetMyActivitiesResponse,
+  UpdateActivityRequest,
+  UpdateActivityResponse,
+} from "./type";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/my-activities`;
 const TEST_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MDk5OTc1MiwiZXhwIjoxNzgxMDAxNTUyLCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.d36zRJlQXKBQzaourNijvLID5Id0CcFUVeVHBOzDifk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MTAwNjc5OCwiZXhwIjoxNzgxMDA4NTk4LCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.A20K0Iba8ZgzIjsF61cl22ks4qri-uS5wWHLF_ytHrI";
 
 // 내 체험 조회
 export const getMyActivities = async (
@@ -15,6 +20,20 @@ export const getMyActivities = async (
       Authorization: `Bearer ${TEST_TOKEN}`,
     },
   });
+  return response.data;
+};
+
+// 체험 수정
+export const updateActivity = async (
+  activityId: number,
+  body: UpdateActivityRequest,
+): Promise<UpdateActivityResponse> => {
+  const response = await axios.patch(`${BASE_URL}/${activityId}`, body, {
+    headers: {
+      Authorization: `Bearer ${TEST_TOKEN}`,
+    },
+  });
+
   return response.data;
 };
 
