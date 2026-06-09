@@ -4,7 +4,7 @@ interface Schedule {
   endTime: string;
 }
 
-export interface CreateActivityRequest {
+export interface ActivityFormValues {
   title: string;
   category: string;
   description: string;
@@ -13,6 +13,17 @@ export interface CreateActivityRequest {
   schedules: Schedule[];
   bannerImageUrl: File | string;
   subImageUrls: Array<File | string>;
+}
+
+export interface CreateActivityRequest {
+  title: string;
+  category: string;
+  description: string;
+  address: string;
+  price: number;
+  schedules: Schedule[];
+  bannerImageUrl: string;
+  subImageUrls: string[];
 }
 
 export interface ResponseTimeSlot {

@@ -1,3 +1,5 @@
+import { ActivityFormValues } from "./types";
+
 export const CATEGORY_OPTIONS = [
   { value: "문화·예술", label: "문화·예술" },
   { value: "식음료", label: "식음료" },
@@ -6,19 +8,13 @@ export const CATEGORY_OPTIONS = [
   { value: "관광", label: "관광" },
 ] as const;
 
-export const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
-
-export const MONTH_NAMES_EN = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+export const EMPTY_ACTIVITY_FORM: ActivityFormValues = {
+  title: "",
+  category: "",
+  description: "",
+  address: "",
+  price: "",
+  schedules: [],
+  bannerImageUrl: "",
+  subImageUrls: [],
+};
