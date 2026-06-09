@@ -19,7 +19,7 @@ export interface GetMyActivitiesParams {
 }
 
 export interface GetMyActivitiesResponse {
-  cursorId: number;
+  cursorId: number | null;
   totalCount: number;
   activities: ActivitiesProps[];
 }

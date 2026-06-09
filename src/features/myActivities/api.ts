@@ -25,7 +25,7 @@ export const getMyActivities = async (
 };
 
 // 체험 수정
-export const updateActivity = async (
+export const updateMyActivity = async (
   activityId: number,
   body: UpdateActivityRequest,
 ): Promise<UpdateActivityResponse> => {

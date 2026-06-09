@@ -2,7 +2,7 @@ import { infiniteQueryOptions } from "@tanstack/react-query";
 import { GetMyActivitiesParams } from "./type";
 import { getMyActivities } from "./api";
 
-export const myActivitiesQuery = (
+export const myActivitiesInfiniteQuery = (
   params?: Omit<GetMyActivitiesParams, "cursorId">,
 ) =>
   infiniteQueryOptions({

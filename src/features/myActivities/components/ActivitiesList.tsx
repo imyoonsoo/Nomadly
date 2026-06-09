@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import { myActivitiesQuery } from "@/features/myActivities/queries";
+import { myActivitiesInfiniteQuery } from "@/features/myActivities/queries";
 import { getSortedActivities } from "../utils";
 
 import SortDropdown from "./SortDropdown";
@@ -21,7 +21,7 @@ const ActivitiesList = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    myActivitiesQuery({
+    myActivitiesInfiniteQuery({
       size: 10,
     }),
   );
@@ -37,16 +37,16 @@ const ActivitiesList = () => {
   if (isError) return <EmptyCardList message="체험 목록을 불러오지 못했어요" />;
   const cards = data?.pages.flatMap((page) => page.activities) ?? [];
 
-  const activityCount = cards.length;
+  const totalCount = data?.pages[0]?.totalCount ?? 0;
   const sortedList = getSortedActivities(cards, currentSort);
 
   return (
     <>
       <SortDropdown currentSort={currentSort} onChange={setCurrentSort} />
 
-      <ActivityBanner count={activityCount} />
+      <ActivityBanner count={totalCount} />
 
-      {activityCount === 0 ? (
+      {totalCount === 0 ? (
         <EmptyCardList />
       ) : (
         <>

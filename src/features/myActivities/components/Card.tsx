@@ -23,6 +23,7 @@ const Card = ({
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
+  // Todo: 삭제 완료 및 에러 토스트 처리
   const deleteMutation = useMutation({
     mutationFn: deleteMyActivity,
     onSuccess: () => {
@@ -71,6 +72,7 @@ const Card = ({
             height="h29"
             className="px-2.5 py-1.5 rounded-lg text-14-medium"
             onClick={() => setIsConfirmModalOpen(true)}
+            disabled={deleteMutation.isPending}
           >
             삭제하기
           </Button>
