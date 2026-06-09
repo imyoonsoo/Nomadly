@@ -5,12 +5,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ValidationSignupFormInputfields } from "./type";
+import { SignupValidationFormValues } from "./type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
 
-const ValidationSignupForm = () => {
+const SignupValidationForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSignupSucceed, setIsSignupSucceed] = useState(false);
   const router = useRouter();
@@ -20,13 +20,13 @@ const ValidationSignupForm = () => {
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm<ValidationSignupFormInputfields>({
+  } = useForm<SignupValidationFormValues>({
     mode: "onBlur",
     defaultValues: {
       email: "",
       nickname: "",
       password: "",
-      passwordValidation: "",
+      passwordConfirm: "",
     },
   });
 
@@ -35,10 +35,10 @@ const ValidationSignupForm = () => {
   const email = watch("email");
   const isEmailValid = email && !errors.email;
 
-  const postSignup = async (data: ValidationSignupFormInputfields) => {
+  const postSignup = async (data: SignupValidationFormValues) => {
     try {
       // 상태코드: 201 ➝ 성공
-      const { passwordValidation, ...signupData } = data;
+      const { passwordConfirm, ...signupData } = data;
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
         signupData,
@@ -75,7 +75,7 @@ const ValidationSignupForm = () => {
         onSubmit={handleSubmit(postSignup)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일, 중복확인 버튼 */}
+        {/* 이메일, 중복확인은 버튼이 아닌 이메일 중복 시 모달창으로 제어 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -141,8 +141,8 @@ const ValidationSignupForm = () => {
           type="password"
           placeholder="비밀번호를 한 번 더 입력해 주세요"
           className="self-stretch"
-          errorMessage={errors.passwordValidation?.message}
-          {...register("passwordValidation", {
+          errorMessage={errors.passwordConfirm?.message}
+          {...register("passwordConfirm", {
             required: "비밀번호가 일치하지 않습니다.",
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
@@ -212,4 +212,4 @@ const ValidationSignupForm = () => {
   );
 };
 
-export default ValidationSignupForm;
+export default SignupValidationForm;

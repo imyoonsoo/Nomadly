@@ -1,7 +1,7 @@
 "use client";
 
-import ValidationSignupForm from "@/features/signup/ValidationSignupForm/ValidationSignupForm";
+import ValidationFormSignup from "@/features/signup/ValidationFormSignup/ValidationFormSignup";
 
-const SignupPage = () => <ValidationSignupForm />;
+const SignupPage = () => <ValidationFormSignup />;
 
 export default SignupPage;
