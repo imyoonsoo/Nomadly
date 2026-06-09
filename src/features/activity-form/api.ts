@@ -29,11 +29,11 @@ export const createActivity = async (
 export const uploadActivityImage = async (
   image: File,
 ): Promise<{ activityImageUrl: string }> => {
-  const formData = new FormData();
+  const imageData = new FormData();
 
-  formData.append("image", image);
+  imageData.append("image", image);
 
-  const response = await axios.post(`${BASE_URL}/activities/image`, formData, {
+  const response = await axios.post(`${BASE_URL}/activities/image`, imageData, {
     headers: {
       Authorization: `Bearer ${TEST_TOKEN}`,
     },

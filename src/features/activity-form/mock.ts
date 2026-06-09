@@ -10,17 +10,17 @@ export const mockActivityDetailData: CreateActivityRequest = {
   address: "서울 중구 청계천로 100 10F",
   schedules: [
     {
-      date: "26/07/15",
+      date: "2026-07-15",
       startTime: "14:00",
       endTime: "16:00",
     },
     {
-      date: "26/07/16",
+      date: "2026-07-16",
       startTime: "15:00",
       endTime: "17:00",
     },
     {
-      date: "26/07/18",
+      date: "2026-07-18",
       startTime: "19:00",
       endTime: "21:00",
     },
