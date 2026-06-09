@@ -5,18 +5,18 @@ import { Control, useFieldArray, Controller, useWatch } from "react-hook-form";
 import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
 
-import { ActivityFormValues } from "@/features/activity-form/types";
+import { CreateActivityRequest } from "@/features/activity-form/types";
 import { Plus as PlusIcon, Minus as MinusIcon } from "@/constants/icons";
 
 import Button from "@/components/Button/Button";
 import FormController from "@/components/Form/FormController";
 
 interface ScheduleSectionProps {
-  control: Control<ActivityFormValues>;
+  control: Control<CreateActivityRequest>;
   onDuplicateChange?: (hasDuplicate: boolean) => void;
 }
 
-type ScheduleItem = NonNullable<ActivityFormValues["schedules"]>[number];
+type ScheduleItem = NonNullable<CreateActivityRequest["schedules"]>[number];
 
 const ScheduleSection = ({
   control,

@@ -1,7 +1,7 @@
-import type { ActivityFormValues } from "@/features/activity-form/types";
+import type { CreateActivityRequest } from "@/features/activity-form/types";
 
 // Todo: api 연결 후 제거
-export const mockActivityDetailData: ActivityFormValues = {
+export const mockActivityDetailData: CreateActivityRequest = {
   title: "함께 배우면 즐거운 스트릿 댄스",
   category: "문화·예술",
   description:
