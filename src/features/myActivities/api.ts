@@ -6,9 +6,10 @@ import {
   UpdateActivityResponse,
 } from "./type";
 
+// Todo: 로그인 후 수정
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/my-activities`;
 const TEST_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MTAwNjc5OCwiZXhwIjoxNzgxMDA4NTk4LCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.A20K0Iba8ZgzIjsF61cl22ks4qri-uS5wWHLF_ytHrI";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MTAwODY4NywiZXhwIjoxNzgxMDEwNDg3LCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.XeEs66Ne_Fj5PlN2PiOKOsxvqWBGkSgtXUSC_P1JdCA";
 
 // 내 체험 조회
 export const getMyActivities = async (

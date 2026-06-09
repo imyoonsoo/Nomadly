@@ -3,13 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteMyActivity } from "../api";
 import { ActivitiesProps } from "../type";
 
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
 import StarIcon from "@/assets/icons/star-on.svg";
-import { deleteMyActivity } from "../api";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Card = ({
   id,
@@ -20,7 +20,7 @@ const Card = ({
   bannerImageUrl,
 }: ActivitiesProps) => {
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
@@ -30,7 +30,7 @@ const Card = ({
         queryKey: ["my-activities"],
       });
 
-      setIsModalOpen(false);
+      setIsConfirmModalOpen(false);
     },
   });
 
@@ -70,7 +70,7 @@ const Card = ({
             variant="onlyGray"
             height="h29"
             className="px-2.5 py-1.5 rounded-lg text-14-medium"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsConfirmModalOpen(true)}
           >
             삭제하기
           </Button>
@@ -86,8 +86,8 @@ const Card = ({
       />
 
       <WarningModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isConfirmModalOpen}
+        onClose={() => setIsConfirmModalOpen(false)}
         onConfirm={handleDeleteConfirmButtonClick}
         message="삭제하시겠습니까?"
       />
