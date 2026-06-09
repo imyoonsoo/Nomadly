@@ -163,7 +163,9 @@ const ValidationSignupForm = () => {
       {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-100" />
-        <span className="text-sm text-gray-500">SNS 계정으로 회원가입하기</span>
+        <span className="text-base font-medium tracking-[-0.4px] text-[#79747E]">
+          SNS 계정으로 회원가입하기
+        </span>
         <hr className="flex-1 border-gray-100" />
       </div>
 
