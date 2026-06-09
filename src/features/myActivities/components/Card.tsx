@@ -8,6 +8,8 @@ import { ActivitiesProps } from "../type";
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
 import StarIcon from "@/assets/icons/star-on.svg";
+import { deleteMyActivity } from "../api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Card = ({
   id,
@@ -19,11 +21,21 @@ const Card = ({
 }: ActivitiesProps) => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteMyActivity,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["my-activities"],
+      });
+
+      setIsModalOpen(false);
+    },
+  });
 
   const handleDeleteConfirmButtonClick = () => {
-    // Todo: api 연동 후 삭제 작업
-    alert("삭제");
-    setIsModalOpen(false);
+    deleteMutation.mutate(id);
   };
 
   return (
