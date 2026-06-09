@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  CreateActivityRequest,
-  CreateActivityResponse,
-  UpdateActivityRequest,
-  UpdateActivityResponse,
-} from "./types";
+import { CreateActivityRequest, CreateActivityResponse } from "./types";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
 const TEST_TOKEN =
@@ -38,19 +33,6 @@ export const uploadActivityImage = async (
       Authorization: `Bearer ${TEST_TOKEN}`,
     },
   });
-
-  return response.data;
-};
-
-// 체험 수정
-export const updateActivity = async (
-  activityId: number,
-  body: UpdateActivityRequest,
-): Promise<UpdateActivityResponse> => {
-  const response = await axios.patch(
-    `${BASE_URL}/my-activities/${activityId}`,
-    body,
-  );
 
   return response.data;
 };
