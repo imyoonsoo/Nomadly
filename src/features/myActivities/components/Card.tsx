@@ -79,20 +79,18 @@ const Card = ({
 
       <Image
         src={bannerImageUrl}
-        alt={`${title} 배너 이미지`}
+        alt="배너 이미지"
         width={142}
         height={142}
         className="w-20.5 h-20.5 lg:w-35.5 lg:h-35.5 object-cover rounded-3xl"
       />
 
-      {isModalOpen && (
-        <WarningModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={handleDeleteConfirmButtonClick}
-          message="삭제하시겠습니까?"
-        />
-      )}
+      <WarningModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDeleteConfirmButtonClick}
+        message="삭제하시겠습니까?"
+      />
     </div>
   );
 };

@@ -15,11 +15,11 @@ export interface ActivitiesProps {
 
 export interface GetMyActivitiesParams {
   cursorId?: number;
-  size?: number;
+  totalCount?: number;
 }
 
 export interface GetMyActivitiesResponse {
   cursorId: number;
-  size: number;
+  totalCount: number;
   activities: ActivitiesProps[];
 }

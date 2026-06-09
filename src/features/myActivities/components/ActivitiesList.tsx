@@ -14,7 +14,7 @@ const ActivitiesList = () => {
   const [currentSort, setCurrentSort] = useState<string | number>("latest");
   const { data, isLoading } = useQuery({
     ...myActivitiesQuery({
-      size: 10,
+      totalCount: 10,
     }),
   });
 
