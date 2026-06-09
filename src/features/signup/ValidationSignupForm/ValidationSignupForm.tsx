@@ -30,30 +30,35 @@ const ValidationSignupForm = () => {
     },
   });
 
-  // react-hook-form의 watch로 회원가입폼에서 password, email 겟함
+  // watch로 비밀번호, 이메일 실시간 감지
   const password = watch("password");
-  // [추가] 중복확인 버튼 조건부 렌더링용
   const email = watch("email");
   const isEmailValid = email && !errors.email;
 
-  const signUpGlobalNomad = async (data: ValidationSignupFormInputfields) => {
+  const postSignup = async (data: ValidationSignupFormInputfields) => {
     try {
+      // 상태코드: 201
       const { passwordValidation, ...signupData } = data;
-      console.log(signupData);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
+        signupData,
+      );
       setIsSignupSucceed(true);
     } catch (error) {
-      // InProcess: ai코드리뷰 반영하여 axios로 400(올바른 이메일 형식), 409(중복된 이메일) 분기시킴
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        if (status === 409) {
+        const statusCode = error.response?.status;
+        // 상태코드: 400
+        if (statusCode === 400) {
+          setErrorMessage("올바른 이메일 형식으로 작성해 주세요.");
+        } else if (statusCode === 409) {
+          // 상태코드: 409
           setErrorMessage("이미 사용 중인 이메일입니다.");
-        } else if (status === 400) {
-          setErrorMessage("올바른 이메일 형식이 아닙니다.");
         } else {
-          setErrorMessage("회원가입에 실패했습니다.");
+          // 상태코드: none
+          setErrorMessage(error.message || "알 수 없는 에러가 발생했습니다.");
         }
       } else {
-        setErrorMessage("알 수 없는 에러가 발생했습니다.");
+        setErrorMessage("회원가입에 실패했습니다.");
       }
     }
   };
@@ -67,10 +72,10 @@ const ValidationSignupForm = () => {
   return (
     <>
       <form
-        onSubmit={handleSubmit(signUpGlobalNomad)}
+        onSubmit={handleSubmit(postSignup)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 유효성검사: 이메일, 중복확인 */}
+        {/* 유효성검사: 이메일, 중복확인 버튼 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -106,7 +111,7 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "닉네임을 입력해 주세요.",
+            required: "열 자 이하로 작성해 주세요.",
             maxLength: {
               value: 10,
               message: "열 자 이하로 작성해 주세요.",
@@ -192,7 +197,7 @@ const ValidationSignupForm = () => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={"GlobalNomad 회원가입 완료되었습니다!"}
+        message={"GlobalNomad 회원가입이 완료되었습니다!"}
       />
       {/* alert 모달 */}
       <SuccessModal
