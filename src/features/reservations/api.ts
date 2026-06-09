@@ -1,4 +1,3 @@
-import { serverFetch } from "@/lib/http/server-fetch";
 import type {
   EditMyReservationsParams,
   GetMyReservationsParams,
