@@ -1,4 +1,4 @@
-import { ActivityDetailResponse } from "../../type";
+import { ActivityDetailResponse } from "@/app/(main)/activities/type";
 
 const activitiesData: ActivityDetailResponse = {
   id: 7,

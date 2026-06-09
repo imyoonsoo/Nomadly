@@ -1,5 +1,5 @@
 import ReviewCard from "../ReviewCard/ReviewCard";
-import ReviewMockData from "../../mock/reviewData";
+import ReviewMockData from "@/features/activities/mock/reviewData";
 import { ReviewBlue } from "@/constants/icons";
 import Button from "@/components/Button/Button";
 

@@ -1,13 +1,13 @@
-﻿import ReviewSection from "./components/ReviewSection/ReviewSection";
-import BannerImageSection from "./components/BannerImageSection/BannerImageSection";
-import TitleSection from "./components/TitleSection/TitleSection";
-import ReservationSection from "./components/ReservationSection/ReservationSection";
-import DescriptionSection from "./components/DescriptionSection/DescriptionSection";
-import MapSection from "./components/MapSection/MapSection";
-import MobileReservationFooter from "./components/MobileReservationFooter/MobileReservationFooter";
-import TabletReservationFooter from "./components/TabletReservationFooter/TabletReservationFooter";
-import bannerImageData from "./mock/bannerImageData";
-import activitiesData from "./mock/activitiesData";
+﻿import ReviewSection from "@/features/activities/components/ReviewSection/ReviewSection";
+import BannerImageSection from "@/features/activities/components/BannerImageSection/BannerImageSection";
+import TitleSection from "@/features/activities/components/TitleSection/TitleSection";
+import ReservationSection from "@/features/activities/components/ReservationSection/ReservationSection";
+import DescriptionSection from "@/features/activities/components/DescriptionSection/DescriptionSection";
+import MapSection from "@/features/activities/components/MapSection/MapSection";
+import MobileReservationFooter from "@/features/activities/components/MobileReservationFooter/MobileReservationFooter";
+import TabletReservationFooter from "@/features/activities/components/TabletReservationFooter/TabletReservationFooter";
+import bannerImageData from "@/features/activities/mock/bannerImageData";
+import activitiesData from "@/features/activities/mock/activitiesData";
 
 const ActivitiesPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const data = activitiesData;
