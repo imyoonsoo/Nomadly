@@ -39,7 +39,7 @@ const ValidationSignupForm = () => {
     try {
       // 상태코드: 201 ➝ 성공
       const { passwordValidation, ...signupData } = data;
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
         signupData,
       );
