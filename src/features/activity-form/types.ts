@@ -11,8 +11,8 @@ export interface ActivityFormValues {
   address: string;
   price: number | string;
   schedules: Schedule[];
-  bannerImageUrl: File | string;
-  subImageUrls: Array<File | string>;
+  bannerImageUrl: string;
+  subImageUrls: string[];
 }
 
 export interface CreateActivityRequest {

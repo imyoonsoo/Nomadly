@@ -1,0 +1,56 @@
+import axios from "axios";
+import {
+  CreateActivityRequest,
+  CreateActivityResponse,
+  UpdateActivityRequest,
+  UpdateActivityResponse,
+} from "./types";
+
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
+const TEST_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUyOCwidGVhbUlkIjoiMjMtMSIsImlhdCI6MTc4MDk5MTI5OSwiZXhwIjoxNzgwOTkzMDk5LCJpc3MiOiJzcC1nbG9iYWxub21hZCJ9.TCPBShqEmcGj38IjfNfUJURSk1v4iJ_s1Rt0EppBcEA";
+
+// 체험 등록
+export const createActivity = async (
+  body: CreateActivityRequest,
+): Promise<CreateActivityResponse> => {
+  console.log("요청 body:", body);
+
+  const response = await axios.post(`${BASE_URL}/activities`, body, {
+    headers: {
+      Authorization: `Bearer ${TEST_TOKEN}`,
+    },
+  });
+
+  return response.data;
+};
+
+// 체험 이미지 업로드
+export const uploadActivityImage = async (
+  image: File,
+): Promise<{ activityImageUrl: string }> => {
+  const formData = new FormData();
+
+  formData.append("image", image);
+
+  const response = await axios.post(`${BASE_URL}/activities/image`, formData, {
+    headers: {
+      Authorization: `Bearer ${TEST_TOKEN}`,
+    },
+  });
+
+  return response.data;
+};
+
+// 체험 수정
+export const updateActivity = async (
+  activityId: number,
+  body: UpdateActivityRequest,
+): Promise<UpdateActivityResponse> => {
+  const response = await axios.patch(
+    `${BASE_URL}/my-activities/${activityId}`,
+    body,
+  );
+
+  return response.data;
+};

@@ -83,23 +83,17 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   const isSubmitDisabled =
     (mode === "create" && !isDirty) || !isValid || hasScheduleDuplicate;
 
-  const handleFormSubmit: SubmitHandler<ActivityFormValues> = (data) => {
+  const handleFormSubmit: SubmitHandler<ActivityFormValues> = async (data) => {
     if (!data.bannerImageUrl) {
       return;
     }
 
-    console.log("데이터 제출 성공:", {
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      address: data.address,
-      price: data.price,
-      schedules: data.schedules,
-      bannerImageUrl: data.bannerImageUrl,
-      subImageUrls: data.subImageUrls,
-    });
-
-    setIsSuccessModalOpen(true);
+    try {
+      await onSubmit(data);
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      console.log("등록 실패: ", error);
+    }
   };
 
   return (
