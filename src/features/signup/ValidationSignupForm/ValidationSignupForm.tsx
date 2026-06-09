@@ -75,7 +75,7 @@ const ValidationSignupForm = () => {
         onSubmit={handleSubmit(postSignup)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 유효성검사: 이메일, 중복확인 버튼 */}
+        {/* 이메일, 중복확인 버튼 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -105,8 +105,9 @@ const ValidationSignupForm = () => {
           )}
         </div>
 
+        {/* 닉네임 */}
         <TextInput
-          label="닉네임 설정"
+          label="닉네임"
           placeholder="닉네임을 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.nickname?.message}
@@ -119,8 +120,9 @@ const ValidationSignupForm = () => {
           })}
         />
 
+        {/* 비밀번호 */}
         <TextInput
-          label="비밀번호 설정"
+          label="비밀번호"
           type="password"
           placeholder="8자 이상 입력해 주세요"
           className="self-stretch"
@@ -134,7 +136,7 @@ const ValidationSignupForm = () => {
           })}
         />
 
-        {/* 유효성검사: 비밀번호 확인 */}
+        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -148,7 +150,7 @@ const ValidationSignupForm = () => {
           })}
         />
 
-        {/* 모든 인풋이 유효해야 회원가입하기 버튼 활성화 */}
+        {/* GlobalNomad 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
@@ -163,7 +165,7 @@ const ValidationSignupForm = () => {
       {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-100" />
-        <span className="text-base font-medium tracking-[-0.4px] text-[#79747E]">
+        <span className="text-base font-medium tracking-[-0.4px] text-gray-500">
           SNS 계정으로 회원가입하기
         </span>
         <hr className="flex-1 border-gray-100" />
@@ -185,14 +187,14 @@ const ValidationSignupForm = () => {
       </Button>
 
       {/* 회원이신가요?로그인하기 바닥글 */}
-      <p className="text-sm text-gray-500">
+      <p className="text-base font-sm tracking-[-0.4px] text-gray-400">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
           로그인하기
         </Link>
       </p>
 
-      {/* 회원가입 완료 이후 가입성공 모달 오픈 */}
+      {/* 회원가입 성공 시 가입완료 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={() => {
@@ -201,7 +203,7 @@ const ValidationSignupForm = () => {
         }}
         message={"GlobalNomad 회원가입이 완료되었습니다!"}
       />
-      {/* alert 모달 */}
+      {/* 에러 모달 */}
       <SuccessModal
         isOpen={!!errorMessage}
         onClose={() => setErrorMessage("")}
