@@ -27,9 +27,11 @@ const Card = ({
   };
 
   return (
-    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.2)] flex justify-between items-center gap-4">
+    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] flex justify-between items-center gap-6">
       <div className="w-full flex flex-col justify-center items-start gap-3">
-        <h2 className="text-16-bold lg:text-18-bold text-gray-950">{title}</h2>
+        <h2 className="text-16-bold lg:text-18-bold text-gray-950 line-clamp-2">
+          {title}
+        </h2>
         <div className="flex items-center gap-0.5 text-13-medium lg:text-16-medium text-gray-500">
           <StarIcon width={16} height={16} />
           <span>{rating}</span>
@@ -62,17 +64,14 @@ const Card = ({
           </Button>
         </div>
       </div>
-      <div className="relative overflow-hidden shrink-0 w-20.5 h-20.5 rounded-3xl lg:w-35.5 lg:h-35.5 lg:rounded-4xl bg-primary-100">
-        {/* Todo: api 연결 후 이미지 url next.config.ts에 설정 추가 */}
-        {bannerImageUrl && (
-          <Image
-            src={bannerImageUrl}
-            alt={`${title} 배너 이미지`}
-            fill
-            className="object-cover"
-          />
-        )}
-      </div>
+
+      <Image
+        src={bannerImageUrl}
+        alt={`${title} 배너 이미지`}
+        width={142}
+        height={142}
+        className="w-20.5 h-20.5 lg:w-35.5 lg:h-35.5 object-cover rounded-3xl"
+      />
 
       {isModalOpen && (
         <WarningModal
