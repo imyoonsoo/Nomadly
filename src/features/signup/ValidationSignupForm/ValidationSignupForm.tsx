@@ -178,7 +178,7 @@ const ValidationSignupForm = () => {
         height="54lg"
         className="self-stretch"
         onClick={() => {
-          // Todo: 카카오 회원가입하기 로직
+          // Done: 카카오 REST API 추가 완료
           const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
           window.location.href = EASYAUTH_KAKAO_URL;
         }}
