@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useSignup } from "../queries";
+import { useSignup } from "../hooks/useSignup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
