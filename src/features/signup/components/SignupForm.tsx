@@ -13,7 +13,7 @@ import { SignupFormValues } from "../type";
 
 const SignupForm = () => {
   const { mutate } = useSignup();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
   const [isSignupSucceed, setIsSignupSucceed] = useState(false);
   const router = useRouter();
 
@@ -47,10 +47,10 @@ const SignupForm = () => {
       onError: (error) => {
         // 409 duplicated
         if (axios.isAxiosError(error) && error.response?.status === 409) {
-          setErrorMessage("이미 사용 중인 이메일입니다.");
+          setAlertMessage("이미 사용 중인 이메일입니다.");
         } else {
           // 그 외 에러들은 에러원인 모달로 띄워 회원가입 실패 알리기
-          setErrorMessage(`${error.message} 발생으로 회원가입 실패하였습니다.`);
+          setAlertMessage(`${error.message} 발생으로 회원가입 실패하였습니다.`);
         }
       },
     });
@@ -175,9 +175,9 @@ const SignupForm = () => {
       />
 
       <SuccessModal
-        isOpen={!!errorMessage}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
+        isOpen={!!alertMessage}
+        onClose={() => setAlertMessage("")}
+        message={alertMessage}
       />
     </>
   );
