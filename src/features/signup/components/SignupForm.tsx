@@ -82,17 +82,6 @@ const SignupForm = () => {
               },
             })}
           />
-          {isEmailValid && (
-            <Button
-              type="button"
-              height="custom"
-              className="bg-[#4dabf7] text-white absolute right-5 top-11.5 w-19 h-7.5 md:w-21.25 text-s rounded-lg z-10 whitespace-nowrap
-  active:bg-[#1c9af0]
-  disabled:bg-[#bce0fb] disabled:text-white/70 disabled:cursor-not-allowed"
-            >
-              중복확인
-            </Button>
-          )}
         </div>
 
         <TextInput
