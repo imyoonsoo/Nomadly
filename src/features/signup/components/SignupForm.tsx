@@ -45,7 +45,7 @@ const SignupForm = () => {
       // onSuccess 시 가입완료 모달 오픈
       onSuccess: () => {
         setIsSignupSucceed(true);
-        setTimeout(startLogin, 2500);
+        setTimeout(startLogin, 3000);
       },
       onError: (error) => {
         // 409 duplicated
@@ -97,7 +97,7 @@ const SignupForm = () => {
         <TextInput
           label="비밀번호"
           type="password"
-          placeholder="8자 이상의 영문, 숫자, 특수문자를 각각 1자 이상 조합해 입력해 주세요."
+          placeholder="8자 이상 입력해 주세요."
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
@@ -169,10 +169,7 @@ const SignupForm = () => {
 
       <SuccessModal
         isOpen={isSignupSucceed}
-        onClose={() => {
-          setIsSignupSucceed(false);
-          router.push("/login");
-        }}
+        onClose={startLogin}
         message={"회원가입이 완료되었습니다! GlobalNomad와 함께 떠나보세요."}
       />
 
