@@ -82,10 +82,10 @@ const SignupForm = () => {
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
-            required: "올바른 이메일 형식으로 입력해 주세요.",
+            required: "잘못된 이메일 형식입니다.",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "올바른 이메일 형식으로 입력해 주세요.",
+              message: "잘못된 이메일 형식입니다.",
             },
           })}
         />
