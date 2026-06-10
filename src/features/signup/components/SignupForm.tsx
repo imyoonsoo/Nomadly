@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useSignup } from "../hooks/useSignup";
+import useSignup from "../hooks/useSignup";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -105,7 +105,7 @@ const SignupForm = () => {
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
-            required: "잘못된 이메일 형식입니다.",
+            required: "이메일을 입력해 주세요.",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "잘못된 이메일 형식입니다.",
@@ -120,7 +120,7 @@ const SignupForm = () => {
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "10자 이하로 작성해 주세요.",
+            required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
               message: "10자 이하로 작성해 주세요.",
