@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { postSignup } from "./api";
 
 export const useSignup = () => {
-  useMutation({
+  return useMutation({
     mutationFn: postSignup,
   });
 };
