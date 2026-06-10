@@ -6,7 +6,7 @@ export type CardItem = {
   description?: string;
   category: string;
   price: number;
-  bannerImageUrl: StaticImageData;
+  bannerImageUrl: string;
   link: string;
   reviewCount: number;
   rating: number;

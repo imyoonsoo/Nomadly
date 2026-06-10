@@ -105,8 +105,6 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
     return 0;
   });
 
-  const onBookmark = () => {};
-
   const ITEMS_PER_PAGE = 8;
   const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
   const startIndex = (page - 1) * ITEMS_PER_PAGE;

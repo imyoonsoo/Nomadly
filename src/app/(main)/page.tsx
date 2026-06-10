@@ -43,7 +43,7 @@ const Home = () => {
     }
   };
   const getFilter = () => {
-    if (keyword === "") {
+    if (keyword.trim() === "") {
       return activities;
     }
     return activities.filter((item) =>

@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
+import { NoImg } from "@/constants/images";
 
 const MainBanner = ({ items }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -37,7 +38,7 @@ const MainBanner = ({ items }: CardListProps) => {
               <Link href={`/activities/${item.id}`}>
                 <div className="w-full h-full">
                   <Image
-                    src={item.bannerImageUrl}
+                    src={item.bannerImageUrl || NoImg}
                     alt={item.title}
                     className="object-cover"
                     fill

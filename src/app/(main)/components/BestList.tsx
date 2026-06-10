@@ -54,9 +54,9 @@ const BestList = ({ items }: CardListProps) => {
         {bestItems.map((item, ranking) => (
           <SwiperSlide key={item.id} className="relative">
             <ActivitiesCard {...item} />
-            <div className="absolute left-5 top-3 text-center font-['Arial_Black'] text-4xl font-black leading-none text-transparent [-webkit-text-stroke:1px_white] drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
+            {/* <div className="absolute left-5 top-3 text-center font-['Arial_Black'] text-4xl font-black leading-none text-transparent [-webkit-text-stroke:1px_white] drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
               {ranking + 1}
-            </div>
+            </div> */}
           </SwiperSlide>
         ))}
       </Swiper>
