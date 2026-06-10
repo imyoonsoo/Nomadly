@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { CardItem, CardListProps } from "./type";
+import { CardListProps } from "./type";
 import { ArrowRight } from "@/constants/icons";
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,6 +14,10 @@ const MainBanner = ({ items }: CardListProps) => {
   if (items.length === 0) {
     return null;
   }
+
+  const bestItems = [...items]
+    .sort((a, b) => b.reviewCount - a.reviewCount)
+    .slice(0, 5);
   return (
     <div className="relative">
       <Swiper
@@ -21,23 +25,24 @@ const MainBanner = ({ items }: CardListProps) => {
         modules={[Autoplay]}
         slidesPerView={1}
         autoplay={{ delay: 5000 }}
-        loop={true}
+        loop
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
+        className=" rounded-3xl overflow-hidden"
       >
-        {items.map((item) => (
+        {bestItems.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="relative w-full aspect-[1/0.6] md:aspect-[1/0.5] rounded-3xl overflow-hidden">
-              <Link href={item.link}>
+            <div className="relative w-full aspect-[1/0.6] md:aspect-[1/0.5]">
+              <Link href={`/activities/${item.id}`}>
                 <div className="w-full h-full">
                   <Image
-                    src={item.imageUrl}
-                    alt="인기이벤트이미지"
+                    src={item.bannerImageUrl}
+                    alt={item.title}
                     className="object-cover"
                     fill
                   />
-                  <div className="absolute top-0 left-0 w-full h-full bg-linear-to-t from-black to-transparent opacity-60"></div>
+                  <div className="absolute top-0 left-0 w-full h-full bg-linear-to-t from-black to-transparent opacity-80"></div>
                 </div>
 
                 <div className="absolute top-1/2 md:top-[60%] w-full text-center text-white px-10">

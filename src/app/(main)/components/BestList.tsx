@@ -2,7 +2,7 @@
 
 import ActivitiesCard from "./ActivitiesCard";
 import { CardListProps } from "./type";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { ArrowRight } from "@/constants/icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,17 +12,12 @@ import "swiper/css";
 
 const BestList = ({ items }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
 
   const bestItems = [...items]
     .sort((a, b) => b.reviewCount - a.reviewCount)
     .slice(0, 5);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
+  if (bestItems.length === 0) {
     return null;
   }
 
@@ -30,19 +25,15 @@ const BestList = ({ items }: CardListProps) => {
     <div className="relative w-full pb-2">
       <Swiper
         modules={[Autoplay]}
-        loop={bestItems.length > 4}
+        loop
         slidesPerView={4}
         spaceBetween={24}
-        observer={true}
-        observeParents={true}
-        resizeObserver={true}
-        updateOnWindowResize={true}
+        observer
+        observeParents
+        resizeObserver
+        updateOnWindowResize
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
-
-          setTimeout(() => {
-            swiper.update();
-          }, 0);
         }}
         breakpoints={{
           0: {
@@ -63,6 +54,9 @@ const BestList = ({ items }: CardListProps) => {
         {bestItems.map((item, ranking) => (
           <SwiperSlide key={item.id} className="relative">
             <ActivitiesCard {...item} />
+            <div className="absolute left-5 top-3 text-center font-['Arial_Black'] text-4xl font-black leading-none text-transparent [-webkit-text-stroke:1px_white] drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
+              {ranking + 1}
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

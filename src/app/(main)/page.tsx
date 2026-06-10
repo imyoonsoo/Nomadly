@@ -3,68 +3,30 @@ import Image from "next/image";
 import SearchBox from "./components/SearchBox";
 import MainBanner from "./components/MainBanner";
 import BestList from "./components/BestList";
-import {
-  Cloude,
-  MainBannertest,
-  MockImage1,
-  MockImage2,
-  MockImage3,
-} from "@/constants/images";
-import { useState } from "react";
 import ActivitiesList from "./components/ActivitiesList";
-import { ArrowRight } from "@/constants/icons";
-
-export const MOCKDATA = [
-  {
-    id: 1,
-    title: "영남알프스 온천마을호텔 등산 여행(알레버스)",
-    category: "투어",
-    price: 350,
-    imageUrl: MockImage1,
-    link: "/",
-    reviewCount: 1234,
-  },
-  {
-    id: 2,
-    title: "안개소녀 마법의 기차마을",
-    category: "투어",
-    price: 15000,
-    imageUrl: MockImage2,
-    link: "/activities",
-    reviewCount: 21,
-  },
-  {
-    id: 3,
-    title: "별의기억1.5 : 시간이탈자",
-    category: "식음료",
-    price: 3000,
-    imageUrl: MockImage3,
-    link: "/activities",
-    reviewCount: 1,
-  },
-  {
-    id: 4,
-    title: "우리 가족 토닥토닥 명상여행_2박3일",
-    category: "관광",
-    price: 115000,
-    imageUrl: MainBannertest,
-    link: "/activities",
-    reviewCount: 177,
-  },
-  {
-    id: 5,
-    title: "ESG 농업친화 생태여행",
-    category: "문화예술",
-    price: 15000,
-    imageUrl: MockImage1,
-    link: "/activities",
-    reviewCount: 1899,
-  },
-];
+import { Cloud } from "@/constants/images";
+import { useEffect, useState } from "react";
+import { CardItem } from "./components/type";
+import axios from "@/lib/api/axios";
 
 const Home = () => {
+  const [activities, setActivities] = useState<CardItem[]>([]);
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
+
+  useEffect(() => {
+    const getActivities = async () => {
+      const res = await axios.get("/activities", {
+        params: {
+          method: "offset",
+        },
+      });
+
+      setActivities(res.data.activities);
+    };
+
+    getActivities();
+  }, []);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -81,10 +43,10 @@ const Home = () => {
     }
   };
   const getFilter = () => {
-    if (keyword.trim() === "") {
-      return MOCKDATA;
+    if (keyword === "") {
+      return activities;
     }
-    return MOCKDATA.filter((item) =>
+    return activities.filter((item) =>
       item.title.toLowerCase().includes(keyword.toLowerCase()),
     );
   };
@@ -94,7 +56,7 @@ const Home = () => {
     <div
       className="bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: `url(${Cloude.src}), linear-gradient(to top, transparent 70%, #BBDDFF)`,
+        backgroundImage: `url(${Cloud.src}), linear-gradient(to top, transparent 70%, #BBDDFF)`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center 100px, center top",
         backgroundSize: "auto",
@@ -102,7 +64,7 @@ const Home = () => {
     >
       {/* 메인배너 */}
       <div className="mx-auto max-w-[1200px] px-6 pt-[122px] md:px-10 md:pt-[183px]">
-        <MainBanner items={MOCKDATA} />
+        <MainBanner items={activities} />
       </div>
       {/* 체험검색 */}
       <div className="mx-auto my-4 max-w-[1120px] px-5 py-4 my-10 md:my-12 md:px-10 md:py-8">
@@ -123,7 +85,7 @@ const Home = () => {
               🔥 인기 체험
             </h2>
             <div className="flex">
-              <BestList items={MOCKDATA} />
+              <BestList items={activities} />
             </div>
           </div>
         )}
@@ -131,7 +93,7 @@ const Home = () => {
       {/* 모든체험 */}
       <div className="px-6 md:px-10 mt-10 max-w-[1200px] mx-auto">
         {keyword === "" ? (
-          <h2 className="text-18-bold md:text-32-bold mb-5">🎠 모든 체험</h2>
+          <h2 className="text-18-bold md:text-32-bold mb-5">🎈 모든 체험</h2>
         ) : getFiltered.length === 0 ? (
           <div className="flex flex-col items-center pb-50 pt-20">
             <Image

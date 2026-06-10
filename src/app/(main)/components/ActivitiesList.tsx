@@ -1,15 +1,10 @@
 "use client";
 import FilterButton from "@/components/FilterButton/FilterButton";
 import ActivitiesCard from "./ActivitiesCard";
-import { CardItem } from "./type";
+import { CardListProps } from "./type";
 import { AltDown } from "@/constants/icons";
 import { useEffect, useState, useRef } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-
-type CardListProps = {
-  items: CardItem[];
-  keyword: string;
-};
 
 const CATEGORIES = [
   {
@@ -46,7 +41,7 @@ const CATEGORIES = [
 const ActivitiesList = ({ items, keyword }: CardListProps) => {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [selectedText, setSelectedText] = useState("가격순");
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const OPTIONS = ["가격순", "인기순"];
@@ -65,7 +60,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
         categoryDropdownRef.current &&
         !categoryDropdownRef.current.contains(target)
       ) {
-        setIsOpen2(false);
+        setIsOpenCategory(false);
       }
 
       if (
@@ -86,10 +81,10 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
   useEffect(() => {
     setSelectedText("가격순");
     setSelectedCategory("전체");
+    setPage(1);
   }, [keyword]);
 
   // 체험리스트 필터링
-
   const selectedCategoryItem = CATEGORIES.find(
     (item) => item.name === selectedCategory,
   );
@@ -109,6 +104,15 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
 
     return 0;
   });
+
+  const onBookmark = () => {};
+
+  const ITEMS_PER_PAGE = 8;
+  const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedItems = sortedItems.slice(startIndex, endIndex);
+
   return (
     <div className="relative w-full">
       {keyword === "" && (
@@ -121,18 +125,18 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
               <button
                 type="button"
                 className="py-2.5 px-5 flex items-center border border-gray-200 rounded-full bg-white gap-2"
-                onClick={() => setIsOpen2((prev) => !prev)}
+                onClick={() => setIsOpenCategory((prev) => !prev)}
               >
                 {selectedCategoryItem?.icon}
                 {selectedCategory}
                 <span>
                   <AltDown
-                    className={`${isOpen2 ? "rotate-180" : ""} transition`}
+                    className={`${isOpenCategory ? "rotate-180" : ""} transition`}
                   />
                 </span>
               </button>
 
-              {isOpen2 && (
+              {isOpenCategory && (
                 <div className="absolute right-0 top-12.5 bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-10 shadow-[0_4px_16px_rgb(187_187_187/50%)]">
                   {CATEGORIES.map((item) => (
                     <button
@@ -140,7 +144,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
                       type="button"
                       onClick={() => {
                         setSelectedCategory(item.name);
-                        setIsOpen2(false);
+                        setIsOpenCategory(false);
                         setPage(1);
                       }}
                       className="flex gap-2 items-center"
@@ -211,7 +215,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
         </div>
       )}
       <div className="flex flex-wrap gap-4 md:gap-6">
-        {sortedItems.map((item) => (
+        {paginatedItems.map((item) => (
           <div
             key={item.id}
             className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
@@ -220,9 +224,15 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-7.5">
-        <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
-      </div>
+      {sortedItems.length > 0 && totalPages > 1 && (
+        <div className="flex justify-center mt-7.5">
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        </div>
+      )}
     </div>
   );
 };
