@@ -19,3 +19,9 @@ export interface SignupResponse {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface GlobalNomadTermsAgreementValues extends SignupFormValues {
+  checkAll?: boolean;
+  checkService?: boolean;
+  checkPrivacy?: boolean;
+}
