@@ -34,7 +34,7 @@ const SignupForm = () => {
 
   const password = watch("password");
 
-  const goLogin = () => {
+  const startLogin = () => {
     setIsSignupSucceed(false);
     router.push("/login");
   };
@@ -42,8 +42,11 @@ const SignupForm = () => {
   const postSignup = (data: SignupFormValues) => {
     const { passwordConfirm, ...signupData } = data;
     mutate(signupData, {
-      // onSuccess 시 회원가입완료 모달 오픈
-      onSuccess: () => setIsSignupSucceed(true),
+      // onSuccess 시 가입완료 모달 오픈
+      onSuccess: () => {
+        setIsSignupSucceed(true);
+        setTimeout(startLogin, 2500);
+      },
       onError: (error) => {
         // 409 duplicated
         if (axios.isAxiosError(error) && error.response?.status === 409) {
@@ -94,7 +97,7 @@ const SignupForm = () => {
         <TextInput
           label="비밀번호"
           type="password"
-          placeholder="영문·숫자·특수문자 각각 1자 이상 조합해 8자 이상으로 입력해 주세요."
+          placeholder="8자 이상의 영문, 숫자, 특수문자를 각각 1자 이상 조합해 입력해 주세요."
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
@@ -106,7 +109,8 @@ const SignupForm = () => {
             pattern: {
               value:
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~\-])\S+$/,
-              message: "영문·숫자·특수문자 각각 1자 이상 조합해 입력해 주세요.",
+              message:
+                "영문, 숫자, 특수문자를 각각 1자 이상 조합해 입력해 주세요.",
             },
           })}
         />
@@ -169,9 +173,7 @@ const SignupForm = () => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={
-          "회원가입이 완료되었습니다. 로그인 후 GlobalNomad와 함께 떠나보세요!"
-        }
+        message={"회원가입이 완료되었습니다! GlobalNomad와 함께 떠나보세요."}
       />
 
       <SuccessModal
