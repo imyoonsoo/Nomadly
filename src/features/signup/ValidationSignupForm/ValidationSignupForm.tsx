@@ -30,47 +30,52 @@ const ValidationSignupForm = () => {
     },
   });
 
-  // react-hook-form의 watch로 회원가입폼에서 password, email 겟함
+  // watch로 비밀번호, 이메일 실시간 감지
   const password = watch("password");
-  // [추가] 중복확인 버튼 조건부 렌더링용
   const email = watch("email");
   const isEmailValid = email && !errors.email;
 
-  const signUpGlobalNomad = async (data: ValidationSignupFormInputfields) => {
+  const postSignup = async (data: ValidationSignupFormInputfields) => {
     try {
+      // 상태코드: 201 ➝ 성공
       const { passwordValidation, ...signupData } = data;
-      console.log(signupData);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
+        signupData,
+      );
       setIsSignupSucceed(true);
     } catch (error) {
-      // InProcess: ai코드리뷰 반영하여 axios로 400(올바른 이메일 형식), 409(중복된 이메일) 분기시킴
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        if (status === 409) {
+        const statusCode = error.response?.status;
+        // 상태코드: 409 ➝ 이메일 중복
+        if (statusCode === 409) {
           setErrorMessage("이미 사용 중인 이메일입니다.");
-        } else if (status === 400) {
-          setErrorMessage("올바른 이메일 형식이 아닙니다.");
         } else {
-          setErrorMessage("회원가입에 실패했습니다.");
+          // 상태코드: 409 외
+          setErrorMessage(
+            error.message ||
+              "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+          );
         }
       } else {
-        setErrorMessage("알 수 없는 에러가 발생했습니다.");
+        // 그 외 에러
+        setErrorMessage(
+          "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        );
       }
     }
   };
 
-  // 이메일 중복확인 핸들러함수
-  const handleEmailDuplicationCheckonClick = () => {
-    // Todo: 스웨거 API 분석해서 axios 중복확인 내부 로직 작성하기
-    console.log("이메일이 중복되었습니다.");
-  };
+  // 이메일 중복확인 핸들러함수 ➝ 스웨거 API 존재X
+  // const handleEmailDuplicationCheckonClick = () => {};
 
   return (
     <>
       <form
-        onSubmit={handleSubmit(signUpGlobalNomad)}
+        onSubmit={handleSubmit(postSignup)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 유효성검사: 이메일, 중복확인 */}
+        {/* 이메일, 중복확인 버튼 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -90,7 +95,6 @@ const ValidationSignupForm = () => {
             <Button
               type="button"
               height="custom"
-              onClick={handleEmailDuplicationCheckonClick}
               className="bg-[#4dabf7] text-white absolute right-5 top-11.5 w-19 h-7.5 md:w-21.25 text-s rounded-lg z-10 whitespace-nowrap
   active:bg-[#1c9af0]
   disabled:bg-[#bce0fb] disabled:text-white/70 disabled:cursor-not-allowed"
@@ -100,13 +104,14 @@ const ValidationSignupForm = () => {
           )}
         </div>
 
+        {/* 닉네임 */}
         <TextInput
-          label="닉네임 설정"
+          label="닉네임"
           placeholder="닉네임을 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "닉네임을 입력해 주세요.",
+            required: "열 자 이하로 작성해 주세요.",
             maxLength: {
               value: 10,
               message: "열 자 이하로 작성해 주세요.",
@@ -114,8 +119,9 @@ const ValidationSignupForm = () => {
           })}
         />
 
+        {/* 비밀번호 */}
         <TextInput
-          label="비밀번호 설정"
+          label="비밀번호"
           type="password"
           placeholder="8자 이상 입력해 주세요"
           className="self-stretch"
@@ -129,7 +135,7 @@ const ValidationSignupForm = () => {
           })}
         />
 
-        {/* 유효성검사: 비밀번호 확인 */}
+        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -137,13 +143,13 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.passwordValidation?.message}
           {...register("passwordValidation", {
-            required: "비밀번호를 한 번 더 입력해 주세요.",
+            required: "비밀번호가 일치하지 않습니다.",
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
           })}
         />
 
-        {/* 모든 인풋이 유효해야 회원가입하기 버튼 활성화 */}
+        {/* GlobalNomad 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
@@ -157,9 +163,11 @@ const ValidationSignupForm = () => {
 
       {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
-        <hr className="flex-1 border-gray-200" />
-        <span className="text-sm text-gray-500">SNS 계정으로 회원가입하기</span>
-        <hr className="flex-1 border-gray-200" />
+        <hr className="flex-1 border-gray-100" />
+        <span className="text-base font-medium tracking-[-0.4px] text-gray-500">
+          SNS 계정으로 회원가입하기
+        </span>
+        <hr className="flex-1 border-gray-100" />
       </div>
 
       {/* 카카오 간편 회원가입하기 */}
@@ -169,7 +177,7 @@ const ValidationSignupForm = () => {
         height="54lg"
         className="self-stretch"
         onClick={() => {
-          // Todo: 카카오 회원가입하기 로직
+          // Done: 카카오 REST API 추가 완료
           const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
           window.location.href = EASYAUTH_KAKAO_URL;
         }}
@@ -178,23 +186,23 @@ const ValidationSignupForm = () => {
       </Button>
 
       {/* 회원이신가요?로그인하기 바닥글 */}
-      <p className="text-sm text-gray-500">
+      <p className="text-base font-medium tracking-[-0.4px] text-gray-400">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
           로그인하기
         </Link>
       </p>
 
-      {/* 회원가입 완료 이후 가입성공 모달 오픈 */}
+      {/* 회원가입 성공 시 가입완료 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={() => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={"GlobalNomad 회원가입 완료되었습니다!"}
+        message={"GlobalNomad 회원가입이 완료되었습니다!"}
       />
-      {/* alert 모달 */}
+      {/* 에러 모달 */}
       <SuccessModal
         isOpen={!!errorMessage}
         onClose={() => setErrorMessage("")}
