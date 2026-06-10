@@ -70,7 +70,7 @@ export async function proxy(request: NextRequest) {
     }
   }
   if (accessToken && request.nextUrl.pathname === "/login") {
-    return NextResponse.redirect(new URL("/mypage", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (!accessToken && request.nextUrl.pathname.startsWith("/mypage")) {
