@@ -167,7 +167,7 @@ const SignupForm = () => {
         {/* 추가: GlobalNomad 이용약관동의서 */}
         <div className="flex flex-col w-full border-2 border-dashed border-blue-200 rounded-2xl p-6 gap-4 bg-gray-50/50 text-xs md:text-sm relative overflow-hidden">
           <div className="absolute right-4 top-3 text-3xl opacity-10 select-none flex gap-1">
-            📝
+            ✅
           </div>
 
           {/* 전체동의 */}
@@ -185,7 +185,7 @@ const SignupForm = () => {
 
           <hr className="border-dashed border-gray-200" />
 
-          {/* 필수약관 1: 서비스이용약관 */}
+          {/* 필수약관1: 서비스이용약관 */}
           <div className="flex items-center justify-between text-gray-600 gap-2 w-full">
             <label className="flex items-start md:items-center gap-3 cursor-pointer select-none group flex-1">
               <input
@@ -201,7 +201,7 @@ const SignupForm = () => {
             </label>
           </div>
 
-          {/* 필수약관 2: 개인정보처리방침 */}
+          {/* 필수약관2: 개인정보처리방침 */}
           <div className="flex items-center justify-between text-gray-600 gap-2 w-full">
             <label className="flex items-start md:items-center gap-3 cursor-pointer select-none group flex-1">
               <input
@@ -232,11 +232,11 @@ const SignupForm = () => {
 
       {/* 구분선 */}
       <div className="flex items-center gap-4 self-stretch">
-        <hr className="flex-1 border-[#DDDDDD]" />
-        <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px">
+        <hr className="flex-1 border-gray-100" />
+        <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
           SNS 계정으로 회원가입하기
         </span>
-        <hr className="flex-1 border-[#DDDDDD]" />
+        <hr className="flex-1 border-gray-100" />
       </div>
 
       {/* 카카오 회원가입 */}
@@ -257,7 +257,7 @@ const SignupForm = () => {
       <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
-          로그인하기
+          <b>로그인하기</b>
         </Link>
       </p>
 
