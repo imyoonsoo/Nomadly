@@ -42,9 +42,9 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
-  const [selectedText, setSelectedText] = useState("가격순");
+  const [selectedText, setSelectedText] = useState("최신순");
   const [selectedCategory, setSelectedCategory] = useState("전체");
-  const OPTIONS = ["가격순", "인기순"];
+  const OPTIONS = ["최신순", "인기순", "가격순"];
 
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -79,7 +79,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
   }, []);
 
   useEffect(() => {
-    setSelectedText("가격순");
+    setSelectedText("최신순");
     setSelectedCategory("전체");
     setPage(1);
   }, [keyword]);
@@ -94,14 +94,16 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
       : items.filter((item) => item.category === selectedCategory);
 
   const sortedItems = [...filteredItems].sort((a, b) => {
-    if (selectedText === "가격순") {
-      return a.price - b.price;
+    if (selectedText === "최신순") {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     }
 
     if (selectedText === "인기순") {
       return b.reviewCount - a.reviewCount;
     }
-
+    if (selectedText === "가격순") {
+      return a.price - b.price;
+    }
     return 0;
   });
 
@@ -212,15 +214,23 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-4 md:gap-6">
-        {paginatedItems.map((item) => (
-          <div
-            key={item.id}
-            className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
-          >
-            <ActivitiesCard {...item} />
+      <div>
+        {paginatedItems.length === 0 ? (
+          <div className="text-16-medium text-gray-500 mt-30 text-center">
+            등록된 체험이 없습니다.
           </div>
-        ))}
+        ) : (
+          <div className="flex flex-wrap gap-4 md:gap-6">
+            {paginatedItems.map((item) => (
+              <div
+                key={item.id}
+                className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
+              >
+                <ActivitiesCard {...item} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {sortedItems.length > 0 && totalPages > 1 && (
         <div className="flex justify-center mt-7.5">

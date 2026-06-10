@@ -63,7 +63,7 @@ const BestList = ({ items }: CardListProps) => {
 
       <button
         type="button"
-        className="absolute -right-5 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
+        className="absolute -right-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slideNext()}
       >
         <ArrowRight />

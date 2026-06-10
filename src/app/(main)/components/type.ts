@@ -10,6 +10,8 @@ export type CardItem = {
   link: string;
   reviewCount: number;
   rating: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CardListProps = {
