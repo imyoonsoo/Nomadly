@@ -1,3 +1,9 @@
+export interface GetActivityReviewsParams {
+  activityId: number;
+  page?: number;
+  size?: number;
+}
+
 export interface ActivityReviewsResponse {
   averageRating: number;
   totalCount: number;
@@ -18,6 +24,10 @@ export interface ReviewUser {
   profileImageUrl?: string;
   nickname: string;
   id: number;
+}
+
+export interface GetActivityDetailParams {
+  activityId: number;
 }
 
 export interface ActivityDetailResponse {
