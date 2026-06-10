@@ -52,12 +52,9 @@ export async function proxy(request: NextRequest) {
         request.cookies.set("accessToken", newAccessToken);
         accessToken = newAccessToken;
       } else {
-        // 백엔드에서 에러 코드를 준 경우 (예: 리프레시 토큰 자체의 만료 등)
+        // 백엔드에서 에러 코드를 준 경우
         const errorText = await res.text();
-        console.error(
-          `❌ 백엔드 재발급 실패 (Status: ${res.status}):`,
-          errorText,
-        );
+        console.error(`백엔드 재발급 실패 (Status: ${res.status}):`, errorText);
 
         response.cookies.delete("accessToken");
         response.cookies.delete("refreshToken");
@@ -65,7 +62,7 @@ export async function proxy(request: NextRequest) {
       }
     } catch (error) {
       // 네트워크 에러 또는 Edge Runtime 내의 원인 모를 에러 발생 시
-      console.error("❌ 미들웨어 런타임/네트워크 에러:", error);
+      console.error("미들웨어 런타임/네트워크 에러:", error);
 
       response.cookies.delete("accessToken");
       response.cookies.delete("refreshToken");

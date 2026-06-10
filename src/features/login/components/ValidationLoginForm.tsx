@@ -9,7 +9,7 @@ import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import { LogoPcTablet, LogoMobile } from "@/constants/images";
 import SuccessModal from "@/components/Modal/SuccessModal";
-import { loginAction } from "../actions";
+import { loginAction } from "../actions/loginAction";
 
 const ValidationLoginForm = () => {
   const [modalMessage, setModalMessage] = useState("");

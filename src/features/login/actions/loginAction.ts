@@ -1,8 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { login } from "./api";
-import type { LoginParams } from "./type";
+import { login } from "../api";
+import type { LoginParams } from "../type";
 import axios from "axios";
 
 export const loginAction = async (body: LoginParams) => {
