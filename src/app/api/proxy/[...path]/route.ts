@@ -4,6 +4,13 @@ import { NextResponse } from "next/server";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "lax" as const,
+  path: "/",
+};
+
 async function proxy(
   request: Request,
   { params }: { params: Promise<{ path: string[] }> },
@@ -13,22 +20,40 @@ async function proxy(
   const { path: pathSegments } = await params;
   const path = pathSegments.join("/");
   const search = new URL(request.url).search;
-  const body = request.method !== "GET" ? await request.text() : undefined;
+
+  const body =
+    request.method !== "GET" ? await request.arrayBuffer() : undefined;
+
+  const contentType = request.headers.get("content-type") ?? "application/json";
 
   try {
     const res = await axios({
       method: request.method,
       url: `${BASE_URL}/${path}${search}`,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": contentType,
         ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
       },
       data: body,
     });
 
+    if (res.status === 204) {
+      return new NextResponse(null, { status: 204 });
+    }
+
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
-    if (!axios.isAxiosError(error) || error.response?.status !== 401) {
+    if (
+      axios.isAxiosError(error) &&
+      error.response &&
+      error.response.status !== 401
+    ) {
+      return NextResponse.json(error.response.data, {
+        status: error.response.status,
+      });
+    }
+
+    if (!axios.isAxiosError(error) || !error.response) {
       return NextResponse.json(
         { message: "Internal Server Error" },
         { status: 500 },
@@ -47,32 +72,30 @@ async function proxy(
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         tokenRes.data;
 
-      cookieStore.set("accessToken", newAccessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-        path: "/",
-      });
-
-      cookieStore.set("refreshToken", newRefreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-        path: "/",
-      });
+      cookieStore.set("accessToken", newAccessToken, COOKIE_OPTIONS);
+      cookieStore.set("refreshToken", newRefreshToken, COOKIE_OPTIONS);
 
       const retryRes = await axios({
         method: request.method,
         url: `${BASE_URL}/${path}${search}`,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": contentType,
           Authorization: `Bearer ${newAccessToken}`,
         },
         data: body,
       });
 
+      if (retryRes.status === 204) {
+        return new NextResponse(null, { status: 204 });
+      }
+
       return NextResponse.json(retryRes.data, { status: retryRes.status });
-    } catch {
+    } catch (retryError) {
+      if (axios.isAxiosError(retryError) && retryError.response) {
+        return NextResponse.json(retryError.response.data, {
+          status: retryError.response.status,
+        });
+      }
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
   }
