@@ -73,6 +73,7 @@ export default function KakaoCallbackPage() {
             사용할 닉네임을 입력해 주세요
           </p>
           <TextInput
+            name="nickname"
             label="닉네임"
             placeholder="닉네임을 입력해 주세요"
             className="self-stretch"
