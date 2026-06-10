@@ -33,10 +33,15 @@ const ActivitiesList = () => {
   });
 
   // Todo: 스켈레톤 적용
-  if (isLoading) return <div>로딩 중입니다...</div>;
-  if (isError) return <EmptyCardList message="체험 목록을 불러오지 못했어요" />;
-  const cards = data?.pages.flatMap((page) => page.activities) ?? [];
+  if (isLoading) {
+    return <div>로딩 중입니다...</div>;
+  }
 
+  if (isError) {
+    return <EmptyCardList message="체험 목록을 불러오지 못했어요" />;
+  }
+
+  const cards = data?.pages.flatMap((page) => page.activities) ?? [];
   const totalCount = data?.pages[0]?.totalCount ?? 0;
   const sortedList = getSortedActivities(cards, currentSort);
 

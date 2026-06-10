@@ -79,6 +79,7 @@ const Card = ({
         </div>
       </div>
 
+      {/* Todo: placeholderImage 설정 */}
       <Image
         src={bannerImageUrl}
         alt="배너 이미지"
