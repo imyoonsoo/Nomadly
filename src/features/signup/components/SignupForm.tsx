@@ -34,6 +34,11 @@ const SignupForm = () => {
 
   const password = watch("password");
 
+  const goLogin = () => {
+    setIsSignupSucceed(false);
+    router.push("/login");
+  };
+
   const postSignup = (data: SignupFormValues) => {
     const { passwordConfirm, ...signupData } = data;
     mutate(signupData, {
