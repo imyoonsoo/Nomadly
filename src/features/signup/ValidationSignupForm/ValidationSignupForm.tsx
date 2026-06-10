@@ -150,14 +150,14 @@ const ValidationSignupForm = () => {
             window.location.href = EASYAUTH_KAKAO_URL;
           }}
         >
-          카카오 간편 회원가입
+          카카오 회원가입
         </Button>
 
         {/* 회원이신가요?로그인하기 바닥글 */}
         <p className="text-sm text-gray-500">
           회원이신가요?{" "}
           <Link href="/login" className="underline">
-            로그인하기
+            <b>로그인하기</b>
           </Link>
         </p>
       </div>
