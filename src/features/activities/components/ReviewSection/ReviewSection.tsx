@@ -1,14 +1,29 @@
 import ReviewCard from "../ReviewCard/ReviewCard";
-import ReviewMockData from "@/features/activities/mock/reviewData";
 import { ReviewBlue } from "@/constants/icons";
 import Button from "@/components/Button/Button";
+import { getActivityReviews } from "@/features/activities/api/api";
+import type {
+  GetActivityReviewsParams,
+  ActivityReviewsResponse,
+} from "@/app/(main)/activities/type";
 
 const REVIEW_DISPLAY_COUNT = 4;
 
-const ReviewSection = () => {
-  const data = ReviewMockData;
+const ReviewSection = async ({ activityId }: GetActivityReviewsParams) => {
+  let reviewData: ActivityReviewsResponse;
 
-  const latestReviews = [...data.reviews]
+  try {
+    reviewData = await getActivityReviews({
+      activityId,
+      page: 1,
+      size: REVIEW_DISPLAY_COUNT,
+    });
+  } catch (error) {
+    console.error("Failed to get activity reviews:", error);
+    throw error;
+  }
+
+  const latestReviews = [...reviewData.reviews]
     .sort((firstReview, secondReview) =>
       secondReview.updatedAt.localeCompare(firstReview.updatedAt),
     )
@@ -22,13 +37,13 @@ const ReviewSection = () => {
           체험 후기
         </h2>
         <span className="text-14-medium md:text-16-bold font-semibold text-gray-400">
-          {data.totalCount}개
+          {reviewData.totalCount}개
         </span>
       </div>
       <div className="flex flex-col gap-7.5">
         <div className="flex flex-col items-center gap-0.5">
           <span className="text-24-bold md:text-32-bold font-semibold text-gray-950">
-            {data.averageRating}
+            {reviewData.averageRating}
           </span>
           <span className="text-14-bold md:text-16-bold text-gray-950">
             매우 만족
