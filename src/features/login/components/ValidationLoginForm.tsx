@@ -18,7 +18,7 @@ const ValidationLoginForm = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ValidationLoginFormFields>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
