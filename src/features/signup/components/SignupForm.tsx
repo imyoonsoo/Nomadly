@@ -21,6 +21,7 @@ const SignupForm = () => {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors, isValid },
   } = useForm<SignupFormValues>({
     mode: "onBlur",
@@ -42,18 +43,27 @@ const SignupForm = () => {
   const postSignup = (data: SignupFormValues) => {
     const { passwordConfirm, ...signupData } = data;
     mutate(signupData, {
-      // onSuccess 시 가입완료 모달 오픈
       onSuccess: () => {
         setIsSignupSucceed(true);
         setTimeout(startLogin, 3000);
       },
       onError: (error) => {
-        // 409 duplicated
-        if (axios.isAxiosError(error) && error.response?.status === 409) {
-          setAlertMessage("이미 사용 중인 이메일입니다.");
+        if (axios.isAxiosError(error)) {
+          const statusCode = error.response?.status;
+          if (statusCode === 409) {
+            setError("email", {
+              message: "이미 사용 중인 이메일입니다.",
+            });
+          } else {
+            setAlertMessage(
+              error.response?.data?.message ??
+                "서버 통신 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
+            );
+          }
         } else {
-          // 그 외 에러들은 에러원인 모달로 띄워 회원가입 실패 알리기
-          setAlertMessage(`${error.message} 발생으로 회원가입 실패하였습니다.`);
+          setAlertMessage(
+            "알 수 없는 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
+          );
         }
       },
     });
@@ -68,7 +78,7 @@ const SignupForm = () => {
         <TextInput
           label="이메일"
           type="email"
-          placeholder="이메일을 입력해 주세요."
+          placeholder="이메일을 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
@@ -97,7 +107,7 @@ const SignupForm = () => {
         <TextInput
           label="비밀번호"
           type="password"
-          placeholder="8자 이상 입력해 주세요."
+          placeholder="8자 이상 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
@@ -118,7 +128,7 @@ const SignupForm = () => {
         <TextInput
           label="비밀번호 확인"
           type="password"
-          placeholder="비밀번호를 한 번 더 입력해 주세요."
+          placeholder="비밀번호를 한 번 더 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.passwordConfirm?.message}
           {...register("passwordConfirm", {
@@ -170,7 +180,9 @@ const SignupForm = () => {
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={startLogin}
-        message={"회원가입이 완료되었습니다! GlobalNomad와 함께 떠나보세요."}
+        message={
+          "회원가입이 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
+        }
       />
 
       <SuccessModal
