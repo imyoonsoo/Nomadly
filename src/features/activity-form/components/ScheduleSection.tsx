@@ -156,7 +156,6 @@ const ScheduleSection = ({
                     type="button"
                     onClick={handleAddSchedule}
                     icon={<PlusIcon width={24} height={24} />}
-                    iconJustify="center"
                     className="w-10.5 h-10.5 rounded-full hover:brightness-90 transition"
                   />
                 </div>
@@ -227,7 +226,6 @@ const ScheduleSection = ({
                         type="button"
                         onClick={() => remove(index)}
                         icon={<MinusIcon width={24} height={24} />}
-                        iconJustify="center"
                         className="w-10.5 h-10.5 rounded-full hover:bg-gray-100 transition"
                       />
                     </div>
