@@ -64,7 +64,7 @@ const ValidationLoginForm = () => {
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "8비밀번호를 입력해 주세요.",
+            required: "비밀번호를 입력해 주세요.",
             minLength: {
               value: 8,
               message: "8자 이상 입력해 주세요.",
