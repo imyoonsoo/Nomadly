@@ -83,27 +83,16 @@ const SignupForm = () => {
     };
   }, []);
 
-  // 추가: GlobalNomad 이용약관동의서 체크박스들
-  const [checkAll, setCheckAll] = useState(false);
+  // 추가: GlobalNomad 이용약관동의서
   const [checkService, setCheckService] = useState(false);
   const [checkPrivacy, setCheckPrivacy] = useState(false);
 
-  // 추가: 이용약관 전체동의 핸들러
+  const checkAll = checkService && checkPrivacy;
   const handleAllAgreements = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
-    setCheckAll(isChecked);
     setCheckService(isChecked);
     setCheckPrivacy(isChecked);
   };
-
-  // 추가: 이용약관 서비스/개인 정보 동의에 따른 전체동의 토글
-  useEffect(() => {
-    if (checkService && checkPrivacy) {
-      setCheckAll(true);
-    } else {
-      setCheckAll(false);
-    }
-  }, [checkService, checkPrivacy]);
 
   return (
     <>
