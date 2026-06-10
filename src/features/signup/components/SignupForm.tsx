@@ -195,8 +195,8 @@ const SignupForm = () => {
                 className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all shrink-0 mt-0.5 md:mt-0"
               />
               <span className="leading-tight">
-                <span className="font-semibold text-blue-500">[필수]</span> 체험
-                예약/상품 등록 동의
+                <span className="font-semibold text-blue-500">[필수]</span>
+                <b> 체험 예약/상품 등록 동의</b>
               </span>
             </label>
           </div>
@@ -212,8 +212,7 @@ const SignupForm = () => {
               />
               <span className="leading-tight">
                 <span className="font-semibold text-blue-500">[필수]</span>{" "}
-                캘린더뷰 내 위치 및 주소 기반 서비스 제공을 위한 개인정보 수집
-                동의
+                <b>캘린더뷰 주소 기반 서비스 제공을 위한 개인정보 수집 동의</b>
               </span>
             </label>
           </div>
