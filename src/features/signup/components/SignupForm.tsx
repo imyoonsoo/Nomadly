@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useSignup } from "../hooks/useSignup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import TextInput from "@/components/Input/TextInput";
@@ -13,9 +13,9 @@ import { SignupFormValues } from "../type";
 
 const SignupForm = () => {
   const { mutate } = useSignup();
+  const router = useRouter();
   const [alertMessage, setAlertMessage] = useState("");
   const [isSignupSucceed, setIsSignupSucceed] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -34,11 +34,6 @@ const SignupForm = () => {
   });
 
   const password = watch("password");
-
-  const startLogin = () => {
-    setIsSignupSucceed(false);
-    router.push("/login");
-  };
 
   const postSignup = (data: SignupFormValues) => {
     const { passwordConfirm, ...signupData } = data;
@@ -69,12 +64,40 @@ const SignupForm = () => {
     });
   };
 
+  const startLogin = () => {
+    setIsSignupSucceed(false);
+    router.push("/login");
+  };
+
+  // 추가: GlobalNomad 이용약관동의서 체크박스들
+  const [checkAll, setCheckAll] = useState(false);
+  const [checkService, setCheckService] = useState(false);
+  const [checkPrivacy, setCheckPrivacy] = useState(false);
+
+  // 추가: 이용약관 전체동의 핸들러
+  const handleAllAgreements = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setCheckAll(isChecked);
+    setCheckService(isChecked);
+    setCheckPrivacy(isChecked);
+  };
+
+  // 추가: 이용약관 서비스/개인 정보 동의에 따른 전체동의 토글
+  useEffect(() => {
+    if (checkService && checkPrivacy) {
+      setCheckAll(true);
+    } else {
+      setCheckAll(false);
+    }
+  }, [checkService, checkPrivacy]);
+
   return (
     <>
       <form
         onSubmit={handleSubmit(postSignup)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
+        {/* 이메일 입력 */}
         <TextInput
           label="이메일"
           type="email"
@@ -90,6 +113,7 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 닉네임 입력 */}
         <TextInput
           label="닉네임"
           placeholder="닉네임을 입력해 주세요"
@@ -104,6 +128,7 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 비밀번호 입력 */}
         <TextInput
           label="비밀번호"
           type="password"
@@ -125,6 +150,7 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -138,27 +164,83 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 추가: 피그마 시안에 없음.  */}
+        {/* 추가: GlobalNomad 이용약관동의서 */}
+        <div className="flex flex-col w-full border-2 border-dashed border-blue-200 rounded-2xl p-6 gap-4 bg-gray-50/50 text-xs md:text-sm relative overflow-hidden">
+          <div className="absolute right-4 top-3 text-3xl opacity-10 select-none flex gap-1">
+            🌏
+          </div>
 
+          {/* 전체동의 */}
+          <label className="flex items-center gap-3 font-bold text-gray-800 cursor-pointer select-none group">
+            <input
+              type="checkbox"
+              checked={checkAll}
+              onChange={handleAllAgreements}
+              className="w-5 h-5 rounded-full border-2 border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all group-hover:scale-105"
+            />
+            <span className="text-sm md:text-base text-blue-600 font-extrabold">
+              GlobalNomad 서비스 이용약관동의서
+            </span>
+          </label>
+
+          <hr className="border-dashed border-gray-200" />
+
+          {/* 필수약관 1: 서비스이용약관 */}
+          <div className="flex items-center justify-between text-gray-600 gap-2 w-full">
+            <label className="flex items-start md:items-center gap-3 cursor-pointer select-none group flex-1">
+              <input
+                type="checkbox"
+                checked={checkService}
+                onChange={(e) => setCheckService(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all shrink-0 mt-0.5 md:mt-0"
+              />
+              <span className="leading-tight">
+                <span className="font-semibold text-blue-500">[필수]</span> 체험
+                예약/상품 등록 동의
+              </span>
+            </label>
+          </div>
+
+          {/* 필수약관 2: 개인정보처리방침 */}
+          <div className="flex items-center justify-between text-gray-600 gap-2 w-full">
+            <label className="flex items-start md:items-center gap-3 cursor-pointer select-none group flex-1">
+              <input
+                type="checkbox"
+                checked={checkPrivacy}
+                onChange={(e) => setCheckPrivacy(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all shrink-0 mt-0.5 md:mt-0"
+              />
+              <span className="leading-tight">
+                <span className="font-semibold text-blue-500">[필수]</span>{" "}
+                캘린더뷰 내 위치 및 주소 기반 서비스 제공을 위한 개인정보 수집
+                동의
+              </span>
+            </label>
+          </div>
+        </div>
+
+        {/* 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
           height="54lg"
-          disabled={!isValid}
-          className="self-stretch"
+          disabled={!(isValid && checkService && checkPrivacy)}
+          className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
         >
           GlobalNomad 회원가입하기
         </Button>
       </form>
 
+      {/* 구분선 */}
       <div className="flex items-center gap-4 self-stretch">
-        <hr className="flex-1 border-gray-100" />
-        <span className="text-base font-medium tracking-[-0.4px] text-gray-500">
+        <hr className="flex-1 border-[#DDDDDD]" />
+        <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px">
           SNS 계정으로 회원가입하기
         </span>
-        <hr className="flex-1 border-gray-100" />
+        <hr className="flex-1 border-[#DDDDDD]" />
       </div>
 
+      {/* 카카오 회원가입 */}
       <Button
         type="button"
         variant="easyKakao"
@@ -172,13 +254,15 @@ const SignupForm = () => {
         카카오 회원가입
       </Button>
 
-      <p className="text-base font-medium tracking-[-0.4px] text-gray-400">
+      {/* 로그인하기 underline글 로그인페이지로 이동 */}
+      <p className="text-gray-400 text-center text-base font-medium tracking-[-0.4px]">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
           로그인하기
         </Link>
       </p>
 
+      {/* 회원가입 성공 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={startLogin}
@@ -187,6 +271,7 @@ const SignupForm = () => {
         }
       />
 
+      {/* 회원가입 에러 모달 */}
       <SuccessModal
         isOpen={!!alertMessage}
         onClose={() => setAlertMessage("")}
