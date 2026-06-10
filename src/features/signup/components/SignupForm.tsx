@@ -30,14 +30,12 @@ const SignupForm = () => {
     },
   });
 
-  // watch로 비밀번호, 이메일 실시간 감지
   const password = watch("password");
   const email = watch("email");
   const isEmailValid = email && !errors.email;
 
   const postSignup = async (data: SignupFormValues) => {
     try {
-      // 상태코드: 201 ➝ 성공
       const { passwordConfirm, ...signupData } = data;
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
@@ -47,18 +45,15 @@ const SignupForm = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const statusCode = error.response?.status;
-        // 상태코드: 409 ➝ 이메일 중복
         if (statusCode === 409) {
           setErrorMessage("이미 사용 중인 이메일입니다.");
         } else {
-          // 상태코드: 409 외
           setErrorMessage(
             error.message ||
               "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
           );
         }
       } else {
-        // 그 외 에러
         setErrorMessage(
           "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
         );
@@ -66,16 +61,12 @@ const SignupForm = () => {
     }
   };
 
-  // 이메일 중복확인 핸들러함수 ➝ 스웨거 API 존재X
-  // const handleEmailDuplicationCheckonClick = () => {};
-
   return (
     <>
       <form
         onSubmit={handleSubmit(postSignup)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일, 중복확인은 버튼이 아닌 이메일 중복 시 모달창으로 제어 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -104,7 +95,6 @@ const SignupForm = () => {
           )}
         </div>
 
-        {/* 닉네임 */}
         <TextInput
           label="닉네임"
           placeholder="닉네임을 입력해 주세요"
@@ -119,7 +109,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 비밀번호 */}
         <TextInput
           label="비밀번호"
           type="password"
@@ -135,7 +124,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -149,7 +137,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* GlobalNomad 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
@@ -161,7 +148,6 @@ const SignupForm = () => {
         </Button>
       </form>
 
-      {/* 디바이더 */}
       <div className="flex items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-100" />
         <span className="text-base font-medium tracking-[-0.4px] text-gray-500">
@@ -170,14 +156,12 @@ const SignupForm = () => {
         <hr className="flex-1 border-gray-100" />
       </div>
 
-      {/* 카카오 간편 회원가입하기 */}
       <Button
         type="button"
         variant="easyKakao"
         height="54lg"
         className="self-stretch"
         onClick={() => {
-          // Done: 카카오 REST API 추가 완료
           const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
           window.location.href = EASYAUTH_KAKAO_URL;
         }}
@@ -185,7 +169,6 @@ const SignupForm = () => {
         카카오 간편 회원가입
       </Button>
 
-      {/* 회원이신가요?로그인하기 바닥글 */}
       <p className="text-base font-medium tracking-[-0.4px] text-gray-400">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
@@ -193,7 +176,6 @@ const SignupForm = () => {
         </Link>
       </p>
 
-      {/* 회원가입 성공 시 가입완료 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={() => {
@@ -202,7 +184,7 @@ const SignupForm = () => {
         }}
         message={"GlobalNomad 회원가입이 완료되었습니다!"}
       />
-      {/* 에러 모달 */}
+
       <SuccessModal
         isOpen={!!errorMessage}
         onClose={() => setErrorMessage("")}
