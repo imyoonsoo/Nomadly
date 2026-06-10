@@ -3,7 +3,7 @@
 import axios from "axios";
 import useSignup from "../hooks/useSignup";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import TextInput from "@/components/Input/TextInput";
@@ -34,13 +34,15 @@ const SignupForm = () => {
   });
 
   const password = watch("password");
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const postSignup = (data: SignupFormValues) => {
     const { passwordConfirm, ...signupData } = data;
     mutate(signupData, {
+      // On Success 시 모달에서 로그인으로 이동
       onSuccess: () => {
         setIsSignupSucceed(true);
-        setTimeout(startLogin, 3000);
+        timerRef.current = setTimeout(startLogin, 3000); // timeRef에 ID 저장
       },
       onError: (error) => {
         if (axios.isAxiosError(error)) {
@@ -65,9 +67,21 @@ const SignupForm = () => {
   };
 
   const startLogin = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
     setIsSignupSucceed(false);
     router.push("/login");
   };
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   // 추가: GlobalNomad 이용약관동의서 체크박스들
   const [checkAll, setCheckAll] = useState(false);
