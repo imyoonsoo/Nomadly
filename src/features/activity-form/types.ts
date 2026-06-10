@@ -58,3 +58,17 @@ export interface CreateActivityResponse {
   subImages: ResponseSubImages[];
   schedules: ResponseSchedule[];
 }
+
+export interface UpdateActivityRequest {
+  title: string;
+  category: string;
+  description: string;
+  price: number;
+  bannerImageUrl: string;
+  subImagesIdsToRemove: number[];
+  subImagesUrlsToAdd: string[];
+  scheduleIdsToRemove: number[];
+  schedulesToAdd: Schedule[];
+}
+
+export type UpdateActivityResponse = CreateActivityResponse;

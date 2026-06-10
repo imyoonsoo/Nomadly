@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { ActivityFormValues } from "@/features/activity-form/types";
@@ -97,7 +97,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   };
 
   return (
-    <div className="w-full mb-12 lg:px-[150px]">
+    <div className="w-full mb-12 lg:px-37.5">
       <h1 className="py-5 text-18-bold text-gray-950">
         {mode === "create" ? "📍내 체험 등록" : "📍내 체험 수정"}
       </h1>

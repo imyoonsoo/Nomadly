@@ -9,23 +9,22 @@ import {
 import { uploadActivityImage } from "@/features/activity-form/api";
 
 const CreateActivityForm = () => {
-  const createMutation = useCreateActivityMutation();
+  const createActivityMutation = useCreateActivityMutation();
 
   const handleCreateActivity = async (data: ActivityFormValues) => {
-    if (!data.bannerImageUrl) return;
+    if (!data.bannerImageUrl) {
+      return;
+    }
 
     const bannerImageResponse =
       typeof data.bannerImageUrl === "string"
         ? { activityImageUrl: data.bannerImageUrl }
         : await uploadActivityImage(data.bannerImageUrl);
-    console.log("배너 이미지 응답:", bannerImageResponse);
 
     const subImageUrls = await Promise.all(
-      data.subImageUrls.map(async (image) => {
-        if (typeof image === "string") return image;
-
-        const response = await uploadActivityImage(image);
-        console.log("소개 이미지 응답:", response);
+      data.subImageUrls.map(async (imageUrl) => {
+        if (typeof imageUrl === "string") return imageUrl;
+        const response = await uploadActivityImage(imageUrl);
 
         return response.activityImageUrl;
       }),
@@ -44,7 +43,7 @@ const CreateActivityForm = () => {
 
     console.log("최종 등록 요청 body:", request);
 
-    await createMutation.mutateAsync(request);
+    await createActivityMutation.mutateAsync(request);
   };
 
   return <ActivityForm mode="create" onSubmit={handleCreateActivity} />;

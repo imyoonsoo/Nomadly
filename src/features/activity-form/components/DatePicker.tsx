@@ -81,7 +81,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
       </div>
 
       {isCalendarOpen && (
-        <div className="absolute top-full left-0 mt-2 z-20 w-full bg-white border border-gray-100 rounded-2xl shadow-2xl p-5">
+        <div className="absolute top-full right-0 mt-2 z-20 w-100 bg-white border border-gray-100 rounded-2xl shadow-2xl p-5">
           <Calendar
             selectedTimestamp={selectedTimestamp}
             selectedYearAndMonth={selectedYearAndMonth}
