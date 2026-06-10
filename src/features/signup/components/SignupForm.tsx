@@ -138,6 +138,8 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 추가: 피그마 시안에 없음.  */}
+
         <Button
           type="submit"
           variant="mainBlue"
@@ -167,7 +169,7 @@ const SignupForm = () => {
           window.location.href = QAuth_KAKAO_URL;
         }}
       >
-        카카오 간편 회원가입
+        카카오 회원가입
       </Button>
 
       <p className="text-base font-medium tracking-[-0.4px] text-gray-400">
