@@ -167,7 +167,7 @@ const SignupForm = () => {
         {/* 추가: GlobalNomad 이용약관동의서 */}
         <div className="flex flex-col w-full border-2 border-dashed border-blue-200 rounded-2xl p-6 gap-4 bg-gray-50/50 text-xs md:text-sm relative overflow-hidden">
           <div className="absolute right-4 top-3 text-3xl opacity-10 select-none flex gap-1">
-            🌏
+            📝
           </div>
 
           {/* 전체동의 */}
@@ -255,7 +255,7 @@ const SignupForm = () => {
       </Button>
 
       {/* 로그인하기 underline글 로그인페이지로 이동 */}
-      <p className="text-gray-400 text-center text-base font-medium tracking-[-0.4px]">
+      <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
           로그인하기
