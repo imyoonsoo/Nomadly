@@ -87,7 +87,9 @@ const ReservationModalContent = ({
     const isBottom =
       target.scrollTop + target.clientHeight >= target.scrollHeight - 10;
 
-    if (!isBottom || !hasMore) return;
+    if (!isBottom || !hasMore) {
+      return;
+    }
 
     setVisibleCount((prev) => Math.min(prev + loadSize, reservations.length));
   };
