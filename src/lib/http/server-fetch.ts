@@ -1,18 +1,17 @@
-import axios from "axios";
-import { cookies } from "next/headers";
 import "server-only";
 
-const serverFetch = async () => {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
+export const serverFetch = async <T>(
+  path: string,
+  options?: RequestInit & { next?: NextFetchRequestConfig },
+): Promise<T> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`,
+    options,
+  );
 
-  return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    headers: {
-      "Content-Type": "application/json",
-      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
-    },
-  });
+  if (!response.ok) {
+    throw new Error(`${response.status}`);
+  }
+
+  return response.json() as Promise<T>;
 };
-
-export default serverFetch;
