@@ -37,7 +37,7 @@ const ActivitiesCard = ({
           </div>
           <div className="mt-2.5 md:mt-4.5 whitespace-nowrap">
             <span className="text-16-bold md:text-18-bold">
-              ₩ {price.toLocaleString()}
+              ₩ {(price ?? 0).toLocaleString()}
             </span>
           </div>
         </div>
