@@ -79,7 +79,7 @@ const ReservationStatusPage = () => {
         <EmptyReservationStatus message="아직 등록한 체험이 없어요" />
       ) : (
         <>
-          <div className="pb[18px] md:pb-6 xl:pb-[30px]">
+          <div className="pb-[18px] md:pb-6 xl:pb-[30px]">
             <SelectDropdown
               options={activityOptions}
               selectedValue={selectedActivityId}
