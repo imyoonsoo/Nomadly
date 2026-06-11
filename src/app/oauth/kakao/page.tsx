@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   kakaoSignInAction,
@@ -9,7 +9,14 @@ import {
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 
-const KakaoCallbackPage = () => {
+// TODO: 임시로 생성한 상태. 로딩 UI 추가필요
+const KakaoCallbackLoading = () => (
+  <div className="flex items-center justify-center h-screen">
+    카카오 로그인 처리 중...
+  </div>
+);
+
+const KakaoCallbackContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [nickname, setNickname] = useState("");
@@ -98,10 +105,14 @@ const KakaoCallbackPage = () => {
     );
   }
 
+  return <KakaoCallbackLoading />;
+};
+
+const KakaoCallbackPage = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      카카오 로그인 처리 중...
-    </div>
+    <Suspense fallback={<KakaoCallbackLoading />}>
+      <KakaoCallbackContent />
+    </Suspense>
   );
 };
 
