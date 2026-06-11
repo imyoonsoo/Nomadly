@@ -5,6 +5,7 @@ import ReservationModalContent from "@/features/reservation-status/components/mo
 
 interface MobileReservationStatusModalProps {
   selectedDate: string;
+  activityId: number;
   onClose: () => void;
 }
 
@@ -15,6 +16,7 @@ const FULL_PAGE_THRESHOLD = -80;
 
 const MobileReservationStatusModal = ({
   selectedDate,
+  activityId,
   onClose,
 }: MobileReservationStatusModalProps) => {
   const startYRef = useRef(0);
@@ -92,6 +94,7 @@ const MobileReservationStatusModal = ({
         <div className="h-[calc(100vh-32px)] overflow-hidden px-5 pb-8">
           <ReservationModalContent
             selectedDate={selectedDate}
+            activityId={activityId}
             onClose={onClose}
             isFullPage={isFullPage}
           />

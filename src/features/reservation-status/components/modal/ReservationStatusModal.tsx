@@ -3,12 +3,14 @@ import PcReservationStatusModal from "@/features/reservation-status/components/m
 
 interface ReservationStatusModalProps {
   open: boolean;
+  activityId: number;
   selectedDate: string | null;
   onClose: () => void;
 }
 
 const ReservationStatusModal = ({
   open,
+  activityId,
   selectedDate,
   onClose,
 }: ReservationStatusModalProps) => {
@@ -18,9 +20,14 @@ const ReservationStatusModal = ({
 
   return (
     <>
-      <PcReservationStatusModal selectedDate={selectedDate} onClose={onClose} />
+      <PcReservationStatusModal
+        activityId={activityId}
+        selectedDate={selectedDate}
+        onClose={onClose}
+      />
 
       <MobileReservationStatusModal
+        activityId={activityId}
         selectedDate={selectedDate}
         onClose={onClose}
       />
