@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ReservationDashboardItem } from "@/features/reservation-status/type";
 import {
   formatDateKey,
@@ -15,13 +15,15 @@ const WEEK_DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 interface ReservationCalendarProps {
   reservations: ReservationDashboardItem[];
   onClickDate: (date: string) => void;
+  onChangeMonth: (value: { year: string; month: string }) => void;
 }
 
 const ReservationCalendar = ({
   reservations,
   onClickDate,
+  onChangeMonth,
 }: ReservationCalendarProps) => {
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 4, 1));
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -42,6 +44,13 @@ const ReservationCalendar = ({
   const handleNextMonthButtonClick = () => {
     setCurrentDate(new Date(year, month + 1, 1));
   };
+
+  useEffect(() => {
+    onChangeMonth({
+      year: String(year),
+      month: String(month + 1).padStart(2, "0"),
+    });
+  }, [year, month, onChangeMonth]);
 
   return (
     <div className="w-full max-w-[640px] overflow-hidden rounded-3xl bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">

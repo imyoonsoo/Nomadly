@@ -57,10 +57,7 @@ const ReservationCard = ({
           </button>
         </div>
       ) : (
-        <StateBadge
-          status={status === "confirmed" ? "pending" : "declined"}
-          className="self-center"
-        />
+        <StateBadge status={status} className="self-center" />
       )}
     </div>
   );
