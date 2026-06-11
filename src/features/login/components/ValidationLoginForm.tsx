@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ValidationLoginFormFields } from "./type";
+import { ValidationLoginFormFields } from "../type";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
+import { loginAction } from "../actions/loginAction";
 
 const ValidationLoginForm = () => {
   const [modalMessage, setModalMessage] = useState("");
@@ -25,15 +26,12 @@ const ValidationLoginForm = () => {
   });
 
   const globalnomadLogin = async (authData: ValidationLoginFormFields) => {
-    try {
+    const result = await loginAction(authData);
+
+    if (result.success) {
       router.push("/");
-    } catch (error) {
-      if (error instanceof Error) {
-        // Todo: 에러코드 400(올바른 이메일 형식), 409(중복된 이메일) 로직 axios로 작성하기
-        setModalMessage(error.message || "비밀번호가 일치하지 않습니다.");
-      } else {
-        setModalMessage("알 수 없는 에러 발생");
-      }
+    } else {
+      setModalMessage(result.error ?? "로그인에 실패했습니다.");
     }
   };
 
@@ -100,7 +98,7 @@ const ValidationLoginForm = () => {
         height="54lg"
         className="self-stretch"
         onClick={() => {
-          const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
+          const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=login`;
           window.location.href = EASYAUTH_KAKAO_URL;
         }}
       >
