@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Providers from "@/lib/query/providers";
-import Header from "@/components/layout/Header/Header";
-import Footer from "@/components/layout/Footer/Footer";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {

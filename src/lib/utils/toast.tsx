@@ -1,4 +1,4 @@
-import toast, { ToastOptions } from "react-hot-toast";
+import toast, { CheckmarkIcon, ErrorIcon, ToastOptions } from "react-hot-toast";
 
 const DEFAULT_OPTIONS: ToastOptions = {
   duration: 3000,
@@ -25,8 +25,8 @@ showToast.success = (message: string, options?: ToastOptions) => {
   return toast.success(message, {
     ...DEFAULT_OPTIONS,
     ...options,
-    icon: "✅",
-    className: `custom-toast toast-success ${options?.className || ""}`,
+    icon: <CheckmarkIcon />,
+    className: `custom-toast ${options?.className || ""}`,
   });
 };
 
@@ -34,7 +34,7 @@ showToast.error = (message: string, options?: ToastOptions) => {
   return toast.error(message, {
     ...DEFAULT_OPTIONS,
     ...options,
-    icon: "🚨",
-    className: `custom-toast toast-error ${options?.className || ""}`,
+    icon: <ErrorIcon />,
+    className: `custom-toast ${options?.className || ""}`,
   });
 };
