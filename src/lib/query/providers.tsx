@@ -3,6 +3,7 @@
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import { makeQueryClient } from "./get-query-client";
 import { useRef } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const clientRef = useRef<QueryClient | null>(null);
@@ -12,6 +13,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={clientRef.current}>
       {children}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
