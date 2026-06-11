@@ -1,8 +1,27 @@
+import { getActivityDetail } from "@/features/activities/api/api";
 import ActivityForm from "@/features/activity-form/components/ActivityForm";
-import { mockActivityDetailData } from "@/features/activity-form/mock";
+import { defaultActivityFormValues } from "@/features/activity-form/utils";
 
-const EditActivityForm = async () => {
-  return <ActivityForm mode="edit" defaultValues={mockActivityDetailData} />;
+interface EditActivityFormProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+const EditActivityForm = async ({ params }: EditActivityFormProps) => {
+  const { id } = await params;
+  const activityId = Number(id);
+
+  const activityDetailData = await getActivityDetail({
+    activityId,
+  });
+
+  return (
+    <ActivityForm
+      mode="edit"
+      defaultValues={defaultActivityFormValues(activityDetailData)}
+    />
+  );
 };
 
 export default EditActivityForm;

@@ -1,10 +1,7 @@
-import {
-  GetMyActivitiesParams,
-  GetMyActivitiesResponse,
-  UpdateActivityRequest,
-  UpdateActivityResponse,
-} from "./type";
+"use client";
+
 import { clientFetch } from "@/lib/http/client-fetch";
+import { GetMyActivitiesParams, GetMyActivitiesResponse } from "./type";
 
 // 내 체험 조회
 export const getMyActivities = async (
@@ -24,13 +21,3 @@ export const getMyActivities = async (
 export const deleteMyActivity = async (activityId: number): Promise<void> => {
   await clientFetch.delete(`/my-activities/${activityId}`);
 };
-
-// // 체험 수정
-// export const updateMyActivity = async (
-//   activityId: number,
-//   body: UpdateActivityRequest,
-// ): Promise<UpdateActivityResponse> => {
-//   const response = await axios.patch(`/my-activities/${activityId}`, body);
-
-//   return response.data;
-// };

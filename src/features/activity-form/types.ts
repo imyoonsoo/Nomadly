@@ -1,3 +1,5 @@
+import { ActivityImage } from "@/app/(main)/activities/type";
+
 interface Schedule {
   date: string;
   startTime: string;
@@ -11,20 +13,20 @@ export interface ActivityFormValues {
   address: string;
   price: number | string;
   schedules: Schedule[];
-  bannerImageUrl: string;
-  subImageUrls: string[];
+  bannerImageUrl: File | string | null;
+  subImageUrls: (File | string)[];
 }
 
-export interface CreateActivityRequest {
-  title: string;
-  category: string;
-  description: string;
-  address: string;
-  price: number;
-  schedules: Schedule[];
-  bannerImageUrl: string;
-  subImageUrls: string[];
-}
+// export interface CreateActivityRequest {
+//   title: string;
+//   category: string;
+//   description: string;
+//   address: string;
+//   price: number;
+//   schedules: Schedule[];
+//   bannerImageUrl: string;
+//   subImageUrls: string[];
+// }
 
 export interface TimeSlot {
   id: number;
@@ -35,11 +37,6 @@ export interface TimeSlot {
 export interface ActivityDetailSchedule {
   times: TimeSlot[];
   date: string;
-}
-
-export interface ActivityDetailSubImage {
-  id: number;
-  imageUrl: string;
 }
 
 export interface CreateActivityResponse {
@@ -55,7 +52,7 @@ export interface CreateActivityResponse {
   reviewCount: number;
   createdAt: string;
   updatedAt: string;
-  subImages: ActivityDetailSubImage[];
+  subImages: ActivityImage[];
   schedules: ActivityDetailSchedule[];
 }
 

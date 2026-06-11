@@ -1,7 +1,8 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createActivity } from "../api";
+import { createActivity, updateMyActivity } from "../api";
+import { UpdateActivityRequest } from "../types";
 
 export const useCreateActivityMutation = () => {
   const queryClient = useQueryClient();
@@ -11,5 +12,12 @@ export const useCreateActivityMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["activities"] });
     },
+  });
+};
+
+export const useUpdateActivityMutation = (activityId: number) => {
+  return useMutation({
+    mutationFn: (body: UpdateActivityRequest) =>
+      updateMyActivity(activityId, body),
   });
 };
