@@ -74,6 +74,7 @@ const ActivitiesPage = async ({
             rating={activityData.rating}
           />
           <ReservationSection
+            activityId={activityId}
             price={activityData.price}
             schedules={activityData.schedules}
           />
@@ -81,10 +82,12 @@ const ActivitiesPage = async ({
       </div>
 
       <MobileReservationFooter
+        activityId={activityId}
         price={activityData.price}
         schedules={activityData.schedules}
       />
       <TabletReservationFooter
+        activityId={activityId}
         price={activityData.price}
         schedules={activityData.schedules}
       />
