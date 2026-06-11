@@ -5,7 +5,7 @@ interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-const ActivityLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
       <Header />
@@ -14,4 +14,4 @@ const ActivityLayout = ({ children }: MainLayoutProps) => {
     </div>
   );
 };
-export default ActivityLayout;
+export default MainLayout;
