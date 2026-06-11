@@ -1,46 +1,36 @@
-import axios from "axios";
 import {
   GetMyActivitiesParams,
   GetMyActivitiesResponse,
   UpdateActivityRequest,
   UpdateActivityResponse,
 } from "./type";
+import { clientFetch } from "@/lib/http/client-fetch";
 
-// Todo: 로그인 후 수정
-const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/my-activities`;
-const TEST_TOKEN = "테스트토큰값";
 // 내 체험 조회
 export const getMyActivities = async (
   params?: GetMyActivitiesParams,
 ): Promise<GetMyActivitiesResponse> => {
-  const response = await axios.get(`${BASE_URL}`, {
-    params,
-    headers: {
-      Authorization: `Bearer ${TEST_TOKEN}`,
+  const { data } = await clientFetch.get<GetMyActivitiesResponse>(
+    "/my-activities",
+    {
+      params,
     },
-  });
-  return response.data;
-};
+  );
 
-// 체험 수정
-export const updateMyActivity = async (
-  activityId: number,
-  body: UpdateActivityRequest,
-): Promise<UpdateActivityResponse> => {
-  const response = await axios.patch(`${BASE_URL}/${activityId}`, body, {
-    headers: {
-      Authorization: `Bearer ${TEST_TOKEN}`,
-    },
-  });
-
-  return response.data;
+  return data;
 };
 
 // 내 체험 삭제
 export const deleteMyActivity = async (activityId: number): Promise<void> => {
-  await axios.delete(`${BASE_URL}/${activityId}`, {
-    headers: {
-      Authorization: `Bearer ${TEST_TOKEN}`,
-    },
-  });
+  await clientFetch.delete(`/my-activities/${activityId}`);
 };
+
+// // 체험 수정
+// export const updateMyActivity = async (
+//   activityId: number,
+//   body: UpdateActivityRequest,
+// ): Promise<UpdateActivityResponse> => {
+//   const response = await axios.patch(`/my-activities/${activityId}`, body);
+
+//   return response.data;
+// };
