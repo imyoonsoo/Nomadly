@@ -23,23 +23,23 @@ const CATEGORIES = [
   },
   {
     id: 4,
+    name: "스포츠",
+    icon: "🏓",
+  },
+  {
+    id: 5,
     name: "투어",
     icon: "🚩",
   },
   {
-    id: 5,
+    id: 6,
     name: "관광",
     icon: "🚆",
   },
   {
-    id: 6,
+    id: 7,
     name: "웰빙",
     icon: "🍀",
-  },
-  {
-    id: 6,
-    name: "스포츠",
-    icon: "🏓",
   },
 ];
 
