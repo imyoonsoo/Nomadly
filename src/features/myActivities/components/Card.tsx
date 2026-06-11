@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { CardProps } from "../page";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteMyActivity } from "../api";
+import { ActivitiesProps } from "../type";
 
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
@@ -16,20 +18,33 @@ const Card = ({
   reviewCount,
   price,
   bannerImageUrl,
-}: CardProps) => {
+}: ActivitiesProps) => {
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  // Todo: 삭제 완료 및 에러 토스트 처리
+  const deleteMutation = useMutation({
+    mutationFn: deleteMyActivity,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["my-activities"],
+      });
+
+      setIsConfirmModalOpen(false);
+    },
+  });
 
   const handleDeleteConfirmButtonClick = () => {
-    // Todo: api 연동 후 삭제 작업
-    alert("삭제");
-    setIsModalOpen(false);
+    deleteMutation.mutate(id);
   };
 
   return (
-    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.2)] flex justify-between items-center gap-4">
+    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] flex justify-between items-center gap-6">
       <div className="w-full flex flex-col justify-center items-start gap-3">
-        <h2 className="text-16-bold lg:text-18-bold text-gray-950">{title}</h2>
+        <h2 className="text-16-bold lg:text-18-bold text-gray-950 line-clamp-2">
+          {title}
+        </h2>
         <div className="flex items-center gap-0.5 text-13-medium lg:text-16-medium text-gray-500">
           <StarIcon width={16} height={16} />
           <span>{rating}</span>
@@ -56,32 +71,29 @@ const Card = ({
             variant="onlyGray"
             height="h29"
             className="px-2.5 py-1.5 rounded-lg text-14-medium"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsConfirmModalOpen(true)}
+            disabled={deleteMutation.isPending}
           >
             삭제하기
           </Button>
         </div>
       </div>
-      <div className="relative overflow-hidden shrink-0 w-20.5 h-20.5 rounded-3xl lg:w-35.5 lg:h-35.5 lg:rounded-4xl bg-primary-100">
-        {/* Todo: api 연결 후 이미지 url next.config.ts에 설정 추가 */}
-        {bannerImageUrl && (
-          <Image
-            src={bannerImageUrl}
-            alt={`${title} 배너 이미지`}
-            fill
-            className="object-cover"
-          />
-        )}
-      </div>
 
-      {isModalOpen && (
-        <WarningModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={handleDeleteConfirmButtonClick}
-          message="삭제하시겠습니까?"
-        />
-      )}
+      {/* Todo: placeholderImage 설정 */}
+      <Image
+        src={bannerImageUrl}
+        alt="배너 이미지"
+        width={142}
+        height={142}
+        className="w-20.5 h-20.5 lg:w-35.5 lg:h-35.5 object-cover rounded-3xl"
+      />
+
+      <WarningModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => setIsConfirmModalOpen(false)}
+        onConfirm={handleDeleteConfirmButtonClick}
+        message="삭제하시겠습니까?"
+      />
     </div>
   );
 };

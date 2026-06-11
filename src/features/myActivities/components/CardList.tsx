@@ -1,8 +1,8 @@
-import { CardProps } from "../page";
+import { ActivitiesProps } from "../type";
 import Card from "./Card";
 
 interface CardListProps {
-  cards: CardProps[];
+  cards: ActivitiesProps[];
 }
 
 const CardList = ({ cards }: CardListProps) => {
