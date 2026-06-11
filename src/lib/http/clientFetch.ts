@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const clientFetch = axios.create({
+const clientFetch = axios.create({
   baseURL: "/api/proxy",
   withCredentials: true,
 });
@@ -14,3 +14,5 @@ clientFetch.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+export default clientFetch;

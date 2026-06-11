@@ -1,6 +1,6 @@
 import "server-only";
 
-export const serverFetch = async <T>(
+const serverFetch = async <T>(
   path: string,
   options?: RequestInit & { next?: NextFetchRequestConfig },
 ): Promise<T> => {
@@ -15,3 +15,5 @@ export const serverFetch = async <T>(
 
   return response.json() as Promise<T>;
 };
+
+export default serverFetch;

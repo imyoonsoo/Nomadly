@@ -1,7 +1,7 @@
 import "server-only";
 import { cookies } from "next/headers";
 
-export const serverFetchAuth = async <T>(
+const serverFetchAuth = async <T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> => {
@@ -15,7 +15,7 @@ export const serverFetchAuth = async <T>(
       headers: {
         "Content-Type": "application/json",
         ...options.headers,
-        Authorization: `Bearer ${accessToken}`,
+        ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
       },
     },
   );
@@ -26,3 +26,5 @@ export const serverFetchAuth = async <T>(
 
   return response.json() as Promise<T>;
 };
+
+export default serverFetchAuth;
