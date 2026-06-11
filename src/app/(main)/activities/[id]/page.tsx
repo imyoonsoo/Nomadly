@@ -1,57 +1,96 @@
-﻿import ReviewSection from "./components/ReviewSection/ReviewSection";
-import BannerImageSection from "./components/BannerImageSection/BannerImageSection";
-import TitleSection from "./components/TitleSection/TitleSection";
-import ReservationSection from "./components/ReservationSection/ReservationSection";
-import DescriptionSection from "./components/DescriptionSection/DescriptionSection";
-import MapSection from "./components/MapSection/MapSection";
-import MobileReservationFooter from "./components/MobileReservationFooter/MobileReservationFooter";
-import TabletReservationFooter from "./components/TabletReservationFooter/TabletReservationFooter";
-import bannerImageData from "./mock/bannerImageData";
-import activitiesData from "./mock/activitiesData";
+﻿import { notFound } from "next/navigation";
+import ReviewSection from "@/features/activities/components/ReviewSection/ReviewSection";
+import BannerImageSection from "@/features/activities/components/BannerImageSection/BannerImageSection";
+import TitleSection from "@/features/activities/components/TitleSection/TitleSection";
+import ReservationSection from "@/features/activities/components/ReservationSection/ReservationSection";
+import DescriptionSection from "@/features/activities/components/DescriptionSection/DescriptionSection";
+import MapSection from "@/features/activities/components/MapSection/MapSection";
+import MobileReservationFooter from "@/features/activities/components/MobileReservationFooter/MobileReservationFooter";
+import TabletReservationFooter from "@/features/activities/components/TabletReservationFooter/TabletReservationFooter";
+import { getActivityDetail } from "@/features/activities/api/api";
+import type { ActivityDetailResponse } from "../type";
 
-const ActivitiesPage = ({ params }: { params: Promise<{ id: string }> }) => {
-  const data = activitiesData;
+const getBannerImages = (data: ActivityDetailResponse) => {
+  return [
+    data.bannerImageUrl,
+    ...data.subImages.map((image) => image.imageUrl),
+  ];
+};
+
+const ActivitiesPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+  const activityId = Number(id);
+
+  if (Number.isNaN(activityId)) {
+    notFound();
+  }
+
+  let activityData: ActivityDetailResponse;
+
+  try {
+    activityData = await getActivityDetail({ activityId });
+  } catch {
+    notFound();
+  }
+
+  const bannerImages = getBannerImages(activityData);
 
   return (
     <div className="flex w-full flex-col gap-5 px-6 pb-5 md:px-7.5 lg:px-10">
-      <div className="flex flex-col gap-5 lg:hidden">
-        <BannerImageSection images={bannerImageData} />
+      <div className="flex flex-col gap-5 pb-36 lg:hidden">
+        <BannerImageSection images={bannerImages} />
         <TitleSection
-          id={data.id}
-          title={data.title}
-          category={data.category}
-          address={data.address}
-          reviewCount={data.reviewCount}
-          rating={data.rating}
+          id={activityData.id}
+          title={activityData.title}
+          category={activityData.category}
+          address={activityData.address}
+          reviewCount={activityData.reviewCount}
+          rating={activityData.rating}
         />
-        <DescriptionSection description={data.description} />
-        <MapSection address={data.address} />
-        <ReviewSection />
+        <DescriptionSection description={activityData.description} />
+        <MapSection address={activityData.address} />
+        <ReviewSection activityId={activityId} />
       </div>
 
       <div className="hidden lg:grid lg:grid-cols-[670px_410px] lg:items-start lg:gap-x-12">
         <div className="flex flex-col gap-5">
-          <BannerImageSection images={bannerImageData} />
-          <DescriptionSection description={data.description} />
-          <MapSection address={data.address} />
-          <ReviewSection />
+          <BannerImageSection images={bannerImages} />
+          <DescriptionSection description={activityData.description} />
+          <MapSection address={activityData.address} />
+          <ReviewSection activityId={activityId} />
         </div>
 
         <div className="flex w-[410px] flex-col gap-5">
           <TitleSection
-            id={data.id}
-            title={data.title}
-            category={data.category}
-            address={data.address}
-            reviewCount={data.reviewCount}
-            rating={data.rating}
+            id={activityData.id}
+            title={activityData.title}
+            category={activityData.category}
+            address={activityData.address}
+            reviewCount={activityData.reviewCount}
+            rating={activityData.rating}
           />
-          <ReservationSection price={data.price} schedules={data.schedules} />
+          <ReservationSection
+            activityId={activityId}
+            price={activityData.price}
+            schedules={activityData.schedules}
+          />
         </div>
       </div>
 
-      <MobileReservationFooter price={data.price} schedules={data.schedules} />
-      <TabletReservationFooter price={data.price} schedules={data.schedules} />
+      <MobileReservationFooter
+        activityId={activityId}
+        price={activityData.price}
+        schedules={activityData.schedules}
+      />
+      <TabletReservationFooter
+        activityId={activityId}
+        price={activityData.price}
+        schedules={activityData.schedules}
+      />
     </div>
   );
 };

@@ -7,14 +7,17 @@ import Reservation from "@/components/Reservation/Reservation";
 import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUpModal";
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
+import { createActivityReservation } from "@/features/activities/api/client-api";
 import type { ActivitySchedule } from "@/app/(main)/activities/type";
 
 interface MobileReservationFooterProps {
+  activityId: number;
   price: number;
   schedules: ActivitySchedule[];
 }
 
 const MobileReservationFooter = ({
+  activityId,
   price,
   schedules,
 }: MobileReservationFooterProps) => {
@@ -68,7 +71,8 @@ const MobileReservationFooter = ({
       return;
     }
 
-    console.log("예약 신청 mock:", {
+    createActivityReservation({
+      activityId,
       scheduleId: selectedSchedule.scheduleId,
       headCount,
     });

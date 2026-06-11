@@ -6,14 +6,17 @@ import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUp
 import TabletReservationPicker from "@/components/Reservation/TabletReservationPicker";
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
+import { createActivityReservation } from "@/features/activities/api/client-api";
 import type { ActivitySchedule } from "@/app/(main)/activities/type";
 
 interface TabletReservationFooterProps {
+  activityId: number;
   price: number;
   schedules: ActivitySchedule[];
 }
 
 const TabletReservationFooter = ({
+  activityId,
   price,
   schedules,
 }: TabletReservationFooterProps) => {
@@ -49,7 +52,8 @@ const TabletReservationFooter = ({
       return;
     }
 
-    console.log("예약 신청 mock:", {
+    createActivityReservation({
+      activityId,
       scheduleId: selectedSchedule.scheduleId,
       headCount,
     });

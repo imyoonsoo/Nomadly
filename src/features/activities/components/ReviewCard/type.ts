@@ -1,4 +1,4 @@
-import { Review } from "../../../type";
+import { Review } from "../../../../app/(main)/activities/type";
 
 type ReviewCardProps = Pick<
   Review,
