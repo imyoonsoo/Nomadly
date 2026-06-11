@@ -1,0 +1,14 @@
+interface ActivityLayoutProps {
+  children: React.ReactNode;
+}
+
+const ActivityLayout = ({ children }: ActivityLayoutProps) => {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1 w-full max-w-300 mx-auto flex items-start gap-12 p-7.5 mt-12 md:mt-20">
+        <section className="flex-1 min-w-0">{children}</section>
+      </main>
+    </div>
+  );
+};
+export default ActivityLayout;

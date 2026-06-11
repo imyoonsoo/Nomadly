@@ -1,0 +1,70 @@
+<svg width="182" height="182" viewBox="0 0 182 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .question {
+      animation: floatQ 2s ease-in-out infinite;
+      transform-origin: 127px 45px;
+    }
+
+    .body {
+      animation: smallBob 2.2s ease-in-out infinite;
+      transform-origin: 91px 91px;
+    }
+
+    @keyframes floatQ {
+      0% {
+        transform: translateY(0) rotate(-4deg) scale(1);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(4deg) scale(1.06);
+      }
+
+      100% {
+        transform: translateY(0) rotate(-4deg) scale(1);
+      }
+    }
+
+    @keyframes smallBob {
+      0% {
+        transform: translateY(2px);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+
+      100% {
+        transform: translateY(2px);
+      }
+    }
+  </style>
+
+  <g class="body">
+    <mask id="mask0" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="30" y="30" width="122" height="122">
+      <circle cx="91" cy="91" r="61" fill="#70ACDE"/>
+    </mask>
+    <g mask="url(#mask0)">
+      <circle cx="91" cy="91" r="61" fill="#CDE7FF"/>
+      <circle cx="91" cy="91" r="61" fill="url(#paint0_linear)" fill-opacity="0.1"/>
+      <path d="M29.2 35.9C45 22.1 67.5 22 79.5 35.7C88.4 45.8 88.9 60.7 82.2 73.3C82.1 73.5 82.1 73.8 82.3 74C88.2 80.8 86.7 91.8 78.8 98.6C71 105.4 59.9 105.5 54 98.7C52.5 96.9 50.3 95.7 47.9 95.8C38.1 96.4 28.6 93 22.2 85.7C10.3 72 13.4 49.7 29.2 35.9Z" fill="#DAF5EB"/>
+      <path d="M119.3 46.5C126.4 45 133.1 48.7 134.5 54.8C135.8 60.9 131.1 67.1 124.1 68.6C123 68.9 122 69 120.9 69C118.6 69 116.3 69.5 114.1 70.2C110.8 71.3 107.2 70.6 105.1 68.2C102.1 64.7 102.8 59 106.8 55.5C107 55.4 107.2 55.3 107.4 55.1C108.8 54 110.1 52.8 111.3 51.4C113.2 49 116 47.3 119.3 46.5Z" fill="#DAF5EB"/>
+      <path d="M107.7 95.6C116.1 93.8 124.4 99.3 126.3 107.8C129.4 109.7 131.8 112.7 132.6 116.3C133.8 122 131 127.6 126 130.8C124.7 131.7 98.6 146.9 84.2 135.1C81.6 133.3 79.7 130.6 79 127.3C77.3 119.8 82.9 112.3 91.3 110.5C93.6 110 95.5 108.2 96.2 106.1C97.9 100.9 102.1 96.8 107.7 95.6Z" fill="#DAF5EB"/>
+      <path d="M75.5 68C73.5 66.3 70.5 66.3 68.5 68" stroke="#9297A3" stroke-width="4" stroke-linecap="round"/>
+      <path d="M96.1 68C94.1 66.3 91.1 66.3 89.1 68" stroke="#9297A3" stroke-width="4" stroke-linecap="round"/>
+      <path d="M73 82.8C77.3 78.8 84.5 78.4 90 82.5" stroke="#9297A3" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M101 77.1C99.4 76.3 98.6 74.5 98 72.1C97.9 71.8 98.1 71.5 98.4 71.5C100 71.6 103.4 71.9 104.3 73.8C105.4 76 103.2 78.3 101 77.1Z" fill="#94BDF6"/>
+    </g>
+  </g>
+
+  <g class="question" fill="#94BDF6" transform="translate(12 0)">
+    <path d="M124.6 58.5C124.6 54.6 126.4 52.2 130 50C133.1 48.1 134.4 46.5 134.4 43.7C134.4 40.6 132.2 38.7 128.8 38.7C125.7 38.7 123.4 40.1 121.2 42.6C120.2 43.8 118.4 44 117.2 43C116 42 115.8 40.2 116.8 39C119.9 35.2 124 33.1 129.2 33.1C136.1 33.1 140.9 37.2 140.9 43.4C140.9 48.5 138.2 51.3 133.9 53.9C131 55.7 130.1 57 130.1 59.2V60.2C130.1 61.8 128.9 63 127.3 63C125.8 63 124.6 61.8 124.6 60.2V58.5Z"/>
+    <circle cx="127.4" cy="72.2" r="3.8"/>
+  </g>
+
+  <defs>
+    <linearGradient id="paint0_linear" x1="81.5" y1="58.7" x2="127" y2="138.1" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white"/>
+      <stop offset="1" stop-color="#2887D7"/>
+    </linearGradient>
+  </defs>
+</svg>
