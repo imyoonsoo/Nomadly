@@ -26,18 +26,18 @@ export interface CreateActivityRequest {
   subImageUrls: string[];
 }
 
-export interface ResponseTimeSlot {
+export interface TimeSlot {
   id: number;
   startTime: string;
   endTime: string;
 }
 
-export interface ResponseSchedule {
-  times: ResponseTimeSlot[];
+export interface ActivityDetailSchedule {
+  times: TimeSlot[];
   date: string;
 }
 
-export interface ResponseSubImages {
+export interface ActivityDetailSubImage {
   id: number;
   imageUrl: string;
 }
@@ -55,8 +55,8 @@ export interface CreateActivityResponse {
   reviewCount: number;
   createdAt: string;
   updatedAt: string;
-  subImages: ResponseSubImages[];
-  schedules: ResponseSchedule[];
+  subImages: ActivityDetailSubImage[];
+  schedules: ActivityDetailSchedule[];
 }
 
 export interface UpdateActivityRequest {
