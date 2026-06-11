@@ -19,6 +19,7 @@ const MainBanner = ({ items }: CardListProps) => {
   const bestItems = [...items]
     .sort((a, b) => b.reviewCount - a.reviewCount)
     .slice(0, 5);
+
   return (
     <div className="relative">
       <Swiper
@@ -51,7 +52,7 @@ const MainBanner = ({ items }: CardListProps) => {
                     {item.title}
                   </p>
                   <p className="text-14-medium md:text-18-medium">
-                    1월의 인기 체험 BEST 🔥
+                    {new Date().getMonth() + 1}월의 인기 체험 BEST 🔥
                   </p>
                 </div>
               </Link>

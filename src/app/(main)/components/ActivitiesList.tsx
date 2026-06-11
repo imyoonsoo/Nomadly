@@ -36,6 +36,11 @@ const CATEGORIES = [
     name: "웰빙",
     icon: "🍀",
   },
+  {
+    id: 6,
+    name: "스포츠",
+    icon: "🏓",
+  },
 ];
 
 const ActivitiesList = ({ items, keyword }: CardListProps) => {
