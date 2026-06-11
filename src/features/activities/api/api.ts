@@ -1,4 +1,4 @@
-import axios from "axios";
+import serverFetch from "@/lib/http/server-fetch";
 import {
   GetActivityDetailParams,
   ActivityDetailResponse,
@@ -6,14 +6,11 @@ import {
   ActivityReviewsResponse,
 } from "@/app/(main)/activities/type";
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-});
-
 export const getActivityDetail = async ({
   activityId,
 }: GetActivityDetailParams): Promise<ActivityDetailResponse> => {
   try {
+    const api = await serverFetch();
     const { data } = await api.get<ActivityDetailResponse>(
       `/activities/${activityId}`,
     );
@@ -31,6 +28,7 @@ export const getActivityReviews = async ({
   size,
 }: GetActivityReviewsParams): Promise<ActivityReviewsResponse> => {
   try {
+    const api = await serverFetch();
     const { data } = await api.get<ActivityReviewsResponse>(
       `/activities/${activityId}/reviews`,
       {
