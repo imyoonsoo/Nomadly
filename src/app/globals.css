@@ -178,3 +178,31 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.custom-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  background-color: #eff6ff !important;
+  color: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease;
+}
+
+.toast-success {
+  background-color: rgba(60, 179, 113, 1) !important;
+  color: #ffffff !important;
+}
+
+.toast-error {
+  background-color: rgba(255, 59, 48, 1) !important;
+  color: #ffffff !important;
+}
+
+.custom-toast.leave {
+  animation: fadeOut 0.2s ease forwards;
+}

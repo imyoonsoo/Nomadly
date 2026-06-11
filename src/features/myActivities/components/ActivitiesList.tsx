@@ -10,6 +10,7 @@ import SortDropdown from "./SortDropdown";
 import ActivityBanner from "./ActivityBanner";
 import EmptyCardList from "./EmptyCardList";
 import CardList from "./CardList";
+import { showToast } from "@/lib/utils/toast";
 
 const ActivitiesList = () => {
   const [currentSort, setCurrentSort] = useState<string | number>("latest");
@@ -34,7 +35,7 @@ const ActivitiesList = () => {
 
   // Todo: 스켈레톤 적용
   if (isLoading) {
-    return <div>로딩 중입니다...</div>;
+    return showToast("로딩중");
   }
 
   if (isError) {
