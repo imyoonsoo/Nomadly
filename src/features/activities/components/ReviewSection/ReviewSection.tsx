@@ -20,7 +20,11 @@ const ReviewSection = async ({ activityId }: GetActivityReviewsParams) => {
     });
   } catch (error) {
     console.error("Failed to get activity reviews:", error);
-    throw error;
+    reviewData = {
+      averageRating: 0,
+      totalCount: 0,
+      reviews: [],
+    };
   }
 
   const latestReviews = [...reviewData.reviews]
