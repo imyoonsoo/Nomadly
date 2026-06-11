@@ -60,7 +60,7 @@ const setTokenCookies = async ({
   const cookieStore = await cookies();
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax" as const,
     path: "/",
   };

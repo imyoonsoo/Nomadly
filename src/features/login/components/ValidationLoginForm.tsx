@@ -18,7 +18,7 @@ const ValidationLoginForm = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ValidationLoginFormFields>({
-    mode: "onChange",
+    mode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
@@ -26,16 +26,12 @@ const ValidationLoginForm = () => {
   });
 
   const globalnomadLogin = async (authData: ValidationLoginFormFields) => {
-    try {
-      await loginAction(authData);
+    const result = await loginAction(authData);
+
+    if (result.success) {
       router.push("/");
-    } catch (error) {
-      if (error instanceof Error) {
-        // Todo: 에러코드 400(올바른 이메일 형식), 409(중복된 이메일) 로직 axios로 작성하기
-        setModalMessage(error.message || "비밀번호가 일치하지 않습니다.");
-      } else {
-        setModalMessage("알 수 없는 에러 발생");
-      }
+    } else {
+      setModalMessage(result.error ?? "로그인에 실패했습니다.");
     }
   };
 

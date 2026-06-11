@@ -9,11 +9,11 @@ import {
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 
-export default function KakaoCallbackPage() {
+const KakaoCallbackPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [nickname, setNickname] = useState("");
-  const [needNickname, setNeedNickname] = useState(false);
+  const [isNeedNickname, setIsNeedNickname] = useState(false);
   const codeRef = useRef("");
   const hasRun = useRef(false);
 
@@ -32,7 +32,7 @@ export default function KakaoCallbackPage() {
     // 회원가입 플로우: 인가 코드는 1회용이므로 sign-in으로 소비하지 않고
     // 바로 닉네임을 받아 sign-up에 사용한다
     if (state === "signup") {
-      setNeedNickname(true);
+      setIsNeedNickname(true);
       return;
     }
 
@@ -48,7 +48,7 @@ export default function KakaoCallbackPage() {
     });
   }, []);
 
-  const handleSignUp = async () => {
+  const handleSignUpButtonClick = async () => {
     if (!nickname.trim()) return;
     const result = await kakaoSignUpAction(codeRef.current, nickname);
     if (result.success) {
@@ -58,7 +58,7 @@ export default function KakaoCallbackPage() {
     }
   };
 
-  if (needNickname) {
+  if (isNeedNickname) {
     const isNicknameInvalid = !nickname.trim() || nickname.length > 10;
 
     return (
@@ -88,7 +88,7 @@ export default function KakaoCallbackPage() {
             variant="mainBlue"
             height="54lg"
             disabled={isNicknameInvalid}
-            onClick={handleSignUp}
+            onClick={handleSignUpButtonClick}
             className="self-stretch"
           >
             가입하기
@@ -103,4 +103,6 @@ export default function KakaoCallbackPage() {
       카카오 로그인 처리 중...
     </div>
   );
-}
+};
+
+export default KakaoCallbackPage;

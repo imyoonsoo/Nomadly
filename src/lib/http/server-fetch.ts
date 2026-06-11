@@ -2,7 +2,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import "server-only";
 
-export const serverFetch = async () => {
+const serverFetch = async () => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -14,3 +14,5 @@ export const serverFetch = async () => {
     },
   });
 };
+
+export default serverFetch;
