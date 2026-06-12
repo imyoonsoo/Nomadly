@@ -1,6 +1,6 @@
 "use client";
 
-import { clientFetch } from "@/lib/http/client-fetch";
+import clientFetch from "@/lib/http/clientFetch";
 import { GetMyActivitiesParams, GetMyActivitiesResponse } from "./type";
 
 // 내 체험 조회

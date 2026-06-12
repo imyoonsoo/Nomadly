@@ -38,8 +38,6 @@ const CreateActivityForm = () => {
       subImageUrls,
     };
 
-    console.log("최종 등록 요청 body:", request);
-
     await createActivityMutation.mutateAsync(request);
   };
 

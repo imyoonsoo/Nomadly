@@ -36,11 +36,12 @@ const FormMultiImageInput = <
           {...props}
           name={name}
           defaultImages={
-            typeof field.value === "string"
+            typeof field.value === "string" && field.value
               ? [field.value]
               : Array.isArray(field.value)
                 ? field.value.filter(
-                    (image: File | string) => typeof image === "string",
+                    (image: File | string) =>
+                      typeof image === "string" && image,
                   )
                 : []
           }

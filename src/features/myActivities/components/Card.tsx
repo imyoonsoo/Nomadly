@@ -85,7 +85,7 @@ const Card = ({
         alt="배너 이미지"
         width={142}
         height={142}
-        className="w-20.5 h-20.5 lg:w-35.5 lg:h-35.5 object-cover rounded-3xl"
+        className="w-20.5 h-20.5 md:w-35.5 md:h-35.5 object-cover rounded-3xl "
       />
 
       <WarningModal
