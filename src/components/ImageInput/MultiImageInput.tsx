@@ -17,27 +17,25 @@ const MultiImageInput = ({
   const inputId = id ?? useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const previewsRef = useRef<PreviewImage[]>([]);
+  const isInitializedRef = useRef(false);
   const [previews, setPreviews] = useState<PreviewImage[]>([]);
 
   previewsRef.current = previews;
 
   // 받아오는 이미지 URL 미리보기로 보여주기
   useEffect(() => {
-    if (!defaultImages.length) return;
+    if (isInitializedRef.current) {
+      return;
+    }
 
-    setPreviews((prevPreviews) => {
-      const hasNewFile = prevPreviews.some((preview) => !preview.isExisting);
+    const initialPreviews = defaultImages.map((url) => ({
+      id: crypto.randomUUID(),
+      url,
+      isExisting: true,
+    }));
 
-      if (hasNewFile) {
-        return prevPreviews;
-      }
-
-      return defaultImages.map((url) => ({
-        id: crypto.randomUUID(),
-        url,
-        isExisting: true,
-      }));
-    });
+    setPreviews(initialPreviews);
+    isInitializedRef.current = true;
   }, [defaultImages]);
 
   const syncInputImages = (files: File[]) => {

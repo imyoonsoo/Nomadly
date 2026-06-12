@@ -50,7 +50,7 @@ const EditActivityForm = ({
 
     const currentSubImageUrls = new Set(uploadSubImageUrls);
 
-    const subImagesIdsToRemove = originalActivity.subImages
+    const subImageIdsToRemove = originalActivity.subImages
       .filter((image) => !currentSubImageUrls.has(image.imageUrl))
       .map((image) => image.id);
 
@@ -58,7 +58,7 @@ const EditActivityForm = ({
       originalActivity.subImages.map((image) => image.imageUrl),
     );
 
-    const subImagesUrlsToAdd = uploadSubImageUrls.filter(
+    const subImageUrlsToAdd = uploadSubImageUrls.filter(
       (imageUrl) => !originalSubImageUrl.has(imageUrl),
     );
 
@@ -75,6 +75,7 @@ const EditActivityForm = ({
     const schedulesToAdd = data.schedules.filter(
       (schedule) => !originalScheduleKey.has(getScheduleKey(schedule)),
     );
+    console.log("변환 후 currentSubImageUrls:", currentSubImageUrls);
 
     const request: UpdateActivityRequest = {
       title: data.title,
@@ -83,8 +84,8 @@ const EditActivityForm = ({
       price: Number(data.price),
       address: data.address,
       bannerImageUrl,
-      subImagesIdsToRemove,
-      subImagesUrlsToAdd,
+      subImageIdsToRemove,
+      subImageUrlsToAdd,
       scheduleIdsToRemove,
       schedulesToAdd,
     };

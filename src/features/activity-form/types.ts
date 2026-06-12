@@ -52,8 +52,8 @@ export interface UpdateActivityRequest {
   price: number;
   address: string;
   bannerImageUrl: string;
-  subImagesIdsToRemove: number[];
-  subImagesUrlsToAdd: string[];
+  subImageIdsToRemove: number[];
+  subImageUrlsToAdd: string[];
   scheduleIdsToRemove: number[];
   schedulesToAdd: Schedule[];
 }
