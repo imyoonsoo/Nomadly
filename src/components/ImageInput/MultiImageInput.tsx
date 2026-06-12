@@ -10,6 +10,7 @@ const MultiImageInput = ({
   label,
   maxCount = 4,
   accept = "image/*",
+  defaultImages = [],
   onChange,
   ...props
 }: MultiImageInputProps) => {
@@ -19,6 +20,17 @@ const MultiImageInput = ({
   const [previews, setPreviews] = useState<PreviewImage[]>([]);
 
   previewsRef.current = previews;
+
+  // 받아오는 이미지 URL 미리보기로 보여주기
+  useEffect(() => {
+    const initialPreviews = defaultImages.map((url) => ({
+      id: crypto.randomUUID(),
+      url,
+      isExisting: true,
+    }));
+
+    setPreviews(initialPreviews);
+  }, [defaultImages]);
 
   const syncInputImages = (files: File[]) => {
     if (!inputRef.current) {
@@ -59,11 +71,16 @@ const MultiImageInput = ({
       id: crypto.randomUUID(),
       file,
       url: URL.createObjectURL(file),
+      isExisting: false,
     }));
 
     const updatedPreviews = [...previews, ...nextPreviews];
     setPreviews(updatedPreviews);
-    syncInputImages(updatedPreviews.map((preview) => preview.file));
+    syncInputImages(
+      updatedPreviews
+        .filter((preview) => preview.file)
+        .map((preview) => preview.file as File),
+    );
 
     if (onChange) {
       onChange(event);
@@ -75,7 +92,8 @@ const MultiImageInput = ({
   const handleRemoveButtonClick = (previewId: string) => {
     const targetPreview = previews.find((preview) => preview.id === previewId);
 
-    if (targetPreview) {
+    // 새 이미지에만 revokeObjectURL 실행
+    if (targetPreview && !targetPreview.isExisting) {
       URL.revokeObjectURL(targetPreview.url);
     }
 
@@ -83,7 +101,11 @@ const MultiImageInput = ({
       (preview) => preview.id !== previewId,
     );
     setPreviews(updatedPreviews);
-    syncInputImages(updatedPreviews.map((preview) => preview.file));
+    syncInputImages(
+      updatedPreviews
+        .filter((preview) => preview.file)
+        .map((preview) => preview.file as File),
+    );
 
     if (onChange && inputRef.current) {
       const changeEvent = {

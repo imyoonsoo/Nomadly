@@ -3,8 +3,9 @@ import type { InputHTMLAttributes, ChangeEvent } from "react";
 
 export interface PreviewImage {
   id: string;
-  file: File;
+  file?: File;
   url: string;
+  isExisting?: boolean;
 }
 
 export interface MultiImageInputProps extends Omit<
@@ -15,6 +16,7 @@ export interface MultiImageInputProps extends Omit<
   name: string;
   label: string;
   maxCount?: number;
+  defaultImages?: string[];
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
