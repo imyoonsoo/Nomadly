@@ -1,6 +1,5 @@
 "use client";
 
-import { ChangeEvent } from "react";
 import { Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import { MultiImageInputProps } from "@/components/ImageInput/type";
 import FormController from "@/components/Form/FormController";
@@ -36,13 +35,21 @@ const FormMultiImageInput = <
         <MultiImageInput
           {...props}
           name={name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            const files = e.target.files;
+          defaultImages={
+            typeof field.value === "string"
+              ? [field.value]
+              : Array.isArray(field.value)
+                ? field.value.filter(
+                    (image: File | string) => typeof image === "string",
+                  )
+                : []
+          }
+          onChange={(files, existingUrls) => {
             if (props.maxCount === 1) {
-              field.onChange(files && files.length > 0 ? files[0] : null);
-            } else {
-              field.onChange(files ? Array.from(files) : []);
+              field.onChange(files[0] || existingUrls[0] || null);
+              return;
             }
+            field.onChange([...existingUrls, ...files]);
           }}
         />
       )}

@@ -17,7 +17,7 @@ export interface MultiImageInputProps extends Omit<
   label: string;
   maxCount?: number;
   defaultImages?: string[];
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (files: File[], existingUrls: string[]) => void;
 }
 
 export interface ProfileImageInputProps extends Omit<

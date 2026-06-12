@@ -44,10 +44,25 @@ const MultiImageInput = ({
     inputRef.current.files = dataTransfer.files;
   };
 
+  // 부모에게 바뀌거나 남아있는 이미지 알려줌
+  const notifyChange = (nextPreviews: PreviewImage[]) => {
+    const files = nextPreviews
+      .filter((preview) => !preview.isExisting && preview.file)
+      .map((preview) => preview.file as File);
+
+    const existingUrls = nextPreviews
+      .filter((preview) => preview.isExisting)
+      .map((preview) => preview.url);
+
+    onChange?.(files, existingUrls);
+  };
+
   useEffect(() => {
     return () => {
       previewsRef.current.forEach((preview) => {
-        URL.revokeObjectURL(preview.url);
+        if (!preview.isExisting) {
+          URL.revokeObjectURL(preview.url);
+        }
       });
     };
   }, []);
@@ -81,10 +96,7 @@ const MultiImageInput = ({
         .filter((preview) => preview.file)
         .map((preview) => preview.file as File),
     );
-
-    if (onChange) {
-      onChange(event);
-    }
+    notifyChange(updatedPreviews);
 
     event.target.value = "";
   };
@@ -106,15 +118,7 @@ const MultiImageInput = ({
         .filter((preview) => preview.file)
         .map((preview) => preview.file as File),
     );
-
-    if (onChange && inputRef.current) {
-      const changeEvent = {
-        target: inputRef.current,
-        currentTarget: inputRef.current,
-      } as ChangeEvent<HTMLInputElement>;
-
-      onChange(changeEvent);
-    }
+    notifyChange(updatedPreviews);
   };
 
   return (
