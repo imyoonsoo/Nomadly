@@ -23,13 +23,21 @@ const MultiImageInput = ({
 
   // 받아오는 이미지 URL 미리보기로 보여주기
   useEffect(() => {
-    const initialPreviews = defaultImages.map((url) => ({
-      id: crypto.randomUUID(),
-      url,
-      isExisting: true,
-    }));
+    if (!defaultImages.length) return;
 
-    setPreviews(initialPreviews);
+    setPreviews((prevPreviews) => {
+      const hasNewFile = prevPreviews.some((preview) => !preview.isExisting);
+
+      if (hasNewFile) {
+        return prevPreviews;
+      }
+
+      return defaultImages.map((url) => ({
+        id: crypto.randomUUID(),
+        url,
+        isExisting: true,
+      }));
+    });
   }, [defaultImages]);
 
   const syncInputImages = (files: File[]) => {
