@@ -2,10 +2,7 @@
 
 import ActivityForm from "@/features/activity-form/components/ActivityForm";
 import { useCreateActivityMutation } from "@/features/activity-form/hooks/useActivityMutation";
-import {
-  ActivityFormValues,
-  CreateActivityRequest,
-} from "@/features/activity-form/types";
+import { ActivityFormValues } from "@/features/activity-form/types";
 import { uploadActivityImage } from "@/features/activity-form/api";
 
 const CreateActivityForm = () => {
@@ -30,7 +27,7 @@ const CreateActivityForm = () => {
       }),
     );
 
-    const request: CreateActivityRequest = {
+    const request: ActivityFormValues = {
       title: data.title,
       category: data.category,
       description: data.description,

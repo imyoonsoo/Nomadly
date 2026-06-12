@@ -1,6 +1,6 @@
 import { ActivityImage } from "@/app/(main)/activities/type";
 
-interface Schedule {
+export interface Schedule {
   date: string;
   startTime: string;
   endTime: string;
