@@ -145,7 +145,10 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           />
           <AddressSearchButton
             onSelect={(address) => {
-              setValue("address", address, { shouldValidate: true });
+              setValue("address", address, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
             }}
           />
         </div>

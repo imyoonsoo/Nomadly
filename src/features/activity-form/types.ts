@@ -17,17 +17,6 @@ export interface ActivityFormValues {
   subImageUrls: (File | string)[];
 }
 
-// export interface CreateActivityRequest {
-//   title: string;
-//   category: string;
-//   description: string;
-//   address: string;
-//   price: number;
-//   schedules: Schedule[];
-//   bannerImageUrl: string;
-//   subImageUrls: string[];
-// }
-
 export interface TimeSlot {
   id: number;
   startTime: string;
@@ -61,6 +50,7 @@ export interface UpdateActivityRequest {
   category: string;
   description: string;
   price: number;
+  address: string;
   bannerImageUrl: string;
   subImagesIdsToRemove: number[];
   subImagesUrlsToAdd: string[];

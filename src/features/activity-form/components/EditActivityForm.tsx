@@ -81,6 +81,7 @@ const EditActivityForm = ({
       category: data.category,
       description: data.description,
       price: Number(data.price),
+      address: data.address,
       bannerImageUrl,
       subImagesIdsToRemove,
       subImagesUrlsToAdd,
