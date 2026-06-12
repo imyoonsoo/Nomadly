@@ -5,7 +5,7 @@ import type {
   SubmitReviewParams,
 } from "./types";
 import axios from "axios";
-import { clientFetch } from "@/lib/http/client-fetch";
+import clientFetch from "@/lib/http/clientFetch";
 
 const BASE_URL = "/my-reservations";
 
