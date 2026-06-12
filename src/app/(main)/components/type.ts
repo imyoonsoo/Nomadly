@@ -6,11 +6,15 @@ export type CardItem = {
   description?: string;
   category: string;
   price: number;
-  imageUrl: StaticImageData;
+  bannerImageUrl: string;
   link: string;
   reviewCount: number;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CardListProps = {
   items: CardItem[];
+  keyword?: string;
 };
