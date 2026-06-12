@@ -1,3 +1,9 @@
+export interface GetActivityReviewsParams {
+  activityId: number;
+  page?: number;
+  size?: number;
+}
+
 export interface ActivityReviewsResponse {
   averageRating: number;
   totalCount: number;
@@ -18,6 +24,38 @@ export interface ReviewUser {
   profileImageUrl?: string;
   nickname: string;
   id: number;
+}
+
+export interface GetActivityDetailParams {
+  activityId: number;
+}
+
+export interface CreateActivityReservationParams {
+  activityId: number;
+  scheduleId: number;
+  headCount: number;
+}
+
+export interface CreateActivityReservationRequest {
+  scheduleId: number;
+  headCount: number;
+}
+
+export interface CreateActivityReservationResponse {
+  id: number;
+  teamId: string;
+  userId: number;
+  activityId: number;
+  scheduleId: number;
+  status: "pending" | "confirmed" | "declined";
+  reviewSubmitted: boolean;
+  totalPrice: number;
+  headCount: number;
+  date: string;
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ActivityDetailResponse {

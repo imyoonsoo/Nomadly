@@ -1,64 +1,110 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import {
-  mockActivities,
-  mockReservationDashboardByActivityId,
-} from "@/features/reservation-status/mock";
+import { useEffect, useState } from "react";
 import ReservationCalendar from "@/features/reservation-status/components/ReservationCalendar";
 import EmptyReservationStatus from "@/features/reservation-status/components//EmptyReservationStatus";
 import ReservationStatusModal from "@/features/reservation-status/components/modal/ReservationStatusModal";
-import ReservationDropdown from "@/features/reservation-status/components/ReservationDropdown";
+import {
+  useMyActivities,
+  useReservationDashboard,
+} from "@/features/reservation-status/hooks/useReservationStatus";
+import SelectDropdown from "@/components/SelectDropdown/SelectDropdown";
+import Image from "next/image";
+import Error from "@/assets/images/empty-notFound.svg";
+import Loading from "@/assets/images/empty-loading.gif";
 
 const ReservationStatusPage = () => {
-  const acitivitiOptions = mockActivities.map((activity) => ({
+  const today = new Date();
+
+  const [calendarYear, setCalendarYear] = useState(String(today.getFullYear()));
+  const [calendarMonth, setCalendarMonth] = useState(
+    String(today.getMonth() + 1).padStart(2, "0"),
+  );
+
+  const [selectedActivityId, setSelectedActivityId] = useState<number>(0);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const {
+    data: activitiesData,
+    isLoading: isActivitiesLoading,
+    isError: isActivitiesError,
+  } = useMyActivities();
+
+  const activities = activitiesData?.activities ?? [];
+
+  useEffect(() => {
+    if (activities.length > 0 && selectedActivityId === 0) {
+      setSelectedActivityId(activities[0].id);
+    }
+  }, [activities, selectedActivityId]);
+
+  const {
+    data: reservationDashboardData,
+    isLoading: isDashboardLoading,
+    isError: isDashboardError,
+  } = useReservationDashboard(selectedActivityId, calendarYear, calendarMonth);
+
+  const activityOptions = activities.map((activity) => ({
     value: activity.id,
     label: activity.title,
   }));
 
-  const [selectedActivityId, setSelectedActivityId] = useState(
-    mockActivities[0].id ?? 0,
-  );
-
-  const selectedReservations = useMemo(() => {
-    return mockReservationDashboardByActivityId[selectedActivityId] ?? [];
-  }, [selectedActivityId]);
-
-  const hasActivities = mockActivities.length > 0;
-
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const hasActivities = activities.length > 0;
 
   const handleDateClick = (date: string) => {
     setSelectedDate(date);
   };
 
+  if (isActivitiesLoading) {
+    return (
+      <EmptyReservationStatus
+        image={<Image src={Loading} alt="loading" width={182} height={182} />}
+        message="불러오는 중..."
+      />
+    );
+  }
+
+  if (isActivitiesError) {
+    return (
+      <EmptyReservationStatus
+        image={<Error className="w-[182px] h-[182px]" />}
+        message="체험 목록을 불러오지 못했습니다."
+      />
+    );
+  }
+
   return (
     <section className="w-full max-w-[800px]">
-      <h1 className="text-18-bold font-bold">예약 현황</h1>
-
-      <p className="mt-2 text-14-medium text-gray-500">
-        내 체험에 예약된 내역들을 한 눈에 확인할 수 있습니다.
-      </p>
-
       {!hasActivities ? (
-        <EmptyReservationStatus />
+        <EmptyReservationStatus message="아직 등록한 체험이 없어요" />
       ) : (
         <>
-          <div className="py-[18px] md:py-6 xl:py-[30px]">
-            <ReservationDropdown
-              options={acitivitiOptions}
+          <div className="pb-[18px] md:pb-6 xl:pb-[30px]">
+            <SelectDropdown
+              options={activityOptions}
               selectedValue={selectedActivityId}
-              onChange={setSelectedActivityId}
+              onChange={(value) => setSelectedActivityId(Number(value))}
             />
           </div>
 
-          <ReservationCalendar
-            reservations={selectedReservations}
-            onClickDate={handleDateClick}
-          />
+          {isDashboardLoading ? (
+            <div>예약 현황을 불러오는 중...</div>
+          ) : isDashboardError ? (
+            <div>예약 현황을 불러오지 못했습니다.</div>
+          ) : (
+            <ReservationCalendar
+              reservations={reservationDashboardData ?? []}
+              onClickDate={handleDateClick}
+              onChangeMonth={({ year, month }) => {
+                setCalendarYear(year);
+                setCalendarMonth(month);
+              }}
+            />
+          )}
 
           <ReservationStatusModal
             open={!!selectedDate}
+            activityId={selectedActivityId}
             selectedDate={selectedDate}
             onClose={() => setSelectedDate(null)}
           />
