@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import MapSectionProps from "./type";
 import { MapBlue } from "@/constants/icons";
 
@@ -9,6 +9,14 @@ const KAKAO_MAP_LINK = "https://map.kakao.com/link/map";
 const MapSection = ({ address }: MapSectionProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const coordsRef = useRef<{ lat: number; lng: number } | null>(null);
+
+  const handleMapClick = useCallback(() => {
+    const coords = coordsRef.current;
+    const kakaoMapUrl = coords
+      ? `${KAKAO_MAP_LINK}/${encodeURIComponent(address)},${coords.lat},${coords.lng}`
+      : `${KAKAO_MAP_LINK}/${encodeURIComponent(address)}`;
+    window.open(kakaoMapUrl, "_blank", "noopener,noreferrer");
+  }, [address]);
 
   useEffect(() => {
     if (!address || !mapRef.current) {
@@ -30,6 +38,8 @@ const MapSection = ({ address }: MapSectionProps) => {
         coordsRef.current = { lat, lng };
         const center = new kakao.maps.LatLng(lat, lng);
 
+        container.innerHTML = "";
+
         const map = new kakao.maps.Map(container, {
           center,
           level: 3,
@@ -45,10 +55,7 @@ const MapSection = ({ address }: MapSectionProps) => {
           position: center,
         });
 
-        kakao.maps.event.addListener(map, "click", () => {
-          const kakaoMapUrl = `${KAKAO_MAP_LINK}/${encodeURIComponent(address)},${lat},${lng}`;
-          window.open(kakaoMapUrl, "_blank", "noopener,noreferrer");
-        });
+        kakao.maps.event.addListener(map, "click", handleMapClick);
       });
     };
 
@@ -74,7 +81,7 @@ const MapSection = ({ address }: MapSectionProps) => {
     return () => {
       window.clearInterval(timer);
     };
-  }, [address]);
+  }, [address, handleMapClick]);
 
   return (
     <div className="flex flex-col gap-2 md:gap-3.5 lg:gap-2 pb-5 md:pb-10 border-b border-gray-100">
@@ -93,19 +100,12 @@ const MapSection = ({ address }: MapSectionProps) => {
         role="button"
         tabIndex={0}
         aria-label={`${address} 카카오맵에서 보기`}
+        onClick={handleMapClick}
         onKeyDown={(event) => {
-          if (event.key !== "Enter" && event.key !== " ") {
-            return;
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            handleMapClick();
           }
-
-          event.preventDefault();
-
-          const coords = coordsRef.current;
-          const kakaoMapUrl = coords
-            ? `${KAKAO_MAP_LINK}/${encodeURIComponent(address)},${coords.lat},${coords.lng}`
-            : `${KAKAO_MAP_LINK}/${encodeURIComponent(address)}`;
-
-          window.open(kakaoMapUrl, "_blank", "noopener,noreferrer");
         }}
       />
     </div>
