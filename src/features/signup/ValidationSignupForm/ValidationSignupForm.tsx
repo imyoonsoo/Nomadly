@@ -59,7 +59,6 @@ const ValidationSignupForm = () => {
         onSubmit={handleSubmit(signUpGlobalNomad)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -131,7 +130,6 @@ const ValidationSignupForm = () => {
       </form>
 
       <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center">
-        {/* 디바이더 */}
         <div className="flex items-center gap-4 self-stretch">
           <hr className="flex-1 border-gray-100" />
           <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
@@ -144,7 +142,7 @@ const ValidationSignupForm = () => {
           type="button"
           variant="easyKakao"
           height="54lg"
-          className="w-full self-stretch "
+          className="self-stretch "
           onClick={() => {
             const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
             window.location.href = EASYAUTH_KAKAO_URL;
@@ -153,8 +151,7 @@ const ValidationSignupForm = () => {
           카카오 회원가입
         </Button>
 
-        {/* 회원이신가요?로그인하기 바닥글 */}
-        <p className="text-sm text-gray-500">
+        <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
           회원이신가요?{" "}
           <Link href="/login" className="underline">
             <b>로그인하기</b>
@@ -168,7 +165,9 @@ const ValidationSignupForm = () => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={"GlobalNomad 회원가입 완료되었습니다!"}
+        message={
+          "회원가입이 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
+        }
       />
 
       <SuccessModal
