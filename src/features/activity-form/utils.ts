@@ -1,5 +1,7 @@
 import { ActivityDetailResponse } from "@/app/(main)/activities/type";
 import { ActivityFormValues } from "./types";
+import { uploadActivityImage } from "./api";
+import { showToast } from "@/lib/utils/toast";
 
 // 받아온 데이터 타입에 맞게 변경
 export const defaultActivityFormValues = (
@@ -19,4 +21,19 @@ export const defaultActivityFormValues = (
     bannerImageUrl: activity.bannerImageUrl,
     subImageUrls: activity.subImages.map((subImage) => subImage.imageUrl),
   };
+};
+
+// 이미지 url string 타입으로 변경
+export const getImageUrl = async (image: string | File) => {
+  if (typeof image === "string") {
+    return image;
+  }
+
+  try {
+    const response = await uploadActivityImage(image);
+    return response.activityImageUrl;
+  } catch (error) {
+    showToast.error("이미지 업로드에 실패했습니다.");
+    throw new Error("IMAGE_UPLOAD_ERROR");
+  }
 };

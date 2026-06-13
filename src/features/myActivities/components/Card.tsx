@@ -10,6 +10,7 @@ import { ActivitiesProps } from "../type";
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
 import StarIcon from "@/assets/icons/star-on.svg";
+import { showToast } from "@/lib/utils/toast";
 
 const Card = ({
   id,
@@ -23,7 +24,6 @@ const Card = ({
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  // Todo: 삭제 완료 및 에러 토스트 처리
   const deleteMutation = useMutation({
     mutationFn: deleteMyActivity,
     onSuccess: () => {
@@ -32,6 +32,9 @@ const Card = ({
       });
 
       setIsConfirmModalOpen(false);
+    },
+    onError: () => {
+      showToast.error("체험 삭제에 실패했습니다.");
     },
   });
 

@@ -5,6 +5,7 @@ import { ActivityFormValues, Schedule, UpdateActivityRequest } from "../types";
 import { ActivityImage, ActivitySchedule } from "@/app/(main)/activities/type";
 import ActivityForm from "./ActivityForm";
 import { uploadActivityImage } from "../api";
+import { getImageUrl } from "../utils";
 
 interface OriginalActivity {
   subImages: ActivityImage[];
@@ -24,15 +25,6 @@ const EditActivityForm = ({
 }: EditActivityFormProps) => {
   const updateActivityMutation = useUpdateActivityMutation(activityId);
 
-  const changeToImageUrl = async (image: string | File) => {
-    if (typeof image === "string") {
-      return image;
-    } else {
-      const response = await uploadActivityImage(image);
-      return response.activityImageUrl;
-    }
-  };
-
   const getScheduleKey = ({ date, startTime, endTime }: Schedule) => {
     return `${date}-${startTime}-${endTime}`;
   };
@@ -42,10 +34,10 @@ const EditActivityForm = ({
       return;
     }
 
-    const bannerImageUrl = await changeToImageUrl(data.bannerImageUrl);
+    const bannerImageUrl = await getImageUrl(data.bannerImageUrl);
 
     const uploadSubImageUrls = await Promise.all(
-      data.subImageUrls.map(changeToImageUrl),
+      data.subImageUrls.map(getImageUrl),
     );
 
     const currentSubImageUrls = new Set(uploadSubImageUrls);
@@ -75,7 +67,6 @@ const EditActivityForm = ({
     const schedulesToAdd = data.schedules.filter(
       (schedule) => !originalScheduleKey.has(getScheduleKey(schedule)),
     );
-    console.log("변환 후 currentSubImageUrls:", currentSubImageUrls);
 
     const request: UpdateActivityRequest = {
       title: data.title,
@@ -89,8 +80,6 @@ const EditActivityForm = ({
       scheduleIdsToRemove,
       schedulesToAdd,
     };
-
-    console.log("수정:", request);
 
     await updateActivityMutation.mutateAsync(request);
   };
