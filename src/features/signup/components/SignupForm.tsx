@@ -83,17 +83,8 @@ const SignupForm = () => {
     };
   }, []);
 
-  // 추가: GlobalNomad 이용약관동의서
-  const [checkService, setCheckService] = useState(false);
-  const [checkPrivacy, setCheckPrivacy] = useState(false);
-
-  const checkAll = checkService && checkPrivacy;
-  const handleAllAgreements = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setCheckService(isChecked);
-    setCheckPrivacy(isChecked);
-  };
-
+  // [추가] 회원가입 요구사항 이용약관 체크박스 (디자인은 논의하기로)
+  const [agreedTerms, setAgreedTerms] = useState(false);
   return (
     <>
       <form
@@ -168,65 +159,22 @@ const SignupForm = () => {
         />
 
         {/* 추가: GlobalNomad 이용약관동의서 */}
-        <div className="flex flex-col w-full border-2 border-dashed border-blue-200 rounded-2xl p-6 gap-4 bg-gray-50/50 text-xs md:text-sm relative overflow-hidden">
-          <div className="absolute right-4 top-3 text-3xl opacity-10 select-none flex gap-1">
-            ✅
-          </div>
-
-          {/* 전체동의 */}
-          <label className="flex items-center gap-3 font-bold text-gray-800 cursor-pointer select-none group">
-            <input
-              type="checkbox"
-              checked={checkAll}
-              onChange={handleAllAgreements}
-              className="w-5 h-5 rounded-full border-2 border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all group-hover:scale-105"
-            />
-            <span className="text-sm md:text-base text-blue-600 font-extrabold">
-              GlobalNomad 서비스 이용약관동의서
-            </span>
-          </label>
-
-          <hr className="border-dashed border-gray-200" />
-
-          {/* 필수약관1: 서비스이용약관 */}
-          <div className="flex items-center justify-between text-gray-600 gap-2 w-full">
-            <label className="flex items-start md:items-center gap-3 cursor-pointer select-none group flex-1">
-              <input
-                type="checkbox"
-                checked={checkService}
-                onChange={(e) => setCheckService(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all shrink-0 mt-0.5 md:mt-0"
-              />
-              <span className="leading-tight">
-                <span className="font-semibold text-blue-500">[필수]</span>
-                <b> 체험 예약/상품 등록 동의</b>
-              </span>
-            </label>
-          </div>
-
-          {/* 필수약관2: 개인정보처리방침 */}
-          <div className="flex items-center justify-between text-gray-600 gap-2 w-full">
-            <label className="flex items-start md:items-center gap-3 cursor-pointer select-none group flex-1">
-              <input
-                type="checkbox"
-                checked={checkPrivacy}
-                onChange={(e) => setCheckPrivacy(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-400 cursor-pointer transition-all shrink-0 mt-0.5 md:mt-0"
-              />
-              <span className="leading-tight">
-                <span className="font-semibold text-blue-500">[필수]</span>{" "}
-                <b>캘린더뷰 주소 기반 서비스 제공을 위한 개인정보 수집 동의</b>
-              </span>
-            </label>
-          </div>
-        </div>
+        <label className="flex items-center gap-2 self-stretch text-sm text-gray-600 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={agreedTerms}
+            onChange={(e) => setAgreedTerms(e.target.checked)}
+            className="w-4 h-4 cursor-pointer"
+          />
+          <span>이용약관 및 개인정보 수집에 동의합니다.</span>
+        </label>
 
         {/* 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
           height="54lg"
-          disabled={!(isValid && checkService && checkPrivacy)}
+          disabled={!(isValid && agreedTerms)}
           className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
         >
           GlobalNomad 회원가입하기
@@ -249,7 +197,7 @@ const SignupForm = () => {
         height="54lg"
         className="self-stretch"
         onClick={() => {
-          const QAuth_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
+          const QAuth_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
           window.location.href = QAuth_KAKAO_URL;
         }}
       >
