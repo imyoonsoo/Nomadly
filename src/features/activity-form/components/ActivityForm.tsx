@@ -92,7 +92,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
       await onSubmit(data);
       setIsSuccessModalOpen(true);
     } catch (error) {
-      console.log("등록 실패: ", error);
+      return;
     }
   };
 

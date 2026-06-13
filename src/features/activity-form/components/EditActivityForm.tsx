@@ -4,7 +4,6 @@ import { useUpdateActivityMutation } from "../hooks/useActivityMutation";
 import { ActivityFormValues, Schedule, UpdateActivityRequest } from "../types";
 import { ActivityImage, ActivitySchedule } from "@/app/(main)/activities/type";
 import ActivityForm from "./ActivityForm";
-import { uploadActivityImage } from "../api";
 import { getImageUrl } from "../utils";
 
 interface OriginalActivity {

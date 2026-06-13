@@ -10,6 +10,7 @@ import SortDropdown from "./SortDropdown";
 import ActivityBanner from "./ActivityBanner";
 import EmptyCardList from "./EmptyCardList";
 import CardList from "./CardList";
+import CardListSkeleton from "./CardListSkeleton";
 
 const ActivitiesList = () => {
   const [currentSort, setCurrentSort] = useState<string | number>("latest");
@@ -32,11 +33,6 @@ const ActivitiesList = () => {
     isLoading: isFetchingNextPage,
   });
 
-  // Todo: 스켈레톤 적용
-  if (isLoading) {
-    return <div>로딩 중입니다...</div>;
-  }
-
   if (isError) {
     return <EmptyCardList message="체험 목록을 불러오지 못했어요" />;
   }
@@ -49,9 +45,11 @@ const ActivitiesList = () => {
     <>
       <SortDropdown currentSort={currentSort} onChange={setCurrentSort} />
 
-      <ActivityBanner count={totalCount} />
+      <ActivityBanner count={totalCount} isLoading={isLoading} />
 
-      {totalCount === 0 ? (
+      {isLoading ? (
+        <CardListSkeleton />
+      ) : totalCount === 0 ? (
         <EmptyCardList />
       ) : (
         <>
