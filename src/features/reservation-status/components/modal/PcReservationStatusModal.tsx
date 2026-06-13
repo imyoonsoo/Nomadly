@@ -5,11 +5,13 @@ import ReservationModalContent from "@/features/reservation-status/components/mo
 
 interface PcReservationStatusModalProps {
   selectedDate: string;
+  activityId: number;
   onClose: () => void;
 }
 
 const PcReservationStatusModal = ({
   selectedDate,
+  activityId,
   onClose,
 }: PcReservationStatusModalProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -61,6 +63,7 @@ const PcReservationStatusModal = ({
         <div onMouseDown={handleMouseDown} className="cursor-move">
           <ReservationModalContent
             selectedDate={selectedDate}
+            activityId={activityId}
             onClose={onClose}
           />
         </div>

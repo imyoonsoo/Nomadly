@@ -1,0 +1,7 @@
+POST https://sp-globalnomad-api.vercel.app/23-1/auth/login
+Content-Type: application/json
+
+{
+  "email": "kmtest@test.com",
+  "password": "kmtest1860"
+}

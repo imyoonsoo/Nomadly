@@ -86,7 +86,7 @@ const ValidationSignupForm = () => {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "열 자 이하로 작성해 주세요.",
+              message: "10자 이하로 작성해 주세요.",
             },
           })}
         />
@@ -98,7 +98,7 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "8자 이상 입력해 주세요.",
+            required: "비밀번호를 입력해 주새요.",
             minLength: {
               value: 8,
               message: "8자 이상 입력해 주세요.",
@@ -146,7 +146,7 @@ const ValidationSignupForm = () => {
           height="54lg"
           className="w-full self-stretch "
           onClick={() => {
-            const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
+            const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
             window.location.href = EASYAUTH_KAKAO_URL;
           }}
         >
