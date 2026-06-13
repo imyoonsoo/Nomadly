@@ -4,6 +4,7 @@ import {
   formatDisplayDate,
   getTodayTimestamp,
   getYearAndMonthFromTimestamp,
+  parseDateKey,
 } from "@/components/Reservation/utils";
 import { Calendar as CalendarIcon } from "@/constants/icons";
 import Calendar from "@/components/Reservation/Calendar";
@@ -26,13 +27,14 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
   );
 
   useEffect(() => {
-    if (value) {
-      const timestamp = new Date(value).getTime();
-      if (!isNaN(timestamp)) {
-        setSelectedTimestamp(timestamp);
-        setSelectedYearAndMonth(getYearAndMonthFromTimestamp(timestamp));
-      }
+    if (!value) {
+      return;
     }
+
+    const timestamp = parseDateKey(value);
+
+    setSelectedTimestamp(timestamp);
+    setSelectedYearAndMonth(getYearAndMonthFromTimestamp(timestamp));
   }, [value]);
 
   const selectableDateKeys = useMemo(() => {
@@ -69,6 +71,23 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
 
     setSelectedYearAndMonth(next);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsCalendarOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div ref={containerRef} className="w-full relative">
