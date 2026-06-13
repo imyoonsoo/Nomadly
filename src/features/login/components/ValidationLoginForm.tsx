@@ -83,7 +83,6 @@ const ValidationLoginForm = () => {
       </form>
 
       <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center">
-        {/* 디바이더 */}
         <div className="flex items-center gap-4 self-stretch">
           <hr className="flex-1 border-gray-100" />
           <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
@@ -105,7 +104,7 @@ const ValidationLoginForm = () => {
           카카오 간편로그인
         </Button>
 
-        <p className="text-sm font-medium tracking-[-0.4px] text-gray-400">
+        <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
           회원이 아니신가요?{" "}
           <Link href="/signup" className="underline">
             <b>회원가입하기</b>
