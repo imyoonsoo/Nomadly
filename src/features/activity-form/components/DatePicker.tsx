@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import {
   formatDateKey,
   formatDisplayDate,
@@ -25,6 +25,16 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
     getYearAndMonthFromTimestamp(todayTimestamp),
   );
 
+  useEffect(() => {
+    if (value) {
+      const timestamp = new Date(value).getTime();
+      if (!isNaN(timestamp)) {
+        setSelectedTimestamp(timestamp);
+        setSelectedYearAndMonth(getYearAndMonthFromTimestamp(timestamp));
+      }
+    }
+  }, [value]);
+
   const selectableDateKeys = useMemo(() => {
     const dates = new Set<string>();
 
@@ -49,11 +59,13 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
   const handleChangeYearAndMonth = (next: YearAndMonth) => {
     const today = new Date();
 
-    const isPathMonth =
+    const isPastMonth =
       next.year < today.getFullYear() ||
       (next.year === today.getFullYear() && next.month < today.getMonth());
 
-    if (isPathMonth) return;
+    if (isPastMonth) {
+      return;
+    }
 
     setSelectedYearAndMonth(next);
   };
