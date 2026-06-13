@@ -80,13 +80,15 @@ const Card = ({
       </div>
 
       {/* Todo: placeholderImage 설정 */}
-      <Image
-        src={bannerImageUrl}
-        alt="배너 이미지"
-        width={142}
-        height={142}
-        className="w-20.5 h-20.5 md:w-35.5 md:h-35.5 object-cover rounded-3xl "
-      />
+      <div className="relative shrink-0 w-20.5 h-20.5 md:w-35.5 md:h-35.5 rounded-3xl overflow-hidden">
+        <Image
+          src={bannerImageUrl}
+          alt="배너 이미지"
+          width={142}
+          height={142}
+          className="w-full h-full object-cover rounded-3xl"
+        />
+      </div>
 
       <WarningModal
         isOpen={isConfirmModalOpen}
