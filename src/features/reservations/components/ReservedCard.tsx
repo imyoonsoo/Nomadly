@@ -7,17 +7,37 @@ import ReviewSubmitModal from "./ReviewSubmitModal";
 import { useState } from "react";
 import WarningModal from "@/components/Modal/WarningModal";
 import type { Reservation } from "@/features/reservations/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { cancelReservationMutation } from "../queries";
 
 export interface ReservedCardProps {
   reservation: Reservation;
 }
 
 const ReservedCard = ({ reservation }: ReservedCardProps) => {
-  const { date, activity, status, startTime, endTime, totalPrice, headCount } =
-    reservation;
+  const {
+    id,
+    date,
+    activity,
+    status,
+    startTime,
+    endTime,
+    totalPrice,
+    headCount,
+  } = reservation;
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const { mutate: cancelReservation } = useMutation({
+    ...cancelReservationMutation(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-reservations"] });
+    },
+  });
+
   const handleReviewModalButtonClick = () => {
     setIsReviewModalOpen(true);
   };
@@ -47,7 +67,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                   / {headCount}명
                 </span>
               </p>
-              {status === "confirmed" && (
+              {status === "pending" && (
                 <div className="hidden lg:flex gap-[8px] ">
                   <Button
                     variant="whitenGray"
@@ -87,7 +107,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             />
           </div>
         </div>
-        {status === "confirmed" && (
+        {status === "pending" && (
           <div className="flex w-full gap-[12px] lg:hidden">
             <Button
               variant="whitenGray"
@@ -124,8 +144,10 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
       <WarningModal
         isOpen={isWarningModalOpen}
         onClose={() => setIsWarningModalOpen(false)}
-        // Todo: onConfirm 함수 만들기
-        onConfirm={() => setIsWarningModalOpen(false)}
+        onConfirm={() => {
+          cancelReservation();
+          setIsWarningModalOpen(false);
+        }}
         message="예약을 취소하시겠어요?"
         buttonTextRight="취소하기"
       />

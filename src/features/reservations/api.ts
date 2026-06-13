@@ -1,4 +1,5 @@
 import type {
+  CancelReservationResponse,
   EditMyReservationsParams,
   GetMyReservationsParams,
   GetMyReservationsResponse,
@@ -16,8 +17,10 @@ export async function getMyReservations(
   return response.data;
 }
 
-export async function deleteMyReservations(reservationId: number) {
-  const response = await axios.patch(`${BASE_URL}/${reservationId}`, {
+export async function cancelMyReservations(
+  reservationId: number,
+): Promise<CancelReservationResponse> {
+  const response = await clientFetch.patch(`${BASE_URL}/${reservationId}`, {
     status: "canceled",
   });
   return response.data;

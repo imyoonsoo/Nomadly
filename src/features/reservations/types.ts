@@ -47,3 +47,7 @@ export interface GetMyReservationsResponse {
   reservations: Reservation[];
   totalCount: number;
 }
+
+export type CancelReservationResponse = Omit<Reservation, "activity"> & {
+  activityId: number;
+};
