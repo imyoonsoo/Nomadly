@@ -1,5 +1,5 @@
 import { ReservedScheduleItem } from "@/features/reservation-status/type";
-import ReservationDropdown from "@/features/reservation-status/components/ReservationDropdown";
+import SelectDropdown from "@/components/SelectDropdown/SelectDropdown";
 
 interface ReservationScheduleSelectProps {
   schedules: ReservedScheduleItem[];
@@ -18,10 +18,10 @@ const ReservationScheduleSelect = ({
   }));
 
   return (
-    <ReservationDropdown
+    <SelectDropdown
       options={scheduleOptions}
       selectedValue={selectedScheduleId}
-      onChange={onChangeScheduleId}
+      onChange={(value) => onChangeScheduleId(Number(value))}
     />
   );
 };

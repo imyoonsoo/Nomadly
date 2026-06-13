@@ -1,39 +1,41 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import {
-  ReservationStatus,
-  ReservationCardItem,
-} from "@/features/reservation-status/type";
-import {
-  mockReservationByScheduleId,
-  mockReservedScheduleByDate,
-} from "@/features/reservation-status/mock";
+import { useEffect, useState } from "react";
+import { ReservationStatus } from "@/features/reservation-status/type";
 import ReservationStatusTab from "@/features/reservation-status/components/modal/ReservationStatusTab";
 import ReservationScheduleSelect from "@/features/reservation-status/components/modal/ReservationScheduleSelect";
 import ReservationCard from "@/features/reservation-status/components/modal/ReservationCard";
 import { Delete } from "@/constants/icons";
 import { formatKoreanDate } from "@/features/reservation-status/utils";
+import {
+  useReservations,
+  useReservedSchedule,
+  useUpdateReservationStatus,
+} from "@/features/reservation-status/hooks/useReservationStatus";
 
 interface ReservationModalContentProps {
   selectedDate: string;
+  activityId: number;
   onClose: () => void;
   isFullPage?: boolean;
 }
 
 const ReservationModalContent = ({
   selectedDate,
+  activityId,
   onClose,
   isFullPage = false,
 }: ReservationModalContentProps) => {
   const [selectedStatus, setSelectedStatus] =
     useState<ReservationStatus>("pending");
 
-  const schedules = useMemo(() => {
-    return mockReservedScheduleByDate[selectedDate] ?? [];
-  }, [selectedDate]);
-
   const [selectedScheduleId, setSelectedScheduleId] = useState(0);
+
+  const {
+    data: schedules = [],
+    isLoading: isSchedulesLoading,
+    isError: isSchedulesError,
+  } = useReservedSchedule(activityId, selectedDate);
 
   useEffect(() => {
     setSelectedScheduleId(schedules[0]?.scheduleId ?? 0);
@@ -44,29 +46,15 @@ const ReservationModalContent = ({
     (schedule) => schedule.scheduleId === selectedScheduleId,
   );
 
-  const [localReservations, setLocalReservations] = useState<
-    Record<ReservationStatus, ReservationCardItem[]>
-  >({
-    pending: [],
-    confirmed: [],
-    declined: [],
-  });
+  const {
+    data: reservationsData,
+    isLoading: isReservationsLoading,
+    isError: isReservationsError,
+  } = useReservations(activityId, selectedScheduleId, selectedStatus);
 
-  useEffect(() => {
-    const reservationData = mockReservationByScheduleId[selectedScheduleId] ?? {
-      pending: [],
-      confirmed: [],
-      declined: [],
-    };
+  const updateReservationStatusMutation = useUpdateReservationStatus();
 
-    setLocalReservations({
-      pending: [...reservationData.pending],
-      confirmed: [...reservationData.confirmed],
-      declined: [...reservationData.declined],
-    });
-  }, [selectedScheduleId]);
-
-  const reservations = localReservations[selectedStatus] ?? [];
+  const reservations = reservationsData?.reservations ?? [];
 
   const [isTablet, setIsTablet] = useState(false);
 
@@ -76,7 +64,6 @@ const ReservationModalContent = ({
     };
 
     checkTablet();
-
     window.addEventListener("resize", checkTablet);
 
     return () => {
@@ -92,7 +79,6 @@ const ReservationModalContent = ({
   }, [selectedDate, selectedScheduleId, selectedStatus, loadSize]);
 
   const visibleReservations = reservations.slice(0, visibleCount);
-
   const hasMore = visibleCount < reservations.length;
 
   const handleScrollReservationList = (e: React.UIEvent<HTMLDivElement>) => {
@@ -109,32 +95,18 @@ const ReservationModalContent = ({
   };
 
   const handleApprove = (reservationId: number) => {
-    setLocalReservations((prev) => {
-      const target = prev.pending.find((item) => item.id === reservationId);
-      if (!target) {
-        return prev;
-      }
-
-      return {
-        pending: prev.pending.filter((item) => item.id !== reservationId),
-        confirmed: [...prev.confirmed, target],
-        declined: prev.declined,
-      };
+    updateReservationStatusMutation.mutate({
+      activityId,
+      reservationId,
+      status: "confirmed",
     });
   };
 
   const handleDecline = (reservationId: number) => {
-    setLocalReservations((prev) => {
-      const target = prev.pending.find((item) => item.id === reservationId);
-      if (!target) {
-        return prev;
-      }
-
-      return {
-        pending: prev.pending.filter((item) => item.id !== reservationId),
-        confirmed: prev.confirmed,
-        declined: [...prev.declined, target],
-      };
+    updateReservationStatusMutation.mutate({
+      activityId,
+      reservationId,
+      status: "declined",
     });
   };
 
@@ -150,60 +122,82 @@ const ReservationModalContent = ({
         </button>
       </div>
 
-      {selectedSchedule && (
-        <ReservationStatusTab
-          selectedStatus={selectedStatus}
-          onChangeStatus={setSelectedStatus}
-          count={{
-            pending: localReservations.pending.length,
-            confirmed: localReservations.confirmed.length,
-            declined: localReservations.declined.length,
-          }}
-        />
-      )}
+      {isSchedulesLoading ? (
+        <div className="mt-6 text-14-medium text-gray-400">
+          예약 시간을 불러오는 중...
+        </div>
+      ) : isSchedulesError ? (
+        <div className="mt-6 text-14-medium text-red-500">
+          예약 시간을 불러오지 못했습니다.
+        </div>
+      ) : (
+        <>
+          <ReservationStatusTab
+            selectedStatus={selectedStatus}
+            onChangeStatus={setSelectedStatus}
+            count={
+              selectedSchedule?.count ?? {
+                pending: 0,
+                confirmed: 0,
+                declined: 0,
+              }
+            }
+          />
 
-      <div className="mt-6">
-        <p className="mb-3 text-16-bold text-black">예약 시간</p>
+          <div className="mt-6">
+            <p className="mb-3 text-16-bold text-black">예약 시간</p>
 
-        <ReservationScheduleSelect
-          schedules={schedules}
-          selectedScheduleId={selectedScheduleId}
-          onChangeScheduleId={setSelectedScheduleId}
-        />
-      </div>
-
-      <div className="mt-6">
-        <p className="mb-3 text-16-bold text-black">예약 내역</p>
-
-        <div
-          onScroll={handleScrollReservationList}
-          className={`
-            scrollbar-hide overflow-y-auto pr-1
-            h-60
-            md:h-[min(350px,calc(85vh-280px))]
-            xl:h-[230px]
-            ${isFullPage ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]" : ""}  
-          `}
-        >
-          <div className="flex flex-col gap-3">
-            {visibleReservations.map((reservation) => (
-              <ReservationCard
-                key={reservation.id}
-                reservation={reservation}
-                status={selectedStatus}
-                onApprove={handleApprove}
-                onDecline={handleDecline}
-              />
-            ))}
+            <ReservationScheduleSelect
+              schedules={schedules}
+              selectedScheduleId={selectedScheduleId}
+              onChangeScheduleId={setSelectedScheduleId}
+            />
           </div>
 
-          {hasMore && (
-            <div className="py-3 text-center text-10-medium md:text-14-medium text-gray-400">
-              더 불러오는 중...
-            </div>
-          )}
-        </div>
-      </div>
+          <div className="mt-6">
+            <p className="mb-3 text-16-bold text-black">예약 내역</p>
+
+            {isReservationsLoading ? (
+              <div className="text-14-medium text-gray-400">
+                예약 내역을 불러오는 중...
+              </div>
+            ) : isReservationsError ? (
+              <div className="text-14-medium text-gray-400">
+                예약 내역을 불러오지 못했습니다.
+              </div>
+            ) : (
+              <div
+                onScroll={handleScrollReservationList}
+                className={`
+                scrollbar-hide overflow-y-auto pr-1
+                h-60
+                md:h-[min(350px,calc(85vh-280px))]
+                xl:h-[230px]
+                ${isFullPage ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]" : ""}
+              `}
+              >
+                <div className="flex flex-col gap-3">
+                  {visibleReservations.map((reservation) => (
+                    <ReservationCard
+                      key={reservation.id}
+                      reservation={reservation}
+                      status={selectedStatus}
+                      onApprove={handleApprove}
+                      onDecline={handleDecline}
+                    />
+                  ))}
+                </div>
+
+                {hasMore && (
+                  <div className="py-3 text-center text-10-medium md:text-14-medium text-gray-400">
+                    더 불러오는 중...
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 };
