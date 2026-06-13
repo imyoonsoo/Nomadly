@@ -4,6 +4,7 @@ import type {
   GetMyReservationsParams,
   GetMyReservationsResponse,
   SubmitReviewParams,
+  SubmitReviewResponse,
 } from "./types";
 import axios from "axios";
 import clientFetch from "@/lib/http/clientFetch";
@@ -40,8 +41,8 @@ export async function editMyReservations(
 export async function submitReview(
   reservationId: number,
   body: SubmitReviewParams,
-) {
-  const response = await axios.post(
+): Promise<SubmitReviewResponse> {
+  const response = await clientFetch.post(
     `${BASE_URL}/${reservationId}/reviews`,
     body,
   );

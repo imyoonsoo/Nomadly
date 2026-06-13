@@ -1,6 +1,6 @@
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
-import type { GetMyReservationsParams } from "./types";
-import { cancelMyReservations, getMyReservations } from "./api";
+import type { GetMyReservationsParams, SubmitReviewParams } from "./types";
+import { cancelMyReservations, getMyReservations, submitReview } from "./api";
 
 export const myReservationsQuery = (params?: GetMyReservationsParams) =>
   queryOptions({
@@ -11,4 +11,9 @@ export const myReservationsQuery = (params?: GetMyReservationsParams) =>
 export const cancelReservationMutation = (reservationId: number) =>
   mutationOptions({
     mutationFn: () => cancelMyReservations(reservationId),
+  });
+
+export const submitReviewMutation = (reservationId: number) =>
+  mutationOptions({
+    mutationFn: (body: SubmitReviewParams) => submitReview(reservationId, body),
   });

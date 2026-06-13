@@ -8,7 +8,7 @@ import { useState } from "react";
 import WarningModal from "@/components/Modal/WarningModal";
 import type { Reservation } from "@/features/reservations/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { cancelReservationMutation } from "../queries";
+import { cancelReservationMutation, submitReviewMutation } from "../queries";
 
 export interface ReservedCardProps {
   reservation: Reservation;
@@ -35,6 +35,14 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
     ...cancelReservationMutation(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["my-reservations"] });
+    },
+  });
+
+  const { mutate: submitReview } = useMutation({
+    ...submitReviewMutation(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-reservations"] });
+      setIsReviewModalOpen(false);
     },
   });
 
@@ -140,6 +148,12 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
       <ReviewSubmitModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
+        title={activity.title}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        headCount={headCount}
+        onSubmit={(data) => submitReview(data)}
       />
       <WarningModal
         isOpen={isWarningModalOpen}

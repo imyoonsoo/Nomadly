@@ -6,17 +6,17 @@ import { useQuery } from "@tanstack/react-query";
 import { myReservationsQuery } from "@/features/reservations/queries";
 
 const FILTERS = [
-  "예약 완료",
+  "예약 대기",
   "예약 취소",
-  "예약 승인",
+  "예약 완료",
   "예약 거절",
   "체험 완료",
 ];
 
 const FILTER_STATUS_MAP: Record<string, string> = {
-  "예약 완료": "pending",
+  "예약 대기": "pending",
   "예약 취소": "canceled",
-  "예약 승인": "confirm",
+  "예약 완료": "confirmed",
   "예약 거절": "declined",
   "체험 완료": "completed",
 };

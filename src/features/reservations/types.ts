@@ -51,3 +51,14 @@ export interface GetMyReservationsResponse {
 export type CancelReservationResponse = Omit<Reservation, "activity"> & {
   activityId: number;
 };
+
+export interface SubmitReviewResponse {
+  updatedAt: string;
+  createdAt: string;
+  content: string;
+  rating: number;
+  userId: number;
+  activityId: number;
+  teamId: string;
+  id: number;
+}
