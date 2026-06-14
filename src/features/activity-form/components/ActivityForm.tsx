@@ -67,7 +67,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     allowLeave();
 
     if (pendingUrl === "back") {
-      router.back();
+      window.history.go(-2);
     } else if (pendingUrl) {
       router.push(pendingUrl);
     }

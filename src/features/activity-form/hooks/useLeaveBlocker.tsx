@@ -85,6 +85,10 @@ const useLeaveBlocker = ({ isDirty, onBlock }: UseLeaveBlockerProps) => {
     return () => {
       window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("click", handleAnchorClick, true);
+
+      if (window.history.state?.blocked && !allowLeaveRef.current) {
+        window.history.back();
+      }
     };
   }, [isDirty]);
 
