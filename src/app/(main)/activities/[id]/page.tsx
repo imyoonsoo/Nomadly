@@ -45,6 +45,7 @@ const ActivitiesPage = async ({
         <BannerImageSection images={bannerImages} />
         <TitleSection
           id={activityData.id}
+          userId={activityData.userId}
           title={activityData.title}
           category={activityData.category}
           address={activityData.address}
@@ -67,6 +68,7 @@ const ActivitiesPage = async ({
         <div className="flex w-[410px] flex-col gap-5">
           <TitleSection
             id={activityData.id}
+            userId={activityData.userId}
             title={activityData.title}
             category={activityData.category}
             address={activityData.address}
