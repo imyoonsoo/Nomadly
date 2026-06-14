@@ -7,8 +7,13 @@ import ReviewSubmitModal from "./ReviewSubmitModal";
 import { useState } from "react";
 import WarningModal from "@/components/Modal/WarningModal";
 import type { Reservation } from "@/features/reservations/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { cancelReservationMutation, submitReviewMutation } from "../queries";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  activityDetailQuery,
+  cancelReservationMutation,
+  submitReviewMutation,
+} from "../queries";
+import EditReservationModal from "./EditReservationModal";
 
 export interface ReservedCardProps {
   reservation: Reservation;
@@ -28,6 +33,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -46,11 +52,19 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
     },
   });
 
+  const { data: activityDetail } = useQuery({
+    ...activityDetailQuery(activity.id),
+    enabled: isEditModalOpen,
+  });
+
   const handleReviewModalButtonClick = () => {
     setIsReviewModalOpen(true);
   };
   const handleWarningModalButtonClick = () => {
     setIsWarningModalOpen(true);
+  };
+  const handleEditReviewButtonClicik = () => {
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -70,7 +84,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             </div>
             <div className="flex justify-between">
               <p className="text-16-bold text-gray-950 lg:text-18-bold">
-                {totalPrice}
+                {totalPrice.toLocaleString()}
                 <span className="text-14-medium text-gray-400 lg:text-16-medium">
                   / {headCount}명
                 </span>
@@ -81,6 +95,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                     variant="whitenGray"
                     height="h29"
                     className="px-[10px] py-[6px] !border"
+                    onClick={handleEditReviewButtonClicik}
                   >
                     예약 변경
                   </Button>
@@ -121,6 +136,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
               variant="whitenGray"
               height="custom"
               className="flex-1 h-[37px] rounded-lg p-[10px]"
+              onClick={handleEditReviewButtonClicik}
             >
               예약 변경
             </Button>
@@ -164,6 +180,12 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
         }}
         message="예약을 취소하시겠어요?"
         buttonTextRight="취소하기"
+      />
+      <EditReservationModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        reservationId={id}
+        activityDetail={activityDetail}
       />
     </>
   );

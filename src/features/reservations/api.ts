@@ -6,8 +6,8 @@ import type {
   SubmitReviewParams,
   SubmitReviewResponse,
 } from "./types";
-import axios from "axios";
 import clientFetch from "@/lib/http/clientFetch";
+import type { ActivityDetailResponse } from "@/app/(main)/activities/type";
 
 const BASE_URL = "/my-reservations";
 
@@ -31,7 +31,7 @@ export async function editMyReservations(
   reservationId: number,
   body: EditMyReservationsParams,
 ) {
-  const response = await axios.patch(
+  const response = await clientFetch.patch(
     `${BASE_URL}/${reservationId}/application`,
     body,
   );
@@ -46,5 +46,12 @@ export async function submitReview(
     `${BASE_URL}/${reservationId}/reviews`,
     body,
   );
+  return response.data;
+}
+
+export async function getActivityDetailClient(
+  activityId: number,
+): Promise<ActivityDetailResponse> {
+  const response = await clientFetch.get(`/activities/${activityId}`);
   return response.data;
 }
