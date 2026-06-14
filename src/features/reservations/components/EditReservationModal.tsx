@@ -27,7 +27,7 @@ const EditReservationModal = ({
       size="lg"
       isOpen={isOpen}
       onClose={onClose}
-      className="... scrollbar-hide"
+      className="scrollbar-hide"
     >
       <Reservation
         price={activityDetail.price}

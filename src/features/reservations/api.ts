@@ -11,47 +11,47 @@ import type { ActivityDetailResponse } from "@/app/(main)/activities/type";
 
 const BASE_URL = "/my-reservations";
 
-export async function getMyReservations(
+export const getMyReservations = async (
   params?: GetMyReservationsParams,
-): Promise<GetMyReservationsResponse> {
-  const response = await clientFetch.get("/my-reservations", { params });
+): Promise<GetMyReservationsResponse> => {
+  const response = await clientFetch.get(BASE_URL, { params });
   return response.data;
-}
+};
 
-export async function cancelMyReservations(
+export const cancelMyReservations = async (
   reservationId: number,
-): Promise<CancelReservationResponse> {
+): Promise<CancelReservationResponse> => {
   const response = await clientFetch.patch(`${BASE_URL}/${reservationId}`, {
     status: "canceled",
   });
   return response.data;
-}
+};
 
-export async function editMyReservations(
+export const editMyReservations = async (
   reservationId: number,
   body: EditMyReservationsParams,
-) {
+) => {
   const response = await clientFetch.patch(
     `${BASE_URL}/${reservationId}/application`,
     body,
   );
   return response.data;
-}
+};
 
-export async function submitReview(
+export const submitReview = async (
   reservationId: number,
   body: SubmitReviewParams,
-): Promise<SubmitReviewResponse> {
+): Promise<SubmitReviewResponse> => {
   const response = await clientFetch.post(
     `${BASE_URL}/${reservationId}/reviews`,
     body,
   );
   return response.data;
-}
+};
 
-export async function getActivityDetailClient(
+export const getActivityDetailClient = async (
   activityId: number,
-): Promise<ActivityDetailResponse> {
+): Promise<ActivityDetailResponse> => {
   const response = await clientFetch.get(`/activities/${activityId}`);
   return response.data;
-}
+};

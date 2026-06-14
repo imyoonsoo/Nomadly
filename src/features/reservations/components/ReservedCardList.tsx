@@ -5,7 +5,7 @@ import ReservedCard from "./ReservedCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { myReservationsInfiniteQuery } from "@/features/reservations/queries";
 import { useRouter } from "next/navigation";
-import EmpytyIcon from "@/assets/images/empty.svg";
+import EmptyIcon from "@/assets/images/empty.svg";
 import Button from "@/components/Button/Button";
 import type { Reservation } from "../types";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
@@ -59,7 +59,9 @@ const ReservedCardList = () => {
     setActiveFilter((prev) => (prev === filter ? null : filter));
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   const reservations = sortReservations(
     data?.pages.flatMap((page) => page.reservations) ?? [],
@@ -69,7 +71,7 @@ const ReservedCardList = () => {
     return (
       <div className="w-[100%] h-[100%] mt-[10px] flex flex-col gap-[30px] justify-center items-center">
         <div>
-          <EmpytyIcon width={180} height={203} />
+          <EmptyIcon width={180} height={203} />
           <p>아직 예약된 체험이 없어요</p>
         </div>
         <Button

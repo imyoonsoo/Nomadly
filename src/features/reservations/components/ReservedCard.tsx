@@ -65,7 +65,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
   const handleWarningModalButtonClick = () => {
     setIsWarningModalOpen(true);
   };
-  const handleEditReviewButtonClicik = () => {
+  const handleEditReservationButtonClick = () => {
     setIsEditModalOpen(true);
   };
 
@@ -97,7 +97,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                     variant="whitenGray"
                     height="h29"
                     className="px-[10px] py-[6px] !border"
-                    onClick={handleEditReviewButtonClicik}
+                    onClick={handleEditReservationButtonClick}
                   >
                     예약 변경
                   </Button>
@@ -142,7 +142,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
               variant="whitenGray"
               height="custom"
               className="flex-1 h-[37px] rounded-lg p-[10px]"
-              onClick={handleEditReviewButtonClicik}
+              onClick={handleEditReservationButtonClick}
             >
               예약 변경
             </Button>
