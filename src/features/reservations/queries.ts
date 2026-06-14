@@ -1,11 +1,14 @@
-import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions, mutationOptions } from "@tanstack/react-query";
 import type { GetMyReservationsParams, SubmitReviewParams } from "./types";
 import { cancelMyReservations, getMyReservations, submitReview } from "./api";
 
-export const myReservationsQuery = (params?: GetMyReservationsParams) =>
-  queryOptions({
+export const myReservationsInfiniteQuery = (params?: GetMyReservationsParams) =>
+  infiniteQueryOptions({
     queryKey: ["my-reservations", params],
-    queryFn: () => getMyReservations(params),
+    queryFn: ({ pageParam }) =>
+      getMyReservations({ ...params, cursorId: pageParam }),
+    initialPageParam: undefined as number | undefined,
+    getNextPageParam: (lastPage) => lastPage.cursorId ?? undefined,
   });
 
 export const cancelReservationMutation = (reservationId: number) =>

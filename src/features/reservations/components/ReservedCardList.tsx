@@ -2,12 +2,13 @@
 import { useState } from "react";
 import FilterButton from "@/components/FilterButton/FilterButton";
 import ReservedCard from "./ReservedCard";
-import { useQuery } from "@tanstack/react-query";
-import { myReservationsQuery } from "@/features/reservations/queries";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { myReservationsInfiniteQuery } from "@/features/reservations/queries";
 import { useRouter } from "next/navigation";
 import EmpytyIcon from "@/assets/images/empty.svg";
 import Button from "@/components/Button/Button";
 import type { Reservation } from "../types";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 const FILTERS = [
   "예약 대기",
@@ -42,9 +43,17 @@ const ReservedCardList = () => {
     ? FILTER_STATUS_MAP[activeFilter]
     : undefined;
 
-  const { data, isLoading } = useQuery(
-    myReservationsQuery({ size: 10, status: activeStatus }),
-  );
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      ...myReservationsInfiniteQuery({ size: 10, status: activeStatus }),
+      retry: 1,
+    });
+
+  const { targetRef } = useInfiniteScroll({
+    onIntersect: fetchNextPage,
+    hasNextPage: !!hasNextPage,
+    isLoading: isFetchingNextPage,
+  });
 
   const handleFilterButtonClick = (filter: string) => {
     setActiveFilter((prev) => (prev === filter ? null : filter));
@@ -52,9 +61,11 @@ const ReservedCardList = () => {
 
   if (isLoading) return <div>로딩 중...</div>;
 
-  const reservations = sortReservations(data?.reservations ?? []);
+  const reservations = sortReservations(
+    data?.pages.flatMap((page) => page.reservations) ?? [],
+  );
 
-  if (!activeFilter && !data?.reservations?.length) {
+  if (!activeFilter && !reservations?.length) {
     return (
       <div className="w-[100%] h-[100%] mt-[10px] flex flex-col gap-[30px] justify-center items-center">
         <div>
@@ -91,6 +102,8 @@ const ReservedCardList = () => {
           <ReservedCard key={reservation.id} reservation={reservation} />
         ))}
       </div>
+      <div ref={targetRef} />
+      {isFetchingNextPage && <div>로딩 중....</div>}
     </div>
   );
 };
