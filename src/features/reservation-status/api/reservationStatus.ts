@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axios-instance";
+import clientFetch from "@/lib/http/clientFetch";
 import {
   MyActivitiesResponse,
   ReservationCardItem,
@@ -9,7 +9,7 @@ import {
 import { ReservationStatus } from "@/features/reservations/types";
 
 export const getMyActivities = async (): Promise<MyActivitiesResponse> => {
-  const res = await axiosInstance.get("/my-activities");
+  const res = await clientFetch.get("/my-activities");
 
   return res.data;
 };
@@ -23,7 +23,7 @@ export const getReservationDashboard = async ({
   year: string;
   month: string;
 }): Promise<ReservationDashboardItem[]> => {
-  const res = await axiosInstance.get(
+  const res = await clientFetch.get(
     `/my-activities/${activityId}/reservation-dashboard`,
     {
       params: {
@@ -43,7 +43,7 @@ export const getReservedSchedule = async ({
   activityId: number;
   date: string;
 }): Promise<ReservedScheduleItem[]> => {
-  const res = await axiosInstance.get(
+  const res = await clientFetch.get(
     `/my-activities/${activityId}/reserved-schedule`,
     {
       params: { date },
@@ -66,7 +66,7 @@ export const getReservations = async ({
   cursorId?: number | null;
   size?: number;
 }): Promise<ReservationCardPage> => {
-  const res = await axiosInstance.get(
+  const res = await clientFetch.get(
     `/my-activities/${activityId}/reservations`,
     {
       params: {
@@ -90,7 +90,7 @@ export const updateReservationStatus = async ({
   reservationId: number;
   status: ReservationStatus;
 }): Promise<ReservationCardItem> => {
-  const res = await axiosInstance.patch(
+  const res = await clientFetch.patch(
     `/my-activities/${activityId}/reservations/${reservationId}`,
     { status },
   );
