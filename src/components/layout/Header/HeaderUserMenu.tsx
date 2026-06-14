@@ -42,6 +42,10 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
   ];
 
   const handleNotificationClick = (notificationId: number) => {
+    if (deleteNotificationMutation.isPending) {
+      return;
+    }
+
     deleteNotificationMutation.mutate(notificationId, {
       onSuccess: () => {
         setIsNotificationOpen(false);
