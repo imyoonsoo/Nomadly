@@ -10,14 +10,15 @@ export const useNotifications = () => {
 };
 
 export const useDeleteNotification = () => {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deleteNotification,
     onSuccess: () => {
-      queryClinet.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: notificationKeys.all,
       });
     },
+  });
   });
 };
