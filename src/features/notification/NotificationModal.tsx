@@ -1,10 +1,10 @@
 "use client";
 
-import { Notification } from "@/components/layout/Header/Notification/type";
+import { Notification } from "@/features/notification/type";
 import {
   getTimeAgo,
   parseNotificationContent,
-} from "@/components/layout/Header/Notification/utils";
+} from "@/features/notification/utils";
 import { Delete } from "@/constants/icons";
 
 interface NotificationModalProps {
