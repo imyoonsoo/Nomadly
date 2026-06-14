@@ -53,7 +53,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
 
   const [hasScheduleDuplicate, setHasScheduleDuplicate] = useState(false);
 
-  useLeaveBlocker({
+  const { allowLeave } = useLeaveBlocker({
     isDirty: isDirty && !isSubmitSuccessful,
     onBlock: (targetUrl) => {
       setPendingUrl(targetUrl);
@@ -63,17 +63,16 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
 
   const handleConfirmLeave = () => {
     setIsWarningOpen(false);
-    const url = pendingUrl;
-    setPendingUrl(null);
 
-    if (url === "back") {
-      window.history.go(-2);
-    } else if (url) {
-      window.history.back();
-      setTimeout(() => {
-        router.push(url);
-      }, 10);
+    allowLeave();
+
+    if (pendingUrl === "back") {
+      router.back();
+    } else if (pendingUrl) {
+      router.push(pendingUrl);
     }
+
+    setPendingUrl(null);
   };
 
   const handleCancelLeave = () => {
