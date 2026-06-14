@@ -14,6 +14,7 @@ import {
   submitReviewMutation,
 } from "../queries";
 import EditReservationModal from "./EditReservationModal";
+import { showToast } from "@/lib/utils/toast";
 
 export interface ReservedCardProps {
   reservation: Reservation;
@@ -29,6 +30,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
     endTime,
     totalPrice,
     headCount,
+    reviewSubmitted,
   } = reservation;
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -114,7 +116,11 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                   variant="mainBlue"
                   height="custom"
                   className="hidden lg:block h-[29px] px-[10px] rounded-lg text-14-medium"
-                  onClick={handleReviewModalButtonClick}
+                  onClick={
+                    reviewSubmitted
+                      ? () => showToast.error("이미 후기를 작성했습니다.")
+                      : handleReviewModalButtonClick
+                  }
                 >
                   후기 작성
                 </Button>
@@ -155,7 +161,11 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             variant="mainBlue"
             height="custom"
             className="lg:hidden sm:block md:block w-full h-[37px] px-[10px] rounded-[8px]"
-            onClick={handleReviewModalButtonClick}
+            onClick={
+              reviewSubmitted
+                ? () => showToast.error("이미 후기를 작성했습니다.")
+                : handleReviewModalButtonClick
+            }
           >
             후기 작성
           </Button>

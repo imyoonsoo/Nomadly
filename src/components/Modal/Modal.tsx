@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import type { ModalProps } from "./type";
 
 const SIZE_CLASSES = {
-  sm: "w-[320px] min-h-[140px] rounded-[24px] p-[30px] md:w-[400px] md:min-h-[170px] md:rounded-[30px] md:p-10",
+  sm: "min-w-[320px] min-h-[140px] rounded-[24px] p-[30px] md:min-w-[400px] md:min-h-[170px] md:rounded-[30px] md:p-10",
   md: "w-[320px] min-h-[185px] rounded-[24px] p-[30px] pb-[24px] md:w-[400px] md:min-h-[242px] md:rounded-[30px] md:p-[30px]",
   lg: "min-w-[321px] min-h-[493px] overflow-y-auto max-h-[90vh] rounded-[30px] px-6 py-5 md:min-w-[385px] md:min-h-[549px] md:px-[30px] md:py-6",
 };
