@@ -7,6 +7,7 @@ import { myReservationsQuery } from "@/features/reservations/queries";
 import { useRouter } from "next/navigation";
 import EmpytyIcon from "@/assets/images/empty.svg";
 import Button from "@/components/Button/Button";
+import type { Reservation } from "../types";
 
 const FILTERS = [
   "예약 대기",
@@ -22,6 +23,14 @@ const FILTER_STATUS_MAP: Record<string, string> = {
   "예약 완료": "confirmed",
   "예약 거절": "declined",
   "체험 완료": "completed",
+};
+
+const sortReservations = (reservations: Reservation[]) => {
+  const sortedReservations = [...reservations].sort(
+    (a, b) =>
+      Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")),
+  );
+  return sortedReservations;
 };
 
 const ReservedCardList = () => {
@@ -41,11 +50,11 @@ const ReservedCardList = () => {
     setActiveFilter((prev) => (prev === filter ? null : filter));
   };
 
-  const reservations = data?.reservations ?? [];
-
   if (isLoading) return <div>로딩 중...</div>;
 
-  if (!data?.reservations?.length) {
+  const reservations = sortReservations(data?.reservations ?? []);
+
+  if (!activeFilter && !data?.reservations?.length) {
     return (
       <div className="w-[100%] h-[100%] mt-[10px] flex flex-col gap-[30px] justify-center items-center">
         <div>
