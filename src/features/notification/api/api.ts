@@ -8,7 +8,7 @@ export interface NotificationsResponse {
 }
 
 export const getNotifications = async (): Promise<NotificationsResponse> => {
-  const res = await clientFetch.get("my-notifications");
+  const res = await clientFetch.get("/my-notifications");
 
   return res.data;
 };
@@ -16,5 +16,5 @@ export const getNotifications = async (): Promise<NotificationsResponse> => {
 export const deleteNotification = async (
   notificationId: number,
 ): Promise<void> => {
-  await clientFetch.delete(`my-notifications/${notificationId}`);
+  await clientFetch.delete(`/my-notifications/${notificationId}`);
 };
