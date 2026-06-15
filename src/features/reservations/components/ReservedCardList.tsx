@@ -9,7 +9,7 @@ import EmptyIcon from "@/assets/images/empty.svg";
 import Button from "@/components/Button/Button";
 import type { Reservation } from "../types";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import ReservedCardListSkeleton from "./ReservedCardSkeleton";
+import ReservedCardListSkeleton from "./ReservedCardListSkeleton";
 
 const FILTERS = [
   "예약 대기",
