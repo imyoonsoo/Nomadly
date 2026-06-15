@@ -50,7 +50,7 @@ const TitleSection = ({
   const options = [    {
       label: "수정하기",
       onSelect: () => {
-        console.log("마이페이지로 이동");
+        router.push(`/activities/${id}/edit`);
       },
     },
     {
