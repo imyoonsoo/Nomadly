@@ -10,6 +10,7 @@ export type TextInputProps = {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   className?: string;
+  labelClassName?: string;
 };
 
 export type TextAreaProps = {
@@ -25,4 +26,5 @@ export type TextAreaProps = {
   className?: string;
   textareaClassName?: string;
   textCount?: boolean;
+  labelClassName?: string;
 };

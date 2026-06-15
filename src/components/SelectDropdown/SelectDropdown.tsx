@@ -39,7 +39,7 @@ const SelectDropdown = ({
   return (
     <div ref={dropdownRef} className="relative w-full">
       {fieldLabel && (
-        <label htmlFor={selectId} className="text-16-medium mb-2.5 block">
+        <label htmlFor={selectId} className="text-16-bold mb-2.5 block">
           {fieldLabel}
         </label>
       )}

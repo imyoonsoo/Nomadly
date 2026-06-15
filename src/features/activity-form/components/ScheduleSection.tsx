@@ -121,7 +121,7 @@ const ScheduleSection = ({
       }}
       render={() => (
         <div className="w-full">
-          <p className="text-16-medium mb-2.5 block">예약 가능한 시간대</p>
+          <p className="text-16-bold mb-2.5 block">예약 가능한 시간대</p>
 
           <div className="flex flex-col gap-5">
             <div className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5">
