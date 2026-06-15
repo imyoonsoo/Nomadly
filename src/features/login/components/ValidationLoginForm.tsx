@@ -41,14 +41,14 @@ const ValidationLoginForm = () => {
     },
   });
 
-  const globalnomadLogin = (authData: ValidationLoginFormFields) => {
+  const handleLoginSubmit = (authData: ValidationLoginFormFields) => {
     loginMutation.mutate(authData);
   };
 
   return (
     <>
       <form
-        onSubmit={handleSubmit(globalnomadLogin)}
+        onSubmit={handleSubmit(handleLoginSubmit)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
         <TextInput

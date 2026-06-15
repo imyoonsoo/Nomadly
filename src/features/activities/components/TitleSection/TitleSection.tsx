@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Map, More, StarOn } from "@/constants/icons";
@@ -37,9 +37,7 @@ const TitleSection = ({
       router.push("/mypage/activities");
     },
     onError: (error) => {
-      showToast.error(
-        getApiErrorMessage(error, "체험 삭제에 실패했습니다."),
-      );
+      showToast.error(getApiErrorMessage(error, "체험 삭제에 실패했습니다."));
     },
   });
 
@@ -47,19 +45,23 @@ const TitleSection = ({
     deleteMutation.mutate(id);
   };
 
-  const options = [    {
-      label: "수정하기",
-      onSelect: () => {
-        router.push(`/activities/${id}/edit`);
+  const options = useMemo(
+    () => [
+      {
+        label: "수정하기",
+        onSelect: () => {
+          router.push(`/activities/${id}/edit`);
+        },
       },
-    },
-    {
-      label: "삭제하기",
-      onSelect: () => {
-        setIsDeleteModalOpen(true);
+      {
+        label: "삭제하기",
+        onSelect: () => {
+          setIsDeleteModalOpen(true);
+        },
       },
-    },
-  ];
+    ],
+    [id, router],
+  );
 
   return (
     <>
@@ -92,13 +94,13 @@ const TitleSection = ({
           </Dropdown>
         )}
       </div>
-
       <WarningModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={handleDeleteConfirm}
         message="체험을 삭제하시겠습니까?"
-      />    </>
+      />{" "}
+    </>
   );
 };
 
