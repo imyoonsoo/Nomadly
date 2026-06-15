@@ -5,9 +5,10 @@ import {
 
 interface ActivityBannerProps {
   count: number;
+  isLoading: boolean;
 }
 
-const ActivityBanner = ({ count = 0 }: ActivityBannerProps) => {
+const ActivityBanner = ({ count = 0, isLoading }: ActivityBannerProps) => {
   return (
     <div className="w-full bg-primary-100 px-7.5 py-5 mb-5 rounded-3xl flex items-center justify-between gap-4">
       <div className="flex items-center gap-4 md:gap-5 min-w-0">
@@ -27,7 +28,11 @@ const ActivityBanner = ({ count = 0 }: ActivityBannerProps) => {
         <CalendarIcon className="w-6 h-6 text-primary-500 md:w-7.5 md:h-7.5 shrink-0" />
         <div className="flex flex-col justify-center items-start whitespace-nowrap">
           <span className="text-gray-500 text-12-medium">총 체험 수</span>
-          <span className="text-gray-950 text-14-bold">{count}개</span>
+          {isLoading ? (
+            <span className="w-11 h-5.5 rounded bg-gray-100 animate-pulse" />
+          ) : (
+            <span className="text-gray-950 text-14-bold">{count}개</span>
+          )}
         </div>
       </div>
     </div>

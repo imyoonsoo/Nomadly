@@ -10,6 +10,7 @@ import { ActivitiesProps } from "../type";
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
 import StarIcon from "@/assets/icons/star-on.svg";
+import { showToast } from "@/lib/utils/toast";
 
 const Card = ({
   id,
@@ -23,7 +24,6 @@ const Card = ({
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  // Todo: 삭제 완료 및 에러 토스트 처리
   const deleteMutation = useMutation({
     mutationFn: deleteMyActivity,
     onSuccess: () => {
@@ -32,6 +32,9 @@ const Card = ({
       });
 
       setIsConfirmModalOpen(false);
+    },
+    onError: () => {
+      showToast.error("체험 삭제에 실패했습니다.");
     },
   });
 
@@ -79,14 +82,16 @@ const Card = ({
         </div>
       </div>
 
-      {/* Todo: placeholderImage 설정 */}
-      <Image
-        src={bannerImageUrl}
-        alt="배너 이미지"
-        width={142}
-        height={142}
-        className="w-20.5 h-20.5 lg:w-35.5 lg:h-35.5 object-cover rounded-3xl"
-      />
+      <div className="relative shrink-0 w-20.5 h-20.5 md:w-35.5 md:h-35.5 rounded-3xl overflow-hidden">
+        <Image
+          src={bannerImageUrl}
+          alt="배너 이미지"
+          width={142}
+          height={142}
+          priority
+          className="w-full h-full object-cover rounded-3xl"
+        />
+      </div>
 
       <WarningModal
         isOpen={isConfirmModalOpen}
