@@ -52,27 +52,42 @@ const ReservationCalendar = ({
     });
   }, [year, month, onChangeMonth]);
 
+  const handleTodayButtonClick = () => {
+    const today = new Date();
+    setCurrentDate(new Date(today.getFullYear(), today.getMonth(), 1));
+  };
+
   return (
     <div className="w-full max-w-[640px] overflow-hidden rounded-3xl bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-      <div className="flex items-center justify-center h-11 gap-8 px-7 mb-2 md:mt-5 md:mb-[30px]">
+      <div className="relative flex items-center justify-center h-11 px-7 mb-2 md:mt-5 md:mb-[30px]">
+        <div className="flex items-center gap-8">
+          <button
+            type="button"
+            onClick={handlePrevMonthButtonClick}
+            className="w-6 h-6 hover:-translate-y-px"
+          >
+            <AltLeft className="w-full h-full" />
+          </button>
+
+          <h2 className="text-16-bold md:text-20-bold text-black">
+            {year}년 {month + 1}월
+          </h2>
+
+          <button
+            type="button"
+            onClick={handleNextMonthButtonClick}
+            className="w-6 h-6 hover:-translate-y-px"
+          >
+            <AltRight className="w-full h-full" />
+          </button>
+        </div>
+
         <button
           type="button"
-          onClick={handlePrevMonthButtonClick}
-          className="w-6 h-6 hover:-translate-y-px"
+          onClick={handleTodayButtonClick}
+          className="absolute right-5 md:right-7 h-9 rounded-xl border border-primary-500 px-4 text-13-bold text-primary-500 transition hover:bg-primary-100"
         >
-          <AltLeft className="w-full h-full" />
-        </button>
-
-        <h2 className="text-16-bold md:text-20-bold text-black">
-          {year}년 {month + 1}월
-        </h2>
-
-        <button
-          type="button"
-          onClick={handleNextMonthButtonClick}
-          className="w-6 h-6 hover:-translate-y-px"
-        >
-          <AltRight className="w-full h-full" />
+          오늘
         </button>
       </div>
 

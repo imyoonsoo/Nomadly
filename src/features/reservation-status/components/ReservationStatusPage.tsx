@@ -88,9 +88,21 @@ const ReservationStatusPage = () => {
           </div>
 
           {isDashboardLoading ? (
-            <div>예약 현황을 불러오는 중...</div>
+            <div>
+              <EmptyReservationStatus
+                image={
+                  <Image src={Loading} alt="loading" width={182} height={182} />
+                }
+                message="예약 현황을 불러오는 중..."
+              />
+            </div>
           ) : isDashboardError ? (
-            <div>예약 현황을 불러오지 못했습니다.</div>
+            <div>
+              <EmptyReservationStatus
+                image={<Error className="w-[182px] h-[182px]" />}
+                message="예약 현황을 불러오지 못했습니다."
+              />
+            </div>
           ) : (
             <ReservationCalendar
               reservations={reservationDashboardData ?? []}
