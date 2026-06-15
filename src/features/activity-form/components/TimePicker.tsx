@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import SelectDropdown from "./SelectDropdown";
+import SelectDropdown from "@/components/SelectDropdown/SelectDropdown";
 
 interface TimePickerProps {
   value: string;
