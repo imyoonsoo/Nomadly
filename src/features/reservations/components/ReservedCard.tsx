@@ -73,7 +73,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
     <>
       <div className="pt-[20px] flex flex-col gap-[12px]">
         <p className="text-16-bold text-gray-800 lg:text-18-bold">{date}</p>
-        <div className="relative rounded-[32px] h-[136px]  w-[100%] lg:w-[90%] lg:max-w-[640px] lg:h-[181px] overflow-hidden shadow-[0_4px_24px_0_rgba(156,180,202,0.20)]">
+        <div className="relative rounded-[32px] h-[136px]  w-[100%] lg:w-[90%] lg:max-w-[640px] lg:h-[181px] overflow-hidden shadow-[0_4px_24px_rgba(156,180,202,0.3)]">
           <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-[32px] bg-white lg:px-[40px] lg:py-[30px]">
             <StateBadge status={status} />
             <div className="flex flex-col">
@@ -129,7 +129,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
           </div>
           <div className="absolute right-0 top-0 h-full w-[40%] overflow-hidden">
             <Image
-              src="/exImg.svg"
+              src={activity.bannerImageUrl}
               fill
               alt="액티비티 사진"
               className="object-cover"
