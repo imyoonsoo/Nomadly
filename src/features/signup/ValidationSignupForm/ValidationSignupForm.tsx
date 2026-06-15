@@ -30,52 +30,35 @@ const ValidationSignupForm = () => {
     },
   });
 
-  // watch로 비밀번호, 이메일 실시간 감지
   const password = watch("password");
-  const email = watch("email");
-  const isEmailValid = email && !errors.email;
 
-  const postSignup = async (data: ValidationSignupFormInputfields) => {
+  const signUpGlobalNomad = async (data: ValidationSignupFormInputfields) => {
     try {
-      // 상태코드: 201 ➝ 성공
       const { passwordValidation, ...signupData } = data;
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`,
-        signupData,
-      );
+      console.log(signupData);
       setIsSignupSucceed(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const statusCode = error.response?.status;
-        // 상태코드: 409 ➝ 이메일 중복
-        if (statusCode === 409) {
+        const status = error.response?.status;
+        if (status === 409) {
           setErrorMessage("이미 사용 중인 이메일입니다.");
+        } else if (status === 400) {
+          setErrorMessage("올바른 이메일 형식이 아닙니다.");
         } else {
-          // 상태코드: 409 외
-          setErrorMessage(
-            error.message ||
-              "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
-          );
+          setErrorMessage("회원가입에 실패했습니다.");
         }
       } else {
-        // 그 외 에러
-        setErrorMessage(
-          "에러 발생으로 회원가입에 실패했습니다. 잠시 후 다시 시도해 주세요.",
-        );
+        setErrorMessage("알 수 없는 에러가 발생했습니다.");
       }
     }
   };
 
-  // 이메일 중복확인 핸들러함수 ➝ 스웨거 API 존재X
-  // const handleEmailDuplicationCheckonClick = () => {};
-
   return (
     <>
       <form
-        onSubmit={handleSubmit(postSignup)}
+        onSubmit={handleSubmit(signUpGlobalNomad)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일, 중복확인 버튼 */}
         <div className="relative w-full">
           <TextInput
             label="이메일"
@@ -91,43 +74,30 @@ const ValidationSignupForm = () => {
               },
             })}
           />
-          {isEmailValid && (
-            <Button
-              type="button"
-              height="custom"
-              className="bg-[#4dabf7] text-white absolute right-5 top-11.5 w-19 h-7.5 md:w-21.25 text-s rounded-lg z-10 whitespace-nowrap
-  active:bg-[#1c9af0]
-  disabled:bg-[#bce0fb] disabled:text-white/70 disabled:cursor-not-allowed"
-            >
-              중복확인
-            </Button>
-          )}
         </div>
 
-        {/* 닉네임 */}
         <TextInput
-          label="닉네임"
+          label="닉네임 설정"
           placeholder="닉네임을 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "열 자 이하로 작성해 주세요.",
+            required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "열 자 이하로 작성해 주세요.",
+              message: "10자 이하로 작성해 주세요.",
             },
           })}
         />
 
-        {/* 비밀번호 */}
         <TextInput
-          label="비밀번호"
+          label="비밀번호 설정"
           type="password"
           placeholder="8자 이상 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "8자 이상 입력해 주세요.",
+            required: "비밀번호를 입력해 주새요.",
             minLength: {
               value: 8,
               message: "8자 이상 입력해 주세요.",
@@ -135,7 +105,6 @@ const ValidationSignupForm = () => {
           })}
         />
 
-        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -143,13 +112,12 @@ const ValidationSignupForm = () => {
           className="self-stretch"
           errorMessage={errors.passwordValidation?.message}
           {...register("passwordValidation", {
-            required: "비밀번호가 일치하지 않습니다.",
+            required: "비밀번호를 한 번 더 입력해 주세요.",
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
           })}
         />
 
-        {/* GlobalNomad 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
@@ -161,48 +129,47 @@ const ValidationSignupForm = () => {
         </Button>
       </form>
 
-      {/* 디바이더 */}
-      <div className="flex items-center gap-4 self-stretch">
-        <hr className="flex-1 border-gray-100" />
-        <span className="text-base font-medium tracking-[-0.4px] text-gray-500">
-          SNS 계정으로 회원가입하기
-        </span>
-        <hr className="flex-1 border-gray-100" />
+      <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center">
+        <div className="flex items-center gap-4 self-stretch">
+          <hr className="flex-1 border-gray-100" />
+          <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
+            SNS 계정으로 가입하기
+          </span>
+          <hr className="flex-1 border-gray-100" />
+        </div>
+
+        <Button
+          type="button"
+          variant="easyKakao"
+          height="54lg"
+          className="self-stretch "
+          onClick={() => {
+            const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
+            window.location.href = EASYAUTH_KAKAO_URL;
+          }}
+        >
+          카카오 회원가입
+        </Button>
+
+        <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
+          회원이신가요?{" "}
+          <Link href="/login" className="underline">
+            <b>로그인하기</b>
+          </Link>
+        </p>
       </div>
 
-      {/* 카카오 간편 회원가입하기 */}
-      <Button
-        type="button"
-        variant="easyKakao"
-        height="54lg"
-        className="self-stretch"
-        onClick={() => {
-          // Done: 카카오 REST API 추가 완료
-          const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
-          window.location.href = EASYAUTH_KAKAO_URL;
-        }}
-      >
-        카카오 간편 회원가입
-      </Button>
-
-      {/* 회원이신가요?로그인하기 바닥글 */}
-      <p className="text-base font-medium tracking-[-0.4px] text-gray-400">
-        회원이신가요?{" "}
-        <Link href="/login" className="underline">
-          로그인하기
-        </Link>
-      </p>
-
-      {/* 회원가입 성공 시 가입완료 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={() => {
           setIsSignupSucceed(false);
           router.push("/login");
         }}
-        message={"GlobalNomad 회원가입이 완료되었습니다!"}
+        message={
+          "회원가입이 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
+        }
       />
-      {/* 에러 모달 */}
+
       <SuccessModal
         isOpen={!!errorMessage}
         onClose={() => setErrorMessage("")}
