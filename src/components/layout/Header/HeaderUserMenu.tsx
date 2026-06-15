@@ -8,16 +8,22 @@ import Dropdown from "@/components/Dropdown/Dropdown";
 import BellIcon from "@/assets/icons/bell.svg";
 import DefaultProfileImage from "@/assets/images/default-profile.svg";
 import { useState } from "react";
-import { Notification } from "@/components/layout/Header/Notification/type";
-import { mockNotifications } from "@/components/layout/Header/Notification/mock";
-import NotificationModal from "./Notification/NotificationModal";
+import NotificationModal from "@/features/notification/NotificationModal";
+import {
+  useDeleteNotification,
+  useNotifications,
+} from "@/features/notification/hook/useNotifications";
 
 const HeaderUserMenu = ({ user }: { user: User }) => {
   const router = useRouter();
-
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [notifications, setNotifications] =
-    useState<Notification[]>(mockNotifications);
+
+  const { data } = useNotifications();
+  const deleteNotificationMutation = useDeleteNotification();
+
+  const notifications = data?.notifications ?? [];
+  const totalCount = data?.totalCount ?? 0;
+  const hasNotification = notifications.length > 0;
 
   const profileMenus = [
     {
@@ -36,13 +42,16 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
   ];
 
   const handleNotificationClick = (notificationId: number) => {
-    setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== notificationId),
-    );
+    if (deleteNotificationMutation.isPending) {
+      return;
+    }
 
-    setIsNotificationOpen(false);
-
-    router.push("/mypage/reservations");
+    deleteNotificationMutation.mutate(notificationId, {
+      onSuccess: () => {
+        setIsNotificationOpen(false);
+        router.push("/mypage/reservations");
+      },
+    });
   };
 
   return (
@@ -58,12 +67,28 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
           }`}
         >
           <BellIcon width={24} height={24} />
+
+          {hasNotification && (
+            <span
+              className="
+                absolute
+                right-1
+                top-1
+                h-2.5
+                w-2.5
+                rounded-full
+                bg-red-500
+                border-2
+                border-white
+              "
+            />
+          )}
         </button>
 
         {isNotificationOpen && (
           <NotificationModal
             notifications={notifications}
-            totalCount={notifications.length}
+            totalCount={totalCount}
             onClose={() => setIsNotificationOpen(false)}
             onNotificationClick={handleNotificationClick}
           />
