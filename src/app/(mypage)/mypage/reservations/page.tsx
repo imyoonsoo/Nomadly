@@ -10,7 +10,6 @@ const ReservationsPage = () => {
           description="예약내역 변경 및 취소할 수 있습니다."
         />
       </header>
-      {/* Todo: 필터 버튼 추가 */}
       <ReservedCardList />
     </div>
   );

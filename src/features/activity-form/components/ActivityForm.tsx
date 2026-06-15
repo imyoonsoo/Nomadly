@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { ActivityFormValues } from "@/features/activity-form/types";
 import useLeaveBlocker from "@/features/activity-form/hooks/useLeaveBlocker";
-import { CATEGORY_OPTIONS } from "@/features/activity-form/constants";
+import {
+  CATEGORY_OPTIONS,
+  EMPTY_ACTIVITY_FORM,
+} from "@/features/activity-form/constants";
 
 import TextArea from "@/components/Input/TextArea";
 import TextInput from "@/components/Input/TextInput";
@@ -22,13 +25,15 @@ import ScheduleSection from "./ScheduleSection";
 interface ActivityFormProps {
   mode: "create" | "edit";
   defaultValues?: ActivityFormValues;
+  onSubmit: (data: ActivityFormValues) => Promise<void>;
 }
 
-const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
+const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   const router = useRouter();
-  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-  const [isWarningOpen, setIsWarningOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const [pendingUrl, setPendingUrl] = useState<string | null>(null);
+  const [hasScheduleDuplicate, setHasScheduleDuplicate] = useState(false);
 
   const {
     register,
@@ -39,16 +44,7 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     formState: { errors, isValid, isDirty, isSubmitSuccessful },
   } = useForm<ActivityFormValues>({
     mode: "onChange",
-    defaultValues: {
-      title: defaultValues?.title ?? "",
-      category: defaultValues?.category ?? "",
-      description: defaultValues?.description ?? "",
-      address: defaultValues?.address ?? "",
-      price: defaultValues?.price ?? "",
-      schedules: defaultValues?.schedules ?? [],
-      bannerImageUrl: defaultValues?.bannerImageUrl ?? "",
-      subImageUrls: defaultValues?.subImageUrls ?? [],
-    },
+    defaultValues: defaultValues ?? EMPTY_ACTIVITY_FORM,
   });
 
   const [hasScheduleDuplicate, setHasScheduleDuplicate] = useState(false);
@@ -57,12 +53,12 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
     isDirty: isDirty && !isSubmitSuccessful,
     onBlock: (targetUrl) => {
       setPendingUrl(targetUrl);
-      setIsWarningOpen(true);
+      setIsWarningModalOpen(true);
     },
   });
 
   const handleConfirmLeave = () => {
-    setIsWarningOpen(false);
+    setIsWarningModalOpen(false);
 
     allowLeave();
 
@@ -76,44 +72,38 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
   };
 
   const handleCancelLeave = () => {
-    setIsWarningOpen(false);
+    setIsWarningModalOpen(false);
     setPendingUrl(null);
   };
 
   const handleSuccessConfirm = () => {
-    setIsSuccessOpen(false);
+    setIsSuccessModalOpen(false);
     router.push("/mypage/activities");
   };
 
   const isSubmitDisabled =
     (mode === "create" && !isDirty) || !isValid || hasScheduleDuplicate;
 
-  const onSubmit: SubmitHandler<ActivityFormValues> = (data) => {
+  const handleFormSubmit: SubmitHandler<ActivityFormValues> = async (data) => {
     if (!data.bannerImageUrl) {
       return;
     }
 
-    console.log("데이터 제출 성공:", {
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      address: data.address,
-      price: data.price,
-      schedules: data.schedules,
-      bannerImageUrl: data.bannerImageUrl,
-      subImageUrls: data.subImageUrls,
-    });
-
-    setIsSuccessOpen(true);
+    try {
+      await onSubmit(data);
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      return;
+    }
   };
 
   return (
-    <div className="w-full mb-12 lg:px-[150px]">
+    <div className="w-full mb-12 lg:px-37.5">
       <h1 className="py-5 text-18-bold text-gray-950">
         {mode === "create" ? "📍내 체험 등록" : "📍내 체험 수정"}
       </h1>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleFormSubmit)}
         className="w-full flex flex-col justify-center gap-6 md:gap-7.5"
       >
         <TextInput
@@ -156,7 +146,10 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
           />
           <AddressSearchButton
             onSelect={(address) => {
-              setValue("address", address, { shouldValidate: true });
+              setValue("address", address, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
             }}
           />
         </div>
@@ -192,18 +185,18 @@ const ActivityForm = ({ mode, defaultValues }: ActivityFormProps) => {
         </Button>
       </form>
 
-      {isWarningOpen && (
+      {isWarningModalOpen && (
         <WarningModal
-          isOpen={isWarningOpen}
+          isOpen={isWarningModalOpen}
           onClose={handleCancelLeave}
           onConfirm={handleConfirmLeave}
           message={"저장되지 않았습니다.\n정말 뒤로 가시겠습니까?"}
         />
       )}
 
-      {isSuccessOpen && (
+      {isSuccessModalOpen && (
         <SuccessIconModal
-          isOpen={isSuccessOpen}
+          isOpen={isSuccessModalOpen}
           onClose={handleSuccessConfirm}
           message={
             mode === "create"

@@ -7,22 +7,66 @@ import ReviewSubmitModal from "./ReviewSubmitModal";
 import { useState } from "react";
 import WarningModal from "@/components/Modal/WarningModal";
 import type { Reservation } from "@/features/reservations/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  activityDetailQuery,
+  cancelReservationMutation,
+  submitReviewMutation,
+} from "../queries";
+import EditReservationModal from "./EditReservationModal";
+import { showToast } from "@/lib/utils/toast";
 
 export interface ReservedCardProps {
   reservation: Reservation;
 }
 
 const ReservedCard = ({ reservation }: ReservedCardProps) => {
-  const { date, activity, status, startTime, endTime, totalPrice, headCount } =
-    reservation;
+  const {
+    id,
+    date,
+    activity,
+    status,
+    startTime,
+    endTime,
+    totalPrice,
+    headCount,
+    reviewSubmitted,
+  } = reservation;
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const { mutate: cancelReservation } = useMutation({
+    ...cancelReservationMutation(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-reservations"] });
+    },
+  });
+
+  const { mutate: submitReview } = useMutation({
+    ...submitReviewMutation(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-reservations"] });
+      setIsReviewModalOpen(false);
+    },
+  });
+
+  const { data: activityDetail } = useQuery({
+    ...activityDetailQuery(activity.id),
+    enabled: isEditModalOpen,
+  });
+
   const handleReviewModalButtonClick = () => {
     setIsReviewModalOpen(true);
   };
   const handleWarningModalButtonClick = () => {
     setIsWarningModalOpen(true);
+  };
+  const handleEditReservationButtonClick = () => {
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -42,17 +86,18 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             </div>
             <div className="flex justify-between">
               <p className="text-16-bold text-gray-950 lg:text-18-bold">
-                {totalPrice}
+                {totalPrice.toLocaleString()}
                 <span className="text-14-medium text-gray-400 lg:text-16-medium">
                   / {headCount}명
                 </span>
               </p>
-              {status === "confirmed" && (
+              {status === "pending" && (
                 <div className="hidden lg:flex gap-[8px] ">
                   <Button
                     variant="whitenGray"
                     height="h29"
                     className="px-[10px] py-[6px] !border"
+                    onClick={handleEditReservationButtonClick}
                   >
                     예약 변경
                   </Button>
@@ -71,7 +116,11 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                   variant="mainBlue"
                   height="custom"
                   className="hidden lg:block h-[29px] px-[10px] rounded-lg text-14-medium"
-                  onClick={handleReviewModalButtonClick}
+                  onClick={
+                    reviewSubmitted
+                      ? () => showToast.error("이미 후기를 작성했습니다.")
+                      : handleReviewModalButtonClick
+                  }
                 >
                   후기 작성
                 </Button>
@@ -87,12 +136,13 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             />
           </div>
         </div>
-        {status === "confirmed" && (
+        {status === "pending" && (
           <div className="flex w-full gap-[12px] lg:hidden">
             <Button
               variant="whitenGray"
               height="custom"
               className="flex-1 h-[37px] rounded-lg p-[10px]"
+              onClick={handleEditReservationButtonClick}
             >
               예약 변경
             </Button>
@@ -111,7 +161,11 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             variant="mainBlue"
             height="custom"
             className="lg:hidden sm:block md:block w-full h-[37px] px-[10px] rounded-[8px]"
-            onClick={handleReviewModalButtonClick}
+            onClick={
+              reviewSubmitted
+                ? () => showToast.error("이미 후기를 작성했습니다.")
+                : handleReviewModalButtonClick
+            }
           >
             후기 작성
           </Button>
@@ -120,14 +174,28 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
       <ReviewSubmitModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
+        title={activity.title}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
+        headCount={headCount}
+        onSubmit={(data) => submitReview(data)}
       />
       <WarningModal
         isOpen={isWarningModalOpen}
         onClose={() => setIsWarningModalOpen(false)}
-        // Todo: onConfirm 함수 만들기
-        onConfirm={() => setIsWarningModalOpen(false)}
+        onConfirm={() => {
+          cancelReservation();
+          setIsWarningModalOpen(false);
+        }}
         message="예약을 취소하시겠어요?"
         buttonTextRight="취소하기"
+      />
+      <EditReservationModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        reservationId={id}
+        activityDetail={activityDetail}
       />
     </>
   );
