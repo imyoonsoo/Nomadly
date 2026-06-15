@@ -1,6 +1,6 @@
 import { Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
 import FormController from "@/components/Form/FormController";
-import SelectDropdown from "./SelectDropdown";
+import SelectDropdown from "@/components/SelectDropdown/SelectDropdown";
 
 interface FormSelectDropdownProps<
   TFieldValues extends FieldValues,

@@ -1,46 +1,57 @@
 import type {
+  CancelReservationResponse,
   EditMyReservationsParams,
   GetMyReservationsParams,
   GetMyReservationsResponse,
   SubmitReviewParams,
+  SubmitReviewResponse,
 } from "./types";
-import axios from "axios";
 import clientFetch from "@/lib/http/clientFetch";
+import type { ActivityDetailResponse } from "@/app/(main)/activities/type";
 
 const BASE_URL = "/my-reservations";
 
-export async function getMyReservations(
+export const getMyReservations = async (
   params?: GetMyReservationsParams,
-): Promise<GetMyReservationsResponse> {
-  const response = await clientFetch.get("/my-reservations", { params });
+): Promise<GetMyReservationsResponse> => {
+  const response = await clientFetch.get(BASE_URL, { params });
   return response.data;
-}
+};
 
-export async function deleteMyReservations(reservationId: number) {
-  const response = await axios.patch(`${BASE_URL}/${reservationId}`, {
+export const cancelMyReservations = async (
+  reservationId: number,
+): Promise<CancelReservationResponse> => {
+  const response = await clientFetch.patch(`${BASE_URL}/${reservationId}`, {
     status: "canceled",
   });
   return response.data;
-}
+};
 
-export async function editMyReservations(
+export const editMyReservations = async (
   reservationId: number,
   body: EditMyReservationsParams,
-) {
-  const response = await axios.patch(
+) => {
+  const response = await clientFetch.patch(
     `${BASE_URL}/${reservationId}/application`,
     body,
   );
   return response.data;
-}
+};
 
-export async function submitReview(
+export const submitReview = async (
   reservationId: number,
   body: SubmitReviewParams,
-) {
-  const response = await axios.post(
+): Promise<SubmitReviewResponse> => {
+  const response = await clientFetch.post(
     `${BASE_URL}/${reservationId}/reviews`,
     body,
   );
   return response.data;
-}
+};
+
+export const getActivityDetailClient = async (
+  activityId: number,
+): Promise<ActivityDetailResponse> => {
+  const response = await clientFetch.get(`/activities/${activityId}`);
+  return response.data;
+};
