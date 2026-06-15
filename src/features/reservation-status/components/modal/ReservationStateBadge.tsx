@@ -9,7 +9,7 @@ const STATUS_MAP = {
     className: "bg-[#DDF9F9] text-[#1790A0]",
   },
   declined: {
-    label: "에약 거절",
+    label: "예약 거절",
     className: "bg-[#FCECEA] text-[#F96767]",
   },
 } as const;
