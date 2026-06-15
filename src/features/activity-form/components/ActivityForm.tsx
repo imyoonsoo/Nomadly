@@ -47,7 +47,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
     defaultValues: defaultValues ?? EMPTY_ACTIVITY_FORM,
   });
 
-  useLeaveBlocker({
+  const { allowLeave } = useLeaveBlocker({
     isDirty: isDirty && !isSubmitSuccessful,
     onBlock: (targetUrl) => {
       setPendingUrl(targetUrl);
@@ -57,17 +57,16 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
 
   const handleConfirmLeave = () => {
     setIsWarningModalOpen(false);
-    const url = pendingUrl;
-    setPendingUrl(null);
 
-    if (url === "back") {
+    allowLeave();
+
+    if (pendingUrl === "back") {
       window.history.go(-2);
-    } else if (url) {
-      window.history.back();
-      setTimeout(() => {
-        router.push(url);
-      }, 10);
+    } else if (pendingUrl) {
+      router.push(pendingUrl);
     }
+
+    setPendingUrl(null);
   };
 
   const handleCancelLeave = () => {
