@@ -1,4 +1,4 @@
-import { clientFetch } from "@/lib/http/client-fetch";
+import clientFetch from "@/lib/http/clientFetch";
 import type {
   CreateActivityReservationParams,
   CreateActivityReservationRequest,

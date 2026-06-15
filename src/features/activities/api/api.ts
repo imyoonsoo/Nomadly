@@ -1,4 +1,4 @@
-import serverFetch from "@/lib/http/server-fetch";
+import serverFetch from "@/lib/http/serverFetch";
 import {
   GetActivityDetailParams,
   ActivityDetailResponse,
@@ -10,12 +10,9 @@ export const getActivityDetail = async ({
   activityId,
 }: GetActivityDetailParams): Promise<ActivityDetailResponse> => {
   try {
-    const api = await serverFetch();
-    const { data } = await api.get<ActivityDetailResponse>(
+    return await serverFetch<ActivityDetailResponse>(
       `/activities/${activityId}`,
     );
-
-    return data;
   } catch (error) {
     console.error("Failed to get activity detail:", error);
     throw error;
@@ -28,15 +25,21 @@ export const getActivityReviews = async ({
   size,
 }: GetActivityReviewsParams): Promise<ActivityReviewsResponse> => {
   try {
-    const api = await serverFetch();
-    const { data } = await api.get<ActivityReviewsResponse>(
-      `/activities/${activityId}/reviews`,
-      {
-        params: { page, size },
-      },
-    );
+    const searchParams = new URLSearchParams();
 
-    return data;
+    if (page !== undefined) {
+      searchParams.set("page", String(page));
+    }
+
+    if (size !== undefined) {
+      searchParams.set("size", String(size));
+    }
+
+    const query = searchParams.toString();
+
+    return await serverFetch<ActivityReviewsResponse>(
+      `/activities/${activityId}/reviews${query ? `?${query}` : ""}`,
+    );
   } catch (error) {
     console.error("Failed to get activity reviews:", error);
     throw error;
