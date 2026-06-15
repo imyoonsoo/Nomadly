@@ -47,8 +47,6 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
     defaultValues: defaultValues ?? EMPTY_ACTIVITY_FORM,
   });
 
-  const [hasScheduleDuplicate, setHasScheduleDuplicate] = useState(false);
-
   const { allowLeave } = useLeaveBlocker({
     isDirty: isDirty && !isSubmitSuccessful,
     onBlock: (targetUrl) => {
