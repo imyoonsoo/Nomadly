@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,10 +10,12 @@ import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
 import { loginAction } from "../actions/loginAction";
+import { useSetUserSession } from "@/hooks/useUserSession";
 
 const ValidationLoginForm = () => {
   const [modalMessage, setModalMessage] = useState("");
   const router = useRouter();
+  const setUserSession = useSetUserSession();
   const {
     register,
     handleSubmit,
@@ -25,20 +28,27 @@ const ValidationLoginForm = () => {
     },
   });
 
-  const globalnomadLogin = async (authData: ValidationLoginFormFields) => {
-    const result = await loginAction(authData);
+  const loginMutation = useMutation({
+    mutationFn: loginAction,
+    onSuccess: (result) => {
+      if (result.success) {
+        setUserSession({ userId: result.userId });
+        router.push("/");
+        return;
+      }
 
-    if (result.success) {
-      router.push("/");
-    } else {
       setModalMessage(result.error ?? "로그인에 실패했습니다.");
-    }
+    },
+  });
+
+  const handleLoginSubmit = (authData: ValidationLoginFormFields) => {
+    loginMutation.mutate(authData);
   };
 
   return (
     <>
       <form
-        onSubmit={handleSubmit(globalnomadLogin)}
+        onSubmit={handleSubmit(handleLoginSubmit)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
         <TextInput
@@ -75,7 +85,7 @@ const ValidationLoginForm = () => {
           type="submit"
           variant="mainBlue"
           height="54lg"
-          disabled={!isValid}
+          disabled={!isValid || loginMutation.isPending}
           className="self-stretch"
         >
           로그인하기

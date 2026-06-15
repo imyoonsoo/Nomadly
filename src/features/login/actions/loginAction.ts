@@ -5,13 +5,15 @@ import login from "../api";
 import type { LoginParams } from "../type";
 import axios from "axios";
 
-type LoginActionResult = { success: boolean; error?: string };
+type LoginActionResult =
+  | { success: true; userId: number }
+  | { success: false; error?: string };
 
 export const loginAction = async (
   body: LoginParams,
 ): Promise<LoginActionResult> => {
   try {
-    const { accessToken, refreshToken } = await login(body);
+    const { accessToken, refreshToken, user } = await login(body);
 
     const cookieStore = await cookies();
 
@@ -29,7 +31,7 @@ export const loginAction = async (
       path: "/",
     });
 
-    return { success: true };
+    return { success: true, userId: user.id };
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return {
