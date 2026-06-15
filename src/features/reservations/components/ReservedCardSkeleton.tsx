@@ -30,10 +30,7 @@ const ReservedCardListSkeleton = () => {
     <div className="flex flex-col gap-[30px]">
       <div className="flex gap-2 overflow-x-auto scrollbar-hide">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div
-            key={index}
-            className="animate-pulse bg-gray-200 rounded-full w-24 h-11 shrink-0"
-          />
+          <Skeleton key={index} className="rounded-full w-24 h-11 shrink-0" />
         ))}
       </div>
       <div className="flex flex-col gap-6">
