@@ -61,7 +61,7 @@ const ProfileEditForm = () => {
 
   const newPassword = watch("newPassword");
 
-  const onSubmitProfileChanges = async (data: ProfileEditFormValues) => {
+  const handleProfileSubmit = async (data: ProfileEditFormValues) => {
     try {
       if (data.newPassword && data.newPassword !== data.newPasswordConfirm) {
         showToast.error("새 비밀번호가 일치하지 않습니다.");
@@ -167,7 +167,7 @@ const ProfileEditForm = () => {
       />
 
       <form
-        onSubmit={handleSubmit(onSubmitProfileChanges)}
+        onSubmit={handleSubmit(handleProfileSubmit)}
         className="flex flex-col items-center gap-6 self-stretch"
       >
         <TextInput
