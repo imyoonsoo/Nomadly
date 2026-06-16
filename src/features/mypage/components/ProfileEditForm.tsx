@@ -9,6 +9,7 @@ import useUploadProfileImage from "../hooks/useUploadProfileImage";
 import TextInput from "@/components/Input/TextInput";
 import ProfileImageInput from "@/components/ImageInput/ProfileImageInput";
 import Button from "@/components/Button/Button";
+import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 
 // [추가/수정] switch-case로 상태코드를 받아 에러메시지로 변환하는 함수
@@ -150,13 +151,11 @@ const ProfileEditForm = () => {
 
   return (
     <div className="w-full lg:w-160 sm:w-81.75 md:w-119 mx-auto flex flex-col items-center gap-6 px-4">
-      <div className="flex flex-col gap-1 self-stretch py-2.5">
-        <h2 className="text-lg font-bold text-gray-950 tracking-[-0.45px]">
-          내 정보
-        </h2>
-        <p className="text-sm font-medium text-gray-500 tracking-[-0.35px]">
-          닉네임과 비밀번호를 수정하실 수 있습니다.
-        </p>
+      <div className="self-stretch">
+        <Title
+          title="내 정보"
+          description="닉네임과 비밀번호를 수정하실 수 있습니다."
+        />
       </div>
 
       <ProfileImageInput
