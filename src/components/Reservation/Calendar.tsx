@@ -5,6 +5,8 @@ import type { CalendarProps } from "./type";
 import {
   formatDateKey,
   getTimestampListForCalendar,
+  getTodayTimestamp,
+  getYearAndMonthFromTimestamp,
   isCurrentMonth,
   isToday,
   WEEK_DAYS,
@@ -58,12 +60,15 @@ const Calendar = ({
     1,
   ).toLocaleString("en-US", { month: "long" });
 
+  const handleTodayButtonClick = () => {
+    const today = getTodayTimestamp();
+    onChangeYearAndMonth(getYearAndMonthFromTimestamp(today));
+    onSelectTimestamp(today);
+  };
+
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <p className="text-16-medium text-gray-950">
-          {monthLabel} {selectedYearAndMonth.year}
-        </p>
+      <div className="relative flex items-center justify-center min-h-9">
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -74,6 +79,10 @@ const Calendar = ({
             <AltLeft className="h-full w-full" />
           </button>
 
+          <p className="text-16-medium text-gray-950">
+            {monthLabel} {selectedYearAndMonth.year}
+          </p>
+
           <button
             type="button"
             aria-label="다음 달"
@@ -83,6 +92,14 @@ const Calendar = ({
             <AltRight className="h-full w-full" />
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={handleTodayButtonClick}
+          className="absolute right-0 h-9 rounded-xl border border-primary-500 px-4 text-13-bold text-primary-500 transition hover:bg-primary-100"
+        >
+          오늘
+        </button>
       </div>
 
       <div className="grid grid-cols-7 gap-x-1.17 gap-y-2">
