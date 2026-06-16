@@ -6,7 +6,7 @@ import Skeleton from "@/components/Skeleton/Skeleton";
 import { Minus, Plus, Search } from "@/constants/icons";
 import Calendar from "./Calendar";
 import type { ReservationProps } from "./type";
-import { useAvailableReservationSchedules } from "@/hooks/useAvailableReservationSchedules";
+import useAvailableReservationSchedules from "@/hooks/useAvailableReservationSchedules";
 import {
   formatDateKey,
   formatPrice,

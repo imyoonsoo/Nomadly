@@ -14,6 +14,7 @@ type ReservationSectionProps = Pick<ActivityDetailResponse, "price"> & {
 
 const ReservationSection = ({ activityId, price }: ReservationSectionProps) => {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleReserve = async ({
     scheduleId,
@@ -22,12 +23,18 @@ const ReservationSection = ({ activityId, price }: ReservationSectionProps) => {
     scheduleId: number;
     headCount: number;
   }) => {
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
       await createActivityReservation({ activityId, scheduleId, headCount });
       setIsSuccessModalOpen(true);
     } catch (error) {
       showToast.error(getApiErrorMessage(error, "예약에 실패했습니다."));
-      throw error;
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

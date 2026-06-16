@@ -7,7 +7,7 @@ import type { YearAndMonth } from "../components/Reservation/type";
 import { showToast } from "@/lib/utils/toast";
 import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
-export const useAvailableReservationSchedules = (
+const useAvailableReservationSchedules = (
   activityId: number,
   selectedYearAndMonth: YearAndMonth,
 ) => {
@@ -16,7 +16,7 @@ export const useAvailableReservationSchedules = (
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let cancelled = false;
+    let isCancelled = false;
 
     const fetchSchedules = async () => {
       setIsLoading(true);
@@ -30,30 +30,29 @@ export const useAvailableReservationSchedules = (
       try {
         const data = await getAvailableReservationSchedules(params);
 
-        if (!cancelled) {
+        if (!isCancelled) {
           setAvailableSchedules(data);
           setIsLoading(false);
         }
       } catch (error) {
-        if (!cancelled) {
+        if (!isCancelled) {
           setAvailableSchedules([]);
           setIsLoading(false);
           showToast.error(
             getApiErrorMessage(error, "일정 데이터를 불러오는데 실패했습니다."),
           );
         }
-        showToast.error(
-          getApiErrorMessage(error, "일정 데이터를 불러오는데 실패했습니다."),
-        );
       }
     };
 
     fetchSchedules();
 
     return () => {
-      cancelled = true;
+      isCancelled = true;
     };
   }, [activityId, selectedYearAndMonth.year, selectedYearAndMonth.month]);
 
   return { availableSchedules, isLoading };
 };
+
+export default useAvailableReservationSchedules;

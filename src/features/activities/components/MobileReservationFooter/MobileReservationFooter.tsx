@@ -29,6 +29,7 @@ const MobileReservationFooter = ({
     useState<SelectedSchedule | null>(null);
   const [headCount, setHeadCount] = useState(1);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isReservationReady = selectedSchedule !== null;
 
@@ -68,10 +69,11 @@ const MobileReservationFooter = ({
   };
 
   const handleReserveClick = async () => {
-    if (!selectedSchedule) {
+    if (!selectedSchedule || isSubmitting) {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       await createActivityReservation({
         activityId,
@@ -81,7 +83,8 @@ const MobileReservationFooter = ({
       setIsSuccessModalOpen(true);
     } catch (error) {
       showToast.error(getApiErrorMessage(error, "예약에 실패했습니다."));
-      throw error;
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
