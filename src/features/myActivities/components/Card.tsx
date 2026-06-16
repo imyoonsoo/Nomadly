@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteMyActivity } from "../api";
+
 import { ActivitiesProps } from "../type";
+import { useDeleteMyActivityMutation } from "../hooks/useDeleteActivityMutation";
+import { showToast } from "@/lib/utils/toast";
 
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
 import StarIcon from "@/assets/icons/star-on.svg";
-import { showToast } from "@/lib/utils/toast";
 
 const Card = ({
   id,
@@ -22,20 +22,10 @@ const Card = ({
 }: ActivitiesProps) => {
   const router = useRouter();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const queryClient = useQueryClient();
 
-  const deleteMutation = useMutation({
-    mutationFn: deleteMyActivity,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["my-activities"],
-      });
-
-      setIsConfirmModalOpen(false);
-    },
-    onError: () => {
-      showToast.error("체험 삭제에 실패했습니다.");
-    },
+  const deleteMutation = useDeleteMyActivityMutation(() => {
+    setIsConfirmModalOpen(false);
+    showToast.success("체험이 삭제되었습니다.");
   });
 
   const handleDeleteConfirmButtonClick = () => {
