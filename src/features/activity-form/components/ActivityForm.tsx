@@ -97,7 +97,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
 
   return (
     <div className="w-full mb-12 lg:px-37.5">
-      <h1 className="py-5 text-18-bold text-gray-950">
+      <h1 className="py-2.5 mb-6 text-18-bold text-gray-950">
         {mode === "create" ? "📍내 체험 등록" : "📍내 체험 수정"}
       </h1>
       <form
@@ -109,6 +109,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           label="제목"
           placeholder="제목을 입력해 주세요"
           errorMessage={errors.title?.message}
+          labelClassName="text-16-bold"
         />
 
         <FormSelectDropdown
@@ -128,6 +129,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           placeholder="체험에 대한 설명을 입력해 주세요"
           textareaClassName="h-[140px] md:h-[200px]"
           errorMessage={errors.description?.message}
+          labelClassName="text-16-bold"
         />
 
         <FormPriceInput control={control} />
@@ -141,6 +143,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
             value={watch("address")}
             disabled
             errorMessage={errors.address?.message}
+            labelClassName="text-16-bold"
           />
           <AddressSearchButton
             onSelect={(address) => {
