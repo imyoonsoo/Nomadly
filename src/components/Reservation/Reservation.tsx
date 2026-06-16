@@ -5,6 +5,7 @@ import Button from "@/components/Button/Button";
 import { Minus, Plus } from "@/constants/icons";
 import Calendar from "./Calendar";
 import type { ReservationProps } from "./type";
+import { useAvailableReservationSchedules } from "@/hooks/useAvailableReservationSchedules";
 import {
   formatDateKey,
   formatPrice,
@@ -18,8 +19,8 @@ const MIN_HEAD_COUNT = 1;
 const MAX_HEAD_COUNT = 10;
 
 const Reservation = ({
+  activityId,
   price,
-  schedules,
   className,
   showPrice = true,
   showHeadCount = true,
@@ -30,24 +31,14 @@ const Reservation = ({
   onScheduleSelect,
 }: ReservationProps) => {
   const todayTimestamp = getTodayTimestamp();
-  const selectableDateKeys = useMemo(
-    () => getSelectableDateKeys(schedules),
-    [schedules],
-  );
 
   const initialTimestamp = useMemo(() => {
     if (defaultSelectedSchedule) {
       return parseDateKey(defaultSelectedSchedule.date);
     }
 
-    const firstAvailableDateKey = Array.from(selectableDateKeys).sort()[0];
-
-    if (!firstAvailableDateKey) {
-      return todayTimestamp;
-    }
-
-    return parseDateKey(firstAvailableDateKey);
-  }, [defaultSelectedSchedule, selectableDateKeys, todayTimestamp]);
+    return todayTimestamp;
+  }, [defaultSelectedSchedule, todayTimestamp]);
 
   const [selectedTimestamp, setSelectedTimestamp] = useState(initialTimestamp);
   const [selectedYearAndMonth, setSelectedYearAndMonth] = useState(() =>
@@ -58,11 +49,26 @@ const Reservation = ({
   );
   const [headCount, setHeadCount] = useState(MIN_HEAD_COUNT);
 
+  const availableSchedules = useAvailableReservationSchedules(
+    activityId,
+    selectedYearAndMonth,
+  );
+  const availableDateKeys = useMemo(
+    () => availableSchedules.map((schedule) => schedule.date),
+    [availableSchedules],
+  );
+  const selectableDateKeys = useMemo(
+    () => getSelectableDateKeys(availableDateKeys),
+    [availableDateKeys],
+  );
+
   const selectedDateKey = formatDateKey(selectedTimestamp);
 
-  const availableSchedules = useMemo(
-    () => schedules.filter((schedule) => schedule.date === selectedDateKey),
-    [schedules, selectedDateKey],
+  const availableTimes = useMemo(
+    () =>
+      availableSchedules.find((schedule) => schedule.date === selectedDateKey)
+        ?.times ?? [],
+    [availableSchedules, selectedDateKey],
   );
 
   useEffect(() => {
@@ -70,18 +76,29 @@ const Reservation = ({
   }, [selectedTimestamp]);
 
   useEffect(() => {
-    if (availableSchedules.length === 0) {
+    if (availableTimes.length === 0) {
       setSelectedScheduleId(null);
       return;
     }
 
     if (
       selectedScheduleId !== null &&
-      !availableSchedules.some((schedule) => schedule.id === selectedScheduleId)
+      !availableTimes.some((time) => time.id === selectedScheduleId)
     ) {
       setSelectedScheduleId(null);
     }
-  }, [availableSchedules, selectedScheduleId]);
+  }, [availableTimes, selectedScheduleId]);
+
+  useEffect(() => {
+    if (defaultSelectedSchedule || selectableDateKeys.has(selectedDateKey)) {
+      return;
+    }
+
+    const firstAvailableDateKey = Array.from(selectableDateKeys).sort()[0];
+    if (firstAvailableDateKey) {
+      setSelectedTimestamp(parseDateKey(firstAvailableDateKey));
+    }
+  }, [defaultSelectedSchedule, selectableDateKeys, selectedDateKey]);
 
   const totalPrice = price * headCount;
   const isSubmittable = selectedScheduleId !== null;
@@ -104,20 +121,20 @@ const Reservation = ({
       return;
     }
 
-    const selectedSchedule = availableSchedules.find(
-      (schedule) => schedule.id === selectedScheduleId,
+    const selectedTime = availableTimes.find(
+      (time) => time.id === selectedScheduleId,
     );
 
-    if (!selectedSchedule) {
+    if (!selectedTime) {
       return;
     }
 
     if (onScheduleSelect) {
       onScheduleSelect({
-        scheduleId: selectedSchedule.id,
-        date: selectedSchedule.date,
-        startTime: selectedSchedule.startTime,
-        endTime: selectedSchedule.endTime,
+        scheduleId: selectedTime.id,
+        date: selectedDateKey,
+        startTime: selectedTime.startTime,
+        endTime: selectedTime.endTime,
       });
       return;
     }
@@ -179,18 +196,18 @@ const Reservation = ({
       <div className="flex flex-col gap-3.5 pb-2.25">
         <h3 className="text-16-bold text-gray-950">예약 가능한 시간</h3>
         <div className="flex flex-col gap-3">
-          {availableSchedules.map((schedule) => (
+          {availableTimes.map((time) => (
             <button
-              key={schedule.id}
+              key={time.id}
               type="button"
-              onClick={() => setSelectedScheduleId(schedule.id)}
+              onClick={() => setSelectedScheduleId(time.id)}
               className={`rounded-xl border px-3 py-4 text-16-medium transition ${
-                selectedScheduleId === schedule.id
+                selectedScheduleId === time.id
                   ? "ring-2 ring-inset ring-primary-500 border-primary-500 bg-primary-100 text-primary-500"
                   : "border-gray-300 bg-white text-gray-900 hover:border-primary-500"
               }`}
             >
-              {schedule.startTime} ~ {schedule.endTime}
+              {time.startTime} ~ {time.endTime}
             </button>
           ))}
         </div>

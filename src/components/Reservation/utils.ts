@@ -1,4 +1,3 @@
-import type { ActivitySchedule } from "@/app/(main)/activities/type";
 import type { YearAndMonth } from "./type";
 
 export const WEEK_DAYS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -90,13 +89,11 @@ export const parseDateKey = (dateKey: string) => {
   return normalizeTimestamp(new Date(year, month - 1, day));
 };
 
-export const getSelectableDateKeys = (schedules: ActivitySchedule[]) => {
+export const getSelectableDateKeys = (dateKeys: string[]) => {
   const todayTimestamp = getTodayTimestamp();
 
   return new Set(
-    schedules
-      .map((schedule) => schedule.date)
-      .filter((dateKey) => parseDateKey(dateKey) >= todayTimestamp),
+    dateKeys.filter((dateKey) => parseDateKey(dateKey) >= todayTimestamp),
   );
 };
 

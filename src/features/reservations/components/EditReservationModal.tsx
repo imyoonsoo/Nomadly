@@ -30,8 +30,8 @@ const EditReservationModal = ({
       className="scrollbar-hide"
     >
       <Reservation
+        activityId={activityDetail.id}
         price={activityDetail.price}
-        schedules={activityDetail.schedules}
         submitLabel="예약 변경"
         onReserve={editReservation}
       />

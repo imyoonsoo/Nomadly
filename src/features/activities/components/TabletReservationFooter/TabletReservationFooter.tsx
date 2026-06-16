@@ -7,18 +7,15 @@ import TabletReservationPicker from "@/components/Reservation/TabletReservationP
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
 import { createActivityReservation } from "@/features/activities/api/client-api";
-import type { ActivitySchedule } from "@/app/(main)/activities/type";
 
 interface TabletReservationFooterProps {
   activityId: number;
   price: number;
-  schedules: ActivitySchedule[];
 }
 
 const TabletReservationFooter = ({
   activityId,
   price,
-  schedules,
 }: TabletReservationFooterProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSchedule, setSelectedSchedule] =
@@ -94,7 +91,7 @@ const TabletReservationFooter = ({
 
       <ReservationSlideUpModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <TabletReservationPicker
-          schedules={schedules}
+          activityId={activityId}
           defaultSelectedSchedule={selectedSchedule}
           defaultHeadCount={headCount}
           onConfirm={handleConfirm}

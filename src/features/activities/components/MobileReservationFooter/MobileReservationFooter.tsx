@@ -8,18 +8,15 @@ import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUp
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
 import { createActivityReservation } from "@/features/activities/api/client-api";
-import type { ActivitySchedule } from "@/app/(main)/activities/type";
 
 interface MobileReservationFooterProps {
   activityId: number;
   price: number;
-  schedules: ActivitySchedule[];
 }
 
 const MobileReservationFooter = ({
   activityId,
   price,
-  schedules,
 }: MobileReservationFooterProps) => {
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [isHeadCountModalOpen, setIsHeadCountModalOpen] = useState(false);
@@ -116,8 +113,8 @@ const MobileReservationFooter = ({
         onClose={handleCloseDateModal}
       >
         <Reservation
+          activityId={activityId}
           price={price}
-          schedules={schedules}
           className="rounded-none border-0 p-0"
           showPrice={false}
           showHeadCount={false}

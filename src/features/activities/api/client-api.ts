@@ -3,7 +3,9 @@ import type {
   CreateActivityReservationParams,
   CreateActivityReservationRequest,
   CreateActivityReservationResponse,
-} from "@/app/(main)/activities/type";
+  AvailableActivitiesReservationParams,
+  AvailableActivitiesReservationResponse,
+} from "@/features/activities/type";
 
 export const createActivityReservation = async ({
   activityId,
@@ -30,4 +32,20 @@ export const createActivityReservation = async ({
     console.error("예약 실패:", error);
     throw error;
   }
+};
+
+export const getAvailableReservationSchedules = async ({
+  activityId,
+  year,
+  month,
+}: AvailableActivitiesReservationParams): Promise<AvailableActivitiesReservationResponse> => {
+  const { data } =
+    await clientFetch.get<AvailableActivitiesReservationResponse>(
+      `/activities/${activityId}/available-schedule`,
+      {
+        params: { year, month },
+      },
+    );
+
+  return data;
 };
