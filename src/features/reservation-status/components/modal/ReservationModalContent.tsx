@@ -30,6 +30,7 @@ const ReservationModalContent = ({
     useState<ReservationStatus>("pending");
 
   const [selectedScheduleId, setSelectedScheduleId] = useState(0);
+  const [isTablet, setIsTablet] = useState(false);
 
   const {
     data: schedules = [],
@@ -55,8 +56,6 @@ const ReservationModalContent = ({
   const updateReservationStatusMutation = useUpdateReservationStatus();
 
   const reservations = reservationsData?.reservations ?? [];
-
-  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     const checkTablet = () => {
@@ -110,94 +109,124 @@ const ReservationModalContent = ({
     });
   };
 
-  return (
-    <>
-      <div className="flex items-center justify-between">
-        <h2 className="text-20-bold text-black">
-          {formatKoreanDate(selectedDate)}
-        </h2>
+  const header = (
+    <div className="flex items-center justify-between">
+      <h2 className="text-20-bold text-black">
+        {formatKoreanDate(selectedDate)}
+      </h2>
 
-        <button type="button" onClick={onClose}>
-          <Delete className="w-6 h-6 hover:translate-y-0.5" />
-        </button>
-      </div>
+      <button type="button" onClick={onClose}>
+        <Delete className="w-6 h-6 hover:translate-y-0.5" />
+      </button>
+    </div>
+  );
 
-      {isSchedulesLoading ? (
+  if (isSchedulesLoading) {
+    return (
+      <>
+        {header}
+
         <div className="mt-6 text-14-medium text-gray-400">
           예약 시간을 불러오는 중...
         </div>
-      ) : isSchedulesError ? (
+      </>
+    );
+  }
+
+  if (isSchedulesError) {
+    return (
+      <>
+        {header}
+
         <div className="mt-6 text-14-medium text-red-500">
           예약 시간을 불러오지 못했습니다.
         </div>
-      ) : (
-        <>
-          <ReservationStatusTab
-            selectedStatus={selectedStatus}
-            onChangeStatus={setSelectedStatus}
-            count={
-              selectedSchedule?.count ?? {
-                pending: 0,
-                confirmed: 0,
-                declined: 0,
-              }
-            }
-          />
+      </>
+    );
+  }
 
-          <div className="mt-6">
-            <p className="mb-3 text-16-bold text-black">예약 시간</p>
+  let reservationContent;
 
-            <ReservationScheduleSelect
-              schedules={schedules}
-              selectedScheduleId={selectedScheduleId}
-              onChangeScheduleId={setSelectedScheduleId}
+  if (isReservationsLoading) {
+    reservationContent = (
+      <div className="text-14-medium text-gray-400">
+        예약 내역을 불러오는 중...
+      </div>
+    );
+  } else if (isReservationsError) {
+    reservationContent = (
+      <div className="text-14-medium text-gray-400">
+        예약 내역을 불러오지 못했습니다.
+      </div>
+    );
+  } else {
+    reservationContent = (
+      <div
+        onScroll={handleScrollReservationList}
+        className={`
+          scrollbar-hide overflow-y-auto pr-1
+          h-60
+          md:h-[min(350px, calc(85vh-280px))]
+          xl:h-[230px]
+          ${
+            isFullPage
+              ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]"
+              : ""
+          }  
+        `}
+      >
+        <div className="flex flex-col gap-3">
+          {visibleReservations.map((reservation) => (
+            <ReservationCard
+              key={reservation.id}
+              reservation={reservation}
+              status={selectedStatus}
+              onApprove={handleApprove}
+              onDecline={handleDecline}
             />
+          ))}
+        </div>
+
+        {hasMore && (
+          <div className="py-3 text-center text-10-medium md:text-14-medium text-gray-400">
+            더 불러오는 중...
           </div>
+        )}
+      </div>
+    );
+  }
 
-          <div className="mt-6">
-            <p className="mb-3 text-16-bold text-black">예약 내역</p>
+  return (
+    <>
+      {header}
 
-            {isReservationsLoading ? (
-              <div className="text-14-medium text-gray-400">
-                예약 내역을 불러오는 중...
-              </div>
-            ) : isReservationsError ? (
-              <div className="text-14-medium text-gray-400">
-                예약 내역을 불러오지 못했습니다.
-              </div>
-            ) : (
-              <div
-                onScroll={handleScrollReservationList}
-                className={`
-                scrollbar-hide overflow-y-auto pr-1
-                h-60
-                md:h-[min(350px,calc(85vh-280px))]
-                xl:h-[230px]
-                ${isFullPage ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]" : ""}
-              `}
-              >
-                <div className="flex flex-col gap-3">
-                  {visibleReservations.map((reservation) => (
-                    <ReservationCard
-                      key={reservation.id}
-                      reservation={reservation}
-                      status={selectedStatus}
-                      onApprove={handleApprove}
-                      onDecline={handleDecline}
-                    />
-                  ))}
-                </div>
+      <ReservationStatusTab
+        selectedStatus={selectedStatus}
+        onChangeStatus={setSelectedStatus}
+        count={
+          selectedSchedule?.count ?? {
+            pending: 0,
+            confirmed: 0,
+            declined: 0,
+          }
+        }
+      />
 
-                {hasMore && (
-                  <div className="py-3 text-center text-10-medium md:text-14-medium text-gray-400">
-                    더 불러오는 중...
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </>
-      )}
+      <div className="mt-6">
+        <p className="mb-3 text-16-bold text-black">예약 시간</p>
+
+        <ReservationScheduleSelect
+          schedules={schedules}
+          selectedScheduleId={selectedScheduleId}
+          onChangeScheduleId={setSelectedScheduleId}
+        />
+      </div>
+
+      <div className="mt-6">
+        <p className="mb-3 text-16-bold text-black">예약 내역</p>
+
+        {reservationContent}
+      </div>
     </>
   );
 };
