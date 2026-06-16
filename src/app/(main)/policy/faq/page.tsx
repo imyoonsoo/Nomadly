@@ -2,6 +2,7 @@
 
 import { faqContent } from "@/constants/policy";
 import { useState } from "react";
+import { LogoMobile } from "@/constants/images";
 
 const FaqPage = () => {
   const { title, description, userItems, hostItems } = faqContent;
@@ -12,7 +13,7 @@ const FaqPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="flex-1 w-full max-w-300 mx-auto gap-12 p-7.5 mt-12 md:mt-20">
+      <div className="flex-1 w-full max-w-300 mx-auto gap-12 p-7.5 mt-12 md:mt-20 mb-14">
         <div className="flex flex-col justify-center gap-1.5 items-center mb-10">
           <span className="text-16-bold mb-3 text-primary-500">FAQ</span>
           <h1 className="text-32-bold">{title}</h1>
@@ -20,6 +21,9 @@ const FaqPage = () => {
         </div>
 
         <div className="w-full flex flex-col justify-center items-center">
+          <div className="w-16 h-16 -mb-14 overflow-hidden rounded-full flex items-center justify-center">
+            <LogoMobile className="w-14 h-14 md:h-16 md:w-16" />
+          </div>
           <div className="mx-auto mt-8 flex w-fit rounded-full bg-gray-100 p-1">
             <button
               type="button"
@@ -27,7 +31,7 @@ const FaqPage = () => {
                 setIsUserListOpen(true);
                 setIsHostListOpen(false);
               }}
-              className={`rounded-full px-6 py-2 text-sm font-semibold transition-all duration-300 md:text-base ${
+              className={`rounded-full px-6 py-2 text-14-bold transition-all duration-300 md:text-16-bold ${
                 isUserListOpen
                   ? "bg-white text-gray-950 shadow-sm"
                   : "text-gray-500 hover:text-gray-800"
@@ -42,7 +46,7 @@ const FaqPage = () => {
                 setIsHostListOpen(true);
                 setIsUserListOpen(false);
               }}
-              className={`rounded-full px-6 py-2 text-sm font-semibold transition-all duration-300 md:text-base ${
+              className={`rounded-full px-6 py-2 text-14-bold transition-all duration-300 md:text-16-bold ${
                 isHostListOpen
                   ? "bg-white text-primary-600 shadow-sm"
                   : "text-gray-500 hover:text-gray-800"
@@ -52,7 +56,7 @@ const FaqPage = () => {
             </button>
           </div>
 
-          <div className="mt-10 space-y-4 w-full mb-10">
+          <div className="mt-10 space-y-4 w-full">
             {faqList.map((item) => (
               <details
                 key={item.id}
@@ -76,7 +80,7 @@ const FaqPage = () => {
                 </summary>
 
                 <div className="border-t border-gray-100 pb-6 pt-4 md:pb-7">
-                  <p className="whitespace-pre-wrap break-keep pl-13 text-14-medium leading-[1.8] text-gray-600 md:pl-13 md:text-16-medium">
+                  <p className="whitespace-pre-wrap break-keep pl-13 text-14-medium leading-7.5 text-gray-600 md:pl-13 md:text-16-medium">
                     {item.answer}
                   </p>
                 </div>

@@ -4,8 +4,8 @@ const PrivacyPage = () => {
   const { version, title, description, updatedAt, sections } = privacyPolicy;
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="flex-1 w-full max-w-250 mx-auto gap-12 p-7.5 mt-12 md:mt-20 mb-10">
-        <div className="flex flex-col justify-between items-start gap-5 mb-20 pb-15 border-b border-gray-200">
+      <div className="flex-1 w-full max-w-250 mx-auto gap-12 p-7.5 mt-12 md:mt-20 mb-14">
+        <div className="flex flex-col justify-between items-start gap-5 mb-18 pb-15 border-b border-gray-200">
           <h1 className="text-32-bold mb-6 text-gray-950">{title}</h1>
           <p className="text-14-medium break-keep leading-8 text-gray-800 md:text-16-medium">
             {description}
