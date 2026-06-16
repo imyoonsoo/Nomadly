@@ -4,7 +4,7 @@ import {
   ActivityDetailResponse,
   GetActivityReviewsParams,
   ActivityReviewsResponse,
-} from "@/app/(main)/activities/type";
+} from "@/features/activities/type";
 
 export const getActivityDetail = async ({
   activityId,

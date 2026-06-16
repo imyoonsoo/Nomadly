@@ -1,4 +1,4 @@
-import { ActivityImage } from "@/app/(main)/activities/type";
+import { ActivityImage } from "@/features/activities/type";
 
 export interface Schedule {
   date: string;

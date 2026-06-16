@@ -2,7 +2,7 @@
 
 import { useUpdateActivityMutation } from "../hooks/useActivityMutation";
 import { ActivityFormValues, Schedule, UpdateActivityRequest } from "../types";
-import { ActivityImage, ActivitySchedule } from "@/app/(main)/activities/type";
+import { ActivityImage, ActivitySchedule } from "@/features/activities/type";
 import ActivityForm from "./ActivityForm";
 import { getImageUrl } from "../utils";
 

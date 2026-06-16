@@ -1,4 +1,4 @@
-import { ActivityDetailResponse } from "@/app/(main)/activities/type";
+import { ActivityDetailResponse } from "@/features/activities/type";
 import { ActivityFormValues } from "./types";
 import { uploadActivityImage } from "./api";
 import { showToast } from "@/lib/utils/toast";

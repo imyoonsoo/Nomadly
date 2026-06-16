@@ -1,4 +1,4 @@
-import { ActivityDetailResponse } from "@/app/(main)/activities/type";
+import { ActivityDetailResponse } from "@/features/activities/type";
 
 type MapSectionProps = Pick<ActivityDetailResponse, "address">;
 
