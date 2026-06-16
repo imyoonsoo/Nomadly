@@ -17,21 +17,12 @@ export const createActivityReservation = async ({
     headCount,
   };
 
-  console.log("예약 요청:", { activityId, ...body });
+  const { data } = await clientFetch.post<CreateActivityReservationResponse>(
+    `/activities/${activityId}/reservations`,
+    body,
+  );
 
-  try {
-    const { data } = await clientFetch.post<CreateActivityReservationResponse>(
-      `/activities/${activityId}/reservations`,
-      body,
-    );
-
-    console.log("예약 응답:", data);
-
-    return data;
-  } catch (error) {
-    console.error("예약 실패:", error);
-    throw error;
-  }
+  return data;
 };
 
 export const getAvailableReservationSchedules = async ({
