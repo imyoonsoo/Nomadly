@@ -65,7 +65,7 @@ const ActivitiesPage = async ({
           <ReviewSection activityId={activityId} />
         </div>
 
-        <div className="flex w-[410px] flex-col gap-5">
+        <div className="flex w-102.5 flex-col gap-5">
           <TitleSection
             id={activityData.id}
             userId={activityData.userId}

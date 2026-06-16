@@ -39,7 +39,7 @@ const StateBadge = ({ status, className = "" }: ExtendedStateBadgeProps) => {
       items-center
       justify-center
       rounded-full
-      w-[63px]
+      w-15.75
       h-6
       text-13-bold
       leading-none
