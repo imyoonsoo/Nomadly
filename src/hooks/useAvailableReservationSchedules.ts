@@ -42,6 +42,9 @@ export const useAvailableReservationSchedules = (
             getApiErrorMessage(error, "일정 데이터를 불러오는데 실패했습니다."),
           );
         }
+        showToast.error(
+          getApiErrorMessage(error, "일정 데이터를 불러오는데 실패했습니다."),
+        );
       }
     };
 
