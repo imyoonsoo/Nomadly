@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Title from "@/app/(mypage)/_components/Title";
-import ActivitiesList from "@/features/myActivities/components/ActivitiesList";
+import ActivitiesSection from "@/features/myActivities/components/ActivitiesSection";
 
 const Activities = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const Activities = () => {
         onButtonClick={() => router.push("/activities/new")}
       />
 
-      <ActivitiesList />
+      <ActivitiesSection />
     </div>
   );
 };
