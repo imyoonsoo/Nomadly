@@ -11,11 +11,14 @@ export const useAvailableReservationSchedules = (
 ) => {
   const [availableSchedules, setAvailableSchedules] =
     useState<AvailableActivitiesReservationResponse>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
 
     const fetchSchedules = async () => {
+      setIsLoading(true);
+
       const params = {
         activityId,
         year: String(selectedYearAndMonth.year),
@@ -31,12 +34,14 @@ export const useAvailableReservationSchedules = (
 
         if (!cancelled) {
           setAvailableSchedules(data);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error("[available-schedule] 실패:", error);
 
         if (!cancelled) {
           setAvailableSchedules([]);
+          setIsLoading(false);
         }
       }
     };
@@ -48,5 +53,5 @@ export const useAvailableReservationSchedules = (
     };
   }, [activityId, selectedYearAndMonth.year, selectedYearAndMonth.month]);
 
-  return availableSchedules;
+  return { availableSchedules, isLoading };
 };

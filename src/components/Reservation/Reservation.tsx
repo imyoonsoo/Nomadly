@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Button from "@/components/Button/Button";
-import { Minus, Plus } from "@/constants/icons";
+import Skeleton from "@/components/Skeleton/Skeleton";
+import { Minus, Plus, Search } from "@/constants/icons";
 import Calendar from "./Calendar";
 import type { ReservationProps } from "./type";
 import { useAvailableReservationSchedules } from "@/hooks/useAvailableReservationSchedules";
@@ -49,7 +50,7 @@ const Reservation = ({
   );
   const [headCount, setHeadCount] = useState(MIN_HEAD_COUNT);
 
-  const availableSchedules = useAvailableReservationSchedules(
+  const { availableSchedules, isLoading } = useAvailableReservationSchedules(
     activityId,
     selectedYearAndMonth,
   );
@@ -196,20 +197,31 @@ const Reservation = ({
       <div className="flex flex-col gap-3.5 pb-2.25">
         <h3 className="text-16-bold text-gray-950">예약 가능한 시간</h3>
         <div className="flex flex-col gap-3">
-          {availableTimes.map((time) => (
-            <button
-              key={time.id}
-              type="button"
-              onClick={() => setSelectedScheduleId(time.id)}
-              className={`rounded-xl border px-3 py-4 text-16-medium transition ${
-                selectedScheduleId === time.id
-                  ? "ring-2 ring-inset ring-primary-500 border-primary-500 bg-primary-100 text-primary-500"
-                  : "border-gray-300 bg-white text-gray-900 hover:border-primary-500"
-              }`}
-            >
-              {time.startTime} ~ {time.endTime}
-            </button>
-          ))}
+          {isLoading ? (
+            <Skeleton className="h-14.5 w-full rounded-xl" />
+          ) : availableTimes.length === 0 ? (
+            <div className="relative flex h-15 w-full items-center justify-center">
+              <Search className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 h-12 w-12 text-gray-100" />
+              <span className="z-1 text-16-medium text-gray-950">
+                예약 가능한 시간이 없습니다.
+              </span>
+            </div>
+          ) : (
+            availableTimes.map((time) => (
+              <button
+                key={time.id}
+                type="button"
+                onClick={() => setSelectedScheduleId(time.id)}
+                className={`rounded-xl border px-3 py-4 text-16-medium transition ${
+                  selectedScheduleId === time.id
+                    ? "ring-2 ring-inset ring-primary-500 border-primary-500 bg-primary-100 text-primary-500"
+                    : "border-gray-300 bg-white text-gray-900 hover:border-primary-500"
+                }`}
+              >
+                {time.startTime} ~ {time.endTime}
+              </button>
+            ))
+          )}
         </div>
       </div>
 
