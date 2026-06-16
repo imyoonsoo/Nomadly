@@ -27,7 +27,7 @@ const PrivacyPage = () => {
               <h2 className="text-16-bold mb-3 md:text-18-bold">
                 {section.title}
               </h2>
-              <p className="text-14-medium leading-1.5 mb-6 text-gray-800">
+              <p className="text-14-medium leading-6 mb-6 text-gray-800">
                 {section.content}
               </p>
               <ul className="space-y-1 rounded-xl bg-gray-25 p-8">

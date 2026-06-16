@@ -1,23 +1,19 @@
 "use client";
 
 import { faqContent } from "@/constants/policy";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const FaqPage = () => {
   const { title, description, userItems, hostItems } = faqContent;
-  const [isUserListOpen, setIsUserListOpen] = useState(false);
+  const [isUserListOpen, setIsUserListOpen] = useState(true);
   const [isHostListOpen, setIsHostListOpen] = useState(false);
 
   const faqList = isUserListOpen ? userItems : hostItems;
 
-  useEffect(() => {
-    setIsUserListOpen(true);
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-1 w-full max-w-300 mx-auto gap-12 p-7.5 mt-12 md:mt-20">
-        <div className="flex flex-col justify-center items-center mb-10">
+        <div className="flex flex-col justify-center gap-1.5 items-center mb-10">
           <span className="text-16-bold mb-3 text-primary-500">FAQ</span>
           <h1 className="text-32-bold">{title}</h1>
           <p className="text-14-medium text-gray-500">{description}</p>
