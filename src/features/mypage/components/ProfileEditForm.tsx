@@ -81,9 +81,11 @@ const ProfileEditForm = () => {
         updatedProfile.newPassword = data.newPassword;
       }
 
-      // 프로필 이미지 변경 시
+      // 프로필이미지 변경 시
       if (selectedImage) {
-        const imageResponse = await uploadProfileImage(selectedImage);
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+        const imageResponse = await uploadProfileImage(formData);
         updatedProfile.profileImageUrl = imageResponse.profileImageUrl;
       }
 

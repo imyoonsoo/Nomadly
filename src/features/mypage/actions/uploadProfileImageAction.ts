@@ -9,11 +9,9 @@ import { cookies } from "next/headers";
 import { MyProfileImageResponse } from "../type";
 
 const uploadProfileImageAction = async (
-  file: File,
+  formData: FormData, // File 대신 FormData를 받아 multipart 업로드임을 명시
 ): Promise<MyProfileImageResponse> => {
   const accessToken = (await cookies()).get("accessToken")?.value;
-  const formData = new FormData();
-  formData.append("image", file);
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me/image`,
