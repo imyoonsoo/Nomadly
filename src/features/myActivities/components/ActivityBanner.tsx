@@ -1,3 +1,4 @@
+import Skeleton from "@/components/Skeleton/Skeleton";
 import {
   House as HouseIcon,
   Calendar as CalendarIcon,
@@ -29,7 +30,7 @@ const ActivityBanner = ({ count = 0, isLoading }: ActivityBannerProps) => {
         <div className="flex flex-col justify-center items-start whitespace-nowrap">
           <span className="text-gray-500 text-12-medium">총 체험 수</span>
           {isLoading ? (
-            <span className="w-11 h-5.5 rounded bg-gray-100 animate-pulse" />
+            <Skeleton className="w-11 h-5.5" />
           ) : (
             <span className="text-gray-950 text-14-bold">{count}개</span>
           )}

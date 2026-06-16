@@ -35,6 +35,7 @@ const FormPriceInput = ({ control }: FormPriceInputProps) => {
           label="가격"
           placeholder="체험 금액을 입력해 주세요"
           errorMessage={inputErrorMessage || fieldState.error?.message}
+          labelClassName="text-16-bold"
         />
       )}
     />
