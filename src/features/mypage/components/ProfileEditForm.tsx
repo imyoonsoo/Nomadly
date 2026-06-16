@@ -13,8 +13,8 @@ import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 
 // [추가/수정] switch-case로 상태코드를 받아 에러메시지로 변환하는 함수
-const getErrorMessage = (message: string): string => {
-  switch (message) {
+const getErrorMessage = (statusCode: string): string => {
+  switch (statusCode) {
     case "400":
       return "입력하신 내용이 올바른지 확인해 주세요.";
     case "401":
