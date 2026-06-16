@@ -10,6 +10,8 @@ import HeaderGuestMenu from "./HeaderGuestMenu";
 import LogoVertical from "@/assets/images/logo-vertical.svg";
 import LogoSymbol from "@/assets/images/logo-symbol.svg";
 
+import Game from "@/assets/icons/game.svg";
+
 const TEST_USER = {
   id: 1,
   email: "test@test.com",
@@ -54,7 +56,22 @@ const Header = ({ user }: HeaderProps) => {
             className="block md:hidden"
           />
         </Link>
-        <nav>
+        <nav className="flex items-center gap-4 md:gap-6">
+          <Link
+            href="/game"
+            className="
+              flex
+              items-center
+              justify-center
+              transition-transform
+              hover:scale-110
+              active:scale-95
+            "
+            aria-label="게임 페이지"
+          >
+            <Game className="w-6 h-6 md:w-7 h-7 text-yellow-500 hover:rotate-12 transition-all duration-200 hover:text-primary-500" />
+          </Link>
+
           {/* Todo: 로그인 기능 완료 후 수정 */}
           {user ? <HeaderUserMenu user={user} /> : <HeaderGuestMenu />}
           {/* <HeaderUserMenu user={testUser} /> */}
