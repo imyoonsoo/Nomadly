@@ -166,7 +166,7 @@ const ReservationModalContent = ({
         className={`
           scrollbar-hide overflow-y-auto pr-1
           h-60
-          md:h-[min(350px, calc(85vh-280px))]
+          md:h-[min(350px,calc(85vh-280px))]
           xl:h-[230px]
           ${
             isFullPage
