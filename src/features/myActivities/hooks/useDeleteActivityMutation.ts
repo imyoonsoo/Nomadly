@@ -5,7 +5,7 @@ import { deleteMyActivity } from "../api";
 import { showToast } from "@/lib/utils/toast";
 import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
-export const useDeleteMyActivityMutation = (onSuccessCallback?: () => void) => {
+const useDeleteMyActivityMutation = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -22,3 +22,5 @@ export const useDeleteMyActivityMutation = (onSuccessCallback?: () => void) => {
     },
   });
 };
+
+export default useDeleteMyActivityMutation;

@@ -8,7 +8,7 @@ import EmptyCardList from "./EmptyCardList";
 interface ActivitiesListProps {
   isLoading: boolean;
   totalCount: number;
-  sortedList: ActivitiesProps[];
+  sortedActivities: ActivitiesProps[];
   targetRef: RefObject<HTMLDivElement | null>;
   isFetchingNextPage: boolean;
 }
@@ -16,7 +16,7 @@ interface ActivitiesListProps {
 const ActivitiesList = ({
   isLoading,
   totalCount,
-  sortedList,
+  sortedActivities,
   targetRef,
   isFetchingNextPage,
 }: ActivitiesListProps) => {
@@ -30,7 +30,7 @@ const ActivitiesList = ({
 
   return (
     <>
-      <CardList cards={sortedList} />
+      <CardList cards={sortedActivities} />
 
       <div ref={targetRef} className="h-10" />
 

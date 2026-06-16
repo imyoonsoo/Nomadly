@@ -37,7 +37,7 @@ const ActivitiesSection = () => {
   }
 
   const cards = data?.pages.flatMap((page) => page.activities) ?? [];
-  const sortedList = getSortedActivities(cards, currentSort);
+  const sortedActivities = getSortedActivities(cards, currentSort);
   const totalCount = data?.pages[0]?.totalCount ?? 0;
   return (
     <>
@@ -48,7 +48,7 @@ const ActivitiesSection = () => {
       <ActivitiesList
         isLoading={isLoading}
         totalCount={totalCount}
-        sortedList={sortedList}
+        sortedActivities={sortedActivities}
         targetRef={targetRef}
         isFetchingNextPage={isFetchingNextPage}
       />

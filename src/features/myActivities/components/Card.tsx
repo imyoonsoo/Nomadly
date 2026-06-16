@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { ActivitiesProps } from "../type";
-import { useDeleteMyActivityMutation } from "../hooks/useDeleteActivityMutation";
+import useDeleteMyActivityMutation from "../hooks/useDeleteActivityMutation";
 import { showToast } from "@/lib/utils/toast";
 
 import Button from "@/components/Button/Button";
