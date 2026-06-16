@@ -6,7 +6,10 @@ import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUp
 import TabletReservationPicker from "@/components/Reservation/TabletReservationPicker";
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
+import SuccessModal from "@/components/Modal/SuccessModal";
 import { createActivityReservation } from "@/features/activities/api/client-api";
+import { showToast } from "@/lib/utils/toast";
+import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
 interface TabletReservationFooterProps {
   activityId: number;
@@ -21,6 +24,7 @@ const TabletReservationFooter = ({
   const [selectedSchedule, setSelectedSchedule] =
     useState<SelectedSchedule | null>(null);
   const [headCount, setHeadCount] = useState(1);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const isReservationReady = selectedSchedule !== null;
 
@@ -44,16 +48,22 @@ const TabletReservationFooter = ({
     setIsModalOpen(false);
   };
 
-  const handleReserveClick = () => {
+  const handleReserveClick = async () => {
     if (!selectedSchedule) {
       return;
     }
 
-    createActivityReservation({
-      activityId,
-      scheduleId: selectedSchedule.scheduleId,
-      headCount,
-    });
+    try {
+      await createActivityReservation({
+        activityId,
+        scheduleId: selectedSchedule.scheduleId,
+        headCount,
+      });
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      showToast.error(getApiErrorMessage(error, "예약에 실패했습니다."));
+      throw error;
+    }
   };
 
   return (
@@ -97,6 +107,12 @@ const TabletReservationFooter = ({
           onConfirm={handleConfirm}
         />
       </ReservationSlideUpModal>
+
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        message="예약이 완료되었습니다."
+      />
     </>
   );
 };

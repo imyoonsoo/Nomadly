@@ -7,7 +7,10 @@ import Reservation from "@/components/Reservation/Reservation";
 import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUpModal";
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
+import SuccessModal from "@/components/Modal/SuccessModal";
 import { createActivityReservation } from "@/features/activities/api/client-api";
+import { showToast } from "@/lib/utils/toast";
+import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
 interface MobileReservationFooterProps {
   activityId: number;
@@ -25,6 +28,7 @@ const MobileReservationFooter = ({
   const [selectedSchedule, setSelectedSchedule] =
     useState<SelectedSchedule | null>(null);
   const [headCount, setHeadCount] = useState(1);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const isReservationReady = selectedSchedule !== null;
 
@@ -63,16 +67,22 @@ const MobileReservationFooter = ({
     setIsHeadCountModalOpen(false);
   };
 
-  const handleReserveClick = () => {
+  const handleReserveClick = async () => {
     if (!selectedSchedule) {
       return;
     }
 
-    createActivityReservation({
-      activityId,
-      scheduleId: selectedSchedule.scheduleId,
-      headCount,
-    });
+    try {
+      await createActivityReservation({
+        activityId,
+        scheduleId: selectedSchedule.scheduleId,
+        headCount,
+      });
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      showToast.error(getApiErrorMessage(error, "예약에 실패했습니다."));
+      throw error;
+    }
   };
 
   return (
@@ -136,6 +146,12 @@ const MobileReservationFooter = ({
           onBackButtonClick={handleBackFromHeadCount}
         />
       </ReservationSlideUpModal>
+
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        message="예약이 완료되었습니다."
+      />
     </>
   );
 };
