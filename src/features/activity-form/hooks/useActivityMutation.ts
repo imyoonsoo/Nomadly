@@ -13,6 +13,7 @@ export const useCreateActivityMutation = () => {
     mutationFn: createActivity,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["my-activities"] });
+      queryClient.invalidateQueries({ queryKey: ["activities"] });
     },
     onError: (error) => {
       showToast.error(getApiErrorMessage(error, "체험 등록에 실패했습니다."));

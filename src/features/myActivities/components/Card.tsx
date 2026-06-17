@@ -28,6 +28,10 @@ const Card = ({
   });
 
   const handleDeleteConfirmButtonClick = () => {
+    if (deleteMutation.isPending) {
+      return;
+    }
+
     deleteMutation.mutate(id, {
       onSettled: () => {
         setIsConfirmModalOpen(false);
