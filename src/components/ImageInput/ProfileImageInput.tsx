@@ -10,10 +10,13 @@ const ProfileImageInput = ({
   name,
   label,
   onFileSelect,
+  defaultImage,
   ...props
 }: ProfileImageInputProps) => {
-  const inputId = id ?? useId();
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
   const [preview, setPreview] = useState<string | null>(null);
+  const displayImage = preview ?? defaultImage;
 
   useEffect(() => {
     return () => {
@@ -31,7 +34,14 @@ const ProfileImageInput = ({
     }
 
     const objectUrl = URL.createObjectURL(file);
-    setPreview(objectUrl);
+
+    setPreview((prev) => {
+      if (prev) {
+        URL.revokeObjectURL(prev);
+      }
+      return objectUrl;
+    });
+
     onFileSelect?.(file);
   };
 
@@ -51,9 +61,9 @@ const ProfileImageInput = ({
         htmlFor={inputId}
         className="relative inline-flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden"
       >
-        {preview ? (
+        {displayImage ? (
           <img
-            src={preview}
+            src={displayImage}
             alt={`${label} 미리보기`}
             className="h-30 w-30 rounded-full object-cover object-center"
           />
