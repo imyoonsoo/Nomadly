@@ -72,9 +72,11 @@ const ReservationStatusPage = () => {
     );
   }
 
+  const hasDashboardData = reservationDashboardData !== undefined;
+
   let dashboardContent;
 
-  if (isDashboardLoading) {
+  if (isDashboardLoading && !hasDashboardData) {
     dashboardContent = (
       <EmptyReservationStatus
         image={<Loading className="w-[182px] h-[182px]" />}

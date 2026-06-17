@@ -54,6 +54,7 @@ export const reservationDashboardQueryOptions = (
     queryKey: reservationStatusKeys.dashboard(activityId, year, month),
     queryFn: () => getReservationDashboard({ activityId, year, month }),
     enabled: activityId > 0,
+    placeholderData: (previousData) => previousData,
   });
 
 export const reservedScheduleQueryOptions = (
