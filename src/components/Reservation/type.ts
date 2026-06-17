@@ -1,5 +1,3 @@
-import type { ActivitySchedule } from "@/app/(main)/activities/type";
-
 export interface YearAndMonth {
   year: number;
   month: number;
@@ -13,8 +11,8 @@ export interface SelectedSchedule {
 }
 
 export interface ReservationProps {
+  activityId: number;
   price: number;
-  schedules: ActivitySchedule[];
   className?: string;
   showPrice?: boolean;
   showHeadCount?: boolean;
@@ -34,7 +32,7 @@ export interface HeadCountSelectorProps {
 }
 
 export interface TabletReservationPickerProps {
-  schedules: ActivitySchedule[];
+  activityId: number;
   defaultSelectedSchedule?: SelectedSchedule | null;
   defaultHeadCount?: number;
   onConfirm: (payload: {

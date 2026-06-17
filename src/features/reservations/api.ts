@@ -7,7 +7,7 @@ import type {
   SubmitReviewResponse,
 } from "./types";
 import clientFetch from "@/lib/http/clientFetch";
-import type { ActivityDetailResponse } from "@/app/(main)/activities/type";
+import type { ActivityDetailResponse } from "@/features/activities/type";
 
 const BASE_URL = "/my-reservations";
 

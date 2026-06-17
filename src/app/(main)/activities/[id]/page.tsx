@@ -8,7 +8,7 @@ import MapSection from "@/features/activities/components/MapSection/MapSection";
 import MobileReservationFooter from "@/features/activities/components/MobileReservationFooter/MobileReservationFooter";
 import TabletReservationFooter from "@/features/activities/components/TabletReservationFooter/TabletReservationFooter";
 import { getActivityDetail } from "@/features/activities/api/api";
-import type { ActivityDetailResponse } from "../type";
+import type { ActivityDetailResponse } from "@/features/activities/type";
 
 const getBannerImages = (data: ActivityDetailResponse) => {
   return [
@@ -65,7 +65,7 @@ const ActivitiesPage = async ({
           <ReviewSection activityId={activityId} />
         </div>
 
-        <div className="flex w-[410px] flex-col gap-5">
+        <div className="flex w-102.5 flex-col gap-5">
           <TitleSection
             id={activityData.id}
             userId={activityData.userId}
@@ -78,7 +78,6 @@ const ActivitiesPage = async ({
           <ReservationSection
             activityId={activityId}
             price={activityData.price}
-            schedules={activityData.schedules}
           />
         </div>
       </div>
@@ -86,12 +85,10 @@ const ActivitiesPage = async ({
       <MobileReservationFooter
         activityId={activityId}
         price={activityData.price}
-        schedules={activityData.schedules}
       />
       <TabletReservationFooter
         activityId={activityId}
         price={activityData.price}
-        schedules={activityData.schedules}
       />
     </div>
   );

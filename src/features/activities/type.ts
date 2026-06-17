@@ -58,6 +58,26 @@ export interface CreateActivityReservationResponse {
   updatedAt: string;
 }
 
+export interface AvailableActivitiesReservationParams {
+  activityId: number;
+  year: string;
+  month: string;
+}
+
+export type AvailableActivitiesReservationResponse =
+  AvailableActivitiesReservation[];
+
+export interface AvailableActivitiesReservation {
+  date: string;
+  times: Time[];
+}
+
+export interface Time {
+  endTime: string;
+  startTime: string;
+  id: number;
+}
+
 export interface ActivityDetailResponse {
   id: number;
   userId: number;

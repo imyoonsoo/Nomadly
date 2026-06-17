@@ -3,7 +3,9 @@ import type {
   CreateActivityReservationParams,
   CreateActivityReservationRequest,
   CreateActivityReservationResponse,
-} from "@/app/(main)/activities/type";
+  AvailableActivitiesReservationParams,
+  AvailableActivitiesReservationResponse,
+} from "@/features/activities/type";
 
 export const createActivityReservation = async ({
   activityId,
@@ -15,19 +17,26 @@ export const createActivityReservation = async ({
     headCount,
   };
 
-  console.log("예약 요청:", { activityId, ...body });
+  const { data } = await clientFetch.post<CreateActivityReservationResponse>(
+    `/activities/${activityId}/reservations`,
+    body,
+  );
 
-  try {
-    const { data } = await clientFetch.post<CreateActivityReservationResponse>(
-      `/activities/${activityId}/reservations`,
-      body,
+  return data;
+};
+
+export const getAvailableReservationSchedules = async ({
+  activityId,
+  year,
+  month,
+}: AvailableActivitiesReservationParams): Promise<AvailableActivitiesReservationResponse> => {
+  const { data } =
+    await clientFetch.get<AvailableActivitiesReservationResponse>(
+      `/activities/${activityId}/available-schedule`,
+      {
+        params: { year, month },
+      },
     );
 
-    console.log("예약 응답:", data);
-
-    return data;
-  } catch (error) {
-    console.error("예약 실패:", error);
-    throw error;
-  }
+  return data;
 };

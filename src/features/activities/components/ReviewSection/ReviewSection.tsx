@@ -5,7 +5,7 @@ import { getActivityReviews } from "@/features/activities/api/api";
 import type {
   GetActivityReviewsParams,
   ActivityReviewsResponse,
-} from "@/app/(main)/activities/type";
+} from "@/features/activities/type";
 
 const REVIEW_DISPLAY_COUNT = 4;
 

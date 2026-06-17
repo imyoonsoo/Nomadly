@@ -6,24 +6,26 @@ import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUp
 import TabletReservationPicker from "@/components/Reservation/TabletReservationPicker";
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
+import SuccessModal from "@/components/Modal/SuccessModal";
 import { createActivityReservation } from "@/features/activities/api/client-api";
-import type { ActivitySchedule } from "@/app/(main)/activities/type";
+import { showToast } from "@/lib/utils/toast";
+import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
 interface TabletReservationFooterProps {
   activityId: number;
   price: number;
-  schedules: ActivitySchedule[];
 }
 
 const TabletReservationFooter = ({
   activityId,
   price,
-  schedules,
 }: TabletReservationFooterProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSchedule, setSelectedSchedule] =
     useState<SelectedSchedule | null>(null);
   const [headCount, setHeadCount] = useState(1);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isReservationReady = selectedSchedule !== null;
 
@@ -47,16 +49,24 @@ const TabletReservationFooter = ({
     setIsModalOpen(false);
   };
 
-  const handleReserveClick = () => {
-    if (!selectedSchedule) {
+  const handleReserveClick = async () => {
+    if (!selectedSchedule || isSubmitting) {
       return;
     }
 
-    createActivityReservation({
-      activityId,
-      scheduleId: selectedSchedule.scheduleId,
-      headCount,
-    });
+    setIsSubmitting(true);
+    try {
+      await createActivityReservation({
+        activityId,
+        scheduleId: selectedSchedule.scheduleId,
+        headCount,
+      });
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      showToast.error(getApiErrorMessage(error, "예약에 실패했습니다."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -94,12 +104,18 @@ const TabletReservationFooter = ({
 
       <ReservationSlideUpModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <TabletReservationPicker
-          schedules={schedules}
+          activityId={activityId}
           defaultSelectedSchedule={selectedSchedule}
           defaultHeadCount={headCount}
           onConfirm={handleConfirm}
         />
       </ReservationSlideUpModal>
+
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        message="예약이 완료되었습니다."
+      />
     </>
   );
 };

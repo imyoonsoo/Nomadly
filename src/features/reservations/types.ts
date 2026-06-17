@@ -1,4 +1,4 @@
-import type { ActivityDetailResponse } from "@/app/(main)/activities/type";
+import type { ActivityDetailResponse } from "@/features/activities/type";
 
 export type ReservationStatus =
   | "pending"
