@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DodgeGameProps } from "@/features/dodge-game/utils/game";
+import { DodgeGameProps } from "@/features/game/dodge-game/type";
 
 const CANVAS_WIDTH = 400;
 const CANVAS_HEIGHT = 550;

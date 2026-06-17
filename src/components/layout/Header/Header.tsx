@@ -10,6 +10,7 @@ import HeaderGuestMenu from "./HeaderGuestMenu";
 import LogoVertical from "@/assets/images/logo-vertical.svg";
 import LogoSymbol from "@/assets/images/logo-symbol.svg";
 
+import Recommendation from "@/assets/icons/recommendation.svg";
 import Game from "@/assets/icons/game.svg";
 
 const TEST_USER = {
@@ -58,6 +59,21 @@ const Header = ({ user }: HeaderProps) => {
         </Link>
         <nav className="flex items-center gap-4 md:gap-6">
           <Link
+            href="/recommendation"
+            className="
+              flex
+              items-center
+              justify-center
+              transition-transform
+              hover:scale-115
+              active:scale-scale-100
+            "
+            aria-label="추천 페이지"
+          >
+            <Recommendation className="w-5 h-5 md:w-6 md:h-6 text-cyan-500 hover:text-indigo-500" />
+          </Link>
+
+          <Link
             href="/game"
             className="
               flex
@@ -69,7 +85,7 @@ const Header = ({ user }: HeaderProps) => {
             "
             aria-label="게임 페이지"
           >
-            <Game className="w-6 h-6 md:w-7 h-7 text-yellow-500 hover:rotate-12 transition-all duration-200 hover:text-primary-500" />
+            <Game className="w-6 h-6 md:w-7 md:h-7 text-yellow-500 hover:rotate-12 transition-all duration-200 hover:text-primary-500" />
           </Link>
 
           {/* Todo: 로그인 기능 완료 후 수정 */}

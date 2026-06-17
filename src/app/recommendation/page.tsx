@@ -1,38 +1,45 @@
 import Link from "next/link";
 import { House } from "@/constants/icons";
 
-const GAME_LIST = [
+const RECOMMENDATION_LIST = [
   {
-    id: "dodge",
-    title: "총알 피하기",
-    description: "떨어지는 총알을 피하면서 오래 버텨보세요.",
-    href: "/game/dodge",
+    id: "experience",
+    title: "체험 추천 테스트",
+    description: "테스트를 통해 체험 추천을 받으세요.",
+    href: "/recommendation/experience",
     status: "play",
   },
   {
-    id: "tic-tac-toe",
-    title: "틱택토",
-    description: "X와 O를 번갈아 놓고 3칸을 먼저 완성해보세요.",
-    href: "/game/tic-tac-toe",
+    id: "mbti",
+    title: "MBTI별 체험 추천",
+    description: "자신의 MBTI와 맞는 체험 추천을 받으세요.",
+    href: "/recommendation/mbti",
     status: "play",
   },
   {
-    id: "earth-jump",
-    title: "지구 점프",
-    description: "지구를 점프시켜 장애물을 피해보세요.",
-    href: "/game/earth-jump",
+    id: "roulette",
+    title: "체험 룰렛",
+    description: "룰렛을 돌려 오늘의 추천 체험을 골라보세요.",
+    href: "/recommendation/roulette",
+    status: "play",
+  },
+  {
+    id: "balance",
+    title: "체험 밸런스 게임",
+    description: "더 끌리는 체험을 골라 취향을 알아보세요.",
+    href: "/recommendation/balance",
     status: "play",
   },
   {
     id: "coming-soon",
     title: "준비 중",
-    description: "새로운 게임이 곧 추가될 예정이에요.",
+    description: "새로운 추천이 곧 추가될 예정이에요.",
     href: "",
     status: "disabled",
   },
 ];
 
-const GamePage = () => {
+const RecommendationPage = () => {
   return (
     <main className="min-h-screen bg-gray-50 px-6 pt-24 pb-10">
       <section className="mx-auto w-full max-w-[960px]">
@@ -60,36 +67,36 @@ const GamePage = () => {
           </Link>
         </div>
 
-        <h1 className="text-24-bold text-gray-900">게임</h1>
+        <h1 className="text-24-bold text-gray-900">체험 추천</h1>
         <p className="mt-2 text-16-medium text-gray-500">
-          원하는 게임을 선택해 플레이해보세요.
+          체험을 추천해드려요.
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {GAME_LIST.map((game) =>
-            game.status === "play" ? (
+          {RECOMMENDATION_LIST.map((rec) =>
+            rec.status === "play" ? (
               <Link
-                key={game.id}
-                href={game.href}
+                key={rec.id}
+                href={rec.href}
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
-                <h2 className="text-18-bold text-gray-900">{game.title}</h2>
+                <h2 className="text-18-bold text-gray-900">{rec.title}</h2>
                 <p className="mt-2 text-14-medium text-gray-500">
-                  {game.description}
+                  {rec.description}
                 </p>
 
                 <span className="mt-5 inline-flex rounded-full bg-primary-100 px-4 py-2 text-14-bold text-primary-500">
-                  플레이하기
+                  테스트하기
                 </span>
               </Link>
             ) : (
               <div
-                key={game.id}
+                key={rec.id}
                 className="rounded-2xl border border-gray-200 bg-gray-100 p-5 opacity-70"
               >
-                <h2 className="text-18-bold text-gray-500">{game.title}</h2>
+                <h2 className="text-18-bold text-gray-500">{rec.title}</h2>
                 <p className="mt-2 text-14-medium text-gray-400">
-                  {game.description}
+                  {rec.description}
                 </p>
 
                 <span className="mt-5 inline-flex rounded-full bg-gray-200 px-4 py-2 text-14-bold text-gray-400">
@@ -104,4 +111,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default RecommendationPage;
