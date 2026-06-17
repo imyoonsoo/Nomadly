@@ -22,7 +22,9 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
     }
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     const playerImage = new window.Image();
     playerImage.src = "/logo-symbol.svg";
