@@ -152,8 +152,12 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
       const currentScore = Math.floor((Date.now() - startTime) / 100);
       onChangeScore(currentScore);
 
-      if (moveDirectionRef.current === "left") player.x -= player.speed;
-      if (moveDirectionRef.current === "right") player.x += player.speed;
+      if (moveDirectionRef.current === "left") {
+        player.x -= player.speed;
+      }
+      if (moveDirectionRef.current === "right") {
+        player.x += player.speed;
+      }
 
       player.x = Math.max(0, Math.min(CANVAS_WIDTH - player.size, player.x));
 
