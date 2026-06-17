@@ -66,7 +66,7 @@ const Header = ({ user }: HeaderProps) => {
               justify-center
               transition-transform
               hover:scale-115
-              active:scale-scale-100
+              active:scale-100
             "
             aria-label="추천 페이지"
           >
