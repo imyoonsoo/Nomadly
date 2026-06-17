@@ -71,10 +71,10 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
 
   return (
     <>
-      <div className="pt-[20px] flex flex-col gap-[12px]">
+      <div className="pt-5 flex flex-col gap-3">
         <p className="text-16-bold text-gray-800 lg:text-18-bold">{date}</p>
-        <div className="relative rounded-[32px] h-[136px]  w-[100%] lg:w-[90%] lg:max-w-[640px] lg:h-[181px] overflow-hidden shadow-[0_4px_24px_rgba(156,180,202,0.3)]">
-          <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-[32px] bg-white lg:px-[40px] lg:py-[30px]">
+        <div className="relative rounded-4xl h-34  w-full lg:w-[90%] lg:max-w-xl lg:h-45 overflow-hidden shadow-[0_4px_24px_rgba(156,180,202,0.3)]">
+          <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-4xl bg-white lg:px-10 lg:py-[30px]">
             <StateBadge status={status} />
             <div className="flex flex-col">
               <h1 className="text-14-bold text-gray-950 lg:text-18-bold">
@@ -92,7 +92,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                 </span>
               </p>
               {status === "pending" && (
-                <div className="hidden lg:flex gap-[8px] ">
+                <div className="hidden lg:flex gap-2 ">
                   <Button
                     variant="whitenGray"
                     height="h29"
@@ -137,7 +137,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
           </div>
         </div>
         {status === "pending" && (
-          <div className="flex w-full gap-[12px] lg:hidden">
+          <div className="flex w-full gap-3 lg:hidden">
             <Button
               variant="whitenGray"
               height="custom"
@@ -160,7 +160,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
           <Button
             variant="mainBlue"
             height="custom"
-            className="lg:hidden sm:block md:block w-full h-[37px] px-[10px] rounded-[8px]"
+            className="lg:hidden sm:block md:block w-full h-[37px] px-[10px] rounded-lg"
             onClick={
               reviewSubmitted
                 ? () => showToast.error("이미 후기를 작성했습니다.")

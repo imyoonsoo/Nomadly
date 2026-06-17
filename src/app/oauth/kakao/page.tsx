@@ -36,8 +36,6 @@ const KakaoCallbackContent = () => {
     }
     codeRef.current = authCode;
 
-    // 회원가입 플로우: 인가 코드는 1회용이므로 sign-in으로 소비하지 않고
-    // 바로 닉네임을 받아 sign-up에 사용한다
     if (state === "signup") {
       setIsNeedNickname(true);
       return;
