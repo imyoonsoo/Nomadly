@@ -1,7 +1,7 @@
-import { privacyPolicy } from "@/constants/policy";
+import { PRIVACY_POLICY } from "@/constants/policy";
 
 const PrivacyPage = () => {
-  const { version, title, description, updatedAt, sections } = privacyPolicy;
+  const { version, title, description, updatedAt, sections } = PRIVACY_POLICY;
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-1 w-full max-w-250 mx-auto gap-12 p-7.5 mt-12 md:mt-20 mb-14">
@@ -31,13 +31,13 @@ const PrivacyPage = () => {
                 {section.content}
               </p>
               <ul className="space-y-1 rounded-xl bg-gray-25 p-8">
-                {section.subList.map((sub) => (
+                {section.subItems.map((subItem) => (
                   <li
-                    key={sub}
+                    key={subItem}
                     className="flex gap-3 text-14-medium text-gray-700"
                   >
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary-500" />
-                    <span>{sub}</span>
+                    <span>{subItem}</span>
                   </li>
                 ))}
               </ul>

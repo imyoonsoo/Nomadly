@@ -1,4 +1,4 @@
-export const faqContent = {
+export const FAQ_CONTENT = {
   title: "자주 묻는 질문",
   description: "GlobalNomad 이용에 대해 궁금한 점을 확인해 보세요.",
 
@@ -81,7 +81,7 @@ export const faqContent = {
   ],
 } as const;
 
-export const privacyPolicy = {
+export const PRIVACY_POLICY = {
   version: "1.0.0",
   title: "개인정보 처리방침",
   description:
@@ -93,7 +93,7 @@ export const privacyPolicy = {
       title: "제1조 (개인정보 수집 항목)",
       content:
         "GlobalNomad는 원활한 일정 관리를 위해 최소한의 정보만 수집합니다.",
-      subList: [
+      subItems: [
         "가입 정보: 이메일, 닉네임, 비밀번호",
         "프로필 정보: 프로필 이미지(선택)",
         "예약 정보: 예약한 체험, 예약 날짜, 예약 인원 수",
@@ -106,7 +106,7 @@ export const privacyPolicy = {
       title: "제2조 (개인정보 이용 목적)",
       content:
         "GlobalNomad의 모든 정보는 여러분의 편리한 일정 관리를 위해서만 사용됩니다.",
-      subList: [
+      subItems: [
         "회원 식별 및 로그인 기능 제공",
         "체험 예약, 예약 현황 조회 및 예약 관리",
         "호스트의 체험 등록 및 예약 관리 기능 제공",
@@ -119,7 +119,7 @@ export const privacyPolicy = {
       title: "제3조 (정보의 보관 및 삭제)",
       content:
         "서비스 이용 중 생성된 정보는 원활한 기능 제공을 위해 저장됩니다.",
-      subList: [
+      subItems: [
         "현재 회원 탈퇴 기능은 제공되지 않습니다.",
         "프로젝트 운영 기간 동안 정보가 유지될 수 있습니다.",
         "프로젝트 환경에 따라 일부 데이터가 초기화될 수 있습니다.",
@@ -129,7 +129,7 @@ export const privacyPolicy = {
       id: 4,
       title: "제4조 (이용 시 유의사항)",
       content: "서비스를 이용하기 전 아래 내용을 확인해 주세요.",
-      subList: [
+      subItems: [
         "중요한 개인정보나 민감한 정보 입력은 권장하지 않습니다.",
         "테스트용 또는 예시 데이터를 사용하는 것을 권장합니다.",
         "서비스 개선 과정에서 기능이 변경될 수 있습니다.",
@@ -140,7 +140,7 @@ export const privacyPolicy = {
       title: "제5조 (포트폴리오 프로젝트 안내)",
       content:
         "GlobalNomad는 프론트엔드 개발 학습 및 포트폴리오 목적으로 제작된 프로젝트입니다.",
-      subList: [
+      subItems: [
         "실제 상용 서비스가 아닌 학습용 프로젝트입니다.",
         "서비스 기능은 지속적으로 변경될 수 있습니다.",
         "프로젝트 환경에 따라 데이터가 수정되거나 초기화될 수 있습니다.",
@@ -151,7 +151,7 @@ export const privacyPolicy = {
       title: "문의",
       content:
         "서비스 이용 중 궁금한 점이나 불편한 사항이 있다면 아래 저장소를 통해 확인하실 수 있습니다.",
-      subList: [
+      subItems: [
         "프로젝트명: GlobalNomad",
         "GitHub: https://github.com/Hanbh97/GlobalNomad",
       ],

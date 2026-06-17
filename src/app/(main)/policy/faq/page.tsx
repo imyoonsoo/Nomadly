@@ -1,15 +1,14 @@
 "use client";
 
-import { faqContent } from "@/constants/policy";
+import { FAQ_CONTENT } from "@/constants/policy";
 import { useState } from "react";
 import { LogoMobile } from "@/constants/images";
 
 const FaqPage = () => {
-  const { title, description, userItems, hostItems } = faqContent;
-  const [isUserListOpen, setIsUserListOpen] = useState(true);
-  const [isHostListOpen, setIsHostListOpen] = useState(false);
+  const { title, description, userItems, hostItems } = FAQ_CONTENT;
+  const [activeTab, setActiveTab] = useState<"user" | "host">("user");
 
-  const faqList = isUserListOpen ? userItems : hostItems;
+  const faqItems = activeTab === "user" ? userItems : hostItems;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -27,12 +26,9 @@ const FaqPage = () => {
           <div className="mx-auto mt-8 flex w-fit rounded-full bg-gray-100 p-1">
             <button
               type="button"
-              onClick={() => {
-                setIsUserListOpen(true);
-                setIsHostListOpen(false);
-              }}
+              onClick={() => setActiveTab("user")}
               className={`rounded-full px-6 py-2 text-14-bold transition-all duration-300 md:text-16-bold ${
-                isUserListOpen
+                activeTab === "user"
                   ? "bg-white text-gray-950 shadow-sm"
                   : "text-gray-500 hover:text-gray-800"
               }`}
@@ -42,12 +38,9 @@ const FaqPage = () => {
 
             <button
               type="button"
-              onClick={() => {
-                setIsHostListOpen(true);
-                setIsUserListOpen(false);
-              }}
+              onClick={() => setActiveTab("host")}
               className={`rounded-full px-6 py-2 text-14-bold transition-all duration-300 md:text-16-bold ${
-                isHostListOpen
+                activeTab === "host"
                   ? "bg-white text-primary-600 shadow-sm"
                   : "text-gray-500 hover:text-gray-800"
               }`}
@@ -57,7 +50,7 @@ const FaqPage = () => {
           </div>
 
           <div className="mt-10 space-y-4 w-full">
-            {faqList.map((item) => (
+            {faqItems.map((item) => (
               <details
                 key={item.id}
                 className="group rounded-2xl border border-gray-200 bg-white px-5 shadow-sm transition-all duration-300 open:border-primary-500 open:shadow-md md:px-7"
