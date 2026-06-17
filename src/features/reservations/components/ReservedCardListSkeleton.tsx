@@ -4,7 +4,7 @@ const ReservedCardSkeleton = () => {
   return (
     <div className="pt-5 flex flex-col gap-3">
       <Skeleton className="h-5 w-30 lg:h-6" />
-      <div className="relative rounded-4xl h-34 w-full lg:w-[90%] lg:max-w-screen-sm lg:h-[181px] overflow-hidden shadow-[0_4px_24px_0_rgba(156,180,202,0.20)]">
+      <div className="relative rounded-4xl h-34 w-full lg:w-[90%] lg:max-w-screen-sm lg:h-45 overflow-hidden shadow-[0_4px_24px_0_rgba(156,180,202,0.20)]">
         <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-4xl bg-white lg:px-10 lg:py-[30px]">
           <Skeleton className="h-6 w-15 rounded-full" />
           <div className="flex flex-col gap-1">

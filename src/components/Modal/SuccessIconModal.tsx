@@ -29,7 +29,7 @@ const SuccessIconModal = ({
       <Button
         variant="mainBlue"
         height="custom"
-        className="w-45 h-[41px] px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-50 md:h-[47px] md:py-[14px]"
+        className="w-45 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-50 md:h-[47px] md:py-[14px]"
         onClick={onClose}
       >
         {buttonText}
