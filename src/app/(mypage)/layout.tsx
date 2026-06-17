@@ -17,7 +17,7 @@ const MyPageLayout = ({ children }: MyPageLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 w-full max-w-250 mx-auto flex items-start gap-12 py-7.5 mt-12 mb-20 md:mt-20">
+      <main className="flex-1 w-full max-w-250 mx-auto flex items-start gap-12 p-8 md:py-7.5 md:px-0 mt-12 mb-20 md:mt-20">
         {!isWideForm && <SideMenu />}
         <section className="flex-1 min-w-0">{children}</section>
       </main>
