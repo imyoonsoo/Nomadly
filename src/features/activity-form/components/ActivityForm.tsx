@@ -96,7 +96,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   };
 
   return (
-    <div className="w-full mb-12 lg:px-37.5">
+    <div className="w-full mb-12 lg:px-17.5">
       <h1 className="py-2.5 mb-6 text-18-bold text-gray-950">
         {mode === "create" ? "📍내 체험 등록" : "📍내 체험 수정"}
       </h1>
