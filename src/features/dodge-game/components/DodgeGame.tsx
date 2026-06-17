@@ -17,10 +17,14 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     const playerImage = new window.Image();
     playerImage.src = "/logo-symbol.svg";
@@ -89,8 +93,12 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
     startRef.current = startGame;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") moveDirectionRef.current = "left";
-      if (e.key === "ArrowRight") moveDirectionRef.current = "right";
+      if (e.key === "ArrowLeft") {
+        moveDirectionRef.current = "left";
+      }
+      if (e.key === "ArrowRight") {
+        moveDirectionRef.current = "right";
+      }
     };
 
     const handleKeyUp = () => {
@@ -141,15 +149,21 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
     };
 
     const draw = () => {
-      if (gameOver) return;
+      if (gameOver) {
+        return;
+      }
 
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
       const currentScore = Math.floor((Date.now() - startTime) / 100);
       onChangeScore(currentScore);
 
-      if (moveDirectionRef.current === "left") player.x -= player.speed;
-      if (moveDirectionRef.current === "right") player.x += player.speed;
+      if (moveDirectionRef.current === "left") {
+        player.x -= player.speed;
+      }
+      if (moveDirectionRef.current === "right") {
+        player.x += player.speed;
+      }
 
       player.x = Math.max(0, Math.min(CANVAS_WIDTH - player.size, player.x));
 
