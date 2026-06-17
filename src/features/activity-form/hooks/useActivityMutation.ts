@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createActivity, updateMyActivity } from "../api";
 import { UpdateActivityRequest } from "../types";
 import { showToast } from "@/lib/utils/toast";
+import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
 export const useCreateActivityMutation = () => {
   const queryClient = useQueryClient();
@@ -13,8 +14,8 @@ export const useCreateActivityMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["activities"] });
     },
-    onError: () => {
-      showToast.error("체험 등록에 실패했습니다.");
+    onError: (error) => {
+      showToast.error(getApiErrorMessage(error, "체험 등록에 실패했습니다."));
     },
   });
 };
@@ -28,8 +29,8 @@ export const useUpdateActivityMutation = (activityId: number) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["my-activities"] });
     },
-    onError: () => {
-      showToast.error("체험 수정에 실패했습니다.");
+    onError: (error) => {
+      showToast.error(getApiErrorMessage(error, "체험 수정에 실패했습니다."));
     },
   });
 };
