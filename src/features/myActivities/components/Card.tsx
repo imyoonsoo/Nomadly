@@ -24,12 +24,15 @@ const Card = ({
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const deleteMutation = useDeleteMyActivityMutation(() => {
-    setIsConfirmModalOpen(false);
     showToast.success("체험이 삭제되었습니다.");
   });
 
   const handleDeleteConfirmButtonClick = () => {
-    deleteMutation.mutate(id);
+    deleteMutation.mutate(id, {
+      onSettled: () => {
+        setIsConfirmModalOpen(false);
+      },
+    });
   };
 
   return (
