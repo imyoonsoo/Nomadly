@@ -34,7 +34,7 @@ const WarningModal = ({
         <Button
           variant="whitenGray"
           height="custom"
-          className="w-28 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-34 md:h-12 md:py-[14px]"
+          className="w-28 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-34 md:h-[47px] md:py-[14px]"
           onClick={onClose}
         >
           {buttonTextLeft}
