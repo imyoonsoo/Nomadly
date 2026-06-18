@@ -1,11 +1,12 @@
 export type User = {
   id: number;
   nickname: string;
-  profileImageUrl?: string;
+  profileImageUrl?: string | null;
 };
 
 export type HeaderProps = {
-  user?: User | null;
+  user: User | null;
+  isScrolled: boolean;
 };
 
 export type AuthLink = {

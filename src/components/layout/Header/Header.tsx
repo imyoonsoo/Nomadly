@@ -12,18 +12,14 @@ import LogoSymbol from "@/assets/images/logo-symbol.svg";
 
 import Recommendation from "@/assets/icons/recommendation.svg";
 import Game from "@/assets/icons/game.svg";
-
-const TEST_USER = {
-  id: 1,
-  email: "test@test.com",
-  nickname: "정만철",
-  profileImageUrl: "",
-};
+import useGetProfile from "@/features/mypage/hooks/useGetProfile";
 
 const Header = ({ user }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const testUser = user ?? TEST_USER;
+  const { data: profile } = useGetProfile();
+
+  const userInfo = user ?? profile;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,9 +74,11 @@ const Header = ({ user }: HeaderProps) => {
             <Game className="w-6 h-6 md:w-7 md:h-7 text-yellow-500 hover:rotate-12 transition-all duration-200 hover:text-primary-500" />
           </Link>
 
-          {/* Todo: 로그인 기능 완료 후 수정 */}
-          {user ? <HeaderUserMenu user={user} /> : <HeaderGuestMenu />}
-          {/* <HeaderUserMenu user={testUser} /> */}
+          {userInfo ? (
+            <HeaderUserMenu user={userInfo} isScrolled={isScrolled} />
+          ) : (
+            <HeaderGuestMenu />
+          )}
         </nav>
       </div>
     </header>
