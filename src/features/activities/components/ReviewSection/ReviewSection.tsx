@@ -53,7 +53,7 @@ const ReviewSection = async ({ activityId }: GetActivityReviewsParams) => {
             매우 만족
           </span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7.5 p-5">
+        <div className="flex flex-col gap-7.5 p-5">
           {latestReviews.map((review) => (
             <ReviewCard
               key={review.id}
