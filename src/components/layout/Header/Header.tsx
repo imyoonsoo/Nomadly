@@ -31,7 +31,7 @@ const Header = ({ user }: HeaderProps) => {
 
   return (
     <header
-      className={`w-full h-12 fixed top-0 left-0 z-110 md:z-100 md:h-20 flex justify-center transition-colors duration-300 ${
+      className={`w-full h-12 fixed top-0 left-0 z-[110] md:z-100 md:h-20 flex justify-center transition-colors duration-300 ${
         isScrolled
           ? "bg-white shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
           : "bg-transparent shadow-none"

@@ -45,6 +45,8 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
       onSelect: async () => {
         showToast.success("로그아웃되었습니다.");
         await logoutAction();
+
+        router.refresh();
       },
     },
   ];
@@ -69,7 +71,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
           type="button"
           aria-label="알림"
           onClick={() => setIsNotificationOpen((prev) => !prev)}
-          className={`p-2 rounded-lg text-gray-600  duration-200 hover:-rotate-12 active:opacity-70 transition ${
+          className={`p-2 rounded-lg text-gray-600  duration-200 hover:-rotate-12 hover:text-primary-500 active:opacity-70 transition ${
             isNotificationOpen ? "text-primary-500" : "text-gray-600"
           }`}
         >

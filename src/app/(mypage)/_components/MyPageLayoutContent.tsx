@@ -4,11 +4,11 @@ import { usePathname } from "next/navigation";
 import SideMenu from "@/components/layout/SideMenu/SideMenu";
 import Footer from "@/components/layout/Footer/Footer";
 
-interface MyPageLayoutProps {
+interface MyPageLayoutContentProps {
   children: React.ReactNode;
 }
 
-const MyPageLayout = ({ children }: MyPageLayoutProps) => {
+const MyPageLayoutContent = ({ children }: MyPageLayoutContentProps) => {
   const pathname = usePathname();
 
   const isWideForm = pathname.startsWith("/activities");
@@ -24,4 +24,4 @@ const MyPageLayout = ({ children }: MyPageLayoutProps) => {
   );
 };
 
-export default MyPageLayout;
+export default MyPageLayoutContent;
