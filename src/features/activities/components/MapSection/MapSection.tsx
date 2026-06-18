@@ -1,14 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MapSectionProps from "./type";
 import { MapBlue } from "@/constants/icons";
+import Skeleton from "@/components/Skeleton/Skeleton";
 
 const KAKAO_MAP_LINK = "https://map.kakao.com/link/map";
 
 const MapSection = ({ address }: MapSectionProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const coordsRef = useRef<{ lat: number; lng: number } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleMapClick = useCallback(() => {
     const coords = coordsRef.current;
@@ -20,8 +22,12 @@ const MapSection = ({ address }: MapSectionProps) => {
 
   useEffect(() => {
     if (!address || !mapRef.current) {
+      setIsLoading(false);
       return;
     }
+
+    setIsLoading(true);
+    coordsRef.current = null;
 
     const container = mapRef.current;
 
@@ -30,6 +36,7 @@ const MapSection = ({ address }: MapSectionProps) => {
 
       geocoder.addressSearch(address, (result, status) => {
         if (status !== kakao.maps.services.Status.OK || !result[0]) {
+          setIsLoading(false);
           return;
         }
 
@@ -56,6 +63,7 @@ const MapSection = ({ address }: MapSectionProps) => {
         });
 
         kakao.maps.event.addListener(map, "click", handleMapClick);
+        setIsLoading(false);
       });
     };
 
@@ -94,20 +102,25 @@ const MapSection = ({ address }: MapSectionProps) => {
       <span className="text-14-medium font-semibold text-gray-950">
         {address}
       </span>
-      <div
-        ref={mapRef}
-        className="w-full h-45 md:h-75 lg:h-112.5 rounded-2xl cursor-pointer"
-        role="button"
-        tabIndex={0}
-        aria-label={`${address} 카카오맵에서 보기`}
-        onClick={handleMapClick}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            handleMapClick();
-          }
-        }}
-      />
+      <div className="relative w-full h-45 md:h-75 lg:h-112.5">
+        {isLoading && (
+          <Skeleton className="absolute inset-0 z-10 h-full w-full rounded-2xl" />
+        )}
+        <div
+          ref={mapRef}
+          className="h-full w-full rounded-2xl cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-label={`${address} 카카오맵에서 보기`}
+          onClick={handleMapClick}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              handleMapClick();
+            }
+          }}
+        />
+      </div>
     </div>
   );
 };
