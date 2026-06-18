@@ -12,14 +12,9 @@ import LogoSymbol from "@/assets/images/logo-symbol.svg";
 
 import Recommendation from "@/assets/icons/recommendation.svg";
 import Game from "@/assets/icons/game.svg";
-import useGetProfile from "@/features/mypage/hooks/useGetProfile";
 
 const Header = ({ user }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const { data: profile } = useGetProfile();
-
-  const userInfo = user ?? profile;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +31,7 @@ const Header = ({ user }: HeaderProps) => {
 
   return (
     <header
-      className={`w-full h-12 fixed top-0 left-0 z-[110] md:z-100 md:h-20 flex justify-center transition-colors duration-300 ${
+      className={`w-full h-12 fixed top-0 left-0 z-110 md:z-100 md:h-20 flex justify-center transition-colors duration-300 ${
         isScrolled
           ? "bg-white shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
           : "bg-transparent shadow-none"
@@ -74,8 +69,8 @@ const Header = ({ user }: HeaderProps) => {
             <Game className="w-6 h-6 md:w-7 md:h-7 text-yellow-500 hover:rotate-12 transition-all duration-200 hover:text-primary-500" />
           </Link>
 
-          {userInfo ? (
-            <HeaderUserMenu user={userInfo} isScrolled={isScrolled} />
+          {user ? (
+            <HeaderUserMenu user={user} isScrolled={isScrolled} />
           ) : (
             <HeaderGuestMenu />
           )}

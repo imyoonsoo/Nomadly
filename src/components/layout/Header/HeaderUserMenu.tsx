@@ -1,20 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import type { HeaderProps, User } from "./type";
+import type { User } from "./type";
 import Dropdown from "@/components/Dropdown/Dropdown";
 
 import BellIcon from "@/assets/icons/bell.svg";
 import DefaultProfileImage from "@/assets/images/default-profile.svg";
-import { useState } from "react";
+
 import NotificationModal from "@/features/notification/NotificationModal";
 import {
   useDeleteNotification,
   useNotifications,
 } from "@/features/notification/hook/useNotifications";
+import logoutAction from "@/features/login/actions/logoutAction";
+import { showToast } from "@/lib/utils/toast";
 
-const HeaderUserMenu = ({ user, isScrolled }: HeaderProps) => {
+interface HeaderUserMenuProps {
+  user: User;
+  isScrolled: boolean;
+}
+
+const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
   const router = useRouter();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
@@ -34,9 +42,9 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderProps) => {
     },
     {
       label: "로그아웃",
-      onSelect: () => {
-        // Todo: 로그아웃 로직 구현
-        alert("로그아웃!");
+      onSelect: async () => {
+        showToast.success("로그아웃되었습니다.");
+        await logoutAction();
       },
     },
   ];
@@ -92,7 +100,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderProps) => {
               isScrolled ? "hover:bg-gray-50" : "hover:bg-white/10"
             }`}
           >
-            {user?.profileImageUrl ? (
+            {user.profileImageUrl ? (
               <Image
                 src={user.profileImageUrl}
                 alt="프로필 이미지"
@@ -104,7 +112,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderProps) => {
               <DefaultProfileImage width={30} height={30} />
             )}
             <span className="text-14-medium text-gray-950">
-              {user?.nickname}
+              {user.nickname}
             </span>
           </button>
         )}

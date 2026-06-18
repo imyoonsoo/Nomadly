@@ -6,7 +6,6 @@ export type User = {
 
 export type HeaderProps = {
   user: User | null;
-  isScrolled: boolean;
 };
 
 export type AuthLink = {
