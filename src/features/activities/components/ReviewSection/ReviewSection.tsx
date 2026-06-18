@@ -7,7 +7,20 @@ import type {
   ActivityReviewsResponse,
 } from "@/features/activities/type";
 
-const REVIEW_DISPLAY_COUNT = 4;
+const REVIEW_DISPLAY_COUNT = 3;
+
+const getSatisfactionLabel = (averageRating: number): string => {
+  if (averageRating >= 4.5) {
+    return "매우 만족";
+  }
+  if (averageRating >= 4.0) {
+    return "만족";
+  }
+  if (averageRating >= 3.0) {
+    return "보통";
+  }
+  return "불만족";
+};
 
 const ReviewSection = async ({ activityId }: GetActivityReviewsParams) => {
   let reviewData: ActivityReviewsResponse;
@@ -19,7 +32,6 @@ const ReviewSection = async ({ activityId }: GetActivityReviewsParams) => {
       size: REVIEW_DISPLAY_COUNT,
     });
   } catch (error) {
-    console.error("Failed to get activity reviews:", error);
     reviewData = {
       averageRating: 0,
       totalCount: 0,
@@ -50,7 +62,7 @@ const ReviewSection = async ({ activityId }: GetActivityReviewsParams) => {
             {reviewData.averageRating}
           </span>
           <span className="text-14-bold md:text-16-bold text-gray-950">
-            매우 만족
+            {getSatisfactionLabel(reviewData.averageRating)}
           </span>
         </div>
         <div className="flex flex-col gap-7.5 p-5">
