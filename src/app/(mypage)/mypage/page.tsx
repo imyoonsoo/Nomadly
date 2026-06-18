@@ -1,8 +1,8 @@
 "use client";
 
-import ProfileEditForm from "@/features/mypage/components/ProfileEditForm/ProfileEditForm";
+import ProfileEditForm from "@/features/mypage/components/ProfileEditForm";
 const MyPage = () => {
-  return <ProfileEditForm></ProfileEditForm>;
+  return <ProfileEditForm />;
 };
 
 export default MyPage;
