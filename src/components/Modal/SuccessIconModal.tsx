@@ -21,7 +21,7 @@ const SuccessIconModal = ({
           alt="성공 아이콘"
           width={88}
           height={88}
-          className="w-[49px] h-[49px] md:w-[88px] md:h-[88px]"
+          className="w-[49px] h-[49px] md:w-22 md:h-22"
         />
         <p className="text-center text-16-bold md:text-18-bold">{message}</p>
       </div>
@@ -29,7 +29,7 @@ const SuccessIconModal = ({
       <Button
         variant="mainBlue"
         height="custom"
-        className="w-[180px] h-[41px] px-[20px] py-[4px] md:px-10 md:py-3 text-[14px] rounded-xl md:w-[200px] md:h-[47px] md:py-[14px]"
+        className="w-45 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-50 md:h-[47px] md:py-[14px]"
         onClick={onClose}
       >
         {buttonText}

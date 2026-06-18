@@ -131,7 +131,7 @@ const ReviewSubmitModal = ({
           type="submit"
           variant="mainBlue"
           height="custom"
-          className="w-full h-[41px] rounded-[12px] md:h-[54px]"
+          className="w-full h-[41px] rounded-xl md:h-[54px]"
         >
           작성하기
         </Button>

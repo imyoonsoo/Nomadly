@@ -3,15 +3,15 @@ import Skeleton from "@/components/Skeleton/Skeleton";
 const ReservedCardSkeleton = () => {
   return (
     <div className="pt-5 flex flex-col gap-3">
-      <Skeleton className="h-5 w-[120px] lg:h-6" />
-      <div className="relative rounded-[32px] h-[136px] w-full lg:w-[90%] lg:max-w-screen-sm lg:h-[181px] overflow-hidden shadow-[0_4px_24px_0_rgba(156,180,202,0.20)]">
-        <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-[32px] bg-white lg:px-10 lg:py-[30px]">
-          <Skeleton className="h-6 w-[60px] rounded-full" />
+      <Skeleton className="h-5 w-30 lg:h-6" />
+      <div className="relative rounded-4xl h-34 w-full lg:w-[90%] lg:max-w-screen-sm lg:h-45 overflow-hidden shadow-[0_4px_24px_0_rgba(156,180,202,0.20)]">
+        <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-4xl bg-white lg:px-10 lg:py-[30px]">
+          <Skeleton className="h-6 w-15 rounded-full" />
           <div className="flex flex-col gap-1">
             <Skeleton className="h-4 w-4/5 lg:h-5" />
             <Skeleton className="h-3.5 w-3/5 lg:h-4" />
           </div>
-          <Skeleton className="h-[18px] w-[100px] lg:h-5" />
+          <Skeleton className="h-[18px] w-25 lg:h-5" />
         </div>
         <div className="absolute right-0 top-0 h-full w-2/5">
           <Skeleton className="h-full w-full rounded-none" />
