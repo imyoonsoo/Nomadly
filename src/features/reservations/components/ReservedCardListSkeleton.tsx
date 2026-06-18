@@ -1,6 +1,6 @@
 import Skeleton from "@/components/Skeleton/Skeleton";
 
-const ReservedCardSkeleton = () => {
+export const ReservedCardSkeleton = () => {
   return (
     <div className="pt-5 flex flex-col gap-3">
       <Skeleton className="h-5 w-[120px] lg:h-6" />
