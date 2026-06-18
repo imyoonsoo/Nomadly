@@ -34,14 +34,7 @@ const ProfileImageInput = ({
     }
 
     const objectUrl = URL.createObjectURL(file);
-
-    setPreview((prev) => {
-      if (prev) {
-        URL.revokeObjectURL(prev);
-      }
-      return objectUrl;
-    });
-
+    setPreview(objectUrl);
     onFileSelect?.(file);
   };
 

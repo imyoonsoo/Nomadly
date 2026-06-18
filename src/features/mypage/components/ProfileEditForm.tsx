@@ -166,7 +166,7 @@ const ProfileEditForm = () => {
         onFileSelect={(file) => {
           setSelectedImage(file);
         }}
-        defaultImage={selectedImage ?? user.profileImageUrl}
+        defaultImage={user.profileImageUrl}
       />
 
       <form
