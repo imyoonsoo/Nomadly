@@ -24,8 +24,12 @@ const STATUS_MESSAGES: Record<string, string> = {
 
 const ProfileEditForm = () => {
   const { data: user, isLoading, isError, error } = useGetProfile();
-  const { mutate: updateProfile, isPending } = useUpdateProfile();
-  const { mutateAsync: uploadProfileImage } = useUploadProfileImage();
+  const { mutate: updateProfile, isPending: isProfileUpdating } =
+    useUpdateProfile();
+  const {
+    mutateAsync: uploadProfileImage,
+    isPending: isProfileImageUploading,
+  } = useUploadProfileImage();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const router = useRouter();
 
@@ -243,10 +247,10 @@ const ProfileEditForm = () => {
             type="submit"
             variant="mainBlue"
             height="47md"
-            disabled={isPending || !isValid}
+            disabled={isProfileUpdating || isProfileImageUploading || !isValid}
             className="w-full sm:w-auto"
           >
-            {isPending ? "변경사항 저장 중..." : "변경사항 저장하기"}
+            {isProfileUpdating ? "변경사항 저장 중..." : "변경사항 저장하기"}
           </Button>
         </div>
       </form>
