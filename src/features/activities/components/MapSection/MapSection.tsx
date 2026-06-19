@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import MapSectionProps from "./type";
+import { loadKakaoMapsSdk } from "./kakaoMapsLoader";
 import { MapBlue } from "@/constants/icons";
 import Skeleton from "@/components/Skeleton/Skeleton";
 
@@ -30,24 +31,28 @@ const MapSection = ({ address }: MapSectionProps) => {
     coordsRef.current = null;
 
     const container = mapRef.current;
+    let isCancelled = false;
 
     const initMap = () => {
-      const geocoder = new kakao.maps.services.Geocoder();
+      const maps = kakao.maps;
+      const geocoder = new maps.services.Geocoder();
 
       geocoder.addressSearch(address, (result, status) => {
-        if (status !== kakao.maps.services.Status.OK || !result[0]) {
-          setIsLoading(false);
+        if (isCancelled || status !== maps.services.Status.OK || !result[0]) {
+          if (!isCancelled) {
+            setIsLoading(false);
+          }
           return;
         }
 
         const lat = parseFloat(result[0].y);
         const lng = parseFloat(result[0].x);
         coordsRef.current = { lat, lng };
-        const center = new kakao.maps.LatLng(lat, lng);
+        const center = new maps.LatLng(lat, lng);
 
         container.innerHTML = "";
 
-        const map = new kakao.maps.Map(container, {
+        const map = new maps.Map(container, {
           center,
           level: 3,
           draggable: false,
@@ -57,37 +62,48 @@ const MapSection = ({ address }: MapSectionProps) => {
           keyboardShortcuts: false,
         });
 
-        new kakao.maps.Marker({
+        new maps.Marker({
           map,
           position: center,
         });
 
-        kakao.maps.event.addListener(map, "click", handleMapClick);
+        maps.event.addListener(map, "click", handleMapClick);
         setIsLoading(false);
       });
     };
 
-    const loadMap = () => {
-      if (!window.kakao?.maps) {
-        return false;
-      }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-      window.kakao.maps.load(initMap);
-      return true;
-    };
+        observer.disconnect();
 
-    if (loadMap()) {
-      return;
-    }
+        void loadKakaoMapsSdk()
+          .then(() => {
+            if (!isCancelled) {
+              kakao.maps.load(initMap);
+            }
+          })
+          .catch((error) => {
+            console.error("Kakao Maps SDK loading failed:", error);
+            if (!isCancelled) {
+              setIsLoading(false);
+            }
+          });
+      },
+      {
+        rootMargin: "300px 0px",
+      },
+    );
 
-    const timer = window.setInterval(() => {
-      if (loadMap()) {
-        window.clearInterval(timer);
-      }
-    }, 100);
+    observer.observe(container);
 
     return () => {
-      window.clearInterval(timer);
+      isCancelled = true;
+      observer.disconnect();
+      container.innerHTML = "";
     };
   }, [address, handleMapClick]);
 
@@ -108,7 +124,7 @@ const MapSection = ({ address }: MapSectionProps) => {
         )}
         <div
           ref={mapRef}
-          className="h-full w-full rounded-2xl cursor-pointer"
+          className="h-full w-full rounded-2xl cursor-pointer bg-gray-50"
           role="button"
           tabIndex={0}
           aria-label={`${address} 카카오맵에서 보기`}
