@@ -11,6 +11,7 @@ import ProfileImageInput from "@/components/ImageInput/ProfileImageInput";
 import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
+import { useRouter } from "next/navigation";
 
 // [리팩토링] 상태코드에 따른 에러메시지 처리 switch-case -> 객체
 const DEFAULT_ERR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요."; // 에러토스트 통일 위해 추가
@@ -26,6 +27,7 @@ const ProfileEditForm = () => {
   const { mutate: updateProfile, isPending } = useUpdateProfile();
   const { mutateAsync: uploadProfileImage } = useUploadProfileImage();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const router = useRouter();
 
   const {
     register,
@@ -115,6 +117,7 @@ const ProfileEditForm = () => {
               `${changedItems.join(", ")} 변경이 완료되었습니다.`,
             );
           }
+          router.refresh();
         },
         onError: (error) => {
           showToast.error(
