@@ -70,7 +70,7 @@ const ProfileEditForm = () => {
   // [리팩토링] watch -> useWatch
   // watch는 안전하게 메모이제이션할 수 없어 컴포넌트 최적화 대상에서 제외
   // 따라서 훅 기반인 useWatch로 교체
-  const newPassword = useWatch({ control, name: "newPassword" });
+  const newPassword = useWatch({ control, name: "newPassword" }) || ""; // useWatch 자체에서 newPassword 문자열로
 
   const handleProfileSubmit = async (data: ProfileEditFormValues) => {
     try {
@@ -244,9 +244,6 @@ const ProfileEditForm = () => {
           errorMessage={errors.newPasswordConfirm?.message}
           {...register("newPasswordConfirm", {
             validate: (value) => {
-              if (!newPassword) {
-                return true;
-              }
               return value === newPassword || "비밀번호가 일치하지 않습니다.";
             },
           })}
