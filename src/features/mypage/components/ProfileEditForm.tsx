@@ -107,7 +107,7 @@ const ProfileEditForm = () => {
             changedItems.push("비밀번호");
           }
           if (updatedProfile.profileImageUrl) {
-            changedItems.push("프로필이미지");
+            changedItems.push("프로필");
           }
 
           // 변경사항: 1개
