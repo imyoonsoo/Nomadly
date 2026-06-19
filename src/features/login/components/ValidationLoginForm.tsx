@@ -46,10 +46,10 @@ const ValidationLoginForm = () => {
   };
 
   return (
-    <>
+    <div className="w-full flex flex-col items-center self-stretch gap-6">
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
-        className="flex flex-col items-center gap-6 self-stretch"
+        className="w-full flex flex-col items-center gap-6 self-stretch"
       >
         <TextInput
           label="이메일"
@@ -92,10 +92,10 @@ const ValidationLoginForm = () => {
         </Button>
       </form>
 
-      <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center">
-        <div className="flex items-center gap-4 self-stretch">
+      <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center self-stretch">
+        <div className=" w-full flex items-center gap-4 self-stretch">
           <hr className="flex-1 border-gray-100" />
-          <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
+          <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px] shrink-0">
             OR
           </span>
           <hr className="flex-1 border-gray-100" />
@@ -127,7 +127,7 @@ const ValidationLoginForm = () => {
         onClose={() => setModalMessage("")}
         message={modalMessage}
       />
-    </>
+    </div>
   );
 };
 
