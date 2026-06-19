@@ -157,7 +157,7 @@ const SignupForm = () => {
             onChange={(e) => setAgreedTerms(e.target.checked)}
             className="w-4 h-4 cursor-pointer"
           />
-          <span className="text-primary-500 font-bold text-sm">
+          <span className="text-[#0E528A] font-medium text-sm">
             이용약관 및 개인정보 수집에 동의합니다.
           </span>
         </label>
