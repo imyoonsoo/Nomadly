@@ -16,6 +16,7 @@ import {
 } from "@/features/notification/hook/useNotifications";
 import logoutAction from "@/features/login/actions/logoutAction";
 import { showToast } from "@/lib/utils/toast";
+import { useClearUserSession } from "@/hooks/useUserSession";
 
 interface HeaderUserMenuProps {
   user: User;
@@ -28,6 +29,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
 
   const { data } = useNotifications();
   const deleteNotificationMutation = useDeleteNotification();
+  const clearUserSession = useClearUserSession();
 
   const notifications = data?.notifications ?? [];
   const totalCount = data?.totalCount ?? 0;
@@ -43,10 +45,11 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
     {
       label: "로그아웃",
       onSelect: async () => {
-        showToast.success("로그아웃되었습니다.");
         await logoutAction();
 
+        clearUserSession();
         router.refresh();
+        showToast.success("로그아웃되었습니다.");
       },
     },
   ];
