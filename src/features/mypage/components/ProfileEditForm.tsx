@@ -39,13 +39,14 @@ const ProfileEditForm = () => {
   } = useUploadProfileImage();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const router = useRouter();
+  const [isSaveConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors, isValid, dirtyFields },
+    formState: { errors, isValid, dirtyFields, isDirty },
   } = useForm<ProfileEditFormValues>({
     mode: "onBlur",
     defaultValues: {
@@ -73,6 +74,7 @@ const ProfileEditForm = () => {
   const newPassword = useWatch({ control, name: "newPassword" }) || ""; // useWatch 자체에서 newPassword 문자열로
 
   const handleProfileSubmit = async (data: ProfileEditFormValues) => {
+    setIsConfirmModalOpen(false);
     try {
       if (data.newPassword && data.newPassword !== data.newPasswordConfirm) {
         showToast.error("비밀번호가 일치하지 않습니다.");
@@ -249,13 +251,26 @@ const ProfileEditForm = () => {
           })}
         />
 
-        <div className="px-6">
+        <div className="flex gap-3 px-6">
+          <Button
+            type="button"
+            variant="whitenGray"
+            height="47md"
+            onClick={() => router.back()}
+          >
+            취소
+          </Button>
           <Button
             type="submit"
             variant="mainBlue"
             height="47md"
-            disabled={isProfileUpdating || isProfileImageUploading || !isValid}
-            className="w-full sm:w-auto"
+            disabled={
+              isProfileUpdating ||
+              isProfileImageUploading ||
+              !isValid ||
+              (!isDirty && !selectedImage)
+            }
+            className="w-full max-w-81.75 md:w-10.25 whitespace-nowrap"
           >
             {isProfileUpdating ? "변경사항 저장 중..." : "변경사항 저장하기"}
           </Button>
