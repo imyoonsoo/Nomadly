@@ -14,7 +14,7 @@ import { showToast } from "@/lib/utils/toast";
 import { useRouter } from "next/navigation";
 
 // [리팩토링] 상태코드에 따른 에러메시지 처리 switch-case -> 객체
-const DEFAULT_ERR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요."; // 에러토스트 통일 위해 추가
+const DEFAULT_ERROR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요."; // 에러토스트 통일 위해 추가
 
 const STATUS_MESSAGES: Record<string, string> = {
   "400": "입력한 내용이 올바른지 확인해주세요.",
@@ -121,15 +121,15 @@ const ProfileEditForm = () => {
         },
         onError: (error) => {
           showToast.error(
-            STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE,
+            STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE,
           );
         },
       });
     } catch (error) {
       showToast.error(
         error instanceof Error
-          ? (STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE)
-          : DEFAULT_ERR_MESSAGE,
+          ? (STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE)
+          : DEFAULT_ERROR_MESSAGE,
       );
     }
   };
@@ -145,7 +145,7 @@ const ProfileEditForm = () => {
   if (isError) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-lg md:text-xl text-red-600 font-medium">
-        {STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE}
+        {STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE}
       </div>
     );
   }
