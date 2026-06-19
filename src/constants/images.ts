@@ -1,6 +1,6 @@
 import DefaultProfile from "@/assets/images/default-profile.svg";
 import Empty from "@/assets/images/empty.svg";
-import LogoPcTablet from "@/assets/images/logo-pctablet-withtext.svg";
+import LogoPcTablet from "../../public/logo-text.svg";
 import LogoMobile from "@/assets/images/logo-symbol.svg";
 import MockImage1 from "@/assets/images/mock-image1.png";
 import MockImage2 from "@/assets/images/mock-image2.png";
