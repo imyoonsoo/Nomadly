@@ -150,9 +150,12 @@ const ProfileEditForm = () => {
   }
 
   if (isError) {
+    const errorMessage = error
+      ? (STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE)
+      : DEFAULT_ERROR_MESSAGE;
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-lg md:text-xl text-red-600 font-medium">
-        {STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE}
+        {errorMessage}
       </div>
     );
   }
