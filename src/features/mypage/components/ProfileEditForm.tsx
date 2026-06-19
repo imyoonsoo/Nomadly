@@ -12,8 +12,7 @@ import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 
-// [추가] 상태코드를 받아 에러메시지로 변환하는 getErrMessage
-// [리팩토링] switch-case에서 객체로
+// [리팩토링] 상태코드에 따른 에러메시지 처리 switch-case -> 객체
 const DEFAULT_ERR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요."; // 에러토스트 통일 위해 추가
 
 const STATUS_MESSAGES: Record<string, string> = {
@@ -33,7 +32,7 @@ const ProfileEditForm = () => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors, isValid, isDirty, dirtyFields },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<ProfileEditFormValues>({
     mode: "onBlur",
     defaultValues: {
@@ -67,17 +66,17 @@ const ProfileEditForm = () => {
       // MyProfileRequestBody에 내 정보 변경사항 추가
       const updatedProfile: MyProfileRequestBody = {};
 
-      // 닉네임 변경 시
+      // 닉네임 변경 시 업데이트
       if (dirtyFields.nickname) {
         updatedProfile.nickname = data.nickname;
       }
 
-      // 비밀번호 변경 시
+      // 비밀번호 변경 시 업데이트
       if (data.newPassword) {
         updatedProfile.newPassword = data.newPassword;
       }
 
-      // 프로필이미지 변경 시
+      // 프로필 변경 시 업데이트
       if (selectedImage) {
         const formData = new FormData();
         formData.append("image", selectedImage);
@@ -91,10 +90,10 @@ const ProfileEditForm = () => {
         return;
       }
 
-      // 변경사항 O ➝ 프로필 업데이트 API 호출
+      // 변경사항 O ➝ 프로필 수정/변경 API 호출
       updateProfile(updatedProfile, {
         onSuccess: () => {
-          // 변경에 따른 토스 다르게 보이게
+          // 각 변경사항마다 토스트 다르게 띄워지도록
           const changedItems: string[] = [];
           if (updatedProfile.nickname) {
             changedItems.push("닉네임");
@@ -110,7 +109,7 @@ const ProfileEditForm = () => {
           if (changedItems.length === 1) {
             showToast.success(`${changedItems[0]} 변경이 완료되었습니다.`);
           }
-          // 변경사항: 1개 이상
+          // 변경사항: 1개 이상 -> ,로 이어 토스트에 표시
           else {
             showToast.success(
               `${changedItems.join(", ")} 변경이 완료되었습니다.`,
@@ -134,7 +133,7 @@ const ProfileEditForm = () => {
 
   if (isLoading || !user) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center text-center text-xl text-gray-950 font-medium">
+      <div className="flex min-h-[50vh] items-center justify-center text-center text-lg md:text-xl text-gray-950 font-medium">
         내 정보 로딩 중...
       </div>
     );
@@ -142,7 +141,7 @@ const ProfileEditForm = () => {
 
   if (isError) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center text-xl text-red-600 font-medium">
+      <div className="flex min-h-[50vh] items-center justify-center text-lg md:text-xl text-red-600 font-medium">
         {STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE}
       </div>
     );
@@ -194,7 +193,7 @@ const ProfileEditForm = () => {
         <TextInput
           label="새 비밀번호"
           type="password"
-          placeholder="8자 이상 입력해 주세요"
+          placeholder="8자 이상 입력해주세요"
           className="self-stretch"
           errorMessage={errors.newPassword?.message}
           {...register("newPassword", {
@@ -203,7 +202,7 @@ const ProfileEditForm = () => {
                 return true;
               }
               if (value.length < 8) {
-                return "8자 이상 입력해 주세요.";
+                return "8자 이상 입력해주세요.";
               }
               if (
                 !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~\-])\S+$/.test(
@@ -220,7 +219,7 @@ const ProfileEditForm = () => {
         <TextInput
           label="비밀번호 확인"
           type="password"
-          placeholder="비밀번호를 한 번 더 입력해 주세요"
+          placeholder="비밀번호를 한 번 더 입력해주세요"
           className="self-stretch"
           errorMessage={errors.newPasswordConfirm?.message}
           {...register("newPasswordConfirm", {
