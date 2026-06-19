@@ -1,15 +1,18 @@
 import Image from "next/image";
-import { StarOn } from "@/constants/icons";
 import { DefaultProfile } from "@/constants/images";
 import ReviewCardProps from "./type";
+import formatDotDate from "@/lib/utils/formatDate";
+import StarRating from "../StarRating/StarRating";
 
 const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
+  const formattedDate = formatDotDate(createdAt);
+
   return (
-    <div className="flex flex-col gap-2 md:gap-3 p-5 rounded-3xl bg-[#E5F3FF] shadow-[0_4px_24px_rgba(156,180,202,0.2)] w-full h-61.5">
-      <div className="flex">
+    <div className="flex flex-col gap-4 md:gap-5 p-5 rounded-3xl bg-[#E5F3FF] shadow-[0_4px_24px_rgba(156,180,202,0.2)] w-full h-auto">
+      <div className="flex items-center">
         <div className="flex grow">
-          <div className="flex gap-3">
-            <div className="h-10.5 w-10.5 overflow-hidden rounded-full border-2 border-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex gap-3 justify-center items-center">
+            <div className="relative h-10.5 w-10.5 overflow-hidden rounded-full border-2 border-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
               {user.profileImageUrl ? (
                 <Image
                   src={user.profileImageUrl}
@@ -21,24 +24,23 @@ const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
                 <DefaultProfile className="h-full w-full object-cover" />
               )}
             </div>
-            <div className="flex justify-start items-center gap-2">
+            <div className="flex flex-col gap-1">
               <span className="text-14-bold md:text-16-bold font-semibold text-gray-950">
                 {user.nickname}
               </span>
-              <span className="text-12-medium md:text-14-medium md:font-medium text-gray-400">
-                {createdAt}
-              </span>
+              <StarRating rating={rating} />
             </div>
           </div>
-        </div>
-        <div className="flex justify-center items-center gap-0.5">
-          <StarOn className="w-4 h-4" />
-          <span className="text-16-bold text-gray-500">{rating}</span>
         </div>
       </div>
       <p className="text-14-medium font-normal md:font-normal md:text-16-medium text-gray-950">
         {content}
       </p>
+      <div className="flex w-full justify-end">
+        <span className="text-12-medium md:text-14-medium md:font-medium text-gray-400">
+          {formattedDate}
+        </span>
+      </div>
     </div>
   );
 };
