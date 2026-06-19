@@ -87,7 +87,6 @@ const SignupForm = () => {
         onSubmit={handleSubmit(postSignup)}
         className="w-full flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일 입력 */}
         <TextInput
           label="이메일"
           type="email"
@@ -103,7 +102,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 닉네임 입력 */}
         <TextInput
           label="닉네임"
           placeholder="닉네임을 입력해 주세요"
@@ -118,7 +116,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 비밀번호 입력 */}
         <TextInput
           label="비밀번호"
           type="password"
@@ -140,7 +137,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -154,7 +150,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 이용약관동의서 */}
         <label className="flex items-center gap-2 self-stretch text-sm text-gray-600 cursor-pointer select-none">
           <input
             type="checkbox"
@@ -167,7 +162,6 @@ const SignupForm = () => {
           </span>
         </label>
 
-        {/* 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
@@ -187,7 +181,6 @@ const SignupForm = () => {
         <hr className="flex-1 border-gray-100" />
       </div>
 
-      {/* 카카오 회원가입 */}
       <Button
         type="button"
         variant="easyKakao"
@@ -201,7 +194,6 @@ const SignupForm = () => {
         카카오 회원가입
       </Button>
 
-      {/* 로그인 바로가기 */}
       <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
@@ -209,7 +201,6 @@ const SignupForm = () => {
         </Link>
       </p>
 
-      {/* 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={startLogin}
