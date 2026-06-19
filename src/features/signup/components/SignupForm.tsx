@@ -80,7 +80,7 @@ const SignupForm = () => {
     };
   }, []);
 
-  const [agreedTerms, setAgreedTerms] = useState(false);
+  const [isAgreedTerms, setIsAgreedTerms] = useState(false);
   return (
     <div className="w-full flex flex-col items-center gap-6 self-stretch">
       <form
@@ -153,8 +153,8 @@ const SignupForm = () => {
         <label className="flex items-center gap-2 self-stretch text-sm text-gray-600 cursor-pointer select-none">
           <input
             type="checkbox"
-            checked={agreedTerms}
-            onChange={(e) => setAgreedTerms(e.target.checked)}
+            checked={isAgreedTerms}
+            onChange={(e) => setIsAgreedTerms(e.target.checked)}
             className="w-4 h-4 cursor-pointer"
           />
           <span className="text-[#0E528A] font-medium text-sm">
@@ -166,7 +166,7 @@ const SignupForm = () => {
           type="submit"
           variant="mainBlue"
           height="54lg"
-          disabled={!(isValid && agreedTerms)}
+          disabled={!(isValid && isAgreedTerms)}
           className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
         >
           GlobalNomad 회원가입하기
