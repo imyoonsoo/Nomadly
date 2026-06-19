@@ -12,18 +12,14 @@ import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 
-// [추가/수정] switch-case로 상태코드를 받아 에러메시지로 변환하는 함수
-const getErrorMessage = (statusCode: string): string => {
-  switch (statusCode) {
-    case "400":
-      return "입력하신 내용이 올바른지 확인해 주세요.";
-    case "401":
-      return "로그인 후 다시 시도해 주세요.";
-    case "404":
-      return "사용자 정보가 존재하지 않습니다.";
-    default:
-      return "오류가 발생했어요. 잠시 후 다시 시도해 주세요.";
-  }
+// [추가] 상태코드를 받아 에러메시지로 변환하는 getErrMessage
+// [리팩토링] switch-case에서 객체로
+const DEFAULT_ERR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요."; // 에러토스트 통일 위해 추가
+
+const STATUS_MESSAGES: Record<string, string> = {
+  "400": "입력한 내용이 올바른지 확인해주세요.",
+  "401": "로그인 후 다시 시도해주세요.",
+  "404": "사용자 정보가 존재하지 않습니다.",
 };
 
 const ProfileEditForm = () => {
@@ -64,11 +60,11 @@ const ProfileEditForm = () => {
   const handleProfileSubmit = async (data: ProfileEditFormValues) => {
     try {
       if (data.newPassword && data.newPassword !== data.newPasswordConfirm) {
-        showToast.error("새 비밀번호가 일치하지 않습니다.");
+        showToast.error("비밀번호가 일치하지 않습니다.");
         return;
       }
 
-      // 빈 객체에 내 정보 수정사항 저장
+      // MyProfileRequestBody에 내 정보 변경사항 추가
       const updatedProfile: MyProfileRequestBody = {};
 
       // 닉네임 변경 시
@@ -98,7 +94,7 @@ const ProfileEditForm = () => {
       // 변경사항 O ➝ 프로필 업데이트 API 호출
       updateProfile(updatedProfile, {
         onSuccess: () => {
-          // 변경에 따른 토스트메시지 다르게 보이게
+          // 변경에 따른 토스 다르게 보이게
           const changedItems: string[] = [];
           if (updatedProfile.nickname) {
             changedItems.push("닉네임");
@@ -114,7 +110,7 @@ const ProfileEditForm = () => {
           if (changedItems.length === 1) {
             showToast.success(`${changedItems[0]} 변경이 완료되었습니다.`);
           }
-          // [수정] 변경사항: 1개 이상
+          // 변경사항: 1개 이상
           else {
             showToast.success(
               `${changedItems.join(", ")} 변경이 완료되었습니다.`,
@@ -122,19 +118,20 @@ const ProfileEditForm = () => {
           }
         },
         onError: (error) => {
-          showToast.error(getErrorMessage(error.message));
+          showToast.error(
+            STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE,
+          );
         },
       });
     } catch (error) {
       showToast.error(
         error instanceof Error
-          ? getErrorMessage(error.message)
-          : "정보 변경 중 오류가 발생했습니다",
+          ? (STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE)
+          : DEFAULT_ERR_MESSAGE,
       );
     }
   };
 
-  // [수정]
   if (isLoading || !user) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-center text-xl text-gray-950 font-medium">
@@ -146,7 +143,7 @@ const ProfileEditForm = () => {
   if (isError) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-xl text-red-600 font-medium">
-        {getErrorMessage(error.message)}
+        {STATUS_MESSAGES[error.message] ?? DEFAULT_ERR_MESSAGE}
       </div>
     );
   }
@@ -179,10 +176,10 @@ const ProfileEditForm = () => {
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "닉네임을 입력해 주세요.",
+            required: "닉네임을 입력해주세요.",
             maxLength: {
               value: 10,
-              message: "닉네임은 10자 이하로 입력해 주세요.",
+              message: "닉네임은 10자 이하로 입력해주세요.",
             },
           })}
         />
@@ -213,7 +210,7 @@ const ProfileEditForm = () => {
                   value,
                 )
               ) {
-                return "영문, 숫자, 특수문자를 각각 1자 이상 조합해 입력해 주세요.";
+                return "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해주세요.";
               }
               return true;
             },
@@ -221,7 +218,7 @@ const ProfileEditForm = () => {
         />
 
         <TextInput
-          label="새 비밀번호 확인"
+          label="비밀번호 확인"
           type="password"
           placeholder="비밀번호를 한 번 더 입력해 주세요"
           className="self-stretch"
@@ -231,7 +228,7 @@ const ProfileEditForm = () => {
               if (!newPassword) {
                 return true;
               }
-              return value === newPassword || "비밀번호가 일치하지 않습니다";
+              return value === newPassword || "비밀번호가 일치하지 않습니다.";
             },
           })}
         />
