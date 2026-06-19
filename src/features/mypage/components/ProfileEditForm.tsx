@@ -91,7 +91,7 @@ const ProfileEditForm = () => {
 
       // 변경사항 X ➝ 조기 리턴
       if (Object.keys(updatedProfile).length === 0) {
-        showToast("수정 사항이 없습니다.");
+        showToast("변경사항이 없습니다.");
         return;
       }
 
@@ -129,7 +129,7 @@ const ProfileEditForm = () => {
       showToast.error(
         error instanceof Error
           ? getErrorMessage(error.message)
-          : "프로필 수정 중 오류가 발생했습니다",
+          : "정보 변경 중 오류가 발생했습니다",
       );
     }
   };
