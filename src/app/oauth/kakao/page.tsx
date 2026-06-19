@@ -8,11 +8,12 @@ import {
 } from "@/features/login/actions/kakaoOAuthAction";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
+import EmptyLoading from "@/assets/images/empty-loading.svg";
 
 // TODO: 임시로 생성한 상태. 로딩 UI 추가필요
 const KakaoCallbackLoading = () => (
   <div className="flex items-center justify-center h-screen">
-    카카오 로그인 처리 중...
+    <EmptyLoading width={200} height={200} />
   </div>
 );
 
@@ -40,6 +41,7 @@ const KakaoCallbackContent = () => {
       if (result.success) {
         router.push("/");
       } else if (result.isNewUser) {
+        //신규회원이 회원가입을 클릭한 경우에만 닉네임 입력 창이 나타나도록
         if (state === "signup") {
           setIsNeedNickname(true);
         }
