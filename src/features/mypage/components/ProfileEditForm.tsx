@@ -11,7 +11,6 @@ import ProfileImageInput from "@/components/ImageInput/ProfileImageInput";
 import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
-import { useRouter } from "next/navigation";
 
 // [추가/수정] switch-case로 상태코드를 받아 에러메시지로 변환하는 함수
 const getErrorMessage = (statusCode: string): string => {
@@ -28,7 +27,6 @@ const getErrorMessage = (statusCode: string): string => {
 };
 
 const ProfileEditForm = () => {
-  const router = useRouter();
   const { data: user, isLoading, isError, error } = useGetProfile();
   const { mutate: updateProfile, isPending } = useUpdateProfile();
   const { mutateAsync: uploadProfileImage } = useUploadProfileImage();
@@ -122,7 +120,6 @@ const ProfileEditForm = () => {
               `${changedItems.join(", ")} 변경이 완료되었습니다.`,
             );
           }
-          router.refresh();
         },
         onError: (error) => {
           showToast.error(getErrorMessage(error.message));
