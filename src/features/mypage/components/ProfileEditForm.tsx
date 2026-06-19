@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { ProfileEditFormValues, MyProfileRequestBody } from "../type";
 import useGetProfile from "../hooks/useGetProfile";
@@ -32,7 +32,7 @@ const ProfileEditForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     reset,
     formState: { errors, isValid, dirtyFields },
   } = useForm<ProfileEditFormValues>({
@@ -56,7 +56,10 @@ const ProfileEditForm = () => {
     }
   }, [user, reset]); // 유저 데이터가 캐싱되거나 새롭게 들어올 때마다 실행
 
-  const newPassword = watch("newPassword");
+  // [리팩토링] watch -> useWatch
+  // watch는 안전하게 메모이제이션할 수 없어 컴포넌트 최적화 대상에서 제외
+  // 따라서 훅 기반인 useWatch로 교체
+  const newPassword = useWatch({ control, name: "newPassword" });
 
   const handleProfileSubmit = async (data: ProfileEditFormValues) => {
     try {
