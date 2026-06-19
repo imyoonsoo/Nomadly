@@ -36,17 +36,17 @@ const KakaoCallbackContent = () => {
     }
     codeRef.current = authCode;
 
-    if (state === "signup") {
-      setIsNeedNickname(true);
-      return;
-    }
-
     kakaoSignInAction(authCode).then((result) => {
       if (result.success) {
         router.push("/");
       } else if (result.isNewUser) {
+        if (state === "signup") {
+          setIsNeedNickname(true);
+        }
         // sign-in 시도에서 코드가 이미 소비됨 → 새 코드를 받아 회원가입 플로우로 재진입
-        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
+        else {
+          window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
+        }
       } else {
         router.push("/login");
       }
