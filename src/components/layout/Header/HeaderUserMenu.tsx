@@ -48,7 +48,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
         await logoutAction();
 
         clearUserSession();
-        router.refresh();
+        router.replace("/");
         showToast.success("로그아웃되었습니다.");
       },
     },
