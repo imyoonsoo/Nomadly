@@ -13,13 +13,20 @@ import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 import { useRouter } from "next/navigation";
 
-// [리팩토링] 상태코드에 따른 에러메시지 처리 switch-case -> 객체
-const DEFAULT_ERROR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요."; // 에러토스트 통일 위해 추가
+// [리팩토링] 에러메시지 문구를 상수화하여 통일성 확보
+const DEFAULT_ERROR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요.";
 
+// [리팩토링] 상태코드에 따른 에러메시지 처리 (switch-case -> 객체)
 const STATUS_MESSAGES: Record<string, string> = {
   "400": "입력한 내용이 올바른지 확인해주세요.",
   "401": "로그인 후 다시 시도해주세요.",
   "404": "사용자 정보가 존재하지 않습니다.",
+};
+
+// [리팩토링] 중복되던 에러메시지 로직 함수로 줄이고자 함
+const toErrorMessage = (error: unknown): string => {
+  const status = error instanceof Error ? error.message : "";
+  return STATUS_MESSAGES[status] ?? DEFAULT_ERROR_MESSAGE;
 };
 
 const ProfileEditForm = () => {
@@ -99,9 +106,18 @@ const ProfileEditForm = () => {
         return;
       }
 
-      // 변경사항 O ➝ 프로필 수정/변경 API 호출
+      // 변경사항 O ➝ 프로필 수정 API 호출
       updateProfile(updatedProfile, {
+        // 저장 성공 시 ProfileEditForm 초기화하여 변경 감지 상태 리셋
         onSuccess: () => {
+          reset({
+            nickname: data.nickname,
+            email: data.email,
+            newPassword: "",
+            newPasswordConfirm: "",
+          });
+          setSelectedImage(null);
+
           // 각 변경사항마다 토스트 다르게 띄워지도록
           const changedItems: string[] = [];
           if (updatedProfile.nickname) {
@@ -127,17 +143,11 @@ const ProfileEditForm = () => {
           router.refresh();
         },
         onError: (error) => {
-          showToast.error(
-            STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE,
-          );
+          showToast.error(toErrorMessage(error));
         },
       });
     } catch (error) {
-      showToast.error(
-        error instanceof Error
-          ? (STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE)
-          : DEFAULT_ERROR_MESSAGE,
-      );
+      showToast.error(toErrorMessage(error));
     }
   };
 
@@ -150,12 +160,9 @@ const ProfileEditForm = () => {
   }
 
   if (isError) {
-    const errorMessage = error
-      ? (STATUS_MESSAGES[error.message] ?? DEFAULT_ERROR_MESSAGE)
-      : DEFAULT_ERROR_MESSAGE;
     return (
       <div className="flex min-h-[50vh] items-center justify-center text-lg md:text-xl text-red-600 font-medium">
-        {errorMessage}
+        {toErrorMessage(error)}
       </div>
     );
   }
