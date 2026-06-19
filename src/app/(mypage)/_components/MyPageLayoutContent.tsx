@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import SideMenu from "@/components/layout/SideMenu/SideMenu";
-import Footer from "@/components/layout/Footer/Footer";
 
 interface MyPageLayoutContentProps {
   children: React.ReactNode;
@@ -19,7 +18,6 @@ const MyPageLayoutContent = ({ children }: MyPageLayoutContentProps) => {
         {!isWideForm && <SideMenu />}
         <section className="flex-1 min-w-0">{children}</section>
       </main>
-      <Footer />
     </div>
   );
 };

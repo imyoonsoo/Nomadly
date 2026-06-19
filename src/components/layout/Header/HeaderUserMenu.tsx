@@ -75,7 +75,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
             isNotificationOpen ? "text-primary-500" : "text-gray-600"
           }`}
         >
-          <BellIcon width={24} height={24} />
+          <BellIcon className="w-5 h-5 md:w-6 md:h-6" />
 
           {hasNotification && (
             <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white" />
@@ -92,7 +92,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
         )}
       </div>
       <div
-        className={`w-px h-3.5 rounded-3xl ${isScrolled ? "bg-gray-100" : "bg-gray-400"}`}
+        className={`w-px h-4 rounded-full ${isScrolled ? "bg-gray-100" : "bg-gray-400"}`}
       />
       <Dropdown options={profileMenus}>
         {({ toggle }) => (
@@ -113,7 +113,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
             ) : (
               <DefaultProfileImage width={30} height={30} />
             )}
-            <span className="text-14-medium text-gray-950">
+            <span className="text-14-medium text-gray-950 hidden md:block">
               {user.nickname}
             </span>
           </button>
