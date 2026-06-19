@@ -178,10 +178,10 @@ const ProfileEditForm = () => {
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "닉네임을 입력해주세요.",
+            required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "닉네임은 10자 이하로 입력해주세요.",
+              message: "닉네임은 10자 이하로 입력해 주세요.",
             },
           })}
         />
@@ -196,7 +196,7 @@ const ProfileEditForm = () => {
         <TextInput
           label="새 비밀번호"
           type="password"
-          placeholder="8자 이상 입력해주세요"
+          placeholder="8자 이상 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.newPassword?.message}
           {...register("newPassword", {
@@ -205,14 +205,14 @@ const ProfileEditForm = () => {
                 return true;
               }
               if (value.length < 8) {
-                return "8자 이상 입력해주세요.";
+                return "8자 이상 입력해 주세요.";
               }
               if (
                 !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~\-])\S+$/.test(
                   value,
                 )
               ) {
-                return "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해주세요.";
+                return "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해 주세요.";
               }
               return true;
             },
@@ -222,7 +222,7 @@ const ProfileEditForm = () => {
         <TextInput
           label="비밀번호 확인"
           type="password"
-          placeholder="비밀번호를 한 번 더 입력해주세요"
+          placeholder="비밀번호를 한 번 더 입력해 주세요"
           className="self-stretch"
           errorMessage={errors.newPasswordConfirm?.message}
           {...register("newPasswordConfirm", {
