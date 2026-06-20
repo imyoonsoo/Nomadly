@@ -15,7 +15,9 @@ const BannerImageItem = ({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      {isLoading && <Skeleton className="absolute inset-0 z-10 h-full w-full" />}
+      {isLoading && (
+        <Skeleton className="absolute inset-0 z-10 h-full w-full" />
+      )}
       <Image
         src={src}
         alt={alt}
@@ -32,10 +34,10 @@ const SCROLL_EDGE_OFFSET = 1;
 
 const BannerImageFiveGallery = ({ images }: { images: string[] }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(true);
+  const [isPrevScrollable, setIsPrevScrollable] = useState(false);
+  const [isNextScrollable, setIsNextScrollable] = useState(true);
 
-  const updateScrollState = useCallback(() => {
+  const handleContainerScroll = useCallback(() => {
     const container = scrollRef.current;
 
     if (!container) {
@@ -44,19 +46,21 @@ const BannerImageFiveGallery = ({ images }: { images: string[] }) => {
 
     const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-    setCanScrollPrev(container.scrollLeft > SCROLL_EDGE_OFFSET);
-    setCanScrollNext(container.scrollLeft < maxScrollLeft - SCROLL_EDGE_OFFSET);
+    setIsPrevScrollable(container.scrollLeft > SCROLL_EDGE_OFFSET);
+    setIsNextScrollable(
+      container.scrollLeft < maxScrollLeft - SCROLL_EDGE_OFFSET,
+    );
   }, []);
 
   useEffect(() => {
-    updateScrollState();
-  }, [updateScrollState, images]);
+    handleContainerScroll();
+  }, [handleContainerScroll, images]);
 
-  const handlePrevClick = () => {
+  const handlePrevButtonClick = () => {
     scrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
   };
 
-  const handleNextClick = () => {
+  const handleNextButtonClick = () => {
     const container = scrollRef.current;
 
     if (!container) {
@@ -73,7 +77,7 @@ const BannerImageFiveGallery = ({ images }: { images: string[] }) => {
     <div className="relative h-81.75 w-full md:h-100">
       <div
         ref={scrollRef}
-        onScroll={updateScrollState}
+        onScroll={handleContainerScroll}
         className="scrollbar-hide h-full snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-3xl"
       >
         <div className="flex h-full w-[150%] min-w-full gap-3">
@@ -95,23 +99,23 @@ const BannerImageFiveGallery = ({ images }: { images: string[] }) => {
         </div>
       </div>
 
-      {canScrollPrev && (
+      {isPrevScrollable && (
         <button
           type="button"
           aria-label="이전 이미지"
           className="absolute -left-5 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
-          onClick={handlePrevClick}
+          onClick={handlePrevButtonClick}
         >
           <ArrowRight className="rotate-180" />
         </button>
       )}
 
-      {canScrollNext && (
+      {isNextScrollable && (
         <button
           type="button"
           aria-label="다음 이미지"
           className="absolute -right-5 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
-          onClick={handleNextClick}
+          onClick={handleNextButtonClick}
         >
           <ArrowRight />
         </button>
