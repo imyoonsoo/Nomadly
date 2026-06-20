@@ -2,15 +2,12 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Map, More, StarOn } from "@/constants/icons";
 import TitleSectionProps from "./type";
 import Dropdown from "@/components/Dropdown/Dropdown";
 import WarningModal from "@/components/Modal/WarningModal";
-import { deleteMyActivity } from "@/features/myActivities/api";
+import useDeleteMyActivityMutation from "@/features/myActivities/hooks/useDeleteActivityMutation";
 import { useUserSession } from "@/hooks/useUserSession";
-import { showToast } from "@/lib/utils/toast";
-import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
 const TitleSection = ({
   id,
@@ -22,27 +19,24 @@ const TitleSection = ({
   rating,
 }: TitleSectionProps) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const { data: session } = useUserSession();
   const isOwner = session?.userId === userId;
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const deleteMutation = useMutation({
-    mutationFn: deleteMyActivity,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["my-activities"],
-      });
-      setIsDeleteModalOpen(false);
-      router.push("/mypage/activities");
-    },
-    onError: (error) => {
-      showToast.error(getApiErrorMessage(error, "체험 삭제에 실패했습니다."));
-    },
+  const deleteMutation = useDeleteMyActivityMutation(() => {
+    router.push("/mypage/activities");
   });
 
   const handleDeleteConfirm = () => {
-    deleteMutation.mutate(id);
+    if (deleteMutation.isPending) {
+      return;
+    }
+
+    deleteMutation.mutate(id, {
+      onSettled: () => {
+        setIsDeleteModalOpen(false);
+      },
+    });
   };
 
   const options = useMemo(
@@ -99,7 +93,7 @@ const TitleSection = ({
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={handleDeleteConfirm}
         message="체험을 삭제하시겠습니까?"
-      />{" "}
+      />
     </>
   );
 };
