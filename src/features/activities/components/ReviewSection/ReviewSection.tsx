@@ -10,6 +10,9 @@ import type {
 const REVIEW_DISPLAY_COUNT = 3;
 
 const getSatisfactionLabel = (averageRating: number): string => {
+  if (averageRating === 0) {
+    return "리뷰 없음";
+  }
   if (averageRating >= 4.5) {
     return "매우 만족";
   }
@@ -19,6 +22,7 @@ const getSatisfactionLabel = (averageRating: number): string => {
   if (averageRating >= 3.0) {
     return "보통";
   }
+
   return "불만족";
 };
 
