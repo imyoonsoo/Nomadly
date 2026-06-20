@@ -19,7 +19,7 @@ const getKakaoMapsScriptUrl = () => {
   return scriptUrl.toString();
 };
 
-export const loadKakaoMapsSdk = () => {
+const loadKakaoMapsSdk = () => {
   const kakaoWindow = window as Window & {
     kakao?: { maps?: unknown };
   };
@@ -67,3 +67,5 @@ export const loadKakaoMapsSdk = () => {
 
   return kakaoMapsPromise;
 };
+
+export default loadKakaoMapsSdk;
