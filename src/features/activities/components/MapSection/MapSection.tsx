@@ -30,6 +30,10 @@ const MapSection = ({ address }: MapSectionProps) => {
     setIsLoading(true);
     coordsRef.current = null;
 
+    if (mapRef.current) {
+      mapRef.current.innerHTML = "";
+    }
+
     const container = mapRef.current;
     let isCancelled = false;
 
@@ -126,15 +130,19 @@ const MapSection = ({ address }: MapSectionProps) => {
           ref={mapRef}
           className="h-full w-full rounded-2xl cursor-pointer bg-gray-50"
           role="button"
-          tabIndex={0}
+          tabIndex={isLoading ? -1 : 0}
           aria-label={`${address} 카카오맵에서 보기`}
-          onClick={handleMapClick}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              handleMapClick();
-            }
-          }}
+          onClick={isLoading ? undefined : handleMapClick}
+          onKeyDown={
+            isLoading
+              ? undefined
+              : (event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleMapClick();
+                  }
+                }
+          }
         />
       </div>
     </div>
