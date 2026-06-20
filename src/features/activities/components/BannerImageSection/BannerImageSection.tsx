@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowRight } from "@/constants/icons";
+import Skeleton from "@/components/Skeleton/Skeleton";
 import type { BannerImageGridProps, BannerImageItemProps } from "./type";
 
 const BannerImageItem = ({
@@ -10,9 +11,19 @@ const BannerImageItem = ({
   alt,
   className = "",
 }: BannerImageItemProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <Image src={src} alt={alt} fill className="object-cover" sizes="50vw" />
+      {isLoading && <Skeleton className="absolute inset-0 z-10 h-full w-full" />}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className={`object-cover transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"}`}
+        sizes="50vw"
+        onLoadingComplete={() => setIsLoading(false)}
+      />
     </div>
   );
 };
