@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { Delete, EyeOff } from "@/constants/icons";
 import { MultiImageInputProps, PreviewImage } from "./type";
-import { ImageWebpLoader } from "./imageWebpLoader";
+import { compressToWebp } from "./imageWebpLoader";
 
 const MultiImageInput = ({
   id,
@@ -100,7 +100,7 @@ const MultiImageInput = ({
 
     try {
       const convertedFiles = await Promise.all(
-        filesToAdd.map((file) => ImageWebpLoader(file)),
+        filesToAdd.map((file) => compressToWebp(file)),
       );
 
       const nextPreviews = convertedFiles.map((file) => ({
@@ -169,9 +169,7 @@ const MultiImageInput = ({
             htmlFor={inputId}
             aria-busy={isConverting}
             className={`flex h-20 w-20 md:h-31.5 lg:h-32 md:w-31.5 lg:w-32 flex-col items-center justify-center gap-0.5 md:gap-2.5 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 ${
-              isConverting
-                ? "cursor-wait opacity-60"
-                : "cursor-pointer"
+              isConverting ? "cursor-wait opacity-60" : "cursor-pointer"
             }`}
           >
             <EyeOff className="h-10 w-10 text-gray-400" />

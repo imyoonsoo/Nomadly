@@ -5,7 +5,7 @@ import Image from "next/image";
 import { DefaultProfile } from "@/constants/images";
 import { ProfileImageInputProps } from "./type";
 import { Edit } from "@/constants/icons";
-import { ImageWebpLoader } from "./imageWebpLoader";
+import { compressToWebp } from "./imageWebpLoader";
 
 const ProfileImageInput = ({
   id,
@@ -41,16 +41,10 @@ const ProfileImageInput = ({
     setIsConverting(true);
 
     try {
-      const convertedFile = await ImageWebpLoader(file);
+      const convertedFile = await compressToWebp(file);
       const objectUrl = URL.createObjectURL(convertedFile);
 
-      setPreview((previousPreview) => {
-        if (previousPreview) {
-          URL.revokeObjectURL(previousPreview);
-        }
-
-        return objectUrl;
-      });
+      setPreview(objectUrl);
       onFileSelect?.(convertedFile);
     } catch {
       onError?.("이미지 변환에 실패했습니다. 다른 이미지를 선택해 주세요.");

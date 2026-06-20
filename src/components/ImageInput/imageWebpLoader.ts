@@ -61,7 +61,7 @@ const blobToWebpFile = (blob: Blob, fileName: string) =>
   });
 
 // canvas를 이용해 이미지를 WebP로 변환하고, 지정 크기(기본 1MB) 이하가 되도록 압축
-export const ImageWebpLoader = async (
+export const compressToWebp = async (
   file: File,
   options: ImageWebpLoaderOptions = {},
 ): Promise<File> => {
@@ -88,6 +88,15 @@ export const ImageWebpLoader = async (
   const baseWidth = image.naturalWidth;
   const baseHeight = image.naturalHeight;
 
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+
+  if (!context) {
+    throw new Error("CANVAS_CONTEXT_FAILED");
+  }
+
+  let lastBlob: Blob | null = null;
+
   while (true) {
     const { width, height } = getScaledDimensions(
       baseWidth,
@@ -96,39 +105,41 @@ export const ImageWebpLoader = async (
       maxHeight * dimensionScale,
     );
 
-    const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-
-    const context = canvas.getContext("2d");
-
-    if (!context) {
-      throw new Error("CANVAS_CONTEXT_FAILED");
-    }
-
     context.drawImage(image, 0, 0, width, height);
 
-    const blob = await canvasToWebpBlob(canvas, quality);
+    while (true) {
+      const blob = await canvasToWebpBlob(canvas, quality);
 
-    if (!blob) {
-      throw new Error("WEBP_CONVERSION_FAILED");
-    }
+      if (!blob) {
+        throw new Error("WEBP_CONVERSION_FAILED");
+      }
 
-    if (blob.size <= maxSizeBytes) {
-      return blobToWebpFile(blob, file.name);
-    }
+      lastBlob = blob;
 
-    if (quality > minQuality + 0.05) {
-      quality = Math.max(minQuality, quality - 0.1);
-      continue;
+      if (blob.size <= maxSizeBytes) {
+        return blobToWebpFile(blob, file.name);
+      }
+
+      if (quality > minQuality + 0.05) {
+        quality = Math.max(minQuality, quality - 0.1);
+      } else {
+        break;
+      }
     }
 
     if (dimensionScale > 0.3) {
       dimensionScale *= 0.85;
       quality = initialQuality;
-      continue;
+    } else {
+      break;
     }
-
-    return blobToWebpFile(blob, file.name);
   }
+
+  if (lastBlob) {
+    return blobToWebpFile(lastBlob, file.name);
+  }
+
+  throw new Error("WEBP_CONVERSION_FAILED");
 };
