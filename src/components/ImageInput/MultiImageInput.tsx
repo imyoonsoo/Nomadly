@@ -1,8 +1,10 @@
 "use client";
 
 import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
+import Image from "next/image";
 import { Delete, EyeOff } from "@/constants/icons";
 import { MultiImageInputProps, PreviewImage } from "./type";
+import { ImageWebpLoader } from "./imageWebpLoader";
 
 const MultiImageInput = ({
   id,
@@ -12,15 +14,21 @@ const MultiImageInput = ({
   accept = "image/*",
   defaultImages = [],
   onChange,
+  onError,
+  disabled,
   ...props
 }: MultiImageInputProps) => {
-  const inputId = id ?? useId();
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
   const inputRef = useRef<HTMLInputElement>(null);
   const previewsRef = useRef<PreviewImage[]>([]);
   const isInitializedRef = useRef(false);
   const [previews, setPreviews] = useState<PreviewImage[]>([]);
+  const [isConverting, setIsConverting] = useState(false);
 
-  previewsRef.current = previews;
+  useEffect(() => {
+    previewsRef.current = previews;
+  }, [previews]);
 
   // 받아오는 이미지 URL 미리보기로 보여주기
   useEffect(() => {
@@ -73,7 +81,7 @@ const MultiImageInput = ({
     };
   }, []);
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(event.target.files ?? []);
 
     if (!selectedFiles.length) {
@@ -88,23 +96,34 @@ const MultiImageInput = ({
 
     const filesToAdd = selectedFiles.slice(0, remainingSlots);
 
-    const nextPreviews = filesToAdd.map((file) => ({
-      id: crypto.randomUUID(),
-      file,
-      url: URL.createObjectURL(file),
-      isExisting: false,
-    }));
+    setIsConverting(true);
 
-    const updatedPreviews = [...previews, ...nextPreviews];
-    setPreviews(updatedPreviews);
-    syncInputImages(
-      updatedPreviews
-        .filter((preview) => preview.file)
-        .map((preview) => preview.file as File),
-    );
-    notifyChange(updatedPreviews);
+    try {
+      const convertedFiles = await Promise.all(
+        filesToAdd.map((file) => ImageWebpLoader(file)),
+      );
 
-    event.target.value = "";
+      const nextPreviews = convertedFiles.map((file) => ({
+        id: crypto.randomUUID(),
+        file,
+        url: URL.createObjectURL(file),
+        isExisting: false,
+      }));
+
+      const updatedPreviews = [...previews, ...nextPreviews];
+      setPreviews(updatedPreviews);
+      syncInputImages(
+        updatedPreviews
+          .filter((preview) => preview.file)
+          .map((preview) => preview.file as File),
+      );
+      notifyChange(updatedPreviews);
+    } catch {
+      onError?.("이미지 변환에 실패했습니다. 다른 이미지를 선택해 주세요.");
+    } finally {
+      setIsConverting(false);
+      event.target.value = "";
+    }
   };
 
   const handleRemoveButtonClick = (previewId: string) => {
@@ -140,6 +159,7 @@ const MultiImageInput = ({
         accept={accept}
         onChange={handleImageChange}
         className="hidden"
+        disabled={disabled || isConverting}
         {...props}
       />
 
@@ -147,7 +167,12 @@ const MultiImageInput = ({
         <li>
           <label
             htmlFor={inputId}
-            className="flex h-20 w-20 md:h-31.5 lg:h-32 md:w-31.5 lg:w-32 cursor-pointer flex-col items-center justify-center gap-0.5 md:gap-2.5 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50"
+            aria-busy={isConverting}
+            className={`flex h-20 w-20 md:h-31.5 lg:h-32 md:w-31.5 lg:w-32 flex-col items-center justify-center gap-0.5 md:gap-2.5 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 ${
+              isConverting
+                ? "cursor-wait opacity-60"
+                : "cursor-pointer"
+            }`}
           >
             <EyeOff className="h-10 w-10 text-gray-400" />
             <span className="text-13-medium md:text-14-medium text-gray-600">
@@ -159,10 +184,12 @@ const MultiImageInput = ({
         {previews.map((preview) => (
           <li key={preview.id} className="relative">
             <div className="relative h-20 w-20 md:h-31.5 lg:h-32 md:w-31.5 lg:w-32 overflow-hidden rounded-2xl border border-gray-100">
-              <img
+              <Image
                 src={preview.url}
                 alt={`${label} 미리보기`}
-                className="h-full w-full object-cover"
+                fill
+                className="object-cover"
+                unoptimized={!preview.isExisting}
               />
             </div>
             <button
