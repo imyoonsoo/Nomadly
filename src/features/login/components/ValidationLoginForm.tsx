@@ -95,7 +95,7 @@ const ValidationLoginForm = () => {
       <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center self-stretch">
         <div className=" w-full flex items-center gap-4 self-stretch">
           <hr className="flex-1 border-gray-100" />
-          <span className="text-[#79747E] text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
+          <span className="text-gray-560 text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
             OR
           </span>
           <hr className="flex-1 border-gray-100" />
