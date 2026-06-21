@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { COOKIE_OPTIONS } from "@/constants/cookieOptions";
+import COOKIE_OPTIONS from "@/constants/cookieOptions";
 
-function isExpired(token: string): boolean {
+const isExpired = (token: string): boolean => {
   try {
     const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
     const { exp } = JSON.parse(atob(base64));
@@ -11,7 +11,7 @@ function isExpired(token: string): boolean {
   } catch {
     return true; // 파싱 실패 시 만료로 간주 → 재발급 시도
   }
-}
+};
 
 export async function proxy(request: NextRequest) {
   let accessToken = request.cookies.get("accessToken")?.value;
