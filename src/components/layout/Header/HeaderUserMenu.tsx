@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { User } from "./type";
@@ -7,19 +8,28 @@ import Dropdown from "@/components/Dropdown/Dropdown";
 
 import BellIcon from "@/assets/icons/bell.svg";
 import DefaultProfileImage from "@/assets/images/default-profile.svg";
-import { useState } from "react";
+
 import NotificationModal from "@/features/notification/NotificationModal";
 import {
   useDeleteNotification,
   useNotifications,
 } from "@/features/notification/hook/useNotifications";
+import logoutAction from "@/features/login/actions/logoutAction";
+import { showToast } from "@/lib/utils/toast";
+import { useClearUserSession } from "@/hooks/useUserSession";
 
-const HeaderUserMenu = ({ user }: { user: User }) => {
+interface HeaderUserMenuProps {
+  user: User;
+  isScrolled: boolean;
+}
+
+const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
   const router = useRouter();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const { data } = useNotifications();
   const deleteNotificationMutation = useDeleteNotification();
+  const clearUserSession = useClearUserSession();
 
   const notifications = data?.notifications ?? [];
   const totalCount = data?.totalCount ?? 0;
@@ -34,9 +44,12 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
     },
     {
       label: "로그아웃",
-      onSelect: () => {
-        // Todo: 로그아웃 로직 구현
-        alert("로그아웃!");
+      onSelect: async () => {
+        await logoutAction();
+
+        clearUserSession();
+        router.replace("/");
+        showToast.success("로그아웃되었습니다.");
       },
     },
   ];
@@ -56,32 +69,19 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
 
   return (
     <div className="flex justify-center items-center gap-5">
-      {/* Todo: 알림 기능 구현 */}
       <div className="relative">
         <button
           type="button"
           aria-label="알림"
           onClick={() => setIsNotificationOpen((prev) => !prev)}
-          className={`p-2 rounded-lg text-gray-600 hover:bg-gray-25 hover:text-primary-500 active:opacity-70 transition ${
+          className={`p-2 rounded-lg text-gray-600  duration-200 hover:-rotate-12 hover:text-primary-500 active:opacity-70 transition ${
             isNotificationOpen ? "text-primary-500" : "text-gray-600"
           }`}
         >
-          <BellIcon width={24} height={24} />
+          <BellIcon className="w-5 h-5 md:w-6 md:h-6" />
 
           {hasNotification && (
-            <span
-              className="
-                absolute
-                right-1
-                top-1
-                h-2.5
-                w-2.5
-                rounded-full
-                bg-red-500
-                border-2
-                border-white
-              "
-            />
+            <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white" />
           )}
         </button>
 
@@ -94,14 +94,17 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
           />
         )}
       </div>
-      <div className="w-px h-3.5 bg-gray-100" />
+      <div
+        className={`w-px h-4 rounded-full ${isScrolled ? "bg-gray-100" : "bg-gray-400"}`}
+      />
       <Dropdown options={profileMenus}>
         {({ toggle }) => (
           <button
             onClick={toggle}
-            className="flex justify-center items-center gap-2.5 p-2 rounded-lg hover:bg-gray-25 active:opacity-70 transition"
+            className={`flex justify-center items-center gap-2.5 p-2 rounded-lg active:opacity-70 transition ${
+              isScrolled ? "hover:bg-gray-50" : "hover:bg-white/10"
+            }`}
           >
-            {/* Todo: api 연결 작업 후 수정 */}
             {user.profileImageUrl ? (
               <Image
                 src={user.profileImageUrl}
@@ -113,7 +116,7 @@ const HeaderUserMenu = ({ user }: { user: User }) => {
             ) : (
               <DefaultProfileImage width={30} height={30} />
             )}
-            <span className="text-14-medium text-gray-950">
+            <span className="text-14-medium text-gray-950 hidden md:block">
               {user.nickname}
             </span>
           </button>
