@@ -1,14 +1,23 @@
+import { cookies } from "next/headers";
+
 import Footer from "@/components/layout/Footer/Footer";
 import Header from "@/components/layout/Header/Header";
+import getProfileAction from "@/features/mypage/actions/getProfileAction";
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = async ({ children }: MainLayoutProps) => {
+  const cookieStore = await cookies();
+  const hasAccessToken = cookieStore.has("accessToken");
+  const user = hasAccessToken
+    ? await getProfileAction().catch(() => null)
+    : null;
+
   return (
     <div>
-      <Header />
+      <Header user={user} />
       {children}
       <Footer />
     </div>
