@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import axios from "axios";
+import { COOKIE_OPTIONS } from "@/constants/cookieOptions";
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -8,12 +8,10 @@ export async function proxy(request: NextRequest) {
   let accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
-  let response = NextResponse.next();
+  const response = NextResponse.next();
 
   // 토큰 재발급 로직 (Access 토큰이 없고, Refresh 토큰은 있을 때)
   if (!accessToken && refreshToken) {
-    console.log("미들웨어: 토큰 재발급 시도");
-
     try {
       // Edge Runtime 호환성을 위해 내장 fetch 사용
       const res = await fetch(
@@ -33,21 +31,9 @@ export async function proxy(request: NextRequest) {
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
           data;
 
-        console.log("토큰 재발급 성공!");
+        response.cookies.set("accessToken", newAccessToken, COOKIE_OPTIONS);
 
-        response.cookies.set("accessToken", newAccessToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          path: "/",
-        });
-
-        response.cookies.set("refreshToken", newRefreshToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          path: "/",
-        });
+        response.cookies.set("refreshToken", newRefreshToken, COOKIE_OPTIONS);
 
         request.cookies.set("accessToken", newAccessToken);
         accessToken = newAccessToken;
