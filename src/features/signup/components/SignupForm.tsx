@@ -17,6 +17,9 @@ const SignupForm = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [isSignupSucceed, setIsSignupSucceed] = useState(false);
 
+  const DEFAULT_SIGNUP_ERROR_MESSAGE =
+    "회원가입에 실패했습니다. 잠시 후 시도해주세요.";
+
   const {
     register,
     handleSubmit,
@@ -52,12 +55,11 @@ const SignupForm = () => {
             });
           } else {
             setAlertMessage(
-              error.response?.data?.message ??
-                "서버 통신 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
+              error.response?.data?.message ?? DEFAULT_SIGNUP_ERROR_MESSAGE,
             );
           }
         } else {
-          setAlertMessage("회원가입에 실패했습니다. 잠시 후 시도해 주세요.");
+          setAlertMessage(DEFAULT_SIGNUP_ERROR_MESSAGE);
         }
       },
     });
@@ -111,7 +113,7 @@ const SignupForm = () => {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "10자 이하로 작성해 주세요.",
+              message: "닉네임은 10자 이하로 입력해 주세요.",
             },
           })}
         />
