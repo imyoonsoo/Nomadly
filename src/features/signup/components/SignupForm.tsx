@@ -157,7 +157,7 @@ const SignupForm = () => {
             onChange={(e) => setIsAgreedTerms(e.target.checked)}
             className="w-4 h-4 cursor-pointer"
           />
-          <span className="text-[#0E528A] font-medium text-sm">
+          <span className="text-primary-700 font-medium text-sm">
             이용약관 및 개인정보 수집에 동의합니다.
           </span>
         </label>
@@ -175,7 +175,7 @@ const SignupForm = () => {
 
       <div className="flex items-center gap-4 self-stretch w-full">
         <hr className="flex-1 border-gray-100" />
-        <span className="text-[#79747E] text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
+        <span className="text-gray-560 text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
           SNS 계정으로 회원가입하기
         </span>
         <hr className="flex-1 border-gray-100" />
