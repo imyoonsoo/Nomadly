@@ -24,6 +24,7 @@ const TitleSection = ({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const deleteMutation = useDeleteMyActivityMutation(() => {
+    setIsDeleteModalOpen(false);
     router.push("/mypage/activities");
   });
 
@@ -32,11 +33,7 @@ const TitleSection = ({
       return;
     }
 
-    deleteMutation.mutate(id, {
-      onSettled: () => {
-        setIsDeleteModalOpen(false);
-      },
-    });
+    deleteMutation.mutate(id);
   };
 
   const options = useMemo(

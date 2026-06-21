@@ -14,7 +14,7 @@ const AUTH_LINKS: AuthLink[] = [
 
 const HeaderGuestMenu = () => {
   return (
-    <ul className="flex justify-center items-center gap-2.5 md:gap-3">
+    <ul className="flex justify-center items-center gap-1 md:gap-3">
       {AUTH_LINKS.map(({ href, text }) => (
         <li
           key={href}

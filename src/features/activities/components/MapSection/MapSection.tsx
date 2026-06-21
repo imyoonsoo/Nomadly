@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import MapSectionProps from "./type";
-import { loadKakaoMapsSdk } from "./kakaoMapsLoader";
+import loadKakaoMapsSdk from "./kakaoMapsLoader";
 import { MapBlue } from "@/constants/icons";
 import Skeleton from "@/components/Skeleton/Skeleton";
 
