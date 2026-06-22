@@ -12,7 +12,7 @@ import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 import { useRouter } from "next/navigation";
-import EmptyLoading from "@/assets/images/empty-loading.svg";
+import EmptyLoading from "@/assets/images/empty-loading-mypage.svg";
 
 const DEFAULT_ERROR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요.";
 
@@ -43,7 +43,7 @@ const ProfileEditForm = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors, isValid, dirtyFields, isDirty },
+    formState: { errors, isValid },
   } = useForm<ProfileEditFormValues>({
     mode: "onBlur",
     defaultValues: {
@@ -65,10 +65,10 @@ const ProfileEditForm = () => {
     }
   }, [user, reset]); // 유저 데이터가 캐싱되거나 새롭게 들어올 때마다 실행
 
-  // watch -> useWatch
-  // watch는 안전하게 메모이제이션할 수 없어 컴포넌트 최적화 대상에서 제외
-  // 따라서 훅 기반인 useWatch로 교체
-  const newPassword = useWatch({ control, name: "newPassword" }) || ""; // useWatch 자체에서 newPassword 문자열로
+  // watch는 안전하게 메모이제이션할 수 없어 컴포넌트 최적화 대상에서 제외된다는 공식 문서
+  // 훅 기반인 useWatch로 변경
+  const newPassword = useWatch({ control, name: "newPassword" }) || "";
+  const currentNickname = useWatch({ control, name: "nickname" }) || "";
 
   const handleProfileSubmit = async (data: ProfileEditFormValues) => {
     try {
@@ -81,7 +81,8 @@ const ProfileEditForm = () => {
       const updatedProfile: MyProfileRequestBody = {};
 
       // 닉네임 변경 시
-      if (dirtyFields.nickname) {
+      // isDirty는 클릭 1번으로 변경을 true로 처리하는 문제로 !== 추가
+      if (data.nickname !== user?.nickname) {
         updatedProfile.nickname = data.nickname;
       }
 
@@ -151,8 +152,21 @@ const ProfileEditForm = () => {
 
   if (isLoading || !user) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <EmptyLoading width={200} height={200} />
+      <div className="w-full md:w-119 lg:w-160 mx-auto flex flex-col items-center gap-6 px-4">
+        <div className="self-stretch flex flex-col gap-2.5 mb-3.25 md:mb-7.5 animate-pulse">
+          <div className="h-[22px] w-16 rounded bg-gray-200" />
+          <div className="h-[20px] w-60 rounded bg-gray-200" />
+        </div>
+        <EmptyLoading width={180} height={180} />
+        <div className="flex flex-col items-center gap-6 self-stretch animate-pulse">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="self-stretch flex flex-col gap-2.5">
+              <div className="h-6 w-14 rounded bg-gray-200" />
+              <div className="h-[54px] rounded-2xl bg-gray-200" />
+            </div>
+          ))}
+          <div className="h-[47px] w-full rounded-[14px] bg-gray-200" />
+        </div>
       </div>
     );
   }
@@ -251,15 +265,19 @@ const ProfileEditForm = () => {
           type="submit"
           variant="mainBlue"
           height="47md"
+          className="mt-2 w-full whitespace-nowrap font-bold shadow-sm transition-all"
           disabled={
             isProfileUpdating ||
             isProfileImageUploading ||
             !isValid ||
-            (!isDirty && !selectedImage)
+            (currentNickname === user.nickname &&
+              !newPassword &&
+              !selectedImage)
           }
-          className="w-full whitespace-nowrap font-bold shadow-sm transition-all"
         >
-          변경사항 저장하기
+          {isProfileUpdating || isProfileImageUploading
+            ? "변경사항 저장 중..."
+            : "변경사항 저장하기"}
         </Button>
       </form>
     </div>
