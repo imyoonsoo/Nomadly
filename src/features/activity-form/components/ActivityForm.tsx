@@ -80,10 +80,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   };
 
   const isSubmitDisabled =
-    (mode === "create" && !isDirty) ||
-    !isValid ||
-    hasScheduleDuplicate ||
-    isSubmitting;
+    !isDirty || !isValid || hasScheduleDuplicate || isSubmitting;
 
   const handleFormSubmit: SubmitHandler<ActivityFormValues> = async (data) => {
     if (!data.bannerImageUrl) {
