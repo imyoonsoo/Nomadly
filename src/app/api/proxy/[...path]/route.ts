@@ -1,15 +1,9 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import COOKIE_OPTIONS from "@/constants/cookieOptions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-const COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: true,
-  sameSite: "lax" as const,
-  path: "/",
-};
 
 async function proxy(
   request: Request,

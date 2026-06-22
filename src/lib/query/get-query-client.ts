@@ -9,3 +9,17 @@ export const makeQueryClient = () => {
     },
   });
 };
+
+let browserQueryClient: QueryClient | undefined;
+
+export const getQueryClient = () => {
+  if (typeof window === "undefined") {
+    return makeQueryClient();
+  }
+
+  if (!browserQueryClient) {
+    browserQueryClient = makeQueryClient();
+  }
+
+  return browserQueryClient;
+};

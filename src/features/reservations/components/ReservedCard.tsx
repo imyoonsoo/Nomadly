@@ -71,7 +71,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
 
   return (
     <>
-      <div className="pt-5 flex flex-col gap-3">
+      <div className="pt-5 flex flex-col gap-3 md:w-[90%] lg:w-full">
         <p className="text-16-bold text-gray-800 lg:text-18-bold">{date}</p>
         <div className="relative rounded-4xl h-34  w-full lg:max-w-[640px] lg:h-45 overflow-hidden shadow-[0_4px_24px_rgba(156,180,202,0.3)]">
           <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-4xl bg-white lg:px-10 lg:py-[30px]">

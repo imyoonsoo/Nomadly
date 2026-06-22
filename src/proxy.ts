@@ -1,19 +1,30 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import axios from "axios";
+import COOKIE_OPTIONS from "@/constants/cookieOptions";
+
+const isExpired = (token: string): boolean => {
+  try {
+    const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    const { exp } = JSON.parse(atob(base64));
+    if (typeof exp !== "number") return true;
+    return exp * 1000 <= Date.now() + 10_000; // 만료 10초 전이면 만료로 간주
+  } catch {
+    return true; // 파싱 실패 시 만료로 간주 → 재발급 시도
+  }
+};
 
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
   let accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
-  let response = NextResponse.next();
+  const response = NextResponse.next();
 
-  // 토큰 재발급 로직 (Access 토큰이 없고, Refresh 토큰은 있을 때)
-  if (!accessToken && refreshToken) {
-    console.log("미들웨어: 토큰 재발급 시도");
+  const needsRefresh = !accessToken || isExpired(accessToken);
 
+  const { pathname } = request.nextUrl;
+
+  // 토큰 재발급 로직 (Access 토큰이 없거나 만료되고, Refresh 토큰은 있을 때)
+  if (needsRefresh && refreshToken) {
     try {
       // Edge Runtime 호환성을 위해 내장 fetch 사용
       const res = await fetch(
@@ -33,21 +44,9 @@ export async function proxy(request: NextRequest) {
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
           data;
 
-        console.log("토큰 재발급 성공!");
+        response.cookies.set("accessToken", newAccessToken, COOKIE_OPTIONS);
 
-        response.cookies.set("accessToken", newAccessToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          path: "/",
-        });
-
-        response.cookies.set("refreshToken", newRefreshToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          path: "/",
-        });
+        response.cookies.set("refreshToken", newRefreshToken, COOKIE_OPTIONS);
 
         request.cookies.set("accessToken", newAccessToken);
         accessToken = newAccessToken;
@@ -69,11 +68,11 @@ export async function proxy(request: NextRequest) {
       accessToken = undefined;
     }
   }
-  if (accessToken && request.nextUrl.pathname === "/login") {
+  if (accessToken && (pathname === "/login" || pathname === "/signup")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!accessToken && request.nextUrl.pathname.startsWith("/mypage")) {
+  if (!accessToken && pathname.startsWith("/mypage")) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -81,5 +80,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/mypage/:path*"],
+  matcher: ["/login", "/signup", "/mypage/:path*"],
 };
