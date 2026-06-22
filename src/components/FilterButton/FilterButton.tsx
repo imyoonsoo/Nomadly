@@ -21,9 +21,9 @@ const sizes = {
 
 const stateStyle = {
   active:
-    "bg-[#333] text-white [&_svg]:text-white border border-transparent font-medium",
+    "bg-gray-850 text-white [&_svg]:text-white border border-transparent font-medium",
   inactive:
-    "bg-white text-gray-950 [&_svg]:text-black border border-[#D8D8D8] font-medium",
+    "bg-white text-gray-950 [&_svg]:text-black border border-gray-160 font-medium",
 } as const;
 
 const FilterButton = ({
