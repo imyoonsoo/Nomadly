@@ -1,5 +1,3 @@
-import type { StaticImageData } from "next/image";
-
 export type CardItem = {
   id: number;
   title: string;
@@ -12,9 +10,15 @@ export type CardItem = {
   rating: number;
   createdAt: string;
   updatedAt: string;
+  isBookmarked?: boolean;
 };
 
 export type CardListProps = {
   items: CardItem[];
   keyword?: string;
+};
+
+export type ActivitiesCardProps = CardItem & {
+  keyword?: string;
+  onToggleBookmark?: (id: number) => void;
 };
