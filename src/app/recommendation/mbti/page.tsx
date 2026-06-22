@@ -1,0 +1,23 @@
+import { Back } from "@/constants/icons";
+import MbtiRecommendation from "@/features/recommendation/mbti/components/MbtiRecommendation";
+import Link from "next/link";
+
+const MbtiRecommendationPage = () => {
+  return (
+    <main className="min-h-screen bg-gray-50 px-4 py-36">
+      <div className="absolute md:top-24 md:left-28 top-16 left-1/3">
+        <Link
+          href="/recommendation"
+          className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-14-bold text-gray-700 transition hover:bg-primary-100"
+        >
+          <Back className="w-5 h-5 md:w-6 md:h-6 text-primary-500" />
+          추천 목록
+        </Link>
+      </div>
+
+      <MbtiRecommendation />
+    </main>
+  );
+};
+
+export default MbtiRecommendationPage;

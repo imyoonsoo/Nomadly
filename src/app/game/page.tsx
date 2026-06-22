@@ -10,6 +10,20 @@ const GAME_LIST = [
     status: "play",
   },
   {
+    id: "tic-tac-toe",
+    title: "틱택토",
+    description: "X와 O를 번갈아 놓고 3칸을 먼저 완성해보세요.",
+    href: "/game/tic-tac-toe",
+    status: "play",
+  },
+  {
+    id: "earth-jump",
+    title: "지구 점프",
+    description: "지구를 점프시켜 장애물을 피해보세요.",
+    href: "/game/earth-jump",
+    status: "play",
+  },
+  {
     id: "coming-soon",
     title: "준비 중",
     description: "새로운 게임이 곧 추가될 예정이에요.",

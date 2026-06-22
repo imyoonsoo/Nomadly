@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import DodgeGame from "@/features/dodge-game/components/DodgeGame";
+import DodgeGame from "@/features/game/dodge-game/DodgeGame";
 import BgCloud from "@/assets/images/bg-cloude.png";
 import Link from "next/link";
 import { Back } from "@/constants/icons";

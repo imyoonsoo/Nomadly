@@ -27,5 +27,6 @@ export interface ProfileImageInputProps extends Omit<
   id?: string;
   name: string;
   label: string;
+  defaultImage?: string | null;
   onFileSelect?: (file: File) => void;
 }
