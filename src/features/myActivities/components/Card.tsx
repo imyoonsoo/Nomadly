@@ -40,63 +40,73 @@ const Card = ({
   };
 
   return (
-    <div className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] flex justify-between items-center gap-6">
-      <div className="w-full flex flex-col justify-center items-start gap-3">
-        <h2 className="text-16-bold lg:text-18-bold text-gray-950 line-clamp-2">
-          {title}
-        </h2>
-        <div className="flex items-center gap-0.5 text-13-medium lg:text-16-medium text-gray-500">
-          <StarIcon width={16} height={16} />
-          <span>{rating}</span>
-          <span>({reviewCount})</span>
+    <>
+      <div
+        onClick={() => router.push(`/activities/${id}`)}
+        className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] flex justify-between items-center gap-6 hover:cursor-pointer"
+      >
+        <div className="w-full flex flex-col justify-center items-start gap-3">
+          <h2 className="text-16-bold lg:text-18-bold text-gray-950 line-clamp-2">
+            {title}
+          </h2>
+          <div className="flex items-center gap-0.5 text-13-medium lg:text-16-medium text-gray-500">
+            <StarIcon width={16} height={16} />
+            <span>{rating}</span>
+            <span>({reviewCount})</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="text-16-bold lg:text-18-bold text-gray-950">
+              ₩{price.toLocaleString()}
+            </span>
+            <span className="text-14-medium lg:text-16-medium text-gray-400">
+              / 인
+            </span>
+          </div>
+          <div className="flex items-center gap-3 pt-3 lg:pt-5">
+            <Button
+              variant="whitenGray"
+              height="h29"
+              className="px-2.5 py-1.5"
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/activities/${id}/edit`);
+              }}
+            >
+              수정하기
+            </Button>
+            <Button
+              variant="onlyGray"
+              height="h29"
+              className="px-2.5 py-1.5 rounded-lg text-14-medium"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsConfirmModalOpen(true);
+              }}
+              disabled={deleteMutation.isPending}
+            >
+              삭제하기
+            </Button>
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="text-16-bold lg:text-18-bold text-gray-950">
-            ₩{price.toLocaleString()}
-          </span>
-          <span className="text-14-medium lg:text-16-medium text-gray-400">
-            / 인
-          </span>
-        </div>
-        <div className="flex items-center gap-3 pt-3 lg:pt-5">
-          <Button
-            variant="whitenGray"
-            height="h29"
-            className="px-2.5 py-1.5"
-            onClick={() => router.push(`/activities/${id}/edit`)}
-          >
-            수정하기
-          </Button>
-          <Button
-            variant="onlyGray"
-            height="h29"
-            className="px-2.5 py-1.5 rounded-lg text-14-medium"
-            onClick={() => setIsConfirmModalOpen(true)}
-            disabled={deleteMutation.isPending}
-          >
-            삭제하기
-          </Button>
+
+        <div className="relative shrink-0 w-20.5 h-20.5 md:w-35.5 md:h-35.5 rounded-3xl overflow-hidden">
+          <Image
+            src={bannerImageUrl}
+            alt="배너 이미지"
+            width={142}
+            height={142}
+            priority
+            className="w-full h-full object-cover rounded-3xl"
+          />
         </div>
       </div>
-
-      <div className="relative shrink-0 w-20.5 h-20.5 md:w-35.5 md:h-35.5 rounded-3xl overflow-hidden">
-        <Image
-          src={bannerImageUrl}
-          alt="배너 이미지"
-          width={142}
-          height={142}
-          priority
-          className="w-full h-full object-cover rounded-3xl"
-        />
-      </div>
-
       <WarningModal
         isOpen={isConfirmModalOpen}
         onClose={() => setIsConfirmModalOpen(false)}
         onConfirm={handleDeleteConfirmButtonClick}
         message="삭제하시겠습니까?"
       />
-    </div>
+    </>
   );
 };
 
