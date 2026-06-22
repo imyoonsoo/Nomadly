@@ -11,6 +11,8 @@ import {
   Calendar as CalendarIcon,
   AltRight as ArrowRight,
   AltLeft as ArrowLeft,
+  Warning as Warning,
+  Heart,
 } from "@/constants/icons";
 
 const MENU_LIST = [
@@ -37,6 +39,12 @@ const MENU_LIST = [
     href: "/mypage/reservation-status",
     icon: CalendarIcon,
     label: "예약 현황",
+  },
+  {
+    id: "bookmarks",
+    href: "/mypage/bookmarks",
+    icon: Heart,
+    label: "관심 체험",
   },
 ];
 

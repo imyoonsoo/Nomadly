@@ -83,12 +83,6 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    setSelectedText("최신순");
-    setSelectedCategory("전체");
-    setPage(1);
-  }, [keyword]);
-
   // 체험리스트 필터링
   const selectedCategoryItem = CATEGORIES.find(
     (item) => item.name === selectedCategory,
@@ -111,7 +105,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
     }
     return 0;
   });
-
+  const isSearchMode = !!keyword?.trim();
   const ITEMS_PER_PAGE = 8;
   const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
@@ -220,9 +214,11 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
         </div>
       )}
       <div>
-        {paginatedItems.length === 0 ? (
-          <div className="text-16-medium text-gray-500 mt-30 text-center">
-            등록된 체험이 없습니다.
+        {!isSearchMode && sortedItems.length === 0 ? (
+          <div className="flex flex-col items-center pt-30">
+            <p className="text-center text-gray-400">
+              {selectedCategory}에 등록된 체험이 없습니다.
+            </p>
           </div>
         ) : (
           <div className="flex flex-wrap gap-4 md:gap-6">
