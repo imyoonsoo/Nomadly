@@ -209,3 +209,21 @@ body {
   color: #ffffff !important;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
+
+.cloud-bg {
+  animation: cloud-flow 180s linear infinite;
+}
+
+@keyframes cloud-flow {
+  0% {
+    background-position:
+      0 100px,
+      center top;
+  }
+
+  100% {
+    background-position:
+      -1200px 100px,
+      center top;
+  }
+}

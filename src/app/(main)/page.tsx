@@ -7,21 +7,32 @@ import ActivitiesList from "./components/ActivitiesList";
 import { Cloud } from "@/constants/images";
 import { useEffect, useState } from "react";
 import { CardItem } from "./components/type";
-import axios from "@/lib/api/axios";
+import api from "@/lib/api/axios";
 
 const Home = () => {
   const [activities, setActivities] = useState<CardItem[]>([]);
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
 
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("bookmarkedActivities");
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
+
   useEffect(() => {
     const getActivities = async () => {
-      const res = await axios.get("/activities", {
+      const res = await api.get("/activities", {
         params: {
           method: "offset",
         },
       });
 
+      res.data.activities.map((item: CardItem) => {
+        item.isBookmarked = bookmarkedIds.includes(item.id);
+      });
       setActivities(res.data.activities);
     };
 
@@ -54,12 +65,12 @@ const Home = () => {
 
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat"
+      className="cloud-bg bg-cover bg-center"
       style={{
         backgroundImage: `url(${Cloud.src}), linear-gradient(to top, transparent 70%, #BBDDFF)`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center 100px, center top",
-        backgroundSize: "auto",
+        backgroundRepeat: "repeat-x, no-repeat",
+        backgroundPosition: "0 100px, center top",
+        backgroundSize: "auto, cover",
       }}
     >
       {/* 메인배너 */}
