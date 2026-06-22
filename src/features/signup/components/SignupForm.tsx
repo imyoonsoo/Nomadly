@@ -11,14 +11,14 @@ import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
 import { SignupFormValues } from "../type";
 
+const DEFAULT_SIGNUP_ERROR_MESSAGE =
+  "회원가입에 실패했습니다. 잠시 후 시도해주세요.";
+
 const SignupForm = () => {
   const { mutate } = useSignup();
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState("");
   const [isSignupSucceed, setIsSignupSucceed] = useState(false);
-
-  const DEFAULT_SIGNUP_ERROR_MESSAGE =
-    "회원가입에 실패했습니다. 잠시 후 시도해주세요.";
 
   const {
     register,
