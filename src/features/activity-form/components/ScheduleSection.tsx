@@ -157,6 +157,7 @@ const ScheduleSection = ({
                     onClick={handleAddSchedule}
                     icon={<PlusIcon width={24} height={24} />}
                     className="w-10.5 h-10.5 rounded-full hover:brightness-90 transition"
+                    aria-label="일정 추가"
                   />
                 </div>
               </div>
@@ -227,6 +228,7 @@ const ScheduleSection = ({
                         onClick={() => remove(index)}
                         icon={<MinusIcon width={24} height={24} />}
                         className="w-10.5 h-10.5 rounded-full hover:bg-gray-100 transition"
+                        aria-label="일정 삭제"
                       />
                     </div>
                   </div>
