@@ -11,9 +11,6 @@ import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
 import { SignupFormValues } from "../type";
 
-const DEFAULT_SIGNUP_ERROR_MESSAGE =
-  "회원가입에 실패했습니다. 잠시 후 시도해주세요.";
-
 const SignupForm = () => {
   const { mutate } = useSignup();
   const router = useRouter();
@@ -42,9 +39,10 @@ const SignupForm = () => {
   const postSignup = (data: SignupFormValues) => {
     const { passwordConfirm, ...signupData } = data;
     mutate(signupData, {
+      // On Success 시 모달에서 로그인으로 이동
       onSuccess: () => {
         setIsSignupSucceed(true);
-        timerRef.current = setTimeout(startLogin, 3000);
+        timerRef.current = setTimeout(startLogin, 3000); // timeRef에 ID 저장
       },
       onError: (error) => {
         if (axios.isAxiosError(error)) {
@@ -55,11 +53,14 @@ const SignupForm = () => {
             });
           } else {
             setAlertMessage(
-              error.response?.data?.message ?? DEFAULT_SIGNUP_ERROR_MESSAGE,
+              error.response?.data?.message ??
+                "서버 통신 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
             );
           }
         } else {
-          setAlertMessage(DEFAULT_SIGNUP_ERROR_MESSAGE);
+          setAlertMessage(
+            "알 수 없는 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
+          );
         }
       },
     });
@@ -82,13 +83,15 @@ const SignupForm = () => {
     };
   }, []);
 
-  const [isAgreedTerms, setIsAgreedTerms] = useState(false);
+  // [추가] 회원가입 요구사항 이용약관 체크박스 (디자인은 논의하기로)
+  const [agreedTerms, setAgreedTerms] = useState(false);
   return (
-    <div className="w-full flex flex-col items-center gap-6 self-stretch">
+    <>
       <form
         onSubmit={handleSubmit(postSignup)}
-        className="w-full flex flex-col items-center gap-6 self-stretch"
+        className="flex flex-col items-center gap-6 self-stretch"
       >
+        {/* 이메일 입력 */}
         <TextInput
           label="이메일"
           type="email"
@@ -104,6 +107,7 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 닉네임 입력 */}
         <TextInput
           label="닉네임"
           placeholder="닉네임을 입력해 주세요"
@@ -113,11 +117,12 @@ const SignupForm = () => {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "닉네임은 10자 이하로 입력해 주세요.",
+              message: "10자 이하로 작성해 주세요.",
             },
           })}
         />
 
+        {/* 비밀번호 입력 */}
         <TextInput
           label="비밀번호"
           type="password"
@@ -139,6 +144,7 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -152,37 +158,39 @@ const SignupForm = () => {
           })}
         />
 
+        {/* 추가: GlobalNomad 이용약관동의서 */}
         <label className="flex items-center gap-2 self-stretch text-sm text-gray-600 cursor-pointer select-none">
           <input
             type="checkbox"
-            checked={isAgreedTerms}
-            onChange={(e) => setIsAgreedTerms(e.target.checked)}
+            checked={agreedTerms}
+            onChange={(e) => setAgreedTerms(e.target.checked)}
             className="w-4 h-4 cursor-pointer"
           />
-          <span className="text-primary-700 font-medium text-sm">
-            이용약관 및 개인정보 수집에 동의합니다.
-          </span>
+          <span>이용약관 및 개인정보 수집에 동의합니다.</span>
         </label>
 
+        {/* 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
           height="54lg"
-          disabled={!(isValid && isAgreedTerms)}
+          disabled={!(isValid && agreedTerms)}
           className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
         >
           GlobalNomad 회원가입하기
         </Button>
       </form>
 
-      <div className="flex items-center gap-4 self-stretch w-full">
+      {/* 구분선 */}
+      <div className="flex items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-100" />
-        <span className="text-gray-560 text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
+        <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
           SNS 계정으로 회원가입하기
         </span>
         <hr className="flex-1 border-gray-100" />
       </div>
 
+      {/* 카카오 회원가입 */}
       <Button
         type="button"
         variant="easyKakao"
@@ -196,13 +204,15 @@ const SignupForm = () => {
         카카오 회원가입
       </Button>
 
-      <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
+      {/* 로그인하기 underline글 로그인페이지로 이동 */}
+      <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
-          <b className="text-gray-500">로그인하기</b>
+          <b>로그인하기</b>
         </Link>
       </p>
 
+      {/* 회원가입 성공 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={startLogin}
@@ -210,12 +220,14 @@ const SignupForm = () => {
           "회원가입이 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
         }
       />
+
+      {/* 회원가입 에러 모달 */}
       <SuccessModal
         isOpen={!!alertMessage}
         onClose={() => setAlertMessage("")}
         message={alertMessage}
       />
-    </div>
+    </>
   );
 };
 
