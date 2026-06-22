@@ -8,7 +8,7 @@ interface ExtendedStateBadgeProps extends StateBadgeProps {
 
 const STATUS_MAP = {
   pending: {
-    label: "예약 승인",
+    label: "예약 대기",
     className: "bg-[#DDF9F9] text-[#1790A0]",
   },
   confirmed: {
@@ -39,7 +39,7 @@ const StateBadge = ({ status, className = "" }: ExtendedStateBadgeProps) => {
       items-center
       justify-center
       rounded-full
-      w-[63px]
+      w-15.75
       h-6
       text-13-bold
       leading-none

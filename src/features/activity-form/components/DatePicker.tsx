@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { DAYS, MONTH_NAMES_EN } from "../constants";
+import { useRef, useState, useMemo, useEffect } from "react";
 import {
-  AltLeft as PrevIcon,
-  AltRight as NextIcon,
-  Calendar as CalendarIcon,
-} from "@/constants/icons";
+  formatDateKey,
+  formatDisplayDate,
+  getTodayTimestamp,
+  getYearAndMonthFromTimestamp,
+  parseDateKey,
+} from "@/components/Reservation/utils";
+import { Calendar as CalendarIcon } from "@/constants/icons";
+import Calendar from "@/components/Reservation/Calendar";
+import { YearAndMonth } from "@/components/Reservation/type";
 
 interface DatePickerProps {
   value: string;
@@ -15,77 +19,75 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const today = new Date();
-  const todayYear = today.getFullYear();
-  const todayMonth = today.getMonth();
-  const todayDate = today.getDate();
+  const todayTimestamp = getTodayTimestamp();
+  const [selectedTimestamp, setSelectedTimestamp] = useState(todayTimestamp);
 
-  const [currentYear, setCurrentYear] = useState(todayYear);
-  const [currentMonth, setCurrentMonth] = useState(todayMonth);
+  const [selectedYearAndMonth, setSelectedYearAndMonth] = useState(
+    getYearAndMonthFromTimestamp(todayTimestamp),
+  );
 
-  const generateCalendarDays = () => {
-    const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
-    const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    const daysArray = [];
-    for (let i = 0; i < firstDayOfWeek; i++) {
-      daysArray.push(null);
-    }
-    for (let i = 1; i <= totalDays; i++) {
-      daysArray.push(i);
-    }
-    return daysArray;
-  };
-
-  const days = generateCalendarDays();
-
-  const handlePrevMonth = () => {
-    if (currentYear === todayYear && currentMonth === todayMonth) {
+  useEffect(() => {
+    if (!value) {
       return;
     }
 
-    if (currentMonth === 0) {
-      setCurrentYear((prev) => prev - 1);
-      setCurrentMonth(11);
-    } else {
-      setCurrentMonth((prev) => prev - 1);
+    const timestamp = parseDateKey(value);
+
+    setSelectedTimestamp(timestamp);
+    setSelectedYearAndMonth(getYearAndMonthFromTimestamp(timestamp));
+  }, [value]);
+
+  const selectableDateKeys = useMemo(() => {
+    const dates = new Set<string>();
+
+    const today = new Date();
+
+    for (let i = 0; i < 365; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+
+      dates.add(formatDateKey(date.getTime()));
     }
-  };
 
-  const handleNextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentYear((prev) => prev + 1);
-      setCurrentMonth(0);
-    } else {
-      setCurrentMonth((prev) => prev + 1);
-    }
-  };
+    return dates;
+  }, []);
 
-  const handleDateClick = (day: number) => {
-    const formattedMonth = String(currentMonth + 1).padStart(2, "0");
-    const formattedDay = String(day).padStart(2, "0");
-    const formattedYear = String(currentYear).slice(-2);
-
-    onChange(`${formattedYear}/${formattedMonth}/${formattedDay}`);
+  const handleSelectTimestamp = (timestamp: number) => {
+    setSelectedTimestamp(timestamp);
+    onChange(formatDateKey(timestamp));
     setIsCalendarOpen(false);
   };
 
+  const handleChangeYearAndMonth = (next: YearAndMonth) => {
+    const today = new Date();
+
+    const isPastMonth =
+      next.year < today.getFullYear() ||
+      (next.year === today.getFullYear() && next.month < today.getMonth());
+
+    if (isPastMonth) {
+      return;
+    }
+
+    setSelectedYearAndMonth(next);
+  };
+
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
+        !containerRef.current.contains(event.target as Node)
       ) {
         setIsCalendarOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
-  const isPrevDisabled =
-    currentYear === todayYear && currentMonth === todayMonth;
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div ref={containerRef} className="w-full relative">
@@ -96,7 +98,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
         <input
           type="text"
           placeholder="yy/mm/dd"
-          value={value ?? ""}
+          value={value ? formatDisplayDate(value) : ""}
           readOnly
           className="w-full outline-none text-16-medium text-gray-950 placeholder-gray-400 bg-transparent cursor-pointer"
         />
@@ -110,86 +112,14 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
       </div>
 
       {isCalendarOpen && (
-        <div className="absolute top-full right-0 mt-2 z-20 w-[320px] md:w-full bg-white px-5 py-7 border border-gray-100 rounded-2xl shadow-2xl select-none">
-          {/* 날짜 이동 */}
-          <div className="flex justify-between items-center mb-5 px-2">
-            <span className="text-16-bold text-gray-950 tracking-wide">
-              {MONTH_NAMES_EN[currentMonth]} {currentYear}
-            </span>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                disabled={isPrevDisabled}
-                onClick={handlePrevMonth}
-                className={`w-8 h-8 flex items-center justify-center rounded-lg transition
-                ${
-                  isPrevDisabled
-                    ? "text-gray-200 cursor-not-allowed bg-gray-50 opacity-80 border-gray-100"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-950"
-                }`}
-              >
-                <PrevIcon width={20} height={20} />
-              </button>
-
-              <button
-                type="button"
-                onClick={handleNextMonth}
-                className="w-8 h-8 flex items-center justify-center rounded-lg transition hover:bg-gray-50 hover:text-gray-950"
-              >
-                <NextIcon width={20} height={20} />
-              </button>
-            </div>
-          </div>
-
-          {/* 요일 */}
-          <div className="grid grid-cols-7 gap-1 text-center mb-2">
-            {DAYS.map((day, index) => (
-              <span
-                key={`${day}-${index}`}
-                className={`text-14-medium ${index === 0 ? "text-red-500" : index === 6 ? "text-primary-500" : "text-gray-500"}`}
-              >
-                {day}
-              </span>
-            ))}
-          </div>
-
-          {/* 달력 */}
-          <div className="grid grid-cols-7 gap-2 place-items-center text-center">
-            {days.map((day, index) => {
-              if (day === null) {
-                return <div key={`empty-${index}`} />;
-              }
-
-              const formattedCurrent = `${String(currentYear).slice(-2)}/${String(currentMonth + 1).padStart(2, "0")}/${String(day).padStart(2, "0")}`;
-              const isSelected = value === formattedCurrent;
-
-              const isPastDay =
-                currentYear < todayYear ||
-                (currentYear === todayYear && currentMonth < todayMonth) ||
-                (currentYear === todayYear &&
-                  currentMonth === todayMonth &&
-                  day < todayDate);
-
-              return (
-                <button
-                  key={`day-${day}`}
-                  type="button"
-                  disabled={isPastDay}
-                  onClick={() => handleDateClick(day)}
-                  className={`w-10 h-10 text-14-medium text-center flex items-center justify-center rounded-xl transition-all
-                    ${
-                      isSelected
-                        ? "bg-primary-500 text-white font-bold"
-                        : isPastDay
-                          ? "text-gray-200 cursor-not-allowed"
-                          : "text-gray-900 hover:bg-gray-100"
-                    }`}
-                >
-                  {day}
-                </button>
-              );
-            })}
-          </div>
+        <div className="absolute top-full right-0 mt-2 z-20 w-100 bg-white border border-gray-100 rounded-2xl shadow-2xl p-5">
+          <Calendar
+            selectedTimestamp={selectedTimestamp}
+            selectedYearAndMonth={selectedYearAndMonth}
+            selectableDateKeys={selectableDateKeys}
+            onSelectTimestamp={handleSelectTimestamp}
+            onChangeYearAndMonth={handleChangeYearAndMonth}
+          />
         </div>
       )}
     </div>

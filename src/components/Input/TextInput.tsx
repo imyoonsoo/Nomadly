@@ -18,6 +18,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       onBlur,
       disabled = false,
       className = "",
+      labelClassName = "text-16-medium ",
     },
     ref,
   ) => {
@@ -30,7 +31,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     return (
       <div className={className}>
         {label && (
-          <label htmlFor={inputId} className="text-16-medium mb-2.5 block">
+          <label htmlFor={inputId} className={`mb-2.5 block ${labelClassName}`}>
             {label}
           </label>
         )}

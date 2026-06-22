@@ -1,6 +1,9 @@
-import type { AddressSearchButtonProps } from "@/features/activity-form/types";
 import useDaumPostcode from "@/features/activity-form/hooks/useDaumPostcode";
 import Button from "@/components/Button/Button";
+
+export type AddressSearchButtonProps = {
+  onSelect: (address: string) => void;
+};
 
 export default function AddressSearchButton({
   onSelect,

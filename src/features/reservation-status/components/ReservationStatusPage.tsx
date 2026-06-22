@@ -9,9 +9,8 @@ import {
   useReservationDashboard,
 } from "@/features/reservation-status/hooks/useReservationStatus";
 import SelectDropdown from "@/components/SelectDropdown/SelectDropdown";
-import Image from "next/image";
 import Error from "@/assets/images/empty-notFound.svg";
-import Loading from "@/assets/images/empty-loading.gif";
+import Loading from "@/assets/images/empty-loading.svg";
 
 const ReservationStatusPage = () => {
   const today = new Date();
@@ -58,7 +57,7 @@ const ReservationStatusPage = () => {
   if (isActivitiesLoading) {
     return (
       <EmptyReservationStatus
-        image={<Image src={Loading} alt="loading" width={182} height={182} />}
+        image={<Loading className="w-[182px] h-[182px]" />}
         message="불러오는 중..."
       />
     );
@@ -73,13 +72,44 @@ const ReservationStatusPage = () => {
     );
   }
 
+  const hasDashboardData = reservationDashboardData !== undefined;
+
+  let dashboardContent;
+
+  if (isDashboardLoading && !hasDashboardData) {
+    dashboardContent = (
+      <EmptyReservationStatus
+        image={<Loading className="w-[182px] h-[182px]" />}
+        message="예약 현황을 불러오는 중..."
+      />
+    );
+  } else if (isDashboardError) {
+    dashboardContent = (
+      <EmptyReservationStatus
+        image={<Error className="w-[182px] h-[182px]" />}
+        message="예약 현황을 불러오지 못했습니다."
+      />
+    );
+  } else {
+    dashboardContent = (
+      <ReservationCalendar
+        reservations={reservationDashboardData ?? []}
+        onClickDate={handleDateClick}
+        onChangeMonth={({ year, month }) => {
+          setCalendarYear(year);
+          setCalendarMonth(month);
+        }}
+      />
+    );
+  }
+
   return (
     <section className="w-full max-w-[800px]">
       {!hasActivities ? (
         <EmptyReservationStatus message="아직 등록한 체험이 없어요" />
       ) : (
         <>
-          <div className="pb-[18px] md:pb-6 xl:pb-[30px]">
+          <div className="pb-[18px] md:pb-6 xl:pb-[30px] max-w-[640px]">
             <SelectDropdown
               options={activityOptions}
               selectedValue={selectedActivityId}
@@ -87,20 +117,7 @@ const ReservationStatusPage = () => {
             />
           </div>
 
-          {isDashboardLoading ? (
-            <div>예약 현황을 불러오는 중...</div>
-          ) : isDashboardError ? (
-            <div>예약 현황을 불러오지 못했습니다.</div>
-          ) : (
-            <ReservationCalendar
-              reservations={reservationDashboardData ?? []}
-              onClickDate={handleDateClick}
-              onChangeMonth={({ year, month }) => {
-                setCalendarYear(year);
-                setCalendarMonth(month);
-              }}
-            />
-          )}
+          {dashboardContent}
 
           <ReservationStatusModal
             open={!!selectedDate}

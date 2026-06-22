@@ -1,25 +1,15 @@
-import serverFetch from "@/lib/http/server-fetch";
+import serverFetch from "@/lib/http/serverFetch";
 import {
   GetActivityDetailParams,
   ActivityDetailResponse,
   GetActivityReviewsParams,
   ActivityReviewsResponse,
-} from "@/app/(main)/activities/type";
+} from "@/features/activities/type";
 
 export const getActivityDetail = async ({
   activityId,
 }: GetActivityDetailParams): Promise<ActivityDetailResponse> => {
-  try {
-    const api = await serverFetch();
-    const { data } = await api.get<ActivityDetailResponse>(
-      `/activities/${activityId}`,
-    );
-
-    return data;
-  } catch (error) {
-    console.error("Failed to get activity detail:", error);
-    throw error;
-  }
+  return serverFetch<ActivityDetailResponse>(`/activities/${activityId}`);
 };
 
 export const getActivityReviews = async ({
@@ -27,18 +17,19 @@ export const getActivityReviews = async ({
   page,
   size,
 }: GetActivityReviewsParams): Promise<ActivityReviewsResponse> => {
-  try {
-    const api = await serverFetch();
-    const { data } = await api.get<ActivityReviewsResponse>(
-      `/activities/${activityId}/reviews`,
-      {
-        params: { page, size },
-      },
-    );
+  const searchParams = new URLSearchParams();
 
-    return data;
-  } catch (error) {
-    console.error("Failed to get activity reviews:", error);
-    throw error;
+  if (page !== undefined) {
+    searchParams.set("page", String(page));
   }
+
+  if (size !== undefined) {
+    searchParams.set("size", String(size));
+  }
+
+  const query = searchParams.toString();
+
+  return serverFetch<ActivityReviewsResponse>(
+    `/activities/${activityId}/reviews${query ? `?${query}` : ""}`,
+  );
 };

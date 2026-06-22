@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteMyActivity } from "../api";
+
 import { ActivitiesProps } from "../type";
+import useDeleteMyActivityMutation from "../hooks/useDeleteActivityMutation";
+import { showToast } from "@/lib/utils/toast";
 
 import Button from "@/components/Button/Button";
 import WarningModal from "@/components/Modal/WarningModal";
@@ -21,22 +22,21 @@ const Card = ({
 }: ActivitiesProps) => {
   const router = useRouter();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const queryClient = useQueryClient();
 
-  // Todo: 삭제 완료 및 에러 토스트 처리
-  const deleteMutation = useMutation({
-    mutationFn: deleteMyActivity,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["my-activities"],
-      });
-
-      setIsConfirmModalOpen(false);
-    },
+  const deleteMutation = useDeleteMyActivityMutation(() => {
+    showToast.success("체험이 삭제되었습니다.");
   });
 
   const handleDeleteConfirmButtonClick = () => {
-    deleteMutation.mutate(id);
+    if (deleteMutation.isPending) {
+      return;
+    }
+
+    deleteMutation.mutate(id, {
+      onSettled: () => {
+        setIsConfirmModalOpen(false);
+      },
+    });
   };
 
   return (
@@ -79,14 +79,16 @@ const Card = ({
         </div>
       </div>
 
-      {/* Todo: placeholderImage 설정 */}
-      <Image
-        src={bannerImageUrl}
-        alt="배너 이미지"
-        width={142}
-        height={142}
-        className="w-20.5 h-20.5 lg:w-35.5 lg:h-35.5 object-cover rounded-3xl"
-      />
+      <div className="relative shrink-0 w-20.5 h-20.5 md:w-35.5 md:h-35.5 rounded-3xl overflow-hidden">
+        <Image
+          src={bannerImageUrl}
+          alt="배너 이미지"
+          width={142}
+          height={142}
+          priority
+          className="w-full h-full object-cover rounded-3xl"
+        />
+      </div>
 
       <WarningModal
         isOpen={isConfirmModalOpen}

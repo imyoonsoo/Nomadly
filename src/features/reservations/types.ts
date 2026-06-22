@@ -1,3 +1,5 @@
+import type { ActivityDetailResponse } from "@/features/activities/type";
+
 export type ReservationStatus =
   | "pending"
   | "confirmed"
@@ -46,4 +48,26 @@ export interface GetMyReservationsResponse {
   cursorId: number;
   reservations: Reservation[];
   totalCount: number;
+}
+
+export type CancelReservationResponse = Omit<Reservation, "activity"> & {
+  activityId: number;
+};
+
+export interface SubmitReviewResponse {
+  updatedAt: string;
+  createdAt: string;
+  content: string;
+  rating: number;
+  userId: number;
+  activityId: number;
+  teamId: string;
+  id: number;
+}
+
+export interface EditReservationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  reservationId: number;
+  activityDetail: ActivityDetailResponse | undefined;
 }

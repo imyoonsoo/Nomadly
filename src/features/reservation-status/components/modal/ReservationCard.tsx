@@ -1,8 +1,8 @@
-import StateBadge from "@/components/StateBadge/StateBadge";
 import {
   ReservationCardItem,
   ReservationStatus,
 } from "@/features/reservation-status/type";
+import ReservationStateBadge from "@/features/reservation-status/components/modal/ReservationStateBadge";
 
 interface ReservationCardProps {
   reservation: ReservationCardItem;
@@ -57,7 +57,7 @@ const ReservationCard = ({
           </button>
         </div>
       ) : (
-        <StateBadge status={status} className="self-center" />
+        <ReservationStateBadge status={status} className="self-center" />
       )}
     </div>
   );

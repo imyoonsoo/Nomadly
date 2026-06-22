@@ -1,15 +1,10 @@
 "use client";
 import FilterButton from "@/components/FilterButton/FilterButton";
 import ActivitiesCard from "./ActivitiesCard";
-import { CardItem } from "./type";
+import { CardListProps } from "./type";
 import { AltDown } from "@/constants/icons";
 import { useEffect, useState, useRef } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-
-type CardListProps = {
-  items: CardItem[];
-  keyword: string;
-};
 
 const CATEGORIES = [
   {
@@ -28,16 +23,21 @@ const CATEGORIES = [
   },
   {
     id: 4,
+    name: "스포츠",
+    icon: "🏓",
+  },
+  {
+    id: 5,
     name: "투어",
     icon: "🚩",
   },
   {
-    id: 5,
+    id: 6,
     name: "관광",
     icon: "🚆",
   },
   {
-    id: 6,
+    id: 7,
     name: "웰빙",
     icon: "🍀",
   },
@@ -46,10 +46,10 @@ const CATEGORIES = [
 const ActivitiesList = ({ items, keyword }: CardListProps) => {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const [selectedText, setSelectedText] = useState("가격순");
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [selectedText, setSelectedText] = useState("최신순");
   const [selectedCategory, setSelectedCategory] = useState("전체");
-  const OPTIONS = ["가격순", "인기순"];
+  const OPTIONS = ["최신순", "인기순", "가격순"];
 
   const categoryDropdownRef = useRef<HTMLDivElement>(null);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -65,7 +65,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
         categoryDropdownRef.current &&
         !categoryDropdownRef.current.contains(target)
       ) {
-        setIsOpen2(false);
+        setIsOpenCategory(false);
       }
 
       if (
@@ -83,13 +83,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    setSelectedText("가격순");
-    setSelectedCategory("전체");
-  }, [keyword]);
-
   // 체험리스트 필터링
-
   const selectedCategoryItem = CATEGORIES.find(
     (item) => item.name === selectedCategory,
   );
@@ -99,16 +93,25 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
       : items.filter((item) => item.category === selectedCategory);
 
   const sortedItems = [...filteredItems].sort((a, b) => {
-    if (selectedText === "가격순") {
-      return a.price - b.price;
+    if (selectedText === "최신순") {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     }
 
     if (selectedText === "인기순") {
       return b.reviewCount - a.reviewCount;
     }
-
+    if (selectedText === "가격순") {
+      return a.price - b.price;
+    }
     return 0;
   });
+  const isSearchMode = !!keyword?.trim();
+  const ITEMS_PER_PAGE = 8;
+  const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedItems = sortedItems.slice(startIndex, endIndex);
+
   return (
     <div className="relative w-full">
       {keyword === "" && (
@@ -121,18 +124,18 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
               <button
                 type="button"
                 className="py-2.5 px-5 flex items-center border border-gray-200 rounded-full bg-white gap-2"
-                onClick={() => setIsOpen2((prev) => !prev)}
+                onClick={() => setIsOpenCategory((prev) => !prev)}
               >
                 {selectedCategoryItem?.icon}
                 {selectedCategory}
                 <span>
                   <AltDown
-                    className={`${isOpen2 ? "rotate-180" : ""} transition`}
+                    className={`${isOpenCategory ? "rotate-180" : ""} transition`}
                   />
                 </span>
               </button>
 
-              {isOpen2 && (
+              {isOpenCategory && (
                 <div className="absolute right-0 top-12.5 bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-10 shadow-[0_4px_16px_rgb(187_187_187/50%)]">
                   {CATEGORIES.map((item) => (
                     <button
@@ -140,7 +143,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
                       type="button"
                       onClick={() => {
                         setSelectedCategory(item.name);
-                        setIsOpen2(false);
+                        setIsOpenCategory(false);
                         setPage(1);
                       }}
                       className="flex gap-2 items-center"
@@ -210,19 +213,35 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-4 md:gap-6">
-        {sortedItems.map((item) => (
-          <div
-            key={item.id}
-            className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
-          >
-            <ActivitiesCard {...item} />
+      <div>
+        {!isSearchMode && sortedItems.length === 0 ? (
+          <div className="flex flex-col items-center pt-30">
+            <p className="text-center text-gray-400">
+              {selectedCategory}에 등록된 체험이 없습니다.
+            </p>
           </div>
-        ))}
+        ) : (
+          <div className="flex flex-wrap gap-4 md:gap-6">
+            {paginatedItems.map((item) => (
+              <div
+                key={item.id}
+                className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
+              >
+                <ActivitiesCard {...item} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div className="flex justify-center mt-7.5">
-        <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
-      </div>
+      {sortedItems.length > 0 && totalPages > 1 && (
+        <div className="flex justify-center mt-7.5">
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -7,19 +7,19 @@ import Reservation from "@/components/Reservation/Reservation";
 import ReservationSlideUpModal from "@/components/Reservation/ReservationSlideUpModal";
 import type { SelectedSchedule } from "@/components/Reservation/type";
 import { formatDisplayDate, formatPrice } from "@/components/Reservation/utils";
+import SuccessModal from "@/components/Modal/SuccessModal";
 import { createActivityReservation } from "@/features/activities/api/client-api";
-import type { ActivitySchedule } from "@/app/(main)/activities/type";
+import { showToast } from "@/lib/utils/toast";
+import { getApiErrorMessage } from "@/lib/utils/getApiErrorMessage";
 
 interface MobileReservationFooterProps {
   activityId: number;
   price: number;
-  schedules: ActivitySchedule[];
 }
 
 const MobileReservationFooter = ({
   activityId,
   price,
-  schedules,
 }: MobileReservationFooterProps) => {
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [isHeadCountModalOpen, setIsHeadCountModalOpen] = useState(false);
@@ -28,6 +28,8 @@ const MobileReservationFooter = ({
   const [selectedSchedule, setSelectedSchedule] =
     useState<SelectedSchedule | null>(null);
   const [headCount, setHeadCount] = useState(1);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isReservationReady = selectedSchedule !== null;
 
@@ -66,16 +68,24 @@ const MobileReservationFooter = ({
     setIsHeadCountModalOpen(false);
   };
 
-  const handleReserveClick = () => {
-    if (!selectedSchedule) {
+  const handleReserveClick = async () => {
+    if (!selectedSchedule || isSubmitting) {
       return;
     }
 
-    createActivityReservation({
-      activityId,
-      scheduleId: selectedSchedule.scheduleId,
-      headCount,
-    });
+    setIsSubmitting(true);
+    try {
+      await createActivityReservation({
+        activityId,
+        scheduleId: selectedSchedule.scheduleId,
+        headCount,
+      });
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      showToast.error(getApiErrorMessage(error, "예약에 실패했습니다."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -116,8 +126,8 @@ const MobileReservationFooter = ({
         onClose={handleCloseDateModal}
       >
         <Reservation
+          activityId={activityId}
           price={price}
-          schedules={schedules}
           className="rounded-none border-0 p-0"
           showPrice={false}
           showHeadCount={false}
@@ -139,6 +149,12 @@ const MobileReservationFooter = ({
           onBackButtonClick={handleBackFromHeadCount}
         />
       </ReservationSlideUpModal>
+
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        message="예약이 완료되었습니다."
+      />
     </>
   );
 };

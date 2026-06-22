@@ -2,95 +2,96 @@
 import { useState } from "react";
 import FilterButton from "@/components/FilterButton/FilterButton";
 import ReservedCard from "./ReservedCard";
-import { useQuery } from "@tanstack/react-query";
-import { myReservationsQuery } from "@/features/reservations/queries";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { myReservationsInfiniteQuery } from "@/features/reservations/queries";
+import { useRouter } from "next/navigation";
+import EmptyIcon from "@/assets/images/empty.svg";
+import Button from "@/components/Button/Button";
+import type { Reservation } from "../types";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import ReservedCardListSkeleton, {
+  ReservedCardSkeleton,
+} from "./ReservedCardListSkeleton";
 
 const FILTERS = [
-  "예약 완료",
+  "예약 대기",
   "예약 취소",
-  "예약 승인",
+  "예약 완료",
   "예약 거절",
   "체험 완료",
 ];
 
 const FILTER_STATUS_MAP: Record<string, string> = {
-  "예약 완료": "confirmed",
+  "예약 대기": "pending",
   "예약 취소": "canceled",
-  "예약 승인": "pending",
+  "예약 완료": "confirmed",
   "예약 거절": "declined",
   "체험 완료": "completed",
 };
 
+const sortReservations = (reservations: Reservation[]) => {
+  const sortedReservations = [...reservations].sort(
+    (a, b) =>
+      Number(a.date.split("-").join("")) - Number(b.date.split("-").join("")),
+  );
+  return sortedReservations;
+};
+
 const ReservedCardList = () => {
+  const router = useRouter();
+
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
   const activeStatus = activeFilter
     ? FILTER_STATUS_MAP[activeFilter]
     : undefined;
 
-  const { data, isLoading } = useQuery(
-    myReservationsQuery({ size: 10, status: activeStatus }),
-  );
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      ...myReservationsInfiniteQuery({ size: 10, status: activeStatus }),
+      retry: 1,
+    });
 
-  // const mockReservations: ReservedCardProps[] = [
-  //   {
-  //     date: "2023.02.14",
-  //     title: "함께 배우면 즐거운 스트릿 댄스",
-  //     status: "confirmed",
-  //     startTime: "11:00",
-  //     endTime: "12:30",
-  //     totalPrice: 10000,
-  //     headCount: 10,
-  //   },
-  //   {
-  //     date: "2023.02.11",
-  //     title: "내 강아지 인생 사진 찍어주기",
-  //     status: "canceled",
-  //     startTime: "13:00",
-  //     endTime: "14:0",
-  //     totalPrice: 35000,
-  //     headCount: 10,
-  //   },
-  //   {
-  //     date: "2023.01.31",
-  //     title: "이색 앵무새와 친구 되기",
-  //     status: "declined",
-  //     startTime: "10:00",
-  //     endTime: "12:00",
-  //     totalPrice: 60000,
-  //     headCount: 3,
-  //   },
-  //   {
-  //     date: "2023.01.14",
-  //     title: "발리 코끼리 목욕 체험",
-  //     status: "completed",
-  //     startTime: "16:00",
-  //     endTime: "17:30",
-  //     totalPrice: 40000,
-  //     headCount: 2,
-  //   },
-  //   {
-  //     date: "2023.01.10",
-  //     title: "열기구 페스티벌",
-  //     status: "pending",
-  //     startTime: "10:00",
-  //     endTime: "12:30",
-  //     totalPrice: 70000,
-  //     headCount: 2,
-  //   },
-  // ];
+  const { targetRef } = useInfiniteScroll({
+    onIntersect: fetchNextPage,
+    hasNextPage: !!hasNextPage,
+    isLoading: isFetchingNextPage,
+  });
 
   const handleFilterButtonClick = (filter: string) => {
     setActiveFilter((prev) => (prev === filter ? null : filter));
   };
 
-  const reservations = data?.reservations ?? [];
+  if (isLoading) {
+    return <ReservedCardListSkeleton />;
+  }
 
-  if (isLoading) return <div>로딩 중...</div>;
+  const reservations = sortReservations(
+    data?.pages.flatMap((page) => page.reservations) ?? [],
+  );
+
+  if (!activeFilter && !reservations?.length) {
+    return (
+      <div className="w-full h-full mt-[10px] flex flex-col gap-[30px] justify-center items-center">
+        <div>
+          <EmptyIcon width={180} height={203} />
+          <p>아직 예약된 체험이 없어요</p>
+        </div>
+        <Button
+          variant="mainBlue"
+          height="custom"
+          className="w-45.5 h-13.5 rounded-2xl text-16-bold"
+          onClick={() => router.push("/")}
+        >
+          둘러보기
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-[30px]">
-      <div className="flex gap-[8px] overflow-x-auto scrollbar-hide">
+      <div className="flex gap-2 overflow-x-auto scrollbar-hide">
         {FILTERS.map((filter) => (
           <FilterButton
             key={filter}
@@ -106,6 +107,8 @@ const ReservedCardList = () => {
           <ReservedCard key={reservation.id} reservation={reservation} />
         ))}
       </div>
+      <div ref={targetRef} />
+      {isFetchingNextPage && <ReservedCardSkeleton />}
     </div>
   );
 };
