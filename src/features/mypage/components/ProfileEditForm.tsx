@@ -12,18 +12,16 @@ import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 import { useRouter } from "next/navigation";
+import EmptyLoading from "@/assets/images/empty-loading.svg";
 
-// [리팩토링] 에러메시지 문구를 상수화하여 통일성 확보
 const DEFAULT_ERROR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요.";
 
-// [리팩토링] 상태코드에 따른 에러메시지 처리 (switch-case -> 객체)
 const STATUS_MESSAGES: Record<string, string> = {
   "400": "입력한 내용이 올바른지 확인해주세요.",
   "401": "로그인 후 다시 시도해주세요.",
   "404": "사용자 정보가 존재하지 않습니다.",
 };
 
-// [리팩토링] 중복되던 에러메시지 로직 함수로 줄이고자 함
 const toErrorMessage = (error: unknown): string => {
   const status = error instanceof Error ? error.message : "";
   return STATUS_MESSAGES[status] ?? DEFAULT_ERROR_MESSAGE;
@@ -39,7 +37,6 @@ const ProfileEditForm = () => {
   } = useUploadProfileImage();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const router = useRouter();
-  const [isSaveConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const {
     register,
@@ -68,33 +65,32 @@ const ProfileEditForm = () => {
     }
   }, [user, reset]); // 유저 데이터가 캐싱되거나 새롭게 들어올 때마다 실행
 
-  // [리팩토링] watch -> useWatch
+  // watch -> useWatch
   // watch는 안전하게 메모이제이션할 수 없어 컴포넌트 최적화 대상에서 제외
   // 따라서 훅 기반인 useWatch로 교체
   const newPassword = useWatch({ control, name: "newPassword" }) || ""; // useWatch 자체에서 newPassword 문자열로
 
   const handleProfileSubmit = async (data: ProfileEditFormValues) => {
-    setIsConfirmModalOpen(false);
     try {
       if (data.newPassword && data.newPassword !== data.newPasswordConfirm) {
         showToast.error("비밀번호가 일치하지 않습니다.");
         return;
       }
 
-      // MyProfileRequestBody에 내 정보 변경사항 추가
+      // MyProfileRequestBody에 변경사항 추가
       const updatedProfile: MyProfileRequestBody = {};
 
-      // 닉네임 변경 시 업데이트
+      // 닉네임 변경 시
       if (dirtyFields.nickname) {
         updatedProfile.nickname = data.nickname;
       }
 
-      // 비밀번호 변경 시 업데이트
+      // 비밀번호 변경 시
       if (data.newPassword) {
         updatedProfile.newPassword = data.newPassword;
       }
 
-      // 프로필 변경 시 업데이트
+      // 프로필 변경 시
       if (selectedImage) {
         const formData = new FormData();
         formData.append("image", selectedImage);
@@ -155,8 +151,8 @@ const ProfileEditForm = () => {
 
   if (isLoading || !user) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center text-center text-lg md:text-xl text-gray-950 font-medium">
-        내 정보 로딩 중...
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <EmptyLoading width={200} height={200} />
       </div>
     );
   }
@@ -170,7 +166,7 @@ const ProfileEditForm = () => {
   }
 
   return (
-    <div className="w-full lg:w-160 sm:w-81.75 md:w-119 mx-auto flex flex-col items-center gap-6 px-4">
+    <div className="w-full md:w-119 lg:w-160 mx-auto flex flex-col items-center gap-6 px-4">
       <div className="self-stretch">
         <Title
           title="내 정보"
@@ -200,7 +196,7 @@ const ProfileEditForm = () => {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "닉네임은 10자 이하로 입력해 주세요.",
+              message: "닉네임은 10자 이하로 입력해주세요.",
             },
           })}
         />
@@ -231,7 +227,7 @@ const ProfileEditForm = () => {
                   value,
                 )
               ) {
-                return "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해 주세요.";
+                return "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해주세요.";
               }
               return true;
             },
@@ -251,30 +247,20 @@ const ProfileEditForm = () => {
           })}
         />
 
-        <div className="flex gap-3 px-6">
-          <Button
-            type="button"
-            variant="whitenGray"
-            height="47md"
-            onClick={() => router.back()}
-          >
-            취소
-          </Button>
-          <Button
-            type="submit"
-            variant="mainBlue"
-            height="47md"
-            disabled={
-              isProfileUpdating ||
-              isProfileImageUploading ||
-              !isValid ||
-              (!isDirty && !selectedImage)
-            }
-            className="w-full max-w-81.75 md:w-10.25 whitespace-nowrap"
-          >
-            {isProfileUpdating ? "변경사항 저장 중..." : "변경사항 저장하기"}
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          variant="mainBlue"
+          height="47md"
+          disabled={
+            isProfileUpdating ||
+            isProfileImageUploading ||
+            !isValid ||
+            (!isDirty && !selectedImage)
+          }
+          className="w-full whitespace-nowrap font-bold shadow-sm transition-all"
+        >
+          변경사항 저장하기
+        </Button>
       </form>
     </div>
   );
