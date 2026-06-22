@@ -43,6 +43,13 @@ const Card = ({
     <>
       <div
         onClick={() => router.push(`/activities/${id}`)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            router.push(`/activities/${id}`);
+          }
+        }}
+        role="button"
+        tabIndex={0}
         className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] flex justify-between items-center gap-6 hover:cursor-pointer"
       >
         <div className="w-full flex flex-col justify-center items-start gap-3">
@@ -66,7 +73,7 @@ const Card = ({
             <Button
               variant="whitenGray"
               height="h29"
-              className="px-2.5 py-1.5"
+              className="px-2.5 py-1.5 hover:border-gray-400"
               onClick={(e) => {
                 e.stopPropagation();
                 router.push(`/activities/${id}/edit`);
@@ -77,7 +84,7 @@ const Card = ({
             <Button
               variant="onlyGray"
               height="h29"
-              className="px-2.5 py-1.5 rounded-lg text-14-medium"
+              className="px-2.5 py-1.5 rounded-lg text-14-medium hover:bg-red-50 hover:text-red-500"
               onClick={(e) => {
                 e.stopPropagation();
                 setIsConfirmModalOpen(true);

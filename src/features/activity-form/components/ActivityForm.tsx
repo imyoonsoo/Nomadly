@@ -183,7 +183,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           disabled={isSubmitDisabled}
         >
           {isSubmitting
-            ? "등록 중..."
+            ? "저장 중..."
             : mode === "create"
               ? "등록하기"
               : "수정하기"}
