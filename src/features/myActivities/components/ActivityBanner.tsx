@@ -6,7 +6,7 @@ import {
 
 interface ActivityBannerProps {
   count: number;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const ActivityBanner = ({ count = 0, isLoading }: ActivityBannerProps) => {
