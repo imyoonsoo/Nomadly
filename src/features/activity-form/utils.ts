@@ -32,7 +32,7 @@ export const getImageUrl = async (image: string | File) => {
   try {
     const response = await uploadActivityImage(image);
     return response.activityImageUrl;
-  } catch (error) {
+  } catch {
     showToast.error("이미지 업로드에 실패했습니다.");
     throw new Error("IMAGE_UPLOAD_ERROR");
   }

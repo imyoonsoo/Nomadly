@@ -41,7 +41,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid, isDirty, isSubmitSuccessful },
+    formState: { errors, isValid, isDirty, isSubmitSuccessful, isSubmitting },
   } = useForm<ActivityFormValues>({
     mode: "onChange",
     defaultValues: defaultValues ?? EMPTY_ACTIVITY_FORM,
@@ -80,7 +80,10 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   };
 
   const isSubmitDisabled =
-    (mode === "create" && !isDirty) || !isValid || hasScheduleDuplicate;
+    (mode === "create" && !isDirty) ||
+    !isValid ||
+    hasScheduleDuplicate ||
+    isSubmitting;
 
   const handleFormSubmit: SubmitHandler<ActivityFormValues> = async (data) => {
     if (!data.bannerImageUrl) {
@@ -90,7 +93,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
     try {
       await onSubmit(data);
       setIsSuccessModalOpen(true);
-    } catch (error) {
+    } catch {
       return;
     }
   };
@@ -182,7 +185,11 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           className="w-full md:w-60 md:mx-auto hover:brightness-90"
           disabled={isSubmitDisabled}
         >
-          {mode === "create" ? "등록하기" : "수정하기"}
+          {isSubmitting
+            ? "등록 중..."
+            : mode === "create"
+              ? "등록하기"
+              : "수정하기"}
         </Button>
       </form>
 
