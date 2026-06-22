@@ -27,7 +27,7 @@ const VARIANTS: { [key: string]: string } = {
 
   onlyGray: `bg-gray-50
     text-gray-600
-    active:bg-gray-150 active:border active:border active:border-gray-270
+    active:bg-gray-150 active:border active:border-gray-270
     disabled:bg-gray-35 disabled:text-gray-250`,
 
   clear: `bg-transparent
