@@ -58,7 +58,11 @@ const ActivitiesPage = async ({
           </div>
           <DescriptionSection description={activityData.description} />
           <MapSection address={activityData.address} />
-          <ReviewSection activityId={activityId} />
+          <ReviewSection
+            activityId={activityId}
+            reviewCount={activityData.reviewCount}
+            rating={activityData.rating}
+          />
         </div>
 
         <div className="hidden lg:flex w-102.5 flex-col gap-5">

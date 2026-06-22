@@ -1,18 +1,15 @@
 "use client";
 
-import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import UserSessionHydrator from "@/features/auth/components/UserSessionHydrator";
-import { makeQueryClient } from "./get-query-client";
-import { useRef } from "react";
+import { getQueryClient } from "./get-query-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const clientRef = useRef<QueryClient | null>(null);
-  if (!clientRef.current) {
-    clientRef.current = makeQueryClient();
-  }
+  const queryClient = getQueryClient();
+
   return (
-    <QueryClientProvider client={clientRef.current}>
+    <QueryClientProvider client={queryClient}>
       <UserSessionHydrator>{children}</UserSessionHydrator>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

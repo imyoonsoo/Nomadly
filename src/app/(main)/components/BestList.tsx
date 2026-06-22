@@ -4,7 +4,6 @@ import ActivitiesCard from "./ActivitiesCard";
 import { CardListProps } from "./type";
 import { useRef } from "react";
 import { ArrowRight } from "@/constants/icons";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -51,12 +50,9 @@ const BestList = ({ items }: CardListProps) => {
         }}
         className="w-full p-2!"
       >
-        {bestItems.map((item, ranking) => (
+        {bestItems.map((item) => (
           <SwiperSlide key={item.id} className="relative">
             <ActivitiesCard {...item} />
-            {/* <div className="absolute left-5 top-3 text-center font-['Arial_Black'] text-4xl font-black leading-none text-transparent [-webkit-text-stroke:1px_white] drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
-              {ranking + 1}
-            </div> */}
           </SwiperSlide>
         ))}
       </Swiper>
