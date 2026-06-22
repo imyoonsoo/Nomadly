@@ -22,13 +22,13 @@ const VARIANTS: { [key: string]: string } = {
   whitenGray: `bg-white
     border border-gray-200
     text-gray-600
-    active:bg-gray-15 active:border-gray-270 active:text-gray-600
+    active:bg-[#fcfcfc] active:border-[#b2b1b9] active:text-[#707177]
     disabled:bg-gray-200 disabled:text-gray-50`,
 
   onlyGray: `bg-gray-50
     text-gray-600
-    active:bg-gray-150 active:border active:border-gray-270
-    disabled:bg-gray-35 disabled:text-gray-250`,
+    active:bg-[#d8d9e0] active:border active:border-[#b2b1b9]
+    disabled:bg-[#f3f3f5] disabled:text-[#c0c0c5]`,
 
   clear: `bg-transparent
   border border-primary-100
@@ -37,17 +37,17 @@ const VARIANTS: { [key: string]: string } = {
   active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-primary-600`,
 
   easyKakao: `bg-white 
-  border border-kakao-yellow 
-    text-kakao-brown
-    [&_svg]:text-kakao-brown
-    active:bg-white active:border active:border-kakao-light
+  border border-[#fae100] 
+    text-kakao-[#3c1e1e]
+    [&_svg]:text-[#3c1e1e]
+    active:bg-white active:border active:border-[#faf285]
     disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
 
   reviewMore: `bg-white
-  border border-gray-560
-  text-gray-530
-  active:bg-gray-15 active:border-gray-820 active:text-gray-820
-  disabled:border disabled:border-gray-220 disabled:text-gray-220
+  border border-[#79747e]
+  text-[#808080]
+  active:bg-[#fcfcfc] active:border-[#4a4550] active:text-[#4a4550]
+  disabled:border disabled:border-[#c4c4c4] disabled:text-[#c4c4c4]
   `,
 };
 
