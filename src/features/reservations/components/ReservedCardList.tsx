@@ -9,7 +9,9 @@ import EmptyIcon from "@/assets/images/empty.svg";
 import Button from "@/components/Button/Button";
 import type { Reservation } from "../types";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
-import ReservedCardListSkeleton from "./ReservedCardListSkeleton";
+import ReservedCardListSkeleton, {
+  ReservedCardSkeleton,
+} from "./ReservedCardListSkeleton";
 
 const FILTERS = [
   "예약 대기",
@@ -106,7 +108,7 @@ const ReservedCardList = () => {
         ))}
       </div>
       <div ref={targetRef} />
-      {isFetchingNextPage && <div>로딩 중....</div>}
+      {isFetchingNextPage && <ReservedCardSkeleton />}
     </div>
   );
 };
