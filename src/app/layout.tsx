@@ -5,6 +5,9 @@ import Providers from "@/lib/query/providers";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  ),
   title: "GlobalNomad",
   description: "GlobalNomad",
   icons: {
@@ -12,9 +15,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url: "/",
     title: "GlobalNomad",
-    description: "체험",
+    description: "글로벌노마드 다양한 체험 예약하기",
     siteName: "GlobalNomad",
     images: [
       {
