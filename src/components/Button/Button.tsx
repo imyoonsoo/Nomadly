@@ -36,12 +36,12 @@ const VARIANTS: { [key: string]: string } = {
   [&_svg]:text-gray-600
   active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-primary-600`,
 
-  easyKakao: `bg-white 
-  border border-[#fae100] 
-    text-kakao-[#3c1e1e]
+  easyKakao: `bg-white
+    border border-[#e6cc00]
+    text-[#3c1e1e]
     [&_svg]:text-[#3c1e1e]
-    active:bg-white active:border active:border-[#faf285]
-    disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
+    active:bg-[#fce94f] active:border-[#e6cc00]
+    disabled:bg-gray-50 disabled:border-gray-200 disabled:text-gray-300 disabled:[&_svg]:text-gray-300`,
 
   reviewMore: `bg-white
   border border-[#79747e]
