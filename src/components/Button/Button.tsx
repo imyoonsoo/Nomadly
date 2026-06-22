@@ -10,7 +10,7 @@ const DEFAULT_SETTING = `flex items-center
 const VARIANTS: { [key: string]: string } = {
   mainBlue: `bg-primary-500
     text-white
-    active:bg-[#2b8de0]
+    active:bg-primary-600
     disabled:bg-gray-200 disabled:text-gray-50 disabled:[&_svg]:text-gray-400`,
 
   whitenBlue: `bg-white
@@ -22,32 +22,32 @@ const VARIANTS: { [key: string]: string } = {
   whitenGray: `bg-white
     border border-gray-200
     text-gray-600
-    active:bg-[#FCFCFC] active:border-[#B2B1B9] active:text-gray-600
+    active:bg-gray-15 active:border-gray-270 active:text-gray-600
     disabled:bg-gray-200 disabled:text-gray-50`,
 
   onlyGray: `bg-gray-50
     text-gray-600
-    active:bg-[#d8d9e0] active:border active:border active:border-[#B2B1B9]
-    disabled:bg-[#f3f3f5] disabled:text-[#c0c0c5]`,
+    active:bg-gray-150 active:border active:border active:border-gray-270
+    disabled:bg-gray-35 disabled:text-gray-250`,
 
   clear: `bg-transparent
   border border-primary-100
   text-gray-600
   [&_svg]:text-gray-600
-  active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-[#2b8de0]`,
+  active:bg-primary-100 active:text-gray-950 active:[&_svg]:text-primary-600`,
 
   easyKakao: `bg-white 
-  border border-[#fae100] 
-    text-[#3c1e1e]
-    [&_svg]:text-[#3c1e1e]
-    active:bg-white active:border active:border-[#FAF285]
+  border border-kakao-yellow 
+    text-kakao-brown
+    [&_svg]:text-kakao-brown
+    active:bg-white active:border active:border-kakao-light
     disabled:bg-white disabled:border disabled:border-gray-200 disabled:text-gray-200 disabled:[&_svg]:text-gray-500`,
 
   reviewMore: `bg-white
-  border border-[#79747E]
-  text-[#808080]
-  active:bg-[#FCFCFC] active:border-[#4A4550] active:text-[#4A4550]
-  disabled:border disabled:border-[#C4C4C4] disabled:text-[#C4C4C4]
+  border border-gray-560
+  text-gray-530
+  active:bg-gray-15 active:border-gray-820 active:text-gray-820
+  disabled:border disabled:border-gray-220 disabled:text-gray-220
   `,
 };
 
