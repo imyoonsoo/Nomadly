@@ -2,14 +2,17 @@
 
 import axios from "axios";
 import useSignup from "../hooks/useSignup";
-import { useForm } from "react-hook-form";
-import { useState, useEffect, useRef } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
 import { SignupFormValues } from "../type";
+
+const DEFAULT_SIGNUP_ERROR_MESSAGE =
+  "회원가입에 실패했습니다. 잠시 후 시도해주세요.";
 
 const SignupForm = () => {
   const { mutate } = useSignup();
@@ -20,7 +23,7 @@ const SignupForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setError,
     formState: { errors, isValid },
   } = useForm<SignupFormValues>({
@@ -33,65 +36,65 @@ const SignupForm = () => {
     },
   });
 
-  const password = watch("password");
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const password = useWatch({ control, name: "password" }) || "";
+  const timerRef = useRef<NodeJS.Timeout | null>(null); // 3천 페이지 떠날 시 ref에 타이머 ID 저장
 
-  const postSignup = (data: SignupFormValues) => {
-    const { passwordConfirm, ...signupData } = data;
-    mutate(signupData, {
-      // On Success 시 모달에서 로그인으로 이동
-      onSuccess: () => {
-        setIsSignupSucceed(true);
-        timerRef.current = setTimeout(startLogin, 3000); // timeRef에 ID 저장
-      },
-      onError: (error) => {
-        if (axios.isAxiosError(error)) {
-          const statusCode = error.response?.status;
-          if (statusCode === 409) {
-            setError("email", {
-              message: "이미 사용 중인 이메일입니다.",
-            });
-          } else {
-            setAlertMessage(
-              error.response?.data?.message ??
-                "서버 통신 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
-            );
-          }
-        } else {
-          setAlertMessage(
-            "알 수 없는 문제로 회원가입에 실패했습니다. 잠시 후 시도해 주세요.",
-          );
-        }
-      },
-    });
-  };
-
-  const startLogin = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
+  // 렌더링마다 새 함수가 생기면 아래 useEffect가 계속 재실행되므로 useCallback으로 고정
+  const startLogin = useCallback(() => {
     setIsSignupSucceed(false);
     router.push("/login");
-  };
+  }, [router]);
 
+  // 회원가입 성공 후 startLogin 함수 실행되어 로그인 페이지로 이동
+  // onSuccess 안에 직접 쓰면 에러가 나서 useEffect로 분리
   useEffect(() => {
+    if (!isSignupSucceed) return;
+    timerRef.current = setTimeout(startLogin, 3000);
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, []);
+  }, [isSignupSucceed, startLogin]);
 
-  // [추가] 회원가입 요구사항 이용약관 체크박스 (디자인은 논의하기로)
-  const [agreedTerms, setAgreedTerms] = useState(false);
+  // useCallback 없이 쓰면 에러가 나서 감싸줌
+  const onSubmitSignupForm = useCallback(
+    (data: SignupFormValues) => {
+      const signupData = {
+        email: data.email,
+        nickname: data.nickname,
+        password: data.password,
+      };
+      mutate(signupData, {
+        onSuccess: () => {
+          setIsSignupSucceed(true);
+        },
+        onError: (error) => {
+          if (axios.isAxiosError(error)) {
+            const statusCode = error.response?.status;
+            if (statusCode === 409) {
+              setError("email", {
+                message: "이미 사용 중인 이메일입니다.",
+              });
+            } else {
+              setAlertMessage(
+                error.response?.data?.message ?? DEFAULT_SIGNUP_ERROR_MESSAGE,
+              );
+            }
+          } else {
+            setAlertMessage(DEFAULT_SIGNUP_ERROR_MESSAGE);
+          }
+        },
+      });
+    },
+    [mutate, setError],
+  );
+
+  const [isAgreedTerms, setIsAgreedTerms] = useState(false);
   return (
-    <>
+    <div className="w-full flex flex-col items-center gap-6 self-stretch">
       <form
-        onSubmit={handleSubmit(postSignup)}
-        className="flex flex-col items-center gap-6 self-stretch"
+        onSubmit={handleSubmit(onSubmitSignupForm)}
+        className="w-full flex flex-col items-center gap-6 self-stretch"
       >
-        {/* 이메일 입력 */}
         <TextInput
           label="이메일"
           type="email"
@@ -107,7 +110,6 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 닉네임 입력 */}
         <TextInput
           label="닉네임"
           placeholder="닉네임을 입력해 주세요"
@@ -117,12 +119,11 @@ const SignupForm = () => {
             required: "닉네임을 입력해 주세요.",
             maxLength: {
               value: 10,
-              message: "10자 이하로 작성해 주세요.",
+              message: "닉네임은 10자 이하로 입력해주세요.",
             },
           })}
         />
 
-        {/* 비밀번호 입력 */}
         <TextInput
           label="비밀번호"
           type="password"
@@ -139,12 +140,11 @@ const SignupForm = () => {
               value:
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~\-])\S+$/,
               message:
-                "영문, 숫자, 특수문자를 각각 1자 이상 조합해 입력해 주세요.",
+                "영문, 숫자, 특수문자를 각각 1자 이상 조합해 입력해주세요.",
             },
           })}
         />
 
-        {/* 비밀번호 확인 */}
         <TextInput
           label="비밀번호 확인"
           type="password"
@@ -158,39 +158,37 @@ const SignupForm = () => {
           })}
         />
 
-        {/* 추가: GlobalNomad 이용약관동의서 */}
         <label className="flex items-center gap-2 self-stretch text-sm text-gray-600 cursor-pointer select-none">
           <input
             type="checkbox"
-            checked={agreedTerms}
-            onChange={(e) => setAgreedTerms(e.target.checked)}
+            checked={isAgreedTerms}
+            onChange={(e) => setIsAgreedTerms(e.target.checked)}
             className="w-4 h-4 cursor-pointer"
           />
-          <span>이용약관 및 개인정보 수집에 동의합니다.</span>
+          <span className="text-primary-700 font-medium text-sm">
+            이용약관 및 개인정보 수집에 동의합니다.
+          </span>
         </label>
 
-        {/* 회원가입하기 버튼 */}
         <Button
           type="submit"
           variant="mainBlue"
           height="54lg"
-          disabled={!(isValid && agreedTerms)}
+          disabled={!(isValid && isAgreedTerms)}
           className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
         >
           GlobalNomad 회원가입하기
         </Button>
       </form>
 
-      {/* 구분선 */}
-      <div className="flex items-center gap-4 self-stretch">
+      <div className="flex items-center gap-4 self-stretch w-full">
         <hr className="flex-1 border-gray-100" />
-        <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
+        <span className="text-gray-560 text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
           SNS 계정으로 회원가입하기
         </span>
         <hr className="flex-1 border-gray-100" />
       </div>
 
-      {/* 카카오 회원가입 */}
       <Button
         type="button"
         variant="easyKakao"
@@ -204,30 +202,26 @@ const SignupForm = () => {
         카카오 회원가입
       </Button>
 
-      {/* 로그인하기 underline글 로그인페이지로 이동 */}
-      <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
+      <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
         회원이신가요?{" "}
         <Link href="/login" className="underline">
-          <b>로그인하기</b>
+          <b className="text-gray-500">로그인하기</b>
         </Link>
       </p>
 
-      {/* 회원가입 성공 모달 */}
       <SuccessModal
         isOpen={isSignupSucceed}
         onClose={startLogin}
         message={
-          "회원가입이 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
+          "회원가입 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
         }
       />
-
-      {/* 회원가입 에러 모달 */}
       <SuccessModal
         isOpen={!!alertMessage}
         onClose={() => setAlertMessage("")}
         message={alertMessage}
       />
-    </>
+    </div>
   );
 };
 
