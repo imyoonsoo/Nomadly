@@ -38,43 +38,35 @@ const ActivitiesPage = async ({
   }
 
   const bannerImages = getBannerImages(activityData);
+  const titleSectionProps = {
+    id: activityData.id,
+    userId: activityData.userId,
+    title: activityData.title,
+    category: activityData.category,
+    address: activityData.address,
+    reviewCount: activityData.reviewCount,
+    rating: activityData.rating,
+  };
 
   return (
     <div className="flex w-full flex-col gap-5 px-6 pb-5 md:px-7.5 lg:px-10">
-      <div className="flex flex-col gap-5 pb-36 lg:hidden">
-        <BannerImageSection images={bannerImages} />
-        <TitleSection
-          id={activityData.id}
-          userId={activityData.userId}
-          title={activityData.title}
-          category={activityData.category}
-          address={activityData.address}
-          reviewCount={activityData.reviewCount}
-          rating={activityData.rating}
-        />
-        <DescriptionSection description={activityData.description} />
-        <MapSection address={activityData.address} />
-        <ReviewSection activityId={activityId} />
-      </div>
-
-      <div className="hidden lg:grid lg:grid-cols-[670px_410px] lg:items-start lg:gap-x-12">
+      <div className="flex flex-col gap-5 pb-36 lg:grid lg:grid-cols-[670px_410px] lg:items-start lg:gap-x-12 lg:pb-0">
         <div className="flex flex-col gap-5">
           <BannerImageSection images={bannerImages} />
+          <div className="lg:hidden">
+            <TitleSection {...titleSectionProps} />
+          </div>
           <DescriptionSection description={activityData.description} />
           <MapSection address={activityData.address} />
-          <ReviewSection activityId={activityId} />
-        </div>
-
-        <div className="flex w-102.5 flex-col gap-5">
-          <TitleSection
-            id={activityData.id}
-            userId={activityData.userId}
-            title={activityData.title}
-            category={activityData.category}
-            address={activityData.address}
+          <ReviewSection
+            activityId={activityId}
             reviewCount={activityData.reviewCount}
             rating={activityData.rating}
           />
+        </div>
+
+        <div className="hidden lg:flex w-102.5 flex-col gap-5">
+          <TitleSection {...titleSectionProps} />
           <ReservationSection
             activityId={activityId}
             price={activityData.price}
