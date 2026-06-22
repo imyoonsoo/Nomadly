@@ -17,6 +17,7 @@ import {
 import logoutAction from "@/features/login/actions/logoutAction";
 import { showToast } from "@/lib/utils/toast";
 import { useClearUserSession } from "@/hooks/useUserSession";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface HeaderUserMenuProps {
   user: User;
@@ -25,6 +26,7 @@ interface HeaderUserMenuProps {
 
 const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const { data } = useNotifications();
@@ -48,6 +50,7 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
         await logoutAction();
 
         clearUserSession();
+        queryClient.clear();
         router.replace("/");
         showToast.success("로그아웃되었습니다.");
       },
