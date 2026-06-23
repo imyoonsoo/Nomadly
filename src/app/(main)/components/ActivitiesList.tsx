@@ -13,7 +13,7 @@ const CATEGORIES = [
   },
   {
     id: 2,
-    name: "문화예술",
+    name: "문화 · 예술",
     icon: "🎨",
   },
   {
