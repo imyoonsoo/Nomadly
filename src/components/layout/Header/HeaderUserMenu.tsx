@@ -48,11 +48,12 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
         try {
           await logoutAction();
           showToast.success("로그아웃되었습니다.");
-        } catch (error) {
-          console.error("Logout action 실패:", error);
-        } finally {
           queryClient.clear();
           router.replace("/");
+        } catch {
+          showToast.error(
+            "로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.",
+          );
         }
       },
     },
