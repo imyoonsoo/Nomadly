@@ -19,11 +19,11 @@ const sizes = {
   },
 } as const;
 
-const stateStyle = {
+const STATE_STYLE = {
   active:
-    "bg-[#333] text-white [&_svg]:text-white border border-transparent font-medium",
+    "bg-[#333333] text-white [&_svg]:text-white border border-transparent font-medium",
   inactive:
-    "bg-white text-gray-950 [&_svg]:text-black border border-[#D8D8D8] font-medium",
+    "bg-white text-gray-950 [&_svg]:text-black border border-[#d8d8d8] font-medium",
 } as const;
 
 const FilterButton = ({
@@ -44,7 +44,7 @@ const FilterButton = ({
     sizeStyle.iconSize,
     sizeStyle.fontSize,
     sizeStyle.letterSpacing,
-    isActive ? stateStyle.active : stateStyle.inactive,
+    isActive ? STATE_STYLE.active : STATE_STYLE.inactive,
     className,
   ]
     .filter(Boolean)
