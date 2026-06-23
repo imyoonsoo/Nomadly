@@ -46,10 +46,10 @@ const ValidationLoginForm = () => {
   };
 
   return (
-    <>
+    <div className="w-full flex flex-col items-center self-stretch gap-6">
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
-        className="flex flex-col items-center gap-6 self-stretch"
+        className="w-full flex flex-col items-center gap-6 self-stretch"
       >
         <TextInput
           label="이메일"
@@ -92,8 +92,8 @@ const ValidationLoginForm = () => {
         </Button>
       </form>
 
-      <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center">
-        <div className="flex items-center gap-4 self-stretch">
+      <div className="w-full flex flex-col gap-5 md:gap-7.5 items-center self-stretch">
+        <div className=" w-full flex items-center gap-4 self-stretch">
           <hr className="flex-1 border-gray-100" />
           <span className="text-[#79747E] text-center text-base font-medium tracking-[-0.4px]">
             OR
@@ -114,10 +114,10 @@ const ValidationLoginForm = () => {
           카카오 간편로그인
         </Button>
 
-        <p className="text-gray-400 text-center text-sm font-medium tracking-[-0.4px]">
+        <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
           회원이 아니신가요?{" "}
           <Link href="/signup" className="underline">
-            <b>회원가입하기</b>
+            <b className="text-gray-500">회원가입하기</b>
           </Link>
         </p>
       </div>
@@ -127,7 +127,7 @@ const ValidationLoginForm = () => {
         onClose={() => setModalMessage("")}
         message={modalMessage}
       />
-    </>
+    </div>
   );
 };
 
