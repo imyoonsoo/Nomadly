@@ -48,10 +48,14 @@ const SignupForm = () => {
   // 회원가입 성공 후 startLogin 함수 실행되어 로그인 페이지로 이동
   // onSuccess 안에 직접 쓰면 에러가 나서 useEffect로 분리
   useEffect(() => {
-    if (!isSignupSucceed) return;
+    if (!isSignupSucceed) {
+      return;
+    }
     timerRef.current = setTimeout(startLogin, 3000);
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
     };
   }, [isSignupSucceed, startLogin]);
 
