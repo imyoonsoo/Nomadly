@@ -16,7 +16,7 @@ import {
 } from "@/features/notification/hook/useNotifications";
 import logoutAction from "@/features/login/actions/logoutAction";
 import { showToast } from "@/lib/utils/toast";
-import { useClearUserSession } from "@/hooks/useUserSession";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface HeaderUserMenuProps {
   user: User;
@@ -25,11 +25,11 @@ interface HeaderUserMenuProps {
 
 const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const { data } = useNotifications();
   const deleteNotificationMutation = useDeleteNotification();
-  const clearUserSession = useClearUserSession();
 
   const notifications = data?.notifications ?? [];
   const totalCount = data?.totalCount ?? 0;
@@ -45,11 +45,16 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
     {
       label: "로그아웃",
       onSelect: async () => {
-        await logoutAction();
-
-        clearUserSession();
-        router.replace("/");
-        showToast.success("로그아웃되었습니다.");
+        try {
+          await logoutAction();
+          showToast.success("로그아웃되었습니다.");
+          queryClient.clear();
+          router.replace("/");
+        } catch {
+          showToast.error(
+            "로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.",
+          );
+        }
       },
     },
   ];
