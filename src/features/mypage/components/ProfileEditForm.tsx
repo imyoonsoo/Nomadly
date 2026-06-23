@@ -12,7 +12,7 @@ import Button from "@/components/Button/Button";
 import Title from "@/app/(mypage)/_components/Title";
 import { showToast } from "@/lib/utils/toast";
 import { useRouter } from "next/navigation";
-import EmptyLoading from "@/assets/images/empty-loading-mypage.svg";
+import EmptyLoading from "@/assets/images/empty-loading.svg";
 
 const DEFAULT_ERROR_MESSAGE = "오류가 발생했어요. 잠시 후 다시 시도해 주세요.";
 
