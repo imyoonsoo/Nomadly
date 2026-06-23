@@ -60,7 +60,7 @@ const SignupForm = () => {
   }, [isSignupSucceed, startLogin]);
 
   // useCallback 없이 쓰면 에러가 나서 감싸줌
-  const onSubmitSignupForm = useCallback(
+  const handleSignupFormSubmit = useCallback(
     (data: SignupFormValues) => {
       const signupData = {
         email: data.email,
@@ -96,7 +96,7 @@ const SignupForm = () => {
   return (
     <div className="w-full flex flex-col items-center gap-6 self-stretch">
       <form
-        onSubmit={handleSubmit(onSubmitSignupForm)}
+        onSubmit={handleSubmit(handleSignupFormSubmit)}
         className="w-full flex flex-col items-center gap-6 self-stretch"
       >
         <TextInput
