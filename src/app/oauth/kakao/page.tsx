@@ -10,7 +10,6 @@ import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import EmptyLoading from "@/assets/images/empty-loading.svg";
 
-// TODO: 임시로 생성한 상태. 로딩 UI 추가필요
 const KakaoCallbackLoading = () => (
   <div className="flex items-center justify-center h-screen">
     <EmptyLoading width={200} height={200} />
@@ -37,18 +36,18 @@ const KakaoCallbackContent = () => {
     }
     codeRef.current = authCode;
 
+    if (state === "signup") {
+      setIsNeedNickname(true);
+      return;
+    }
+
+    // 로그인 플로우만 sign-in 시도
     kakaoSignInAction(authCode).then((result) => {
       if (result.success) {
         router.push("/");
       } else if (result.isNewUser) {
-        //신규회원이 회원가입을 클릭한 경우에만 닉네임 입력 창이 나타나도록
-        if (state === "signup") {
-          setIsNeedNickname(true);
-        }
-        // sign-in 시도에서 코드가 이미 소비됨 → 새 코드를 받아 회원가입 플로우로 재진입
-        else {
-          window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
-        }
+        // 로그인 시도로 코드가 이미 소비됨 → 새 코드를 받아 회원가입 플로우로 재진입
+        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
       } else {
         router.push("/login");
       }
