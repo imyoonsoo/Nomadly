@@ -6,9 +6,9 @@ Global Nomad는 여행·레저 체험(액티비티)을 한곳에서 예약하고
 
 ## 📸 미리보기
 
-| 메인                                            |
-| ----------------------------------------------- |
-| ![메인 화면](public/screenshots//main-page.png) |
+| 메인                                           |
+| ---------------------------------------------- |
+| ![메인 화면](public/screenshots/main-page.png) |
 
 <hr>
 
@@ -108,7 +108,7 @@ src/
 | [<img src="https://github.com/Eugenekmp.png" width="80"/>](https://github.com/Eugenekmp)<br/>**박경민**               | • 예약 내역 페이지<br/>• 공통컴포넌트 Modal, Footer<br/>• auth / oauth(카카오), clientFetch / serverFetch               |
 | [<img src="https://github.com/hhhnseo.png" width="80"/>](https://github.com/hhhnseo)<br/>**장현서**                   | • 예약 현황 페이지, 체험 추천 페이지, 게임 페이지<br/>• 공통컴포넌트 State Badge, Pagination<br/>• 알림                 |
 | [<img src="https://github.com/ejlee6742-source.png" width="80"/>](https://github.com/ejlee6742-source)<br/>**이은지** | • 메인 페이지, 관심 체험 페이지<br/>• 공통컴포넌트 Style System, Input<br/>• 북마크, favicon, OG 이미지                 |
-| [<img src="https://github.com/imyoonsoo.png" width="80"/>](https://github.com/imyoonsoo)<br/>**서윤수**               | • 로그인/회원가입 페이지, 내 정보 페이지<br> • 공통 컴포넌트 Button, Filter Button                                      |
+| [<img src="https://github.com/imyoonsoo.png" width="80"/>](https://github.com/imyoonsoo)<br/>**서윤수**               | • 로그인/회원가입 페이지, 내 정보 페이지<br/>• 공통컴포넌트 Button, Filter Button                                       |
 
 <hr>
 
