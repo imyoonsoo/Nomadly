@@ -21,11 +21,11 @@ Global Nomad는 여행·레저 체험(액티비티)을 한곳에서 예약하고
 | Styling     | Tailwind CSS                      |
 | 데이터 패칭 | TanStack React Query, Axios       |
 | 폼 관리     | React Hook Form                   |
+| 인증        | Kakao OAuth                       |
 | 지도        | Kakao Maps                        |
 | 알림        | React Hot Toast                   |
 | 슬라이더    | Swiper                            |
 | 코드 품질   | ESLint, Prettier                  |
-| 인증   | Kakao OAuth                  |
 
 <hr>
 
