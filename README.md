@@ -1,8 +1,8 @@
 # 🌏 Nomadly
 
-> K-Digital Training 팀 프로젝트 **GlobalNomad**
-> ([원본 레포](https://github.com/Hanbh97/GlobalNomad))를 기반으로,
-> 브랜드를 변경해 개인 Vercel 프로젝트로 재배포했습니다.
+> **Based on:** [GlobalNomad](https://github.com/Hanbh97/GlobalNomad)
+>
+> 팀 단위 개발이 종료되어, GlobalNomad를 리브랜딩하고 리팩토링 및 유지보수를 위해 개인 Vercel 프로젝트로 배포했습니다.
 
 Nomadly는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관리하는 플랫폼입니다. 사용자는 다양한 체험을 둘러보고 날짜·시간대를 골라 예약할 수 있고, 호스트는 자신의 체험을 등록해 예약 현황을 관리할 수 있습니다. 카카오 소셜 로그인, 찜, 후기, 지도 위치 정보, 알림까지 예약에 필요한 흐름을 한 번에 제공합니다.
 
