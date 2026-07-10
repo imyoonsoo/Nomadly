@@ -1,6 +1,6 @@
 export const FAQ_CONTENT = {
   title: "자주 묻는 질문",
-  description: "GlobalNomad 이용에 대해 궁금한 점을 확인해 보세요.",
+  description: "Nomadly 이용에 대해 궁금한 점을 확인해 보세요.",
 
   userItems: [
     {
@@ -85,14 +85,13 @@ export const PRIVACY_POLICY = {
   version: "1.0.0",
   title: "개인정보 처리방침",
   description:
-    "본 개인정보 처리방침은 서비스 이용 과정에서 수집되는 이용자의 개인정보를 보호하고, 서비스 이용과 관련된 정보 처리 기준을 안내하기 위해 작성되었습니다. GlobalNomad(이하 “서비스”)는 이용자의 개인정보를 중요하게 생각하며, 보다 안전하고 원활한 서비스 제공을 위해 개인정보를 관리하고 있습니다.",
+    "본 개인정보 처리방침은 서비스 이용 과정에서 수집되는 이용자의 개인정보를 보호하고, 서비스 이용과 관련된 정보 처리 기준을 안내하기 위해 작성되었습니다. Nomadly(이하 “서비스”)는 이용자의 개인정보를 중요하게 생각하며, 보다 안전하고 원활한 서비스 제공을 위해 개인정보를 관리하고 있습니다.",
   updatedAt: "2026.06.16",
   sections: [
     {
       id: 1,
       title: "제1조 (개인정보 수집 항목)",
-      content:
-        "GlobalNomad는 원활한 일정 관리를 위해 최소한의 정보만 수집합니다.",
+      content: "Nomadly는 원활한 일정 관리를 위해 최소한의 정보만 수집합니다.",
       subItems: [
         "가입 정보: 이메일, 닉네임, 비밀번호",
         "프로필 정보: 프로필 이미지(선택)",
@@ -105,7 +104,7 @@ export const PRIVACY_POLICY = {
       id: 2,
       title: "제2조 (개인정보 이용 목적)",
       content:
-        "GlobalNomad의 모든 정보는 여러분의 편리한 일정 관리를 위해서만 사용됩니다.",
+        "Nomadly의 모든 정보는 여러분의 편리한 일정 관리를 위해서만 사용됩니다.",
       subItems: [
         "회원 식별 및 로그인 기능 제공",
         "체험 예약, 예약 현황 조회 및 예약 관리",
@@ -139,7 +138,7 @@ export const PRIVACY_POLICY = {
       id: 5,
       title: "제5조 (포트폴리오 프로젝트 안내)",
       content:
-        "GlobalNomad는 프론트엔드 개발 학습 및 포트폴리오 목적으로 제작된 프로젝트입니다.",
+        "Nomadly는 프론트엔드 개발 학습 및 포트폴리오 목적으로 제작된 프로젝트입니다.",
       subItems: [
         "실제 상용 서비스가 아닌 학습용 프로젝트입니다.",
         "서비스 기능은 지속적으로 변경될 수 있습니다.",
@@ -152,8 +151,8 @@ export const PRIVACY_POLICY = {
       content:
         "서비스 이용 중 궁금한 점이나 불편한 사항이 있다면 아래 저장소를 통해 확인하실 수 있습니다.",
       subItems: [
-        "프로젝트명: GlobalNomad",
-        "GitHub: https://github.com/Hanbh97/GlobalNomad",
+        "프로젝트명: Nomadly",
+        "GitHub: https://github.com/imyoonsoo/Nomadly",
       ],
     },
   ],

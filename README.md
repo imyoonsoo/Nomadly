@@ -1,6 +1,10 @@
-# 🌏 Global Nomad
+# 🌏 Nomadly
 
-Global Nomad는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관리하는 플랫폼입니다. 사용자는 다양한 체험을 둘러보고 날짜·시간대를 골라 예약할 수 있고, 호스트는 자신의 체험을 등록해 예약 현황을 관리할 수 있습니다. 카카오 소셜 로그인, 찜, 후기, 지도 위치 정보, 알림까지 예약에 필요한 흐름을 한 번에 제공합니다.
+> K-Digital Training 팀 프로젝트 **GlobalNomad**
+> ([원본 레포](https://github.com/Hanbh97/GlobalNomad))를 기반으로,
+> 브랜드를 변경해 개인 Vercel 프로젝트로 재배포했습니다.
+
+Nomadly는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관리하는 플랫폼입니다. 사용자는 다양한 체험을 둘러보고 날짜·시간대를 골라 예약할 수 있고, 호스트는 자신의 체험을 등록해 예약 현황을 관리할 수 있습니다. 카카오 소셜 로그인, 찜, 후기, 지도 위치 정보, 알림까지 예약에 필요한 흐름을 한 번에 제공합니다.
 
 <hr>
 
@@ -118,4 +122,4 @@ src/
 - **진행 기간**: 2026년 5월 26일 ~ 2026년 6월 24일
 - **Figma 디자인 시안**: [Figma Link](https://www.figma.com/design/q8w2SRonoWBGKGJr6cmN7M/GlobalNomad---Design?node-id=29265-11572&p=f&t=0ibruTnaQNr0lWmH-0)
 - **API Swagger 문서**: [Swagger API Docs](https://sp-globalnomad-api.vercel.app/docs/#/)
-- **Vercel 배포 주소**: [Vercel 배포 링크](https://global-nomad-ghn6.vercel.app/)
+- **Vercel 배포 주소**: [Vercel 배포 링크](https://nomadly-imyoonsoo.vercel.app/)

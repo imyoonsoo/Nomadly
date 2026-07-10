@@ -8,23 +8,23 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   ),
-  title: "GlobalNomad",
-  description: "GlobalNomad",
+  title: "Nomadly",
+  description: "Nomadly",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
     type: "website",
     url: "/",
-    title: "GlobalNomad",
-    description: "글로벌노마드 다양한 체험 예약하기",
-    siteName: "GlobalNomad",
+    title: "Nomadly",
+    description: "Nomadly 다양한 체험 예약하기",
+    siteName: "Nomadly",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "GlobalNomad 서비스 이미지",
+        alt: "Nomadly 서비스 이미지",
       },
     ],
   },

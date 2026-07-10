@@ -102,11 +102,11 @@ const SignupForm = () => {
         <TextInput
           label="이메일"
           type="email"
-          placeholder="이메일을 입력해 주세요"
+          placeholder="이메일을 입력해주세요"
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
-            required: "이메일을 입력해 주세요.",
+            required: "이메일을 입력해주세요.",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "잘못된 이메일 형식입니다.",
@@ -116,11 +116,11 @@ const SignupForm = () => {
 
         <TextInput
           label="닉네임"
-          placeholder="닉네임을 입력해 주세요"
+          placeholder="닉네임을 입력해주세요"
           className="self-stretch"
           errorMessage={errors.nickname?.message}
           {...register("nickname", {
-            required: "닉네임을 입력해 주세요.",
+            required: "닉네임을 입력해주세요.",
             maxLength: {
               value: 10,
               message: "닉네임은 10자 이하로 입력해주세요.",
@@ -131,19 +131,19 @@ const SignupForm = () => {
         <TextInput
           label="비밀번호"
           type="password"
-          placeholder="8자 이상 입력해 주세요"
+          placeholder="8자 이상 입력해주세요"
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "비밀번호를 입력해 주세요.",
+            required: "비밀번호를 입력해주세요.",
             minLength: {
               value: 8,
-              message: "8자 이상 입력해 주세요.",
+              message: "8자 이상 입력해주세요.",
             },
             pattern: {
               value:
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~\-])\S+$/,
-              message: "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해 주세요.",
+              message: "영문, 숫자, 특수문자 각 1자 이상 조합해 입력해주세요.",
             },
           })}
         />
@@ -151,11 +151,11 @@ const SignupForm = () => {
         <TextInput
           label="비밀번호 확인"
           type="password"
-          placeholder="비밀번호를 한 번 더 입력해 주세요"
+          placeholder="비밀번호를 한 번 더 입력해주세요"
           className="self-stretch"
           errorMessage={errors.passwordConfirm?.message}
           {...register("passwordConfirm", {
-            required: "비밀번호를 한 번 더 입력해 주세요.",
+            required: "비밀번호를 한 번 더 입력해주세요.",
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
           })}
@@ -180,7 +180,7 @@ const SignupForm = () => {
           disabled={!(isValid && isAgreedTerms)}
           className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
         >
-          GlobalNomad 회원가입하기
+          Nomadly 회원가입하기
         </Button>
       </form>
 
@@ -206,7 +206,7 @@ const SignupForm = () => {
       </Button>
 
       <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
-        회원이신가요?{" "}
+        Nomadly 회원이신가요?{" "}
         <Link href="/login" className="underline">
           <b className="text-gray-500">로그인하기</b>
         </Link>
@@ -216,7 +216,7 @@ const SignupForm = () => {
         isOpen={isSignupSucceed}
         onClose={startLogin}
         message={
-          "회원가입 완료되었습니다! 로그인 후 GlobalNomad와 함께 떠나보세요."
+          "회원가입 완료되었습니다! 로그인 후 Nomadly와 함께 떠나보세요."
         }
       />
       <SuccessModal

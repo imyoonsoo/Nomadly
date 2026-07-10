@@ -20,7 +20,7 @@ export interface SignupResponse {
   updatedAt: string;
 }
 
-export interface GlobalNomadTermsAgreementValues extends SignupFormValues {
+export interface NomadlyTermsAgreementValues extends SignupFormValues {
   checkAll?: boolean;
   checkService?: boolean;
   checkPrivacy?: boolean;
