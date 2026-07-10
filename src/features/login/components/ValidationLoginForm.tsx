@@ -58,10 +58,10 @@ const ValidationLoginForm = () => {
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
-            required: "올바른 이메일 형식으로 작성해 주세요.",
+            required: "올바른 이메일 형식으로 작성해주세요.",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "올바른 이메일 형식으로 작성해 주세요.",
+              message: "올바른 이메일 형식으로 작성해주세요.",
             },
           })}
         />
@@ -69,14 +69,14 @@ const ValidationLoginForm = () => {
         <TextInput
           label="비밀번호"
           type="password"
-          placeholder="8자 이상 입력해 주세요"
+          placeholder="8자 이상 입력해주세요"
           className="self-stretch"
           errorMessage={errors.password?.message}
           {...register("password", {
-            required: "비밀번호를 입력해 주세요.",
+            required: "비밀번호를 입력해주세요.",
             minLength: {
               value: 8,
-              message: "8자 이상 입력해 주세요.",
+              message: "8자 이상 입력해주세요.",
             },
           })}
         />
@@ -115,7 +115,7 @@ const ValidationLoginForm = () => {
         </Button>
 
         <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
-          회원이 아니신가요?{" "}
+          Nomadly 회원이 아니신가요?{" "}
           <Link href="/signup" className="underline">
             <b className="text-gray-500">회원가입하기</b>
           </Link>
