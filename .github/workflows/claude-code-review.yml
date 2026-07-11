@@ -25,7 +25,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          claude_args: '--allowed-tools "Read,Grep,Glob,Write,Bash(gh pr comment:),Bash(gh pr review:)"'
+          claude_args: '--allowed-tools "Read,Grep,Glob,Write,Bash(gh pr comment:*),Bash(gh pr review:*)"'
           prompt: |
             이 PR을 리뷰해줘.
 
