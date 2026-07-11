@@ -38,39 +38,6 @@ Nomadly는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관�
 
 <hr>
 
-## 🚀 시작하기
-
-```bash
-# 의존성 설치
-npm install
-
-# 개발 서버 실행
-npm run dev
-```
-
-[http://localhost:3000](http://localhost:3000) 에서 확인할 수 있습니다.
-
-### 환경 변수
-
-루트에 `.env.local` 파일을 만들고 아래 값을 설정하세요.
-
-```bash
-NEXT_PUBLIC_API_BASE_URL=        # API 서버 주소
-NEXT_PUBLIC_KAKAO_REST_API_KEY=  # 카카오 REST API 키
-NEXT_PUBLIC_KAKAO_REDIRECT_URI=  # 카카오 로그인 리다이렉트 URI
-```
-
-### 스크립트
-
-```bash
-npm run dev     # 개발 서버
-npm run build   # 프로덕션 빌드
-npm run start   # 프로덕션 서버
-npm run lint    # 린트 검사
-```
-
-<hr>
-
 ## ✨ 주요 기능
 
 - **인증** — 회원가입 / 로그인, 카카오 OAuth 소셜 로그인
