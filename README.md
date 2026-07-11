@@ -8,11 +8,16 @@ Nomadly는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관�
 
 <hr>
 
-## 📸 미리보기
+## 👥 팀원 소개
 
-| 메인                                           |
-| ---------------------------------------------- |
-| ![메인 화면](public/screenshots/main-page.png) |
+| 팀원                                                                                                                  | 담당                                                                                                                    |
+| --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [<img src="https://github.com/Hanbh97.png" width="80"/>](https://github.com/Hanbh97)<br/>**한병현(팀장)**             | • 체험 상세 페이지<br/>• 공통컴포넌트 Image Input, Dropdown, Reservation Modal<br/>• 협업 문서 정리                     |
+| [<img src="https://github.com/JuHeonParkk.png" width="80"/>](https://github.com/JuHeonParkk)<br/>**박주헌**           | • 내 체험 관리 페이지, 체험 등록/수정 페이지<br/>• 공통컴포넌트 Layout, Sidemenu, Toast<br/>• 무한 스크롤, 폼 이탈 방지 |
+| [<img src="https://github.com/Eugenekmp.png" width="80"/>](https://github.com/Eugenekmp)<br/>**박경민**               | • 예약 내역 페이지<br/>• 공통컴포넌트 Modal, Footer<br/>• auth / oauth(카카오), clientFetch / serverFetch               |
+| [<img src="https://github.com/hhhnseo.png" width="80"/>](https://github.com/hhhnseo)<br/>**장현서**                   | • 예약 현황 페이지, 체험 추천 페이지, 게임 페이지<br/>• 공통컴포넌트 State Badge, Pagination<br/>• 알림                 |
+| [<img src="https://github.com/ejlee6742-source.png" width="80"/>](https://github.com/ejlee6742-source)<br/>**이은지** | • 메인 페이지, 관심 체험 페이지<br/>• 공통컴포넌트 Style System, Input<br/>• 북마크, favicon, OG 이미지                 |
+| [<img src="https://github.com/imyoonsoo.png" width="80"/>](https://github.com/imyoonsoo)<br/>**서윤수**               | • 로그인/회원가입 페이지, 내 정보 페이지<br/>• 공통컴포넌트 Button, Filter Button                                       |
 
 <hr>
 
@@ -109,22 +114,10 @@ src/
 프로젝트 컨벤션은 [`conventions/`](conventions) 폴더의 문서를 참고하세요.
 
 - [git 규칙](conventions/git%20규칙.md)
-- [네이밍 규칙](conventions/네이밍%20규칙.md)
 - [디렉터리 구조](conventions/디렉터리%20구조.md)
+- [네이밍 규칙](conventions/네이밍%20규칙.md)
 - [코드 스타일](conventions/코드%20스타일.md)
-
-<hr>
-
-## 👥 팀원 소개
-
-| 팀원                                                                                                                  | 담당                                                                                                                    |
-| --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| [<img src="https://github.com/Hanbh97.png" width="80"/>](https://github.com/Hanbh97)<br/>**한병현(팀장)**             | • 체험 상세 페이지<br/>• 공통컴포넌트 Image Input, Dropdown, Reservation Modal<br/>• 협업 문서 정리                     |
-| [<img src="https://github.com/JuHeonParkk.png" width="80"/>](https://github.com/JuHeonParkk)<br/>**박주헌**           | • 내 체험 관리 페이지, 체험 등록/수정 페이지<br/>• 공통컴포넌트 Layout, Sidemenu, Toast<br/>• 무한 스크롤, 폼 이탈 방지 |
-| [<img src="https://github.com/Eugenekmp.png" width="80"/>](https://github.com/Eugenekmp)<br/>**박경민**               | • 예약 내역 페이지<br/>• 공통컴포넌트 Modal, Footer<br/>• auth / oauth(카카오), clientFetch / serverFetch               |
-| [<img src="https://github.com/hhhnseo.png" width="80"/>](https://github.com/hhhnseo)<br/>**장현서**                   | • 예약 현황 페이지, 체험 추천 페이지, 게임 페이지<br/>• 공통컴포넌트 State Badge, Pagination<br/>• 알림                 |
-| [<img src="https://github.com/ejlee6742-source.png" width="80"/>](https://github.com/ejlee6742-source)<br/>**이은지** | • 메인 페이지, 관심 체험 페이지<br/>• 공통컴포넌트 Style System, Input<br/>• 북마크, favicon, OG 이미지                 |
-| [<img src="https://github.com/imyoonsoo.png" width="80"/>](https://github.com/imyoonsoo)<br/>**서윤수**               | • 로그인/회원가입 페이지, 내 정보 페이지<br/>• 공통컴포넌트 Button, Filter Button                                       |
+  |
 
 <hr>
 
