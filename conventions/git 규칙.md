@@ -2,9 +2,11 @@
 
 ## commit convention
 
-참고: https://sungwookoo.tistory.com/1
+참고: [Conventional Commits](https://www.conventionalcommits.org/), https://sungwookoo.tistory.com/1
 
 ### 커밋 type
+
+개발 협업에서 널리 쓰이는 Conventional Commits 기준을 따른다.
 
 | 태그       | 설명                                             |
 | ---------- | ------------------------------------------------ |
@@ -12,15 +14,13 @@
 | `fix`      | 버그 수정                                        |
 | `docs`     | 문서 수정                                        |
 | `style`    | 코드 스타일 변경 (코드 포매팅, 세미콜론 누락 등) |
-| `design`   | 사용자 UI 디자인 변경 (CSS 등)                   |
-| `test`     | 테스트 코드 작성/리팩토링 (Test Code)            |
-| `refactor` | 리팩토링 (Production Code)                       |
+| `refactor` | 리팩토링 (기능 변경 없는 구조 개선, 파일/폴더 rename·삭제 포함) |
+| `perf`     | 성능 개선                                        |
+| `test`     | 테스트 코드 작성/수정                            |
 | `build`    | 빌드 파일 수정                                   |
 | `ci`       | CI 설정 파일 수정                                |
-| `pref`     | 성능 개선                                        |
-| `chore`    | 자잘한 수정이나 빌드 업데이트                    |
-| `rename`   | 파일 혹은 폴더명을 수정만 한 경우                |
-| `remove`   | 파일을 삭제만 한 경우                            |
+| `chore`    | 그 외 자잘한 유지보수 (패키지 업데이트 등)       |
+| `revert`   | 이전 커밋 되돌리기                               |
 
 ### 커밋 메시지 형식
 
