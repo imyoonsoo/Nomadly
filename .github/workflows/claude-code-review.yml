@@ -25,7 +25,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          claude_args: '--allowed-tools "Read,Grep,Glob,Bash(gh pr comment:*),Bash(gh pr review:*)"'
+          claude_args: '--allowed-tools "Read,Grep,Glob,Write,Bash(gh pr comment:),Bash(gh pr review:)"'
           prompt: |
             이 PR을 리뷰해줘.
 
@@ -48,10 +48,10 @@ jobs:
                - 이번 PR에서 눈에 띄는 좋은 시도나 패턴이 있으면 짧게라도 짚어줘. 지적만 하지 말고 잘한 부분도 알려줘.
 
             3. 심각도별로 정리해서 알려줘 (Critical / Warning / Suggestion / Good).
-            4. 리뷰 결과를 아래 두 가지 방식으로 모두 남겨줘.
-               - 먼저 `gh pr comment ${{ github.event.pull_request.number }} --body "..."` 명령으로 상세 리뷰 내용을 일반 댓글로 남기고,
-               - 이어서 Critical 이슈가 있으면 `gh pr review ${{ github.event.pull_request.number }} --request-changes --body "요약"`,
-                 없으면 `gh pr review ${{ github.event.pull_request.number }} --comment --body "요약"` 명령으로 정식 리뷰도 제출해줘.
+            4. 리뷰 결과를 아래 두 가지 방식으로 모두 남겨줘. 셸 인용부호 문제를 피하기 위해 반드시 파일에 먼저 쓰고 `--body-file`로 제출해.
+               - 상세 리뷰 내용을 Write 도구로 `/tmp/review-comment.md` 파일에 작성한 다음, `gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/review-comment.md` 명령으로 일반 댓글로 남기고,
+               - Critical 이슈가 있으면 짧은 요약을 Write 도구로 `/tmp/review-summary.md` 파일에 작성한 다음 `gh pr review ${{ github.event.pull_request.number }} --request-changes --body-file /tmp/review-summary.md`,
+                 없으면 같은 방식으로 `/tmp/review-summary.md`를 작성한 다음 `gh pr review ${{ github.event.pull_request.number }} --comment --body-file /tmp/review-summary.md` 명령으로 정식 리뷰도 제출해줘.
                  (정식 리뷰는 짧은 요약만, 상세 내용은 댓글에)
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
