@@ -17,7 +17,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             className="flex flex-col items-center gap-3"
           >
             <LogoPcTablet
-              className="hidden md:block w-63.75 h-49.75"
+              className="hidden md:block w-74 h-57.75"
               aria-hidden="true"
             />
             <LogoMobile

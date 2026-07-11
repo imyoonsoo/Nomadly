@@ -41,8 +41,8 @@ const Header = ({ user }: HeaderProps) => {
         <Link href="/" className="flex items-center py-2.5 cursor-pointer">
           <LogoVertical
             aria-label="로고"
-            width={174}
-            height={28}
+            width={200}
+            height={32}
             className="hidden md:block"
           />
           <LogoSymbol
