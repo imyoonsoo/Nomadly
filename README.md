@@ -84,7 +84,6 @@ src/
 - [디렉터리 구조](conventions/디렉터리%20구조.md)
 - [네이밍 규칙](conventions/네이밍%20규칙.md)
 - [코드 스타일](conventions/코드%20스타일.md)
-  |
 
 <hr>
 
