@@ -4,7 +4,7 @@ import ActivitiesCard from "./ActivitiesCard";
 import { CardListProps } from "./type";
 import { AltDown } from "@/constants/icons";
 import { useEffect, useState, useRef } from "react";
-import Pagination from "@/components/Pagination/Pagination";
+import { Pagination } from "@/components/Pagination/Pagination";
 
 const CATEGORIES = [
   {
