@@ -2,43 +2,24 @@
 
 > **Based on:** [GlobalNomad](https://github.com/Hanbh97/GlobalNomad)
 >
-> 팀 단위 개발이 종료되어, GlobalNomad를 리브랜딩하고 리팩토링 및 유지보수를 위해 개인 Vercel 프로젝트로 배포했습니다.
+> 팀 프로젝트 'GlobalNomad' 종료 후 기술적 성장을 이어가기 위해 프로젝트를 포크했습니다.<br>
+> 기존의 정체성은 유지하면서 고유한 명칭을 부여하고자 **'Nomadly'** 로 재배포했으며,<br>
+> 현재 리팩토링, 성능 최적화, 기능 확장을 통해 지속적으로 개선 중입니다.
 
-Nomadly는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관리하는 플랫폼입니다. 사용자는 다양한 체험을 둘러보고 날짜·시간대를 골라 예약할 수 있고, 호스트는 자신의 체험을 등록해 예약 현황을 관리할 수 있습니다. 카카오 소셜 로그인, 찜, 후기, 지도 위치 정보, 알림까지 예약에 필요한 흐름을 한 번에 제공합니다.
+<br>
+Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 플랫폼입니다.<br>
+체험을 이용하는 게스트와 운영하는 호스트 모두를 지원합니다.
+<br><br>
 
-<hr>
+## 📅 프로젝트 기간 & 배포링크
 
-## 👥 팀원 소개
+- **진행 기간**: 2026년 5월 26일 ~ 2026년 6월 24일
+- **Vercel 배포**: [nomadly.vercel.app](https://nomadly-imyoonsoo.vercel.app/)
 
-| 팀원                                                                                                                  | 담당                                                                                                                    |
-| --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| [<img src="https://github.com/Hanbh97.png" width="80"/>](https://github.com/Hanbh97)<br/>**한병현(팀장)**             | • 체험 상세 페이지<br/>• 공통컴포넌트 Image Input, Dropdown, Reservation Modal<br/>• 협업 문서 정리                     |
-| [<img src="https://github.com/JuHeonParkk.png" width="80"/>](https://github.com/JuHeonParkk)<br/>**박주헌**           | • 내 체험 관리 페이지, 체험 등록/수정 페이지<br/>• 공통컴포넌트 Layout, Sidemenu, Toast<br/>• 무한 스크롤, 폼 이탈 방지 |
-| [<img src="https://github.com/Eugenekmp.png" width="80"/>](https://github.com/Eugenekmp)<br/>**박경민**               | • 예약 내역 페이지<br/>• 공통컴포넌트 Modal, Footer<br/>• auth / oauth(카카오), clientFetch / serverFetch               |
-| [<img src="https://github.com/hhhnseo.png" width="80"/>](https://github.com/hhhnseo)<br/>**장현서**                   | • 예약 현황 페이지, 체험 추천 페이지, 게임 페이지<br/>• 공통컴포넌트 State Badge, Pagination<br/>• 알림                 |
-| [<img src="https://github.com/ejlee6742-source.png" width="80"/>](https://github.com/ejlee6742-source)<br/>**이은지** | • 메인 페이지, 관심 체험 페이지<br/>• 공통컴포넌트 Style System, Input<br/>• 북마크, favicon, OG 이미지                 |
-| [<img src="https://github.com/imyoonsoo.png" width="80"/>](https://github.com/imyoonsoo)<br/>**서윤수**               | • 로그인/회원가입 페이지, 내 정보 페이지<br/>• 공통컴포넌트 Button, Filter Button                                       |
 
-<hr>
+<br>
 
-## 🛠️ 기술 스택
-
-| 구분        | 기술                              |
-| ----------- | --------------------------------- |
-| Framework   | Next.js 16 (App Router), React 19 |
-| Language    | TypeScript                        |
-| Styling     | Tailwind CSS                      |
-| 데이터 패칭 | TanStack React Query, Axios       |
-| 폼 관리     | React Hook Form                   |
-| 인증        | Kakao OAuth                       |
-| 지도        | Kakao Maps                        |
-| 알림        | React Hot Toast                   |
-| 슬라이더    | Swiper                            |
-| 코드 품질   | ESLint, Prettier                  |
-
-<hr>
-
-## ✨ 주요 기능
+## 🔌 주요 기능
 
 - **인증** — 회원가입 / 로그인, 카카오 OAuth 소셜 로그인
 - **체험 둘러보기** — 체험 목록 조회, 상세 페이지, 후기 확인
@@ -49,9 +30,29 @@ Nomadly는 여행·레저 체험(액티비티)을 한곳에서 예약하고 관�
 - **추천 / 게임** — MBTI·밸런스·경험 기반 추천, 룰렛, 미니게임(닷지, 지구 점프, 틱택토)
 - **정책 페이지** — FAQ, 개인정보처리방침
 
-<hr>
+<br>
 
-## 📁 프로젝트 구조
+
+## 🔧 기술 스택
+| Category           | Tech                    |
+| ------------------ | ----------------------- |
+| **Framework**      | Next.js 16 (App Router) |
+| **Library**        | React 19                |
+| **Language**       | TypeScript              |
+| **Styling**        | Tailwind CSS            |
+| **Server State**   | TanStack Query          |
+| **HTTP Client**    | Axios                   |
+| **Form**           | React Hook Form         |
+| **Authentication** | Kakao OAuth             |
+| **Maps**           | Kakao Maps              |
+| **Notification**   | React Hot Toast         |
+| **UI**             | Swiper                  |
+| **Code Quality**   | ESLint, Prettier        |
+
+
+<br>
+
+## 🗂️ 프로젝트 구조
 
 ```
 src/
@@ -72,11 +73,11 @@ src/
 └── proxy.ts              # 토큰 자동 재발급 프록시 로직
 ```
 
-기능을 `features/` 도메인 단위로 모듈화하고, 각 모듈 안에서 API·컴포넌트·훅·쿼리를 분리하는 **Feature-based 구조**를 따릅니다.
+`features/`를 중심으로 API, 컴포넌트, 훅, 쿼리를 도메인 단위로 분리한 **Feature-based 구조**를 적용했습니다.
 
-<hr>
+<br>
 
-## 컨벤션
+## 📍 컨벤션
 
 프로젝트 컨벤션은 [`conventions/`](conventions) 폴더의 문서를 참고하세요.
 
@@ -84,12 +85,3 @@ src/
 - [디렉터리 구조](conventions/디렉터리%20구조.md)
 - [네이밍 규칙](conventions/네이밍%20규칙.md)
 - [코드 스타일](conventions/코드%20스타일.md)
-
-<hr>
-
-## 📅 프로젝트 기간 & 관련 링크
-
-- **진행 기간**: 2026년 5월 26일 ~ 2026년 6월 24일
-- **Figma 디자인 시안**: [Figma Link](https://www.figma.com/design/q8w2SRonoWBGKGJr6cmN7M/GlobalNomad---Design?node-id=29265-11572&p=f&t=0ibruTnaQNr0lWmH-0)
-- **API Swagger 문서**: [Swagger API Docs](https://sp-globalnomad-api.vercel.app/docs/#/)
-- **Vercel 배포 주소**: [Vercel 배포 링크](https://nomadly-imyoonsoo.vercel.app/)
