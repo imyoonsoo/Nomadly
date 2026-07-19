@@ -54,7 +54,7 @@ const ValidationLoginForm = () => {
         <TextInput
           label="이메일"
           type="email"
-          placeholder="이메일을 입력해 주세요"
+          placeholder="이메일을 입력해주세요"
           className="self-stretch"
           errorMessage={errors.email?.message}
           {...register("email", {
@@ -88,7 +88,7 @@ const ValidationLoginForm = () => {
           disabled={!isValid || loginMutation.isPending}
           className="self-stretch"
         >
-          로그인하기
+          Nomadly 로그인하기
         </Button>
       </form>
 

@@ -187,7 +187,7 @@ const SignupForm = () => {
       <div className="flex items-center gap-4 self-stretch w-full">
         <hr className="flex-1 border-gray-100" />
         <span className="text-gray-560 text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
-          SNS 계정으로 회원가입하기
+          OR
         </span>
         <hr className="flex-1 border-gray-100" />
       </div>
@@ -202,7 +202,7 @@ const SignupForm = () => {
           window.location.href = QAuth_KAKAO_URL;
         }}
       >
-        카카오 회원가입
+        카카오 간편회원가입
       </Button>
 
       <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
