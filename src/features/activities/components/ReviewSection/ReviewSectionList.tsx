@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Dropdown from "@/components/Dropdown/Dropdown";
-import Pagination from "@/components/Pagination/Pagination";
+import { Pagination } from "@/components/Pagination/Pagination";
 import { AltDown } from "@/constants/icons";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import type { Review } from "@/features/activities/type";

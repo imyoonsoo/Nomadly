@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { ChevronDown } from "@/constants/icons";
 import { PaginationProps } from "./type";
 
@@ -32,7 +31,14 @@ const Pagination = ({
         type="button"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex h-10 w-10 items-center justify-center transition duration-200 hover:-translate-y-px active:scale-90 disabled:cursor-default disabled:opacity-40 disabled:hover:translate-y-0 disabled:active:scale-100"
+        className={`
+          flex h-10 w-10 items-center justify-center
+          transition duration-200
+          hover:-translate-y-px
+          active:scale-90
+          disabled:cursor-default disabled:opacity-40 disabled:translate-y-0
+          disabled:active:scale-100
+        `}
       >
         <ChevronDown className="h-5 w-5 rotate-90" />
       </button>
@@ -46,23 +52,12 @@ const Pagination = ({
             type="button"
             onClick={() => onPageChange(page)}
             className={`
-              relative
-              flex
-              h-10
-              w-10
-              items-center
-              justify-center
-              text-14-medium
-              transition
+              relative flex h-10 w-10 items-center justify-center
+              text-14-medium transition
               active:scale-[0.92]
-              after:absolute
-              after:-bottom-1
-              after:left-0
-              after:h-0.5
-              after:transition-all
-              after:duration-[250ms]
-              hover:text-gray-950
-              hover:after:w-full
+              after:absolute after:-bottom-1 after:left-0 after:h-0.5
+              after:transition-all after:duration-250
+              hover:text-gray-950 hover:after:w-full
               ${
                 isActive
                   ? "font-bold text-gray-950 after:w-full after:bg-primary-500 hover:after:bg-primary-500"
@@ -79,21 +74,13 @@ const Pagination = ({
         type="button"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="
-          flex
-          h-10
-          w-10
-          items-center
-          justify-center
-          transition
-          duration-200
+        className={`
+          flex h-10 w-10 items-center justify-center
+          transition duration-200
           hover:-translate-y-px
           active:scale-90
-          disabled:cursor-default
-          disabled:opacity-40
-          disabled:translate-y-0
-          disabled:active:scale-100
-        "
+          disabled:cursor-default disabled:opacity-40 disabled:translate-y-0 disabled:active:scale-100
+        `}
       >
         <ChevronDown className="h-5 w-5 -rotate-90" />
       </button>
@@ -101,4 +88,4 @@ const Pagination = ({
   );
 };
 
-export default Pagination;
+export { Pagination };

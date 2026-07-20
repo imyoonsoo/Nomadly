@@ -3,7 +3,7 @@ import ReviewSection from "@/features/activities/components/ReviewSection/Review
 import BannerImageSection from "@/features/activities/components/BannerImageSection/BannerImageSection";
 import TitleSection from "@/features/activities/components/TitleSection/TitleSection";
 import ReservationSection from "@/features/activities/components/ReservationSection/ReservationSection";
-import DescriptionSection from "@/features/activities/components/DescriptionSection/DescriptionSection";
+import { DescriptionSection } from "@/features/activities/components/DescriptionSection/DescriptionSection";
 import MapSection from "@/features/activities/components/MapSection/MapSection";
 import MobileReservationFooter from "@/features/activities/components/MobileReservationFooter/MobileReservationFooter";
 import TabletReservationFooter from "@/features/activities/components/TabletReservationFooter/TabletReservationFooter";

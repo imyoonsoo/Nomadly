@@ -3,7 +3,7 @@ import { CardItem } from "@/app/(main)/components/type";
 import Title from "../../_components/Title";
 import ActivitiesCard from "@/app/(main)/components/ActivitiesCard";
 import { useEffect, useState } from "react";
-import Pagination from "@/components/Pagination/Pagination";
+import { Pagination } from "@/components/Pagination/Pagination";
 import api from "@/lib/api/axios";
 
 const Page = () => {
