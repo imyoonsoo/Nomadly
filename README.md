@@ -2,9 +2,9 @@
 
 > **Forked from:** [GlobalNomad](https://github.com/Hanbh97/GlobalNomad)
 >
-> 팀 프로젝트 'GlobalNomad' 종료 후 기술적 성장을 이어가기 위해 프로젝트를 포크했습니다.<br>
-> 기존의 정체성은 유지하면서 고유한 명칭을 부여하고자 **'Nomadly'** 로 재배포했으며,<br>
-> 현재 리팩토링, 성능 최적화, 기능 확장을 통해 지속적으로 개선 중입니다.
+> 팀 프로젝트 'GlobalNomad' 종료 후, 기술적 성장을 이어가고자 이를 포크했습니다.<br>
+> 기존의 정체성은 유지하면서 고유한 명칭 **'Nomadly'**로 재배포했으며,<br>
+> 현재 리팩토링 및 성능 최적화, 기능 확장을 진행하며 지속적으로 개선해 나가고 있습니다.
 
 <br>
 Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 플랫폼입니다.<br>
@@ -13,9 +13,8 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 
 ## 📅 프로젝트 기간 & 배포링크
 
-- **진행 기간**: 2026년 5월 26일 ~ 2026년 6월 24일
-- **Vercel 배포**: [nomadly.vercel.app](https://nomadly-imyoonsoo.vercel.app/)
-
+- **진행기간**: 2026년 5월 26일 ~ 2026년 6월 24일
+- [**Vercel 배포**](https://nomadly-imyoonsoo.vercel.app)
 
 <br>
 
@@ -32,8 +31,8 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 
 <br>
 
-
 ## 🔧 기술 스택
+
 | Category           | Tech                    |
 | ------------------ | ----------------------- |
 | **Framework**      | Next.js 16 (App Router) |
@@ -48,7 +47,6 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 | **Notification**   | React Hot Toast         |
 | **UI**             | Swiper                  |
 | **Code Quality**   | ESLint, Prettier        |
-
 
 <br>
 
