@@ -3,7 +3,7 @@
 > **Forked from:** [GlobalNomad](https://github.com/Hanbh97/GlobalNomad)
 >
 > 팀 프로젝트 'GlobalNomad' 종료 후, 기술적 성장을 이어가고자 이를 포크했습니다.<br>
-> 기존의 정체성은 유지하면서 고유한 명칭 **'Nomadly'**로 재배포했으며,<br>
+> 기존의 정체성은 유지하면서 고유한 명칭 '**Nomadly**'로 재배포했으며,<br>
 > 현재 리팩토링 및 성능 최적화, 기능 확장을 진행하며 지속적으로 개선해 나가고 있습니다.
 
 <br>
