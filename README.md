@@ -11,12 +11,26 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 체험을 이용하는 게스트와 운영하는 호스트 모두를 지원합니다.
 <br><br>
 
+## 📍 목차
+
+- [프로젝트 기간 & 배포링크](#info)
+- [주요 기능](#features)
+- [기술 스택](#stack)
+- [프로젝트 구조](#structure)
+- [컨벤션](#convention)
+
+---
+
+<div id="info"></div>
+
 ## 📅 프로젝트 기간 & 배포링크
 
 - **진행기간**: 2026년 5월 26일 ~ 2026년 6월 24일
 - [**Vercel 배포**](https://nomadly-imyoonsoo.vercel.app)
 
 <br>
+
+<div id="features"></div>
 
 ## 🔌 주요 기능
 
@@ -30,6 +44,8 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 - **정책 페이지** — FAQ, 개인정보처리방침
 
 <br>
+
+<div id="stack"></div>
 
 ## 🔧 기술 스택
 
@@ -49,6 +65,8 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 | **Code Quality**   | ESLint, Prettier        |
 
 <br>
+
+<div id="structure"></div>
 
 ## 🗂️ 프로젝트 구조
 
@@ -74,6 +92,8 @@ src/
 `features/`를 중심으로 API, 컴포넌트, 훅, 쿼리를 도메인 단위로 분리한 **Feature-based 구조**를 적용했습니다.
 
 <br>
+
+<div id="convention"></div>
 
 ## 📍 컨벤션
 
