@@ -9,6 +9,10 @@ import {
 import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import EmptyLoading from "@/assets/images/empty-loading.svg";
+import {
+  buildKakaoAuthorizeUrl,
+  getKakaoRedirectUri,
+} from "@/features/login/kakao/redirectUri";
 
 const KakaoCallbackLoading = () => (
   <div className="flex items-center justify-center h-screen">
@@ -20,43 +24,44 @@ const KakaoCallbackContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [nickname, setNickname] = useState("");
-  const [isNeedNickname, setIsNeedNickname] = useState(false);
-  const codeRef = useRef("");
   const hasRun = useRef(false);
 
+  // isNeedNickname state 대신 URL에서 파생 ➝ effect 내 setState 방지
+  const authCode = searchParams.get("code");
+  const isSignup = searchParams.get("state") === "signup";
+
   useEffect(() => {
+    // 인가코드는 1회용 ➝ hasRun으로 중복 처리 방지 (StrictMode 대응)
     if (hasRun.current) return;
     hasRun.current = true;
 
-    const authCode = searchParams.get("code");
-    const state = searchParams.get("state");
     if (!authCode) {
       router.push("/login");
       return;
     }
-    codeRef.current = authCode;
 
-    if (state === "signup") {
-      setIsNeedNickname(true);
-      return;
-    }
+    // signup은 닉네임 화면에서 처리, 로그인만 signin
+    if (isSignup) return;
 
-    // 로그인 플로우만 sign-in 시도
-    kakaoSignInAction(authCode).then((result) => {
+    kakaoSignInAction(authCode, getKakaoRedirectUri()).then((result) => {
       if (result.success) {
         router.push("/");
       } else if (result.isNewUser) {
-        // 로그인 시도로 코드가 이미 소비됨 → 새 코드를 받아 회원가입 플로우로 재진입
-        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=signup`;
+        // 코드 이미 소비됨 ➝ 새 코드 받아 회원가입 재진입
+        window.location.href = buildKakaoAuthorizeUrl("signup");
       } else {
         router.push("/login");
       }
     });
-  }, []);
+  }, [authCode, isSignup, router]);
 
   const handleSignUpButtonClick = async () => {
-    if (!nickname.trim()) return;
-    const result = await kakaoSignUpAction(codeRef.current, nickname);
+    if (!nickname.trim() || !authCode) return;
+    const result = await kakaoSignUpAction(
+      authCode,
+      nickname,
+      getKakaoRedirectUri(),
+    );
     if (result.success) {
       router.push("/");
     } else {
@@ -64,7 +69,7 @@ const KakaoCallbackContent = () => {
     }
   };
 
-  if (isNeedNickname) {
+  if (authCode && isSignup) {
     const isNicknameInvalid = !nickname.trim() || nickname.length > 10;
 
     return (
