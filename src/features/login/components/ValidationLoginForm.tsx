@@ -10,6 +10,7 @@ import TextInput from "@/components/Input/TextInput";
 import Button from "@/components/Button/Button";
 import SuccessModal from "@/components/Modal/SuccessModal";
 import { loginAction } from "../actions/loginAction";
+import { buildKakaoAuthorizeUrl } from "../kakao/redirectUri";
 import { useSetUserSession } from "@/hooks/useUserSession";
 
 const ValidationLoginForm = () => {
@@ -107,8 +108,7 @@ const ValidationLoginForm = () => {
           height="54lg"
           className="self-stretch"
           onClick={() => {
-            const EASYAUTH_KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&state=login`;
-            window.location.href = EASYAUTH_KAKAO_URL;
+            window.location.href = buildKakaoAuthorizeUrl("login");
           }}
         >
           카카오 간편로그인
