@@ -5,6 +5,10 @@ import COOKIE_OPTIONS from "@/constants/cookieOptions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+if (!BASE_URL) {
+  console.error("[API Proxy] NEXT_PUBLIC_API_BASE_URL 이 설정되지 않았습니다.");
+}
+
 async function proxy(
   request: Request,
   { params }: { params: Promise<{ path: string[] }> },
