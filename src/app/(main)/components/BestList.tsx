@@ -1,6 +1,7 @@
 "use client";
 
 import ActivitiesCard from "./ActivitiesCard";
+import { ActivitiesCardSkeleton } from "./ActivitiesCardSkeleton";
 import { CardListProps } from "./type";
 import { useRef } from "react";
 import { ArrowRight } from "@/constants/icons";
@@ -16,8 +17,22 @@ const BestList = ({ items }: CardListProps) => {
     .sort((a, b) => b.reviewCount - a.reviewCount)
     .slice(0, 5);
 
+  // 로딩 중엔 bestItems가 비어 카드가 늦게 뜸 ➝ 스켈레톤으로 미리 자리 잡아 레이아웃 밀림(CLS) 방지
   if (bestItems.length === 0) {
-    return null;
+    return (
+      <div className="w-full overflow-hidden pb-2">
+        <div className="flex gap-4 md:gap-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              key={i}
+              className="w-[calc((100%-16px)/2)] shrink-0 md:w-[calc((100%-72px)/4)]"
+            >
+              <ActivitiesCardSkeleton />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
