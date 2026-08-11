@@ -13,7 +13,9 @@ import { NoImg } from "@/constants/images";
 const MainBanner = ({ items }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   if (items.length === 0) {
-    return null;
+    return (
+      <div className="aspect-[1/0.6] w-full animate-pulse rounded-3xl bg-gray-200 md:aspect-1/0.5" />
+    );
   }
 
   const bestItems = [...items]
@@ -35,7 +37,7 @@ const MainBanner = ({ items }: CardListProps) => {
       >
         {bestItems.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="relative aspect-[1/0.6] w-full md:aspect-[1/0.5]">
+            <div className="relative aspect-[1/0.6] w-full md:aspect-1/0.5">
               <Link href={`/activities/${item.id}`}>
                 <div className="h-full w-full">
                   <Image
