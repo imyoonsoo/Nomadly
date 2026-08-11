@@ -3,6 +3,13 @@ import Script from "next/script";
 import "./globals.css";
 import Providers from "@/lib/query/providers";
 import { Toaster } from "react-hot-toast";
+import localFont from "next/font/local";
+
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  variable: "--font-pretendard",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -36,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={pretendard.variable}>
       <body>
         <Providers>
           {children}
