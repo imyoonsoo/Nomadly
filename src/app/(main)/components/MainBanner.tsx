@@ -14,7 +14,7 @@ const MainBanner = ({ items }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   if (items.length === 0) {
     return (
-      <div className="aspect-[1/0.6] w-full animate-pulse rounded-3xl bg-gray-200 md:aspect-1/0.5" />
+      <div className="aspect-[1/0.6] w-full animate-pulse rounded-3xl bg-gray-200 md:aspect-[1/0.5]" />
     );
   }
 
@@ -38,7 +38,7 @@ const MainBanner = ({ items }: CardListProps) => {
         {/* index로 첫 배너 판별 ➝ priority 우선 로딩해 LCP 개선 */}
         {bestItems.map((item, index) => (
           <SwiperSlide key={item.id}>
-            <div className="relative aspect-[1/0.6] w-full md:aspect-1/0.5">
+            <div className="relative aspect-[1/0.6] w-full md:aspect-[1/0.5]">
               <Link href={`/activities/${item.id}`}>
                 <div className="h-full w-full">
                   <Image
