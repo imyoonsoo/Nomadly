@@ -35,7 +35,8 @@ const MainBanner = ({ items }: CardListProps) => {
         }}
         className="overflow-hidden rounded-3xl"
       >
-        {bestItems.map((item) => (
+        {/* index로 첫 배너 판별 ➝ priority 우선 로딩해 LCP 개선 */}
+        {bestItems.map((item, index) => (
           <SwiperSlide key={item.id}>
             <div className="relative aspect-[1/0.6] w-full md:aspect-1/0.5">
               <Link href={`/activities/${item.id}`}>
@@ -45,6 +46,8 @@ const MainBanner = ({ items }: CardListProps) => {
                     alt={item.title}
                     className="object-cover"
                     fill
+                    priority={index === 0}
+                    sizes="(max-width: 1200px) 100vw, 1200px"
                   />
                   <div className="absolute top-0 left-0 h-full w-full bg-linear-to-t from-black to-transparent opacity-80"></div>
                 </div>
