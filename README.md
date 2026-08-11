@@ -17,6 +17,7 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 - [주요 기능](#features)
 - [기술 스택](#stack)
 - [프로젝트 구조](#structure)
+- [개발환경 세팅](#setup)
 - [컨벤션](#convention)
 
 ---
@@ -90,6 +91,20 @@ src/
 ```
 
 `features/`를 중심으로 API, 컴포넌트, 훅, 쿼리를 도메인 단위로 분리한 **Feature-based 구조**를 적용했습니다.
+
+<br>
+
+<div id="setup"></div>
+
+## ⚙️ 개발환경 세팅
+
+클론 후 아래 명령을 한 번 실행하세요.
+
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포맷팅 커밋을 `git blame`에서 건너뛰도록 설정합니다. 각 코드의 **실제 작성자·변경 이력**이 포맷팅 커밋에 가려지지 않고 정확히 추적됩니다.
 
 <br>
 
