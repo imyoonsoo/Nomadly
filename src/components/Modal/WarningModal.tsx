@@ -13,28 +13,28 @@ const WarningModal = ({
 }: WarningModalProps) => {
   return (
     <Modal
-      className="flex flex-col gap-5 items-center justify-center"
+      className="flex flex-col items-center justify-center gap-5"
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center justify-center">
         <Image
           src="/warningIcon.svg"
           alt="경고 아이콘"
           width={88}
           height={88}
-          className="w-[49px] h-[49px] md:w-22 md:h-22"
+          className="h-[49px] w-[49px] md:h-22 md:w-22"
         />
-        <p className="text-center text-16-bold md:text-18-bold whitespace-pre-line">
+        <p className="text-16-bold md:text-18-bold text-center whitespace-pre-line">
           {message}
         </p>
       </div>
 
-      <div className="flex gap-2 md:gap-3 justify-center items-center">
+      <div className="flex items-center justify-center gap-2 md:gap-3">
         <Button
           variant="whitenGray"
           height="custom"
-          className="w-28 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-34 md:h-[47px] md:py-[14px]"
+          className="h-10 w-28 rounded-xl px-5 py-1 text-[14px] md:h-[47px] md:w-34 md:px-10 md:py-3 md:py-[14px]"
           onClick={onClose}
         >
           {buttonTextLeft}
@@ -42,7 +42,7 @@ const WarningModal = ({
         <Button
           variant="mainBlue"
           height="custom"
-          className="w-28 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-34 md:h-12 md:py-[14px] "
+          className="h-10 w-28 rounded-xl px-5 py-1 text-[14px] md:h-12 md:w-34 md:px-10 md:py-3 md:py-[14px]"
           onClick={onConfirm}
         >
           {buttonTextRight}

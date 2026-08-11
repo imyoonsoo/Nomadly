@@ -13,7 +13,7 @@ const EmptyReservationStatus = ({
     <div className="flex min-h-[360px] flex-col items-center justify-center">
       {image}
 
-      <p className="mt-6 text-18-medium text-gray-600">{message}</p>
+      <p className="text-18-medium mt-6 text-gray-600">{message}</p>
     </div>
   );
 };

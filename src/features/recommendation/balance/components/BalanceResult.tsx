@@ -19,17 +19,17 @@ const BalanceResult = ({ results, onRestart }: BalanceResultProps) => {
 
   return (
     <section className="w-full max-w-[700px]">
-      <h2 className="text-center text-24-bold text-gray-900">
+      <h2 className="text-24-bold text-center text-gray-900">
         당신의 여행 취향
       </h2>
 
       {topResult && (
         <div className="mt-6 rounded-3xl bg-white p-6 text-center shadow-md">
           <p className="text-14-bold text-primary-500">가장 잘 맞는 카테고리</p>
-          <h3 className="mt-2 text-24-bold text-gray-900">
+          <h3 className="text-24-bold mt-2 text-gray-900">
             {topResult.category}
           </h3>
-          <p className="mt-3 text-14-medium leading-6 text-gray-500">
+          <p className="text-14-medium mt-3 leading-6 text-gray-500">
             {CATEGORY_DESCRIPTION[topResult.category]}
           </p>
         </div>
@@ -50,7 +50,7 @@ const BalanceResult = ({ results, onRestart }: BalanceResultProps) => {
 
             <div className="mt-3 h-3 overflow-hidden rounded-full bg-gray-200">
               <div
-                className="h-full rounded-full bg-primary-500"
+                className="bg-primary-500 h-full rounded-full"
                 style={{ width: `${result.percent}%` }}
               />
             </div>
@@ -61,7 +61,7 @@ const BalanceResult = ({ results, onRestart }: BalanceResultProps) => {
       <button
         type="button"
         onClick={onRestart}
-        className="mt-8 h-12 w-full rounded-xl bg-primary-500 text-16-bold text-white transition hover:bg-primary-600"
+        className="bg-primary-500 text-16-bold hover:bg-primary-600 mt-8 h-12 w-full rounded-xl text-white transition"
       >
         다시하기
       </button>

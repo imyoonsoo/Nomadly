@@ -37,9 +37,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         )}
 
         <div
-          className={`relative h-13.5 border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]
-          ${status === "focus" ? "border-primary-500" : ""}
-          ${status === "error" ? "border-red-500" : ""}`}
+          className={`relative h-13.5 rounded-2xl border-2 border-gray-100 shadow-[0_2px_6px_0_rgba(0,0,0,0.02)] ${status === "focus" ? "border-primary-500" : ""} ${status === "error" ? "border-red-500" : ""}`}
         >
           <input
             id={inputId}
@@ -55,9 +53,9 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               setIsFocused(false);
               onBlur?.(e);
             }}
-            className={`w-full h-full ${
+            className={`h-full w-full ${
               type === "password" ? "pr-14" : "pr-5"
-            } pl-5 border-none rounded-2xl outline-none text-16-medium bg-white placeholder-gray-400 autofill-white disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200`}
+            } text-16-medium autofill-white rounded-2xl border-none bg-white pl-5 placeholder-gray-400 outline-none disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200`}
           />
 
           {type === "password" && (
@@ -65,7 +63,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               type="button"
               disabled={disabled}
               onClick={() => setIsPasswordVisible((prev) => !prev)}
-              className="absolute right-5 top-1/2 -translate-y-1/2 disabled:cursor-default"
+              className="absolute top-1/2 right-5 -translate-y-1/2 disabled:cursor-default"
             >
               {isPasswordVisible ? (
                 <EyeOn className="size-6 invert-[0.5]" />
@@ -77,7 +75,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 text-14-medium mt-1.5 ml-2">
+          <p className="text-14-medium mt-1.5 ml-2 text-red-500">
             {errorMessage}
           </p>
         )}

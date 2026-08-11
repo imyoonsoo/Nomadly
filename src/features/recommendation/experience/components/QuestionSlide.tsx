@@ -16,7 +16,7 @@ const QuestionSlide = ({
   return (
     <div className="w-full shrink-0">
       <div className="rounded-3xl bg-white p-6 shadow-md md:p-8">
-        <h2 className="mb-6 text-20-bold text-gray-900 md:text-24-bold">
+        <h2 className="text-20-bold md:text-24-bold mb-6 text-gray-900">
           {question.question}
         </h2>
 
@@ -29,7 +29,7 @@ const QuestionSlide = ({
                 key={option.label}
                 type="button"
                 onClick={() => onSelectAnswer(questionIndex, optionIndex)}
-                className={`w-full rounded-2xl border p-4 text-left text-16-bold transition ${
+                className={`text-16-bold w-full rounded-2xl border p-4 text-left transition ${
                   isSelected
                     ? "border-primary-500 bg-primary-100 text-primary-500"
                     : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"

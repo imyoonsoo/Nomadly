@@ -25,7 +25,7 @@ const ResultCard = ({ result, rank }: ResultCardProps) => {
         <h2 className="text-22-bold text-gray-900">{result.category}</h2>
       </div>
 
-      <p className="mt-3 text-15-medium leading-6 text-gray-500">
+      <p className="text-15-medium mt-3 leading-6 text-gray-500">
         {CATEGORY_DESCRIPTION[result.category]}
       </p>
     </div>

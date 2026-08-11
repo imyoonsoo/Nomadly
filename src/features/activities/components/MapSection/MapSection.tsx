@@ -112,9 +112,9 @@ const MapSection = ({ address }: MapSectionProps) => {
   }, [address, handleMapClick]);
 
   return (
-    <div className="flex flex-col gap-2 md:gap-3.5 lg:gap-2 pb-5 md:pb-10 border-b border-gray-100">
+    <div className="flex flex-col gap-2 border-b border-gray-100 pb-5 md:gap-3.5 md:pb-10 lg:gap-2">
       <div className="flex items-center gap-2">
-        <MapBlue className="w-6 h-6" />
+        <MapBlue className="h-6 w-6" />
         <h2 className="text-16-bold md:text-18-bold text-gray-950">
           오시는 길
         </h2>
@@ -122,13 +122,13 @@ const MapSection = ({ address }: MapSectionProps) => {
       <span className="text-14-medium font-semibold text-gray-950">
         {address}
       </span>
-      <div className="relative w-full h-45 md:h-75 lg:h-112.5">
+      <div className="relative h-45 w-full md:h-75 lg:h-112.5">
         {isLoading && (
           <Skeleton className="absolute inset-0 z-10 h-full w-full rounded-2xl" />
         )}
         <div
           ref={mapRef}
-          className="h-full w-full rounded-2xl cursor-pointer bg-gray-50"
+          className="h-full w-full cursor-pointer rounded-2xl bg-gray-50"
           role="button"
           tabIndex={isLoading ? -1 : 0}
           aria-label={`${address} 카카오맵에서 보기`}

@@ -7,7 +7,7 @@ interface CardListProps {
 
 const CardList = ({ cards }: CardListProps) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6">
       {cards.map((card) => (
         <Card key={card.id} {...card} />
       ))}

@@ -33,8 +33,8 @@ const ReservationStatusTab = ({
             onClick={() => onChangeStatus(tab.value)}
             className={`pb-3 ${
               selectedStatus === tab.value
-                ? "border-b-2 border-primary-500 text-primary-500 text-16-bold"
-                : "text-gray-400 text-16-medium"
+                ? "border-primary-500 text-primary-500 text-16-bold border-b-2"
+                : "text-16-medium text-gray-400"
             }`}
           >
             {tab.label} {count[tab.value]}
@@ -43,7 +43,7 @@ const ReservationStatusTab = ({
       </div>
 
       <span
-        className="absolute bottom-[-1px] left-0 h-[2px] w-1/3 rounded-full bg-primary-500 transition-transform duration-300 ease-out"
+        className="bg-primary-500 absolute bottom-[-1px] left-0 h-[2px] w-1/3 rounded-full transition-transform duration-300 ease-out"
         style={{
           transform: `translateX(${selectedIndex * 100}%)`,
         }}

@@ -14,11 +14,11 @@ const AUTH_LINKS: AuthLink[] = [
 
 const HeaderGuestMenu = () => {
   return (
-    <ul className="flex justify-center items-center gap-1 md:gap-3">
+    <ul className="flex items-center justify-center gap-1 md:gap-3">
       {AUTH_LINKS.map(({ href, text }) => (
         <li
           key={href}
-          className="px-3 py-2 text-14-medium text-gray-950 md:px-4 md:py-3 rounded hover:text-primary-500 active:scale-95 active:opacity-70 transition"
+          className="text-14-medium hover:text-primary-500 rounded px-3 py-2 text-gray-950 transition active:scale-95 active:opacity-70 md:px-4 md:py-3"
         >
           <Link href={href}>{text}</Link>
         </li>

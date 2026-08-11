@@ -21,7 +21,7 @@ const ReservationStatusBadge = ({
 
   return (
     <span
-      className={`flex w-full items-center justify-center rounded-[4px] px-1.5 py-0.5 text-10-medium md:text-14-medium ${colorClass[color]}`}
+      className={`text-10-medium md:text-14-medium flex w-full items-center justify-center rounded-[4px] px-1.5 py-0.5 ${colorClass[color]}`}
     >
       {label} {count}
     </span>

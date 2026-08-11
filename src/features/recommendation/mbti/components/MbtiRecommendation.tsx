@@ -38,11 +38,11 @@ const MbtiRecommendation = () => {
 
   return (
     <section className="mx-auto w-full max-w-[700px]">
-      <h1 className="text-center text-24-bold text-gray-900 md:text-32-bold">
+      <h1 className="text-24-bold md:text-32-bold text-center text-gray-900">
         MBTI 체험 추천
       </h1>
 
-      <p className="mt-3 text-center text-14-medium md:text-16-medium text-gray-500">
+      <p className="text-14-medium md:text-16-medium mt-3 text-center text-gray-500">
         MBTI를 입력하면 어울리는 체험 카테고리를 추천해드릴게요.
       </p>
 
@@ -61,19 +61,19 @@ const MbtiRecommendation = () => {
             onChange={(e) => setMbtiInput(e.target.value)}
             placeholder="예: ENFP"
             maxLength={4}
-            className="h-12 flex-1 rounded-xl border border-gray-200 px-4 text-16-bold md:text-18-bold uppercase outline-none focus:border-primary-500"
+            className="text-16-bold md:text-18-bold focus:border-primary-500 h-12 flex-1 rounded-xl border border-gray-200 px-4 uppercase outline-none"
           />
 
           <button
             type="submit"
-            className="h-12 rounded-xl bg-primary-500 px-6 text-16-bold text-white transition hover:bg-primary-600"
+            className="bg-primary-500 text-16-bold hover:bg-primary-600 h-12 rounded-xl px-6 text-white transition"
           >
             추천받기
           </button>
         </div>
 
         {errorMessage && (
-          <p className="mt-3 text-14-medium text-red-500">{errorMessage}</p>
+          <p className="text-14-medium mt-3 text-red-500">{errorMessage}</p>
         )}
       </form>
 
@@ -84,7 +84,7 @@ const MbtiRecommendation = () => {
           <button
             type="button"
             onClick={handleReset}
-            className="mt-5 h-12 w-full rounded-xl border border-gray-200 bg-white text-16-bold text-gray-700 transition hover:bg-gray-50"
+            className="text-16-bold mt-5 h-12 w-full rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50"
           >
             다시 입력하기
           </button>

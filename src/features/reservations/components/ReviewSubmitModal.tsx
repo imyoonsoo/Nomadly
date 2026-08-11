@@ -62,7 +62,7 @@ const ReviewSubmitModal = ({
       size="lg"
       isOpen={isOpen}
       onClose={onClose}
-      className="w-[327px] h-[479px]"
+      className="h-[479px] w-[327px]"
     >
       <form
         onSubmit={handleSubmit(onSubmitForm)}
@@ -75,8 +75,8 @@ const ReviewSubmitModal = ({
                 <DeleteIcon width={24} height={24} />
               </button>
             </div>
-            <p className="text-14-bold text-center md:text-16-bold">{title}</p>
-            <p className="text-13-medium text-gray-500 text-center md:text-14-medium">
+            <p className="text-14-bold md:text-16-bold text-center">{title}</p>
+            <p className="text-13-medium md:text-14-medium text-center text-gray-500">
               {date} / {startTime} - {endTime} ({headCount}명)
             </p>
           </div>
@@ -98,13 +98,13 @@ const ReviewSubmitModal = ({
                       <StarOn
                         width={36}
                         height={36}
-                        className="md:w-[42px] md:h-[42px]"
+                        className="md:h-[42px] md:w-[42px]"
                       />
                     ) : (
                       <StarOff
                         width={36}
                         height={36}
-                        className="md:w-[42px] md:h-[42px]"
+                        className="md:h-[42px] md:w-[42px]"
                       />
                     )}
                   </button>
@@ -123,7 +123,7 @@ const ReviewSubmitModal = ({
             {...register("content", { required: "리뷰를 입력해주세요" })}
           />
           {errors.content && (
-            <p className="text-red-500 text-12">{errors.content.message}</p>
+            <p className="text-12 text-red-500">{errors.content.message}</p>
           )}
         </div>
 
@@ -131,7 +131,7 @@ const ReviewSubmitModal = ({
           type="submit"
           variant="mainBlue"
           height="custom"
-          className="w-full h-[41px] rounded-xl md:h-[54px]"
+          className="h-[41px] w-full rounded-xl md:h-[54px]"
         >
           작성하기
         </Button>

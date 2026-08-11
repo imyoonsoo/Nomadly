@@ -21,36 +21,23 @@ const NotificationModal = ({
   onNotificationClick,
 }: NotificationModalProps) => {
   return (
-    <div
-      className="
-        absolute right-0 top-12 z-50
-        w-[330px] overflow-hidden rounded-xl bg-white
-        shadow-[0_4px_20px_rgba(0,0,0,0.15)]
-
-        max-md:fixed
-        max-md:left-4
-        max-md:right-4
-        max-md:top-[49px]
-        max-md:w-auto
-        max-md:z-[130]
-      "
-    >
-      <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+    <div className="absolute top-12 right-0 z-50 w-[330px] overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] max-md:fixed max-md:top-[49px] max-md:right-4 max-md:left-4 max-md:z-[130] max-md:w-auto">
+      <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
         <h2 className="text-16-bold text-gray-950">알림 {totalCount}개</h2>
 
         <button
           type="button"
           onClick={onClose}
           aria-label="알림 닫기"
-          className="rounded-md p-1 text-gray-950 hover:bg-gray-25"
+          className="hover:bg-gray-25 rounded-md p-1 text-gray-950"
         >
-          <Delete className="w-6 h-6" />
+          <Delete className="h-6 w-6" />
         </button>
       </div>
 
       <div className="max-h-[250px] overflow-y-auto">
         {notifications.length === 0 ? (
-          <p className="px-5 py-8 text-center text-14-medium text-gray-700">
+          <p className="text-14-medium px-5 py-8 text-center text-gray-700">
             알림이 없어요.
           </p>
         ) : (
@@ -63,20 +50,17 @@ const NotificationModal = ({
                 key={notification.id}
                 type="button"
                 onClick={() => onNotificationClick(notification.id)}
-                className="
-                  block w-full border-b border-gray-50 px-5 py-4 text-left
-                  transition hover:bg-primary-100
-                "
+                className="hover:bg-primary-100 block w-full border-b border-gray-50 px-5 py-4 text-left transition"
               >
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <p className="text-14-bold text-gray-950">{parsed.title}</p>
 
-                  <span className="shrink-0 text-12-medium text-gray-400">
+                  <span className="text-12-medium shrink-0 text-gray-400">
                     {getTimeAgo(notification.createdAt)}
                   </span>
                 </div>
 
-                <p className="text-14-medium text-gray-800 break-keep">
+                <p className="text-14-medium break-keep text-gray-800">
                   {parsed.activityTitle}
                   {parsed.dateText && (
                     <>
@@ -87,7 +71,7 @@ const NotificationModal = ({
                 </p>
 
                 {parsed.status && (
-                  <p className="mt-1 text-13-medium text-gray-700">
+                  <p className="text-13-medium mt-1 text-gray-700">
                     예약이{" "}
                     <span
                       className={

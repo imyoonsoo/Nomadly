@@ -39,29 +39,15 @@ const GamePage = () => {
         <div className="mb-6">
           <Link
             href="/"
-            className="
-          inline-flex
-          items-center
-          gap-2
-          rounded-xl
-          border
-          border-gray-200
-          bg-white
-          px-4
-          py-2
-          text-14-bold
-          text-gray-700
-          transition
-          hover:bg-primary-100
-          "
+            className="text-14-bold hover:bg-primary-100 inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-gray-700 transition"
           >
-            <House className="h-4 w-4 text-primary-500" />
+            <House className="text-primary-500 h-4 w-4" />
             홈으로
           </Link>
         </div>
 
         <h1 className="text-24-bold text-gray-900">게임</h1>
-        <p className="mt-2 text-16-medium text-gray-500">
+        <p className="text-16-medium mt-2 text-gray-500">
           원하는 게임을 선택해 플레이해보세요.
         </p>
 
@@ -74,11 +60,11 @@ const GamePage = () => {
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <h2 className="text-18-bold text-gray-900">{game.title}</h2>
-                <p className="mt-2 text-14-medium text-gray-500">
+                <p className="text-14-medium mt-2 text-gray-500">
                   {game.description}
                 </p>
 
-                <span className="mt-5 inline-flex rounded-full bg-primary-100 px-4 py-2 text-14-bold text-primary-500">
+                <span className="bg-primary-100 text-14-bold text-primary-500 mt-5 inline-flex rounded-full px-4 py-2">
                   플레이하기
                 </span>
               </Link>
@@ -88,11 +74,11 @@ const GamePage = () => {
                 className="rounded-2xl border border-gray-200 bg-gray-100 p-5 opacity-70"
               >
                 <h2 className="text-18-bold text-gray-500">{game.title}</h2>
-                <p className="mt-2 text-14-medium text-gray-400">
+                <p className="text-14-medium mt-2 text-gray-400">
                   {game.description}
                 </p>
 
-                <span className="mt-5 inline-flex rounded-full bg-gray-200 px-4 py-2 text-14-bold text-gray-400">
+                <span className="text-14-bold mt-5 inline-flex rounded-full bg-gray-200 px-4 py-2 text-gray-400">
                   준비 중
                 </span>
               </div>

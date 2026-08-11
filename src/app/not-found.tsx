@@ -23,7 +23,7 @@ const NotFound = () => {
           요청하신 페이지를 찾을 수 없습니다.
         </h1>
 
-        <div className="flex flex-col gap-[26px] md:gap-[24px] mt-12 md:mt-[45px] lg:mt-[53px] text-gray-500 text-[14px] md:text-[16px] leading-[22px]">
+        <div className="mt-12 flex flex-col gap-[26px] text-[14px] leading-[22px] text-gray-500 md:mt-[45px] md:gap-[24px] md:text-[16px] lg:mt-[53px]">
           <p>
             페이지 주소가 잘못 입력되었거나, 주소가 변경 또는 삭제되어
             <br />
@@ -34,7 +34,7 @@ const NotFound = () => {
 
         <Link
           href="/"
-          className="mt-6 md:mt-10 rounded-[8px] bg-blue-500 hover:bg-blue-600 hover:shadow-2xl px-6 py-2 text-[12px] md:text-[16px] text-white md:px-8 md:py-2.5"
+          className="mt-6 rounded-[8px] bg-blue-500 px-6 py-2 text-[12px] text-white hover:bg-blue-600 hover:shadow-2xl md:mt-10 md:px-8 md:py-2.5 md:text-[16px]"
         >
           홈으로 가기
         </Link>

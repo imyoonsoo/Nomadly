@@ -54,7 +54,7 @@ const RouletteGame = () => {
             return (
               <div
                 key={item.category}
-                className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 text-18-bold text-gray-900"
+                className="text-18-bold absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 text-gray-900"
                 style={{
                   transform: `rotate(${angle}deg) translateY(-105px) rotate(-${angle}deg)`,
                 }}
@@ -64,7 +64,7 @@ const RouletteGame = () => {
             );
           })}
 
-          <div className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary-500 text-18-bold text-white shadow-md">
+          <div className="bg-primary-500 text-18-bold absolute top-1/2 left-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-white shadow-md">
             GO
           </div>
         </div>
@@ -74,7 +74,7 @@ const RouletteGame = () => {
         {ROULETTE_ITEMS.map((item, index) => (
           <div
             key={item.category}
-            className="rounded-xl bg-white px-3 py-2 text-center text-14-bold text-gray-700 shadow-sm"
+            className="text-14-bold rounded-xl bg-white px-3 py-2 text-center text-gray-700 shadow-sm"
           >
             {index + 1}. {item.emoji} {item.category}
           </div>
@@ -85,7 +85,7 @@ const RouletteGame = () => {
         type="button"
         onClick={handleSpin}
         disabled={isSpinning}
-        className="mt-8 h-12 w-36 rounded-xl bg-yellow-400 text-16-bold text-gray-900 shadow-md transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
+        className="text-16-bold mt-8 h-12 w-36 rounded-xl bg-yellow-400 text-gray-900 shadow-md transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSpinning ? "돌리는 중..." : "돌리기"}
       </button>
@@ -93,10 +93,10 @@ const RouletteGame = () => {
       {selectedItem && (
         <div className="mt-8 w-full max-w-[420px] rounded-3xl bg-white p-6 text-center shadow-md">
           <p className="text-40-bold">{selectedItem.emoji}</p>
-          <h2 className="mt-2 text-24-bold text-gray-900">
+          <h2 className="text-24-bold mt-2 text-gray-900">
             {selectedItem.category}
           </h2>
-          <p className="mt-3 text-15-medium leading-6 text-gray-500">
+          <p className="text-15-medium mt-3 leading-6 text-gray-500">
             {selectedItem.description}
           </p>
         </div>

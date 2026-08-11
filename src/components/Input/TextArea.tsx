@@ -45,10 +45,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         )}
 
         <div
-          className={`relative border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]
-            ${status === "focus" ? "border-primary-500" : ""}
-            ${status === "error" ? "border-red-500" : ""}
-            ${textareaClassName}`}
+          className={`relative rounded-2xl border-2 border-gray-100 shadow-[0_2px_6px_0_rgba(0,0,0,0.02)] ${status === "focus" ? "border-primary-500" : ""} ${status === "error" ? "border-red-500" : ""} ${textareaClassName}`}
         >
           <textarea
             ref={ref}
@@ -63,15 +60,15 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
               onBlur?.(e);
             }}
             maxLength={textCount ? maxLength : undefined}
-            className="w-full h-full p-5 border-none rounded-2xl outline-none focus:outline-none focus:ring-0 text-16-medium bg-white placeholder-gray-400 disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200 resize-none"
+            className="text-16-medium h-full w-full resize-none rounded-2xl border-none bg-white p-5 placeholder-gray-400 outline-none focus:ring-0 focus:outline-none disabled:bg-gray-50 disabled:text-gray-400 disabled:placeholder-gray-200"
           />
         </div>
 
         {(errorMessage || textCount) && (
-          <div className="flex justify-between mt-2">
+          <div className="mt-2 flex justify-between">
             <div>
               {errorMessage && (
-                <p className="text-red-500 text-14-medium ml-2">
+                <p className="text-14-medium ml-2 text-red-500">
                   {errorMessage}
                 </p>
               )}

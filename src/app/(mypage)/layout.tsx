@@ -11,7 +11,7 @@ const MyPageLayout = async ({ children }: MyPageLayoutProps) => {
   const user = await getProfileAction().catch(() => null);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Header user={user} />
       <MyPageLayoutContent>{children}</MyPageLayoutContent>
       <Footer />

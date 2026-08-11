@@ -31,14 +31,14 @@ const Header = ({ user }: HeaderProps) => {
 
   return (
     <header
-      className={`w-full h-12 fixed top-0 left-0 z-[110] md:z-100 md:h-20 flex justify-center transition-colors duration-300 ${
+      className={`fixed top-0 left-0 z-[110] flex h-12 w-full justify-center transition-colors duration-300 md:z-100 md:h-20 ${
         isScrolled
           ? "bg-white shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
           : "bg-transparent shadow-none"
       }`}
     >
-      <div className="w-full max-w-380 flex items-center justify-between mx-auto px-6 md:px-7.5">
-        <Link href="/" className="flex items-center py-2.5 cursor-pointer">
+      <div className="mx-auto flex w-full max-w-380 items-center justify-between px-6 md:px-7.5">
+        <Link href="/" className="flex cursor-pointer items-center py-2.5">
           <LogoVertical
             aria-label="로고"
             width={200}
@@ -58,7 +58,7 @@ const Header = ({ user }: HeaderProps) => {
             className="flex items-center justify-center transition-transform hover:scale-115 active:scale-100"
             aria-label="추천 페이지"
           >
-            <Recommendation className="w-5 h-5 md:w-6 md:h-6 text-cyan-500 hover:text-indigo-500" />
+            <Recommendation className="h-5 w-5 text-cyan-500 hover:text-indigo-500 md:h-6 md:w-6" />
           </Link>
 
           <Link
@@ -66,7 +66,7 @@ const Header = ({ user }: HeaderProps) => {
             className="flex items-center justify-center transition-transform hover:scale-110 active:scale-95"
             aria-label="게임 페이지"
           >
-            <Game className="w-6 h-6 md:w-7 md:h-7 text-yellow-500 hover:rotate-12 transition-all duration-200 hover:text-primary-500" />
+            <Game className="hover:text-primary-500 h-6 w-6 text-yellow-500 transition-all duration-200 hover:rotate-12 md:h-7 md:w-7" />
           </Link>
 
           {user ? (

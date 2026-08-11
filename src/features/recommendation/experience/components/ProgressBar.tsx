@@ -8,7 +8,7 @@ const ProgressBar = ({ currentStep, totalStep }: ProgressBarProps) => {
 
   return (
     <div className="mb-8">
-      <div className="mb-2 flex justify-between text-13-bold text-gray-500">
+      <div className="text-13-bold mb-2 flex justify-between text-gray-500">
         <span>
           {currentStep + 1} / {totalStep}
         </span>
@@ -17,7 +17,7 @@ const ProgressBar = ({ currentStep, totalStep }: ProgressBarProps) => {
 
       <div className="h-3 overflow-hidden rounded-full bg-gray-200">
         <div
-          className="h-full rounded-full bg-primary-500 transition-all duration-300"
+          className="bg-primary-500 h-full rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>

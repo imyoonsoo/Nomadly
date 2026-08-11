@@ -71,7 +71,7 @@ const ReservationSlideUpModal = ({
       />
 
       <div
-        className={`scrollbar-hide fixed inset-x-0 bottom-0 max-h-92vh overflow-y-auto rounded-t-3xl bg-white shadow-xl transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "translate-y-full"}`}
+        className={`scrollbar-hide max-h-92vh fixed inset-x-0 bottom-0 overflow-y-auto rounded-t-3xl bg-white shadow-xl transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "translate-y-full"}`}
         onMouseDown={(event) => event.stopPropagation()}
       >
         <div className="px-6 py-8">{children}</div>

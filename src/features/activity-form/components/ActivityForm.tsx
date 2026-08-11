@@ -96,13 +96,13 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
   };
 
   return (
-    <div className="w-full mb-12 lg:px-17.5">
-      <h1 className="py-2.5 mb-6 text-18-bold text-gray-950">
+    <div className="mb-12 w-full lg:px-17.5">
+      <h1 className="text-18-bold mb-6 py-2.5 text-gray-950">
         {mode === "create" ? "📍내 체험 등록" : "📍내 체험 수정"}
       </h1>
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
-        className="w-full flex flex-col justify-center gap-6 md:gap-7.5"
+        className="flex w-full flex-col justify-center gap-6 md:gap-7.5"
       >
         <TextInput
           {...register("title", { required: "제목을 입력해 주세요" })}
@@ -179,7 +179,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           variant="mainBlue"
           height="47md"
           type="submit"
-          className="w-full md:w-60 md:mx-auto hover:brightness-90"
+          className="w-full hover:brightness-90 md:mx-auto md:w-60"
           disabled={isSubmitDisabled}
         >
           {isSubmitting
