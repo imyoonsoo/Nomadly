@@ -90,19 +90,19 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full relative">
+    <div ref={containerRef} className="relative w-full">
       <div
         onClick={() => setIsCalendarOpen((prev) => !prev)}
-        className="h-13.5 border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)] flex items-center justify-between px-5 bg-white cursor-pointer"
+        className="flex h-13.5 cursor-pointer items-center justify-between rounded-2xl border-2 border-gray-100 bg-white px-5 shadow-[0_2px_6px_0_rgba(0,0,0,0.02)]"
       >
         <input
           type="text"
           placeholder="yy/mm/dd"
           value={value ? formatDisplayDate(value) : ""}
           readOnly
-          className="w-full outline-none text-16-medium text-gray-950 placeholder-gray-400 bg-transparent cursor-pointer"
+          className="text-16-medium w-full cursor-pointer bg-transparent text-gray-950 placeholder-gray-400 outline-none"
         />
-        <div className="w-6 h-6 flex items-center justify-center shrink-0">
+        <div className="flex h-6 w-6 shrink-0 items-center justify-center">
           <CalendarIcon
             width={24}
             height={24}
@@ -112,7 +112,7 @@ const DatePicker = ({ value, onChange }: DatePickerProps) => {
       </div>
 
       {isCalendarOpen && (
-        <div className="absolute top-full right-0 mt-2 z-20 w-100 bg-white border border-gray-100 rounded-2xl shadow-2xl p-5">
+        <div className="absolute top-full right-0 z-20 mt-2 w-100 rounded-2xl border border-gray-100 bg-white p-5 shadow-2xl">
           <Calendar
             selectedTimestamp={selectedTimestamp}
             selectedYearAndMonth={selectedYearAndMonth}

@@ -68,7 +68,7 @@ const Calendar = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="relative flex items-center justify-center min-h-9">
+      <div className="relative flex min-h-9 items-center justify-center">
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -96,17 +96,17 @@ const Calendar = ({
         <button
           type="button"
           onClick={handleTodayButtonClick}
-          className="absolute right-0 h-9 rounded-xl border border-primary-500 px-4 text-13-bold text-primary-500 transition hover:bg-primary-100"
+          className="border-primary-500 text-13-bold text-primary-500 hover:bg-primary-100 absolute right-0 h-9 rounded-xl border px-4 transition"
         >
           오늘
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-x-1.17 gap-y-2">
+      <div className="gap-x-1.17 grid grid-cols-7 gap-y-2">
         {WEEK_DAYS.map((day, index) => (
           <div
             key={`${day}-${index}`}
-            className="flex w-11.5 h-11.5 items-center justify-center text-center text-16-medium font-semibold text-gray-800"
+            className="text-16-medium flex h-11.5 w-11.5 items-center justify-center text-center font-semibold text-gray-800"
           >
             {day}
           </div>
@@ -131,7 +131,7 @@ const Calendar = ({
               onClick={() => {
                 onSelectTimestamp(timestamp);
               }}
-              className={`mx-auto flex h-11.5 w-11.5 items-center justify-center rounded-full text-16-medium transition ${
+              className={`text-16-medium mx-auto flex h-11.5 w-11.5 items-center justify-center rounded-full transition ${
                 isSelected
                   ? "bg-primary-500 text-white"
                   : isTodayDate

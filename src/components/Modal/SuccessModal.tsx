@@ -10,7 +10,7 @@ const SuccessModal = ({
 }: SuccessModalProps) => {
   return (
     <Modal
-      className="flex flex-col gap-5 items-center justify-center"
+      className="flex flex-col items-center justify-center gap-5"
       isOpen={isOpen}
       onClose={onClose}
     >
@@ -18,7 +18,7 @@ const SuccessModal = ({
       <Button
         variant="mainBlue"
         height="custom"
-        className="w-45 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-50 md:h-[47px] md:py-[14px]"
+        className="h-10 w-45 rounded-xl px-5 py-1 text-[14px] md:h-[47px] md:w-50 md:px-10 md:py-3 md:py-[14px]"
         onClick={onClose}
       >
         {buttonText}

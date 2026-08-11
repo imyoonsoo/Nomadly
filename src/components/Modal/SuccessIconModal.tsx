@@ -11,25 +11,25 @@ const SuccessIconModal = ({
 }: SuccessModalProps) => {
   return (
     <Modal
-      className="flex flex-col gap-5 items-center justify-center"
+      className="flex flex-col items-center justify-center gap-5"
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center justify-center">
         <Image
           src="/successIcon.svg"
           alt="성공 아이콘"
           width={88}
           height={88}
-          className="w-[49px] h-[49px] md:w-22 md:h-22"
+          className="h-[49px] w-[49px] md:h-22 md:w-22"
         />
-        <p className="text-center text-16-bold md:text-18-bold">{message}</p>
+        <p className="text-16-bold md:text-18-bold text-center">{message}</p>
       </div>
 
       <Button
         variant="mainBlue"
         height="custom"
-        className="w-45 h-10 px-5 py-1 md:px-10 md:py-3 text-[14px] rounded-xl md:w-50 md:h-[47px] md:py-[14px]"
+        className="h-10 w-45 rounded-xl px-5 py-1 text-[14px] md:h-[47px] md:w-50 md:px-10 md:py-3 md:py-[14px]"
         onClick={onClose}
       >
         {buttonText}

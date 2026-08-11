@@ -95,10 +95,10 @@ const SignupForm = () => {
 
   const [isAgreedTerms, setIsAgreedTerms] = useState(false);
   return (
-    <div className="w-full flex flex-col items-center gap-6 self-stretch">
+    <div className="flex w-full flex-col items-center gap-6 self-stretch">
       <form
         onSubmit={handleSubmit(handleSignupFormSubmit)}
-        className="w-full flex flex-col items-center gap-6 self-stretch"
+        className="flex w-full flex-col items-center gap-6 self-stretch"
       >
         <TextInput
           label="이메일"
@@ -162,14 +162,14 @@ const SignupForm = () => {
           })}
         />
 
-        <label className="flex items-center gap-2 self-stretch text-sm text-gray-600 cursor-pointer select-none">
+        <label className="flex cursor-pointer items-center gap-2 self-stretch text-sm text-gray-600 select-none">
           <input
             type="checkbox"
             checked={isAgreedTerms}
             onChange={(e) => setIsAgreedTerms(e.target.checked)}
-            className="w-4 h-4 cursor-pointer"
+            className="h-4 w-4 cursor-pointer"
           />
-          <span className="text-primary-700 font-medium text-sm">
+          <span className="text-primary-700 text-sm font-medium">
             이용약관 및 개인정보 수집에 동의합니다.
           </span>
         </label>
@@ -179,15 +179,15 @@ const SignupForm = () => {
           variant="mainBlue"
           height="54lg"
           disabled={!(isValid && isAgreedTerms)}
-          className="self-stretch shadow-md disabled:shadow-none transition-all font-bold text-base"
+          className="self-stretch text-base font-bold shadow-md transition-all disabled:shadow-none"
         >
           Nomadly 회원가입하기
         </Button>
       </form>
 
-      <div className="flex items-center gap-4 self-stretch w-full">
+      <div className="flex w-full items-center gap-4 self-stretch">
         <hr className="flex-1 border-gray-100" />
-        <span className="text-gray-560 text-center text-sm md:text-base font-medium tracking-[-0.4px] shrink-0">
+        <span className="text-gray-560 shrink-0 text-center text-sm font-medium tracking-[-0.4px] md:text-base">
           OR
         </span>
         <hr className="flex-1 border-gray-100" />
@@ -205,7 +205,7 @@ const SignupForm = () => {
         카카오 간편회원가입
       </Button>
 
-      <p className="text-gray-400 text-center text-sm md:text-base font-medium tracking-[-0.4px]">
+      <p className="text-center text-sm font-medium tracking-[-0.4px] text-gray-400 md:text-base">
         Nomadly 회원이신가요?{" "}
         <Link href="/login" className="underline">
           <b className="text-gray-500">로그인하기</b>

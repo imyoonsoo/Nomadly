@@ -11,17 +11,17 @@ const SearchBox = ({
   onSearch: () => void;
 }) => {
   return (
-    <div className="flex items-center gap-2.5 shadow-[0_4px_16px_rgb(187_221_255/50%)] pl-5 md:pl-8 pr-2 md:pr-3 py-1.5 md:py-2.5 rounded-2xl md:rounded-3xl bg-white hover:shadow-[0_4px_16px_rgb(187_221_255/70%)] hover:ring-2 hover:ring-primary-500 transition ease-in ">
+    <div className="hover:ring-primary-500 flex items-center gap-2.5 rounded-2xl bg-white py-1.5 pr-2 pl-5 shadow-[0_4px_16px_rgb(187_221_255/50%)] transition ease-in hover:shadow-[0_4px_16px_rgb(187_221_255/70%)] hover:ring-2 md:rounded-3xl md:py-2.5 md:pr-3 md:pl-8">
       <Search className="size-5" />
       <input
         type="text"
         placeholder="내가 원하는 체험은?"
-        className="flex-1 h-6 md:h-12.5 w-full outline-none placeholder:text-14-medium md:placeholder:text-16-medium"
+        className="placeholder:text-14-medium md:placeholder:text-16-medium h-6 w-full flex-1 outline-none md:h-12.5"
         onKeyDown={onKeyDown}
         onChange={onChange}
       />
       <Button
-        className="w-fit px-5! md:px-7! py-3!"
+        className="w-fit px-5! py-3! md:px-7!"
         variant="mainBlue"
         height="h50"
         type="button"

@@ -78,8 +78,8 @@ const Home = () => {
         <MainBanner items={activities} />
       </div>
       {/* 체험검색 */}
-      <div className="mx-auto my-4 max-w-[1120px] px-5 py-4 my-10 md:my-12 md:px-10 md:py-8">
-        <p className="mb-3 text-center text-16-bold md:mb-9 md:text-32-bold">
+      <div className="mx-auto my-4 my-10 max-w-[1120px] px-5 py-4 md:my-12 md:px-10 md:py-8">
+        <p className="text-16-bold md:text-32-bold mb-3 text-center md:mb-9">
           무엇을 체험하고 싶으신가요?
         </p>
         <SearchBox
@@ -91,8 +91,8 @@ const Home = () => {
       {/* 인기체험 */}
       <>
         {keyword === "" && (
-          <div className="px-6 md:px-10 max-w-[1200px] mx-auto">
-            <h2 className="mb-3.5 text-18-bold md:mb-5 md:text-32-bold">
+          <div className="mx-auto max-w-[1200px] px-6 md:px-10">
+            <h2 className="text-18-bold md:text-32-bold mb-3.5 md:mb-5">
               🔥 인기 체험
             </h2>
             <div className="flex">
@@ -102,11 +102,11 @@ const Home = () => {
         )}
       </>
       {/* 모든체험 */}
-      <div className="px-6 md:px-10 mt-10 max-w-[1200px] mx-auto">
+      <div className="mx-auto mt-10 max-w-[1200px] px-6 md:px-10">
         {keyword === "" ? (
           <h2 className="text-18-bold md:text-32-bold mb-5">🎈 모든 체험</h2>
         ) : getFiltered.length === 0 ? (
-          <div className="flex flex-col items-center pb-50 pt-20">
+          <div className="flex flex-col items-center pt-20 pb-50">
             <Image
               src="/notFound/404-earth.svg"
               alt="404 지구 일러스트"
@@ -126,7 +126,7 @@ const Home = () => {
           </div>
         )}
 
-        <div className="flex mb-[218px]">
+        <div className="mb-[218px] flex">
           <ActivitiesList items={getFiltered} keyword={keyword} />
         </div>
       </div>

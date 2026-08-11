@@ -6,13 +6,13 @@ import XIcon from "@/assets/icons/sns-x.svg";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col gap-5 w-full items-center justify-center px-6 py-[30px] bg-white border-t border-gray-100 md:flex-row md:justify-between md:self-stretch md:px-10 md:py-15 lg:px-50">
-      <div className="w-[154px] flex justify-between items-center order-0 text-13-medium text-gray-600 md:order-1">
+    <footer className="flex w-full flex-col items-center justify-center gap-5 border-t border-gray-100 bg-white px-6 py-[30px] md:flex-row md:justify-between md:self-stretch md:px-10 md:py-15 lg:px-50">
+      <div className="text-13-medium order-0 flex w-[154px] items-center justify-between text-gray-600 md:order-1">
         <Link href="/policy/privacy">Privacy Policy</Link>
         <span>·</span>
         <Link href="/policy/faq">FAQ</Link>
       </div>
-      <div className="flex justify-between items-center self-stretch md:contents">
+      <div className="flex items-center justify-between self-stretch md:contents">
         <div className="text-13-medium text-gray-400 md:order-0">
           @codeit-2023
         </div>

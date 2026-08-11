@@ -18,22 +18,22 @@ const ReservationCard = ({
   onDecline,
 }: ReservationCardProps) => {
   return (
-    <div className="flex items-center justify-between rounded-xl border border-gray-200 p-4 cursor-default">
+    <div className="flex cursor-default items-center justify-between rounded-xl border border-gray-200 p-4">
       <div>
         <div className="flex items-center gap-2">
-          <span className="text-gray-500 text-14-bold xl:text-16-bold">
+          <span className="text-14-bold xl:text-16-bold text-gray-500">
             닉네임
           </span>
-          <span className="text-black text-14-medium xl:text-16-medium">
+          <span className="text-14-medium xl:text-16-medium text-black">
             {reservation.nickname}
           </span>
         </div>
 
         <div className="mt-2 flex items-center gap-[22px]">
-          <span className="text-gray-500 text-14-bold xl:text-16-bold">
+          <span className="text-14-bold xl:text-16-bold text-gray-500">
             인원
           </span>
-          <span className="text-black text-14-medium xl:text-16-medium">
+          <span className="text-14-medium xl:text-16-medium text-black">
             {reservation.headCount}명
           </span>
         </div>
@@ -44,14 +44,14 @@ const ReservationCard = ({
           <button
             type="button"
             onClick={() => onApprove?.(reservation.id)}
-            className="h-8 rounded-lg border border-gray-50 px-3 text-14-medium text-gray-600"
+            className="text-14-medium h-8 rounded-lg border border-gray-50 px-3 text-gray-600"
           >
             승인하기
           </button>
           <button
             type="button"
             onClick={() => onDecline?.(reservation.id)}
-            className="h-8 rounded-lg border-none bg-gray-50 px-3 text-14-medium text-gray-600"
+            className="text-14-medium h-8 rounded-lg border-none bg-gray-50 px-3 text-gray-600"
           >
             거절하기
           </button>

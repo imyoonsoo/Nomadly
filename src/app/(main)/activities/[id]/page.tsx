@@ -65,7 +65,7 @@ const ActivitiesPage = async ({
           />
         </div>
 
-        <div className="hidden lg:flex w-102.5 flex-col gap-5">
+        <div className="hidden w-102.5 flex-col gap-5 lg:flex">
           <TitleSection {...titleSectionProps} />
           <ReservationSection
             activityId={activityId}

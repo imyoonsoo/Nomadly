@@ -37,7 +37,7 @@ const ActivitiesCard = ({
   useEffect(() => {}, [bookmarked]);
 
   return (
-    <div className="relative w-full hover:transform-[translateY(-5px)] transition ease-in shadow-[0_2px_6px_0_rgba(0,0,0,0.1)] rounded-[18px] md:rounded-4xl">
+    <div className="relative w-full rounded-[18px] shadow-[0_2px_6px_0_rgba(0,0,0,0.1)] transition ease-in hover:transform-[translateY(-5px)] md:rounded-4xl">
       <button
         type="button"
         onClick={(e) => {
@@ -52,7 +52,7 @@ const ActivitiesCard = ({
             showToast("관심 체험을 취소했습니다.");
           }
         }}
-        className={`absolute right-4 top-4 z-1 flex items-center justify-center text-white hover:transform-[scale(120%)] transition ease-in`}
+        className={`absolute top-4 right-4 z-1 flex items-center justify-center text-white transition ease-in hover:transform-[scale(120%)]`}
       >
         <span className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
           {bookmarked ? (
@@ -63,7 +63,7 @@ const ActivitiesCard = ({
         </span>
       </button>
       <Link href={`/activities/${id}`}>
-        <div className="relative aspect-[1/1.1] md:rounded-4xl rounded-[18px] overflow-hidden bg-gray-200">
+        <div className="relative aspect-[1/1.1] overflow-hidden rounded-[18px] bg-gray-200 md:rounded-4xl">
           <Image
             src={imgSrc}
             alt={title}
@@ -75,9 +75,9 @@ const ActivitiesCard = ({
           />
         </div>
 
-        <div className="relative bg-white px-4.25 md:px-7.5 py-4 md:py-5 -mt-12.5 z-auto rounded-[18px] md:rounded-4xl ">
+        <div className="relative z-auto -mt-12.5 rounded-[18px] bg-white px-4.25 py-4 md:rounded-4xl md:px-7.5 md:py-5">
           <p className="text-14-medium md:text-18-medium truncate">{title}</p>
-          <div className="flex items-center gap-1 mt-0.5">
+          <div className="mt-0.5 flex items-center gap-1">
             <StarOn />
             <div>
               <span className="text-12-medium md:text-14-medium">{rating}</span>
@@ -86,7 +86,7 @@ const ActivitiesCard = ({
               </span>
             </div>
           </div>
-          <div className="mt-2.5 md:mt-4.5 whitespace-nowrap">
+          <div className="mt-2.5 whitespace-nowrap md:mt-4.5">
             <span className="text-16-bold md:text-18-bold">
               ₩ {(price ?? 0).toLocaleString()}
             </span>

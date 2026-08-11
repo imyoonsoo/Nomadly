@@ -15,7 +15,7 @@ import {
 } from "@/features/login/kakao/redirectUri";
 
 const KakaoCallbackLoading = () => (
-  <div className="flex items-center justify-center h-screen">
+  <div className="flex h-screen items-center justify-center">
     <EmptyLoading width={200} height={200} />
   </div>
 );
@@ -73,13 +73,8 @@ const KakaoCallbackContent = () => {
     const isNicknameInvalid = !nickname.trim() || nickname.length > 10;
 
     return (
-      <div
-        className="flex items-center justify-center w-full
-        pt-10 pb-20 px-6
-        md:pt-20 md:pb-25 md:px-13
-        lg:px-0"
-      >
-        <div className="w-full md:w-160 mx-auto flex flex-col gap-6">
+      <div className="flex w-full items-center justify-center px-6 pt-10 pb-20 md:px-13 md:pt-20 md:pb-25 lg:px-0">
+        <div className="mx-auto flex w-full flex-col gap-6 md:w-160">
           <p className="text-18-bold text-center">
             사용할 닉네임을 입력해 주세요
           </p>

@@ -87,7 +87,7 @@ const Page = () => {
       )}
 
       {bookmarkedActivities.length > 0 && totalPages > 1 && (
-        <div className="flex justify-center mt-7.5">
+        <div className="mt-7.5 flex justify-center">
           <Pagination
             currentPage={page}
             totalPages={totalPages}

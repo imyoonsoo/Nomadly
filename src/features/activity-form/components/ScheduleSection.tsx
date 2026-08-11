@@ -124,13 +124,13 @@ const ScheduleSection = ({
           <p className="text-16-bold mb-2.5 block">예약 가능한 시간대</p>
 
           <div className="flex flex-col gap-5">
-            <div className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5">
+            <div className="flex w-full flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5">
               <div className="w-full">
                 <label className="text-16-medium mb-2.5 block">날짜</label>
                 <DatePicker value={currentDate} onChange={setCurrentDate} />
               </div>
 
-              <div className="w-full flex items-center gap-3.5">
+              <div className="flex w-full items-center gap-3.5">
                 <div className="w-full flex-1">
                   <TimePicker
                     value={currentStartTime}
@@ -139,7 +139,7 @@ const ScheduleSection = ({
                   />
                 </div>
 
-                <div className="w-2 h-0.5 mt-3 md:mt-8 bg-gray-800"></div>
+                <div className="mt-3 h-0.5 w-2 bg-gray-800 md:mt-8"></div>
 
                 <div className="w-full flex-1">
                   <TimePicker
@@ -156,7 +156,7 @@ const ScheduleSection = ({
                     type="button"
                     onClick={handleAddSchedule}
                     icon={<PlusIcon width={24} height={24} />}
-                    className="w-10.5 h-10.5 rounded-full hover:brightness-90 transition"
+                    className="h-10.5 w-10.5 rounded-full transition hover:brightness-90"
                     aria-label="일정 추가"
                   />
                 </div>
@@ -164,11 +164,11 @@ const ScheduleSection = ({
             </div>
 
             {scheduleError && (
-              <p className="text-red-500 text-14-medium">{scheduleError}</p>
+              <p className="text-14-medium text-red-500">{scheduleError}</p>
             )}
 
             {fields.length > 0 && (
-              <div className="w-full h-px bg-gray-100"></div>
+              <div className="h-px w-full bg-gray-100"></div>
             )}
 
             {/* 추가된 예약 시간대 */}
@@ -176,7 +176,7 @@ const ScheduleSection = ({
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="w-full flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5"
+                  className="flex w-full flex-col gap-2.5 md:flex-row md:items-center md:gap-3.5"
                 >
                   <Controller
                     control={control}
@@ -189,7 +189,7 @@ const ScheduleSection = ({
                       />
                     )}
                   />
-                  <div className="w-full flex items-center gap-3.5">
+                  <div className="flex w-full items-center gap-3.5">
                     <div className="w-full flex-1">
                       <Controller
                         control={control}
@@ -204,7 +204,7 @@ const ScheduleSection = ({
                       />
                     </div>
 
-                    <div className="w-2 h-0.5 bg-gray-800"></div>
+                    <div className="h-0.5 w-2 bg-gray-800"></div>
 
                     <div className="w-full flex-1">
                       <Controller
@@ -227,7 +227,7 @@ const ScheduleSection = ({
                         type="button"
                         onClick={() => remove(index)}
                         icon={<MinusIcon width={24} height={24} />}
-                        className="w-10.5 h-10.5 rounded-full hover:bg-gray-100 transition"
+                        className="h-10.5 w-10.5 rounded-full transition hover:bg-gray-100"
                         aria-label="일정 삭제"
                       />
                     </div>
@@ -236,7 +236,7 @@ const ScheduleSection = ({
               ))}
 
               {hasDuplicate && (
-                <p className="text-red-500 text-14-medium">
+                <p className="text-14-medium text-red-500">
                   시간대가 겹치는 체험이 있습니다.
                 </p>
               )}

@@ -233,17 +233,7 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
           ref={canvasRef}
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
-          className="
-            w-full
-            max-w-[320px]
-            rounded-2xl
-            border
-            border-gray-700
-            bg-gray-800
-            shadow-lg
-            md:max-w-[360px]
-            xl:max-w-[400px]
-          "
+          className="w-full max-w-[320px] rounded-2xl border border-gray-700 bg-gray-800 shadow-lg md:max-w-[360px] xl:max-w-[400px]"
         />
 
         {!isStarted && (
@@ -251,7 +241,7 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
             <button
               type="button"
               onClick={() => startRef.current()}
-              className="h-12 w-32 rounded-xl bg-yellow-400 text-16-bold text-gray-900 shadow-lg transition hover:scale-105"
+              className="text-16-bold h-12 w-32 rounded-xl bg-yellow-400 text-gray-900 shadow-lg transition hover:scale-105"
             >
               시작하기
             </button>
@@ -263,7 +253,7 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
             <button
               type="button"
               onClick={() => restartRef.current()}
-              className="mt-18 h-12 w-32 rounded-xl bg-blue-500 text-16-bold text-white shadow-lg transition hover:scale-105"
+              className="text-16-bold mt-18 h-12 w-32 rounded-xl bg-blue-500 text-white shadow-lg transition hover:scale-105"
             >
               다시하기
             </button>
@@ -280,7 +270,7 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
             onMouseDown={() => handleMoveStart("left")}
             onMouseUp={handleMoveEnd}
             onMouseLeave={handleMoveEnd}
-            className="h-14 w-24 rounded-xl bg-gray-200 text-20-bold text-gray-800"
+            className="text-20-bold h-14 w-24 rounded-xl bg-gray-200 text-gray-800"
           >
             ◀
           </button>
@@ -292,7 +282,7 @@ const DodgeGame = ({ onChangeScore }: DodgeGameProps) => {
             onMouseDown={() => handleMoveStart("right")}
             onMouseUp={handleMoveEnd}
             onMouseLeave={handleMoveEnd}
-            className="h-14 w-24 rounded-xl bg-gray-200 text-20-bold text-gray-800"
+            className="text-20-bold h-14 w-24 rounded-xl bg-gray-200 text-gray-800"
           >
             ▶
           </button>

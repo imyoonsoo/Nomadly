@@ -168,7 +168,7 @@ const MultiImageInput = ({
           <label
             htmlFor={inputId}
             aria-busy={isConverting}
-            className={`flex h-20 w-20 md:h-31.5 lg:h-32 md:w-31.5 lg:w-32 flex-col items-center justify-center gap-0.5 md:gap-2.5 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 ${
+            className={`flex h-20 w-20 flex-col items-center justify-center gap-0.5 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 md:h-31.5 md:w-31.5 md:gap-2.5 lg:h-32 lg:w-32 ${
               isConverting ? "cursor-wait opacity-60" : "cursor-pointer"
             }`}
           >
@@ -181,7 +181,7 @@ const MultiImageInput = ({
 
         {previews.map((preview) => (
           <li key={preview.id} className="relative">
-            <div className="relative h-20 w-20 md:h-31.5 lg:h-32 md:w-31.5 lg:w-32 overflow-hidden rounded-2xl border border-gray-100">
+            <div className="relative h-20 w-20 overflow-hidden rounded-2xl border border-gray-100 md:h-31.5 md:w-31.5 lg:h-32 lg:w-32">
               <Image
                 src={preview.url}
                 alt={`${label} 미리보기`}
@@ -196,9 +196,9 @@ const MultiImageInput = ({
               onClick={() => {
                 handleRemoveButtonClick(preview.id);
               }}
-              className="absolute -right-1 -top-1 flex h-5 w-5 md:h-6.5 md:w-6.5 items-center justify-center rounded-full bg-black"
+              className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black md:h-6.5 md:w-6.5"
             >
-              <Delete className="h-4 w-4 md:h-5 md:w-5 text-white" />
+              <Delete className="h-4 w-4 text-white md:h-5 md:w-5" />
             </button>
           </li>
         ))}

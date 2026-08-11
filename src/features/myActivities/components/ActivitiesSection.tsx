@@ -38,7 +38,7 @@ const ActivitiesSection = () => {
   if (isLoading) {
     return (
       <>
-        <Skeleton className="w-30 h-13.5 md:w-36 mr-auto mb-5 rounded-2xl" />
+        <Skeleton className="mr-auto mb-5 h-13.5 w-30 rounded-2xl md:w-36" />
         <ActivityBanner count={0} isLoading />
         <CardListSkeleton />
       </>
@@ -49,7 +49,7 @@ const ActivitiesSection = () => {
     return (
       <EmptyCardList
         message="체험 목록을 불러오지 못했어요"
-        image={<NotFoundImage className="w-45.5 h-45.5" />}
+        image={<NotFoundImage className="h-45.5 w-45.5" />}
       />
     );
   }

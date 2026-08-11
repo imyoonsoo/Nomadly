@@ -115,15 +115,15 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
   return (
     <div className="relative w-full">
       {keyword === "" && (
-        <div className="flex justify-between mb-4 md:mb-6.25 items-end">
+        <div className="mb-4 flex items-end justify-between md:mb-6.25">
           <div>
             <div
               ref={categoryDropdownRef}
-              className="relative block md:hidden w-37.5"
+              className="relative block w-37.5 md:hidden"
             >
               <button
                 type="button"
-                className="py-2.5 px-5 flex items-center border border-gray-200 rounded-full bg-white gap-2"
+                className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5"
                 onClick={() => setIsOpenCategory((prev) => !prev)}
               >
                 {selectedCategoryItem?.icon}
@@ -136,7 +136,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
               </button>
 
               {isOpenCategory && (
-                <div className="absolute right-0 top-12.5 bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full z-10 shadow-[0_4px_16px_rgb(187_187_187/50%)]">
+                <div className="absolute top-12.5 right-0 z-10 flex w-full flex-col gap-3 rounded-[15px] bg-white p-3 text-center shadow-[0_4px_16px_rgb(187_187_187/50%)]">
                   {CATEGORIES.map((item) => (
                     <button
                       key={item.id}
@@ -146,7 +146,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
                         setIsOpenCategory(false);
                         setPage(1);
                       }}
-                      className="flex gap-2 items-center"
+                      className="flex items-center gap-2"
                     >
                       {item.icon}
                       <span>{item.name}</span>
@@ -164,13 +164,11 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
                     setSelectedCategory(item.name);
                     setPage(1);
                   }}
-                  className={`
-                    flex gap-4
-                    ${
-                      selectedCategory === item.name
-                        ? "bg-primary-500! border-primary-500 text-white!"
-                        : ""
-                    }`}
+                  className={`flex gap-4 ${
+                    selectedCategory === item.name
+                      ? "bg-primary-500! border-primary-500 text-white!"
+                      : ""
+                  }`}
                 >
                   {item.icon}
                   <span>{item.name}</span>
@@ -183,7 +181,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
           <div ref={sortDropdownRef} className="relative">
             <button
               type="button"
-              className="h-9 px-3 flex items-center"
+              className="flex h-9 items-center px-3"
               onClick={() => setIsOpen((prev) => !prev)}
             >
               {selectedText}
@@ -195,7 +193,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
             </button>
 
             {isOpen && (
-              <ul className="absolute right-0 top-10 bg-white rounded-[15px] p-3 flex flex-col gap-3 text-center w-full  z-10 shadow-[0_4px_16px_rgb(187_187_187/50%)]">
+              <ul className="absolute top-10 right-0 z-10 flex w-full flex-col gap-3 rounded-[15px] bg-white p-3 text-center shadow-[0_4px_16px_rgb(187_187_187/50%)]">
                 {OPTIONS.map((option) => (
                   <li key={option}>
                     <button
@@ -234,7 +232,7 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
         )}
       </div>
       {sortedItems.length > 0 && totalPages > 1 && (
-        <div className="flex justify-center mt-7.5">
+        <div className="mt-7.5 flex justify-center">
           <Pagination
             currentPage={page}
             totalPages={totalPages}

@@ -22,20 +22,7 @@ const ReservationStateBadge = ({
 
   return (
     <span
-      className={`
-      inline-flex
-      items-center
-      justify-center
-      rounded-full
-      w-[63px]
-      h-6
-      text-13-bold
-      leading-none
-      tracking-[-0.5px]
-      cursor-default
-      ${state.className}
-      ${className}
-    `}
+      className={`text-13-bold inline-flex h-6 w-[63px] cursor-default items-center justify-center rounded-full leading-none tracking-[-0.5px] ${state.className} ${className} `}
     >
       {state.label}
     </span>

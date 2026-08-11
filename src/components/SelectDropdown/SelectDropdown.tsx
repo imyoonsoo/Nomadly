@@ -48,14 +48,14 @@ const SelectDropdown = ({
         id={selectId}
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`w-full h-13.5 flex justify-between items-center whitespace-nowrap text-16-medium px-4 py-5 border-2 border-gray-100 rounded-2xl shadow-[0_2px_6px_0_rgba(0,0,0,0.02)] ${selectedOption ? "text-gray-950" : "text-gray-400"}`}
+        className={`text-16-medium flex h-13.5 w-full items-center justify-between rounded-2xl border-2 border-gray-100 px-4 py-5 whitespace-nowrap shadow-[0_2px_6px_0_rgba(0,0,0,0.02)] ${selectedOption ? "text-gray-950" : "text-gray-400"}`}
       >
         <span>{selectedOption?.label ?? placeholder}</span>
-        <AltDown className="w-5 h-5" />
+        <AltDown className="h-5 w-5" />
       </button>
 
       {isOpen && (
-        <ul className="absolute left-0 top-full mt-2 z-20 max-h-[284px] w-full overflow-y-auto rounded-xl flex flex-col gap-1 border border-gray-100 bg-white py-3 shadow-lg">
+        <ul className="absolute top-full left-0 z-20 mt-2 flex max-h-[284px] w-full flex-col gap-1 overflow-y-auto rounded-xl border border-gray-100 bg-white py-3 shadow-lg">
           {options.map((option) => (
             <li key={option.value}>
               <button
@@ -64,9 +64,9 @@ const SelectDropdown = ({
                   onChange(option.value);
                   setIsOpen(false);
                 }}
-                className={`w-full px-4 py-3 text-left whitespace-nowrap text-16-medium hover:bg-primary-100 hover:text-primary-500 ${
+                className={`text-16-medium hover:bg-primary-100 hover:text-primary-500 w-full px-4 py-3 text-left whitespace-nowrap ${
                   selectedValue === option.value
-                    ? "text-white bg-primary-500/70"
+                    ? "bg-primary-500/70 text-white"
                     : "text-gray-900"
                 }`}
               >

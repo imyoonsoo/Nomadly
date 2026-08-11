@@ -72,7 +72,7 @@ const ReservedCardList = () => {
 
   if (!activeFilter && !reservations?.length) {
     return (
-      <div className="w-full h-full mt-[10px] flex flex-col gap-[30px] justify-center items-center">
+      <div className="mt-[10px] flex h-full w-full flex-col items-center justify-center gap-[30px]">
         <div>
           <EmptyIcon width={180} height={203} />
           <p>아직 예약된 체험이 없어요</p>
@@ -80,7 +80,7 @@ const ReservedCardList = () => {
         <Button
           variant="mainBlue"
           height="custom"
-          className="w-45.5 h-13.5 rounded-2xl text-16-bold"
+          className="text-16-bold h-13.5 w-45.5 rounded-2xl"
           onClick={() => router.push("/")}
         >
           둘러보기
@@ -91,7 +91,7 @@ const ReservedCardList = () => {
 
   return (
     <div className="flex flex-col gap-[30px]">
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+      <div className="scrollbar-hide flex gap-2 overflow-x-auto">
         {FILTERS.map((filter) => (
           <FilterButton
             key={filter}

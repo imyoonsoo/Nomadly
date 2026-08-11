@@ -116,7 +116,7 @@ const ReservationModalContent = ({
       </h2>
 
       <button type="button" onClick={onClose}>
-        <Delete className="w-6 h-6 hover:translate-y-0.5" />
+        <Delete className="h-6 w-6 hover:translate-y-0.5" />
       </button>
     </div>
   );
@@ -126,7 +126,7 @@ const ReservationModalContent = ({
       <>
         {header}
 
-        <div className="mt-6 text-14-medium text-gray-400">
+        <div className="text-14-medium mt-6 text-gray-400">
           예약 시간을 불러오는 중...
         </div>
       </>
@@ -138,7 +138,7 @@ const ReservationModalContent = ({
       <>
         {header}
 
-        <div className="mt-6 text-14-medium text-red-500">
+        <div className="text-14-medium mt-6 text-red-500">
           예약 시간을 불러오지 못했습니다.
         </div>
       </>
@@ -163,17 +163,11 @@ const ReservationModalContent = ({
     reservationContent = (
       <div
         onScroll={handleScrollReservationList}
-        className={`
-          scrollbar-hide overflow-y-auto pr-1
-          h-60
-          md:h-[min(350px,calc(85vh-280px))]
-          xl:h-[230px]
-          ${
-            isFullPage
-              ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]"
-              : ""
-          }  
-        `}
+        className={`scrollbar-hide h-60 overflow-y-auto pr-1 md:h-[min(350px,calc(85vh-280px))] xl:h-[230px] ${
+          isFullPage
+            ? "h-[calc(100vh-300px)] md:h-[calc(100vh-320px)] xl:h-[230px]"
+            : ""
+        } `}
       >
         <div className="flex flex-col gap-3">
           {visibleReservations.map((reservation) => (
@@ -188,7 +182,7 @@ const ReservationModalContent = ({
         </div>
 
         {hasMore && (
-          <div className="py-3 text-center text-10-medium md:text-14-medium text-gray-400">
+          <div className="text-10-medium md:text-14-medium py-3 text-center text-gray-400">
             더 불러오는 중...
           </div>
         )}
@@ -213,7 +207,7 @@ const ReservationModalContent = ({
       />
 
       <div className="mt-6">
-        <p className="mb-3 text-16-bold text-black">예약 시간</p>
+        <p className="text-16-bold mb-3 text-black">예약 시간</p>
 
         <ReservationScheduleSelect
           schedules={schedules}
@@ -223,7 +217,7 @@ const ReservationModalContent = ({
       </div>
 
       <div className="mt-6">
-        <p className="mb-3 text-16-bold text-black">예약 내역</p>
+        <p className="text-16-bold mb-3 text-black">예약 내역</p>
 
         {reservationContent}
       </div>

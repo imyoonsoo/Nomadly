@@ -36,13 +36,13 @@ const Dropdown = ({ options, children }: DropdownProps) => {
       {isOpen && (
         <ul
           role="listbox"
-          className={`absolute right-0 mt-5 text-16-medium font-normal rounded-lg border border-gray-100 bg-white shadow-[0_16px_32px_rgba(0,0,0,0.1)] w-max`}
+          className={`text-16-medium absolute right-0 mt-5 w-max rounded-lg border border-gray-100 bg-white font-normal shadow-[0_16px_32px_rgba(0,0,0,0.1)]`}
         >
           {options.map((option) => (
             <li key={option.label} className="px-1 py-0.75">
               <button
                 type="button"
-                className={`block w-full rounded-1 px-4 py-3.75 text-center hover:bg-[#F2F2F2] active:bg-gray-800 active:text-gray-100`}
+                className={`rounded-1 block w-full px-4 py-3.75 text-center hover:bg-[#F2F2F2] active:bg-gray-800 active:text-gray-100`}
                 onClick={() => {
                   option.onSelect();
                   setIsOpen(false);

@@ -152,15 +152,15 @@ const ProfileEditForm = () => {
 
   if (isLoading || !user) {
     return (
-      <div className="w-full md:w-119 lg:w-160 mx-auto flex flex-col items-center gap-6 px-4">
-        <div className="self-stretch flex flex-col gap-2.5 mb-3.25 md:mb-7.5 animate-pulse">
+      <div className="mx-auto flex w-full flex-col items-center gap-6 px-4 md:w-119 lg:w-160">
+        <div className="mb-3.25 flex animate-pulse flex-col gap-2.5 self-stretch md:mb-7.5">
           <div className="h-[22px] w-16 rounded bg-gray-200" />
           <div className="h-[20px] w-60 rounded bg-gray-200" />
         </div>
         <EmptyLoading width={180} height={180} />
-        <div className="flex flex-col items-center gap-6 self-stretch animate-pulse">
+        <div className="flex animate-pulse flex-col items-center gap-6 self-stretch">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="self-stretch flex flex-col gap-2.5">
+            <div key={i} className="flex flex-col gap-2.5 self-stretch">
               <div className="h-6 w-14 rounded bg-gray-200" />
               <div className="h-[54px] rounded-2xl bg-gray-200" />
             </div>
@@ -173,14 +173,14 @@ const ProfileEditForm = () => {
 
   if (isError) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center text-lg md:text-xl text-red-600 font-medium">
+      <div className="flex min-h-[50vh] items-center justify-center text-lg font-medium text-red-600 md:text-xl">
         {toErrorMessage(error)}
       </div>
     );
   }
 
   return (
-    <div className="w-full md:w-119 lg:w-160 mx-auto flex flex-col items-center gap-6 px-4">
+    <div className="mx-auto flex w-full flex-col items-center gap-6 px-4 md:w-119 lg:w-160">
       <div className="self-stretch">
         <Title
           title="내 정보"
@@ -265,7 +265,7 @@ const ProfileEditForm = () => {
           type="submit"
           variant="mainBlue"
           height="47md"
-          className="mt-2 w-full whitespace-nowrap font-bold shadow-sm transition-all"
+          className="mt-2 w-full font-bold whitespace-nowrap shadow-sm transition-all"
           disabled={
             isProfileUpdating ||
             isProfileImageUploading ||
