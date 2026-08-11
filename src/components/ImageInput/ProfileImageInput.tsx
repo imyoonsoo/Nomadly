@@ -87,7 +87,7 @@ const ProfileImageInput = ({
         ) : (
           <DefaultProfile className="h-30 w-30 object-cover" />
         )}
-        <div className="absolute bottom-3 right-2.5 flex h-7.5 w-7.5 items-center justify-center rounded-full bg-gray-300">
+        <div className="absolute right-2.5 bottom-3 flex h-7.5 w-7.5 items-center justify-center rounded-full bg-gray-300">
           <Edit className="h-4 w-4 text-white" />
         </div>
       </label>

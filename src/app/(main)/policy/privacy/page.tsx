@@ -3,11 +3,11 @@ import { PRIVACY_POLICY } from "@/constants/policy";
 const PrivacyPage = () => {
   const { version, title, description, updatedAt, sections } = PRIVACY_POLICY;
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="flex-1 w-full max-w-250 mx-auto gap-12 p-7.5 mt-12 md:mt-20 mb-14">
-        <div className="flex flex-col justify-between items-start gap-5 mb-18 pb-15 border-b border-gray-200">
+    <div className="flex min-h-screen flex-col">
+      <div className="mx-auto mt-12 mb-14 w-full max-w-250 flex-1 gap-12 p-7.5 md:mt-20">
+        <div className="mb-18 flex flex-col items-start justify-between gap-5 border-b border-gray-200 pb-15">
           <h1 className="text-32-bold mb-6 text-gray-950">{title}</h1>
-          <p className="text-14-medium break-keep leading-8 text-gray-800 md:text-16-medium">
+          <p className="text-14-medium md:text-16-medium leading-8 break-keep text-gray-800">
             {description}
           </p>
           <div className="flex items-center gap-4">
@@ -24,19 +24,19 @@ const PrivacyPage = () => {
         <div className="flex flex-col gap-16">
           {sections.map((section) => (
             <section key={section.id}>
-              <h2 className="text-16-bold mb-3 md:text-18-bold">
+              <h2 className="text-16-bold md:text-18-bold mb-3">
                 {section.title}
               </h2>
-              <p className="text-14-medium leading-6 mb-6 text-gray-800">
+              <p className="text-14-medium mb-6 leading-6 text-gray-800">
                 {section.content}
               </p>
-              <ul className="space-y-1 rounded-xl bg-gray-25 p-8">
+              <ul className="bg-gray-25 space-y-1 rounded-xl p-8">
                 {section.subItems.map((subItem) => (
                   <li
                     key={subItem}
-                    className="flex gap-3 text-14-medium text-gray-700"
+                    className="text-14-medium flex gap-3 text-gray-700"
                   >
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary-500" />
+                    <span className="bg-primary-500 mt-2 h-1 w-1 shrink-0 rounded-full" />
                     <span>{subItem}</span>
                   </li>
                 ))}

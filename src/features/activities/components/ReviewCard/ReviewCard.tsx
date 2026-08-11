@@ -8,10 +8,10 @@ const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
   const formattedDate = formatDotDate(createdAt);
 
   return (
-    <div className="flex flex-col gap-4 md:gap-5 p-5 rounded-3xl bg-[#E5F3FF] shadow-[0_4px_24px_rgba(156,180,202,0.2)] w-full h-auto">
+    <div className="flex h-auto w-full flex-col gap-4 rounded-3xl bg-[#E5F3FF] p-5 shadow-[0_4px_24px_rgba(156,180,202,0.2)] md:gap-5">
       <div className="flex items-center">
         <div className="flex grow">
-          <div className="flex gap-3 justify-center items-center">
+          <div className="flex items-center justify-center gap-3">
             <div className="relative h-10.5 w-10.5 overflow-hidden rounded-full border-2 border-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
               {user.profileImageUrl ? (
                 <Image
@@ -33,11 +33,11 @@ const ReviewCard = ({ user, rating, content, createdAt }: ReviewCardProps) => {
           </div>
         </div>
       </div>
-      <p className="text-14-medium font-normal md:font-normal md:text-16-medium text-gray-950">
+      <p className="text-14-medium md:text-16-medium font-normal text-gray-950 md:font-normal">
         {content}
       </p>
       <div className="flex w-full justify-end">
-        <span className="text-12-medium md:text-14-medium md:font-medium text-gray-400">
+        <span className="text-12-medium md:text-14-medium text-gray-400 md:font-medium">
           {formattedDate}
         </span>
       </div>

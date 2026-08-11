@@ -1,9 +1,15 @@
 import { ReviewBlue } from "@/constants/icons";
 import { getActivityReviews } from "@/features/activities/api/api";
-import type { ActivityDetailResponse, Review } from "@/features/activities/type";
+import type {
+  ActivityDetailResponse,
+  Review,
+} from "@/features/activities/type";
 import ReviewSectionList from "./ReviewSectionList";
 
-type ReviewSectionProps = Pick<ActivityDetailResponse, "reviewCount" | "rating"> & {
+type ReviewSectionProps = Pick<
+  ActivityDetailResponse,
+  "reviewCount" | "rating"
+> & {
   activityId: number;
 };
 

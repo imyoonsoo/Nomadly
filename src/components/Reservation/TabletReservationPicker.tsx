@@ -147,7 +147,7 @@ const TabletReservationPicker = ({
           />
         </div>
 
-        <div className="flex flex-col w-75 gap-9 rounded-3xl shadow-[0_4px_24px_0_rgba(156,180,202,0.2)] px-6 py-7.5">
+        <div className="flex w-75 flex-col gap-9 rounded-3xl px-6 py-7.5 shadow-[0_4px_24px_0_rgba(156,180,202,0.2)]">
           <div className="flex flex-col gap-5">
             <h3 className="text-16-bold text-gray-950">예약 가능한 시간</h3>
             <div className="flex flex-col gap-3">
@@ -155,8 +155,8 @@ const TabletReservationPicker = ({
                 <Skeleton className="h-12.75 w-full rounded-xl" />
               ) : availableTimes.length === 0 ? (
                 <div className="relative flex h-12.75 w-full items-center justify-center">
-                  <Search className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 h-12 w-12 text-gray-100" />
-                  <span className="z-1 text-16-medium text-gray-950">
+                  <Search className="absolute top-1/2 left-1/2 z-0 h-12 w-12 -translate-x-1/2 -translate-y-1/2 text-gray-100" />
+                  <span className="text-16-medium z-1 text-gray-950">
                     예약 가능한 시간이 없습니다.
                   </span>
                 </div>
@@ -166,10 +166,10 @@ const TabletReservationPicker = ({
                     key={time.id}
                     type="button"
                     onClick={() => setSelectedScheduleId(time.id)}
-                    className={`rounded-xl border px-3 py-3.5 text-14-medium transition ${
+                    className={`text-14-medium rounded-xl border px-3 py-3.5 transition ${
                       selectedScheduleId === time.id
-                        ? "ring-2 ring-inset ring-primary-500 border-primary-500 bg-primary-100 text-primary-500"
-                        : "border-gray-300 bg-white text-gray-900 hover:border-primary-500"
+                        ? "ring-primary-500 border-primary-500 bg-primary-100 text-primary-500 ring-2 ring-inset"
+                        : "hover:border-primary-500 border-gray-300 bg-white text-gray-900"
                     }`}
                   >
                     {time.startTime} ~ {time.endTime}
@@ -191,7 +191,7 @@ const TabletReservationPicker = ({
               >
                 <Minus className="h-5 w-5" />
               </button>
-              <span className="flex h-10 w-10 items-center justify-center text-center text-16-bold text-gray-800">
+              <span className="text-16-bold flex h-10 w-10 items-center justify-center text-center text-gray-800">
                 {headCount}
               </span>
               <button

@@ -31,23 +31,23 @@ const MainBanner = ({ items }: CardListProps) => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        className=" rounded-3xl overflow-hidden"
+        className="overflow-hidden rounded-3xl"
       >
         {bestItems.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="relative w-full aspect-[1/0.6] md:aspect-[1/0.5]">
+            <div className="relative aspect-[1/0.6] w-full md:aspect-[1/0.5]">
               <Link href={`/activities/${item.id}`}>
-                <div className="w-full h-full">
+                <div className="h-full w-full">
                   <Image
                     src={item.bannerImageUrl || NoImg}
                     alt={item.title}
                     className="object-cover"
                     fill
                   />
-                  <div className="absolute top-0 left-0 w-full h-full bg-linear-to-t from-black to-transparent opacity-80"></div>
+                  <div className="absolute top-0 left-0 h-full w-full bg-linear-to-t from-black to-transparent opacity-80"></div>
                 </div>
 
-                <div className="absolute top-1/2 md:top-[60%] w-full text-center text-white px-10">
+                <div className="absolute top-1/2 w-full px-10 text-center text-white md:top-[60%]">
                   <p className="text-18-medium md:text-32-bold mb-2 truncate">
                     {item.title}
                   </p>
@@ -63,7 +63,7 @@ const MainBanner = ({ items }: CardListProps) => {
 
       <button
         type="button"
-        className="absolute -right-5 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
+        className="hover:bg-primary-500 absolute top-1/2 -right-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slideNext()}
       >
         <ArrowRight />
@@ -71,7 +71,7 @@ const MainBanner = ({ items }: CardListProps) => {
 
       <button
         type="button"
-        className="absolute -left-5 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
+        className="hover:bg-primary-500 absolute top-1/2 -left-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slidePrev()}
       >
         <ArrowRight className="rotate-180" />

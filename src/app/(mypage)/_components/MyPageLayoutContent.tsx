@@ -13,10 +13,10 @@ const MyPageLayoutContent = ({ children }: MyPageLayoutContentProps) => {
   const isWideForm = pathname.startsWith("/activities");
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 w-full max-w-250 mx-auto flex items-start gap-12 p-8 md:py-7.5 md:px-0 mt-12 mb-20 md:mt-20">
+    <div className="flex min-h-screen flex-col">
+      <main className="mx-auto mt-12 mb-20 flex w-full max-w-250 flex-1 items-start gap-12 p-8 md:mt-20 md:px-0 md:py-7.5">
         {!isWideForm && <SideMenu />}
-        <section className="flex-1 min-w-0">{children}</section>
+        <section className="min-w-0 flex-1">{children}</section>
       </main>
     </div>
   );

@@ -250,7 +250,7 @@ const EarthJumpGame = () => {
             <button
               type="button"
               onClick={() => startRef.current()}
-              className="mt-18 h-12 w-32 rounded-xl bg-yellow-400 text-16-bold text-gray-900 shadow-lg transition hover:scale-105"
+              className="text-16-bold mt-18 h-12 w-32 rounded-xl bg-yellow-400 text-gray-900 shadow-lg transition hover:scale-105"
             >
               시작하기
             </button>
@@ -262,7 +262,7 @@ const EarthJumpGame = () => {
             <button
               type="button"
               onClick={() => restartRef.current()}
-              className="mt-18 h-12 w-32 rounded-xl bg-blue-500 text-16-bold text-white shadow-lg transition hover:scale-105"
+              className="text-16-bold mt-18 h-12 w-32 rounded-xl bg-blue-500 text-white shadow-lg transition hover:scale-105"
             >
               다시하기
             </button>

@@ -32,7 +32,7 @@ const HeadCountSelector = ({
         <button
           type="button"
           onClick={onBackButtonClick}
-          className="flex items-center gap-2 text-18-bold text-gray-950"
+          className="text-18-bold flex items-center gap-2 text-gray-950"
         >
           <Back className="h-6 w-6" />
           인원
@@ -54,7 +54,7 @@ const HeadCountSelector = ({
           >
             <Minus className="h-5 w-5" />
           </button>
-          <span className="flex h-10 w-10 items-center justify-center text-center text-16-bold text-gray-800">
+          <span className="text-16-bold flex h-10 w-10 items-center justify-center text-center text-gray-800">
             {headCount}
           </span>
           <button

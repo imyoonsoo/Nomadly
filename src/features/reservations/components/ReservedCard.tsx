@@ -71,32 +71,32 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
 
   return (
     <>
-      <div className="pt-5 flex flex-col gap-3 md:w-[90%] lg:w-full">
-        <p className="text-16-bold text-gray-800 lg:text-18-bold">{date}</p>
-        <div className="relative rounded-4xl h-34  w-full lg:max-w-[640px] lg:h-45 overflow-hidden shadow-[0_4px_24px_rgba(156,180,202,0.3)]">
-          <div className="flex flex-col justify-between relative z-10 w-[70%] h-full p-5 rounded-4xl bg-white lg:px-10 lg:py-[30px]">
+      <div className="flex flex-col gap-3 pt-5 md:w-[90%] lg:w-full">
+        <p className="text-16-bold lg:text-18-bold text-gray-800">{date}</p>
+        <div className="relative h-34 w-full overflow-hidden rounded-4xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] lg:h-45 lg:max-w-[640px]">
+          <div className="relative z-10 flex h-full w-[70%] flex-col justify-between rounded-4xl bg-white p-5 lg:px-10 lg:py-[30px]">
             <StateBadge status={status} />
             <div className="flex flex-col">
-              <h1 className="text-14-bold text-gray-950 lg:text-18-bold">
+              <h1 className="text-14-bold lg:text-18-bold text-gray-950">
                 {activity.title}
               </h1>
-              <p className="text-13-medium text-gray-500 lg:text-16-medium">
+              <p className="text-13-medium lg:text-16-medium text-gray-500">
                 {startTime} - {endTime}
               </p>
             </div>
             <div className="flex justify-between">
-              <p className="text-16-bold text-gray-950 lg:text-18-bold">
+              <p className="text-16-bold lg:text-18-bold text-gray-950">
                 {totalPrice.toLocaleString()}
-                <span className="text-14-medium text-gray-400 lg:text-16-medium">
+                <span className="text-14-medium lg:text-16-medium text-gray-400">
                   / {headCount}명
                 </span>
               </p>
               {status === "pending" && (
-                <div className="hidden lg:flex gap-2 ">
+                <div className="hidden gap-2 lg:flex">
                   <Button
                     variant="whitenGray"
                     height="h29"
-                    className="px-[10px] py-[6px] !border"
+                    className="!border px-[10px] py-[6px]"
                     onClick={handleEditReservationButtonClick}
                   >
                     예약 변경
@@ -104,7 +104,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                   <Button
                     variant="onlyGray"
                     height="custom"
-                    className="h-[29px] px-[10px] py-[6px] rounded-lg text-14-medium !text-gray-600"
+                    className="text-14-medium h-[29px] rounded-lg px-[10px] py-[6px] !text-gray-600"
                     onClick={handleWarningModalButtonClick}
                   >
                     예약 취소
@@ -115,7 +115,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                 <Button
                   variant="mainBlue"
                   height="custom"
-                  className="hidden lg:block h-[29px] px-[10px] rounded-lg text-14-medium"
+                  className="text-14-medium hidden h-[29px] rounded-lg px-[10px] lg:block"
                   onClick={
                     reviewSubmitted
                       ? () => showToast.error("이미 후기를 작성했습니다.")
@@ -127,7 +127,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
               )}
             </div>
           </div>
-          <div className="absolute right-0 top-0 h-full w-[40%] overflow-hidden">
+          <div className="absolute top-0 right-0 h-full w-[40%] overflow-hidden">
             <Image
               src={activity.bannerImageUrl}
               fill
@@ -141,7 +141,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             <Button
               variant="whitenGray"
               height="custom"
-              className="flex-1 h-[37px] rounded-lg p-[10px]"
+              className="h-[37px] flex-1 rounded-lg p-[10px]"
               onClick={handleEditReservationButtonClick}
             >
               예약 변경
@@ -149,7 +149,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             <Button
               variant="onlyGray"
               height="custom"
-              className="flex-1 h-[37px] rounded-lg p-[10px]"
+              className="h-[37px] flex-1 rounded-lg p-[10px]"
               onClick={handleWarningModalButtonClick}
             >
               예약 취소
@@ -160,7 +160,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
           <Button
             variant="mainBlue"
             height="custom"
-            className="lg:hidden sm:block md:block w-full h-[37px] px-[10px] rounded-lg"
+            className="h-[37px] w-full rounded-lg px-[10px] sm:block md:block lg:hidden"
             onClick={
               reviewSubmitted
                 ? () => showToast.error("이미 후기를 작성했습니다.")

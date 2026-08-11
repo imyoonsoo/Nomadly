@@ -103,7 +103,7 @@ const BannerImageFiveGallery = ({ images }: { images: string[] }) => {
         <button
           type="button"
           aria-label="이전 이미지"
-          className="absolute -left-5 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
+          className="hover:bg-primary-500 absolute top-1/2 -left-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
           onClick={handlePrevButtonClick}
         >
           <ArrowRight className="rotate-180" />
@@ -114,7 +114,7 @@ const BannerImageFiveGallery = ({ images }: { images: string[] }) => {
         <button
           type="button"
           aria-label="다음 이미지"
-          className="absolute -right-5 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] hover:bg-primary-500 [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
+          className="hover:bg-primary-500 absolute top-1/2 -right-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
           onClick={handleNextButtonClick}
         >
           <ArrowRight />

@@ -59,14 +59,14 @@ const ReservationCalendar = ({
 
   return (
     <div className="w-full max-w-[640px] overflow-hidden rounded-3xl bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-      <div className="relative flex items-center justify-center h-11 px-7 mb-2 md:mt-5 md:mb-[30px]">
+      <div className="relative mb-2 flex h-11 items-center justify-center px-7 md:mt-5 md:mb-[30px]">
         <div className="flex items-center gap-8">
           <button
             type="button"
             onClick={handlePrevMonthButtonClick}
-            className="w-6 h-6 hover:-translate-y-px"
+            className="h-6 w-6 hover:-translate-y-px"
           >
-            <AltLeft className="w-full h-full" />
+            <AltLeft className="h-full w-full" />
           </button>
 
           <h2 className="text-16-bold md:text-20-bold text-black">
@@ -76,16 +76,16 @@ const ReservationCalendar = ({
           <button
             type="button"
             onClick={handleNextMonthButtonClick}
-            className="w-6 h-6 hover:-translate-y-px"
+            className="h-6 w-6 hover:-translate-y-px"
           >
-            <AltRight className="w-full h-full" />
+            <AltRight className="h-full w-full" />
           </button>
         </div>
 
         <button
           type="button"
           onClick={handleTodayButtonClick}
-          className="absolute right-5 md:right-7 h-9 rounded-xl border border-primary-500 px-4 text-13-bold text-primary-500 transition hover:bg-primary-100"
+          className="border-primary-500 text-13-bold text-primary-500 hover:bg-primary-100 absolute right-5 h-9 rounded-xl border px-4 transition md:right-7"
         >
           오늘
         </button>
@@ -95,7 +95,7 @@ const ReservationCalendar = ({
         {WEEK_DAYS.map((day, i) => (
           <div
             key={`${day}-${i}`}
-            className="h-11 md:h-[55px] md:pb-3 text-center text-13-bold md:text-16-bold text-gray-900 leading-10"
+            className="text-13-bold md:text-16-bold h-11 text-center leading-10 text-gray-900 md:h-[55px] md:pb-3"
           >
             {day}
           </div>

@@ -4,9 +4,9 @@ interface ActivityLayoutProps {
 
 const ActivityLayout = ({ children }: ActivityLayoutProps) => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 w-full max-w-300 mx-auto flex items-start gap-12 p-7.5 mt-12 md:mt-20">
-        <section className="flex-1 min-w-0">{children}</section>
+    <div className="flex min-h-screen flex-col">
+      <main className="mx-auto mt-12 flex w-full max-w-300 flex-1 items-start gap-12 p-7.5 md:mt-20">
+        <section className="min-w-0 flex-1">{children}</section>
       </main>
     </div>
   );

@@ -46,13 +46,13 @@ const BalanceGame = () => {
     <section className="w-full max-w-[780px]">
       <div className="mb-8 text-center md:mt-20">
         <h2 className="text-24-bold text-gray-900">여행지 밸런스 게임</h2>
-        <p className="mt-2 text-16-medium text-gray-500">
+        <p className="text-16-medium mt-2 text-gray-500">
           더 끌리는 체험을 선택해보세요.
         </p>
       </div>
 
       <div className="mb-6">
-        <div className="mb-2 flex justify-between text-13-bold text-gray-500">
+        <div className="text-13-bold mb-2 flex justify-between text-gray-500">
           <span>
             {currentStep + 1} / {BALANCE_QUESTIONS.length}
           </span>
@@ -61,7 +61,7 @@ const BalanceGame = () => {
 
         <div className="h-3 overflow-hidden rounded-full bg-gray-200">
           <div
-            className="h-full rounded-full bg-primary-500 transition-all duration-300"
+            className="bg-primary-500 h-full rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>

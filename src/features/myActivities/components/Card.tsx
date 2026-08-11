@@ -50,13 +50,13 @@ const Card = ({
         }}
         role="button"
         tabIndex={0}
-        className="w-full p-7.5 bg-white rounded-3xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] flex justify-between items-center gap-6 hover:cursor-pointer"
+        className="flex w-full items-center justify-between gap-6 rounded-3xl bg-white p-7.5 shadow-[0_4px_24px_rgba(156,180,202,0.3)] hover:cursor-pointer"
       >
-        <div className="w-full flex flex-col justify-center items-start gap-3">
-          <h2 className="text-16-bold lg:text-18-bold text-gray-950 line-clamp-2">
+        <div className="flex w-full flex-col items-start justify-center gap-3">
+          <h2 className="text-16-bold lg:text-18-bold line-clamp-2 text-gray-950">
             {title}
           </h2>
-          <div className="flex items-center gap-0.5 text-13-medium lg:text-16-medium text-gray-500">
+          <div className="text-13-medium lg:text-16-medium flex items-center gap-0.5 text-gray-500">
             <StarIcon width={16} height={16} />
             <span>{rating}</span>
             <span>({reviewCount})</span>
@@ -84,7 +84,7 @@ const Card = ({
             <Button
               variant="onlyGray"
               height="h29"
-              className="px-2.5 py-1.5 rounded-lg text-14-medium hover:bg-red-50 hover:text-red-500"
+              className="text-14-medium rounded-lg px-2.5 py-1.5 hover:bg-red-50 hover:text-red-500"
               onClick={(e) => {
                 e.stopPropagation();
                 setIsConfirmModalOpen(true);
@@ -96,14 +96,14 @@ const Card = ({
           </div>
         </div>
 
-        <div className="relative shrink-0 w-20.5 h-20.5 md:w-35.5 md:h-35.5 rounded-3xl overflow-hidden">
+        <div className="relative h-20.5 w-20.5 shrink-0 overflow-hidden rounded-3xl md:h-35.5 md:w-35.5">
           <Image
             src={bannerImageUrl}
             alt="배너 이미지"
             width={142}
             height={142}
             priority
-            className="w-full h-full object-cover rounded-3xl"
+            className="h-full w-full rounded-3xl object-cover"
           />
         </div>
       </div>

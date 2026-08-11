@@ -51,11 +51,11 @@ const RecommendationTest = () => {
 
     return (
       <section className="mx-auto w-full max-w-[700px]">
-        <h1 className="text-center text-28-bold text-gray-900 md:text-32-bold">
+        <h1 className="text-28-bold md:text-32-bold text-center text-gray-900">
           🎉 추천 결과
         </h1>
 
-        <p className="mt-3 text-center text-16-medium text-gray-500">
+        <p className="text-16-medium mt-3 text-center text-gray-500">
           선택한 답변을 바탕으로 어울리는 카테고리를 추천해드릴게요.
         </p>
 
@@ -68,7 +68,7 @@ const RecommendationTest = () => {
         <button
           type="button"
           onClick={handleRestart}
-          className="mt-8 h-12 w-full rounded-xl bg-primary-500 text-16-bold text-white transition hover:bg-primary-600"
+          className="bg-primary-500 text-16-bold hover:bg-primary-600 mt-8 h-12 w-full rounded-xl text-white transition"
         >
           다시 테스트하기
         </button>
@@ -78,11 +78,11 @@ const RecommendationTest = () => {
 
   return (
     <section className="mx-auto w-full max-w-[700px]">
-      <h1 className="text-center text-28-bold text-gray-900 md:text-32-bold">
+      <h1 className="text-28-bold md:text-32-bold text-center text-gray-900">
         체험 추천 테스트
       </h1>
 
-      <p className="mt-3 text-center text-16-medium text-gray-500">
+      <p className="text-16-medium mt-3 text-center text-gray-500">
         몇 가지 질문에 답하면 어울리는 체험 카테고리를 추천해드릴게요.
       </p>
 
@@ -114,7 +114,7 @@ const RecommendationTest = () => {
           type="button"
           disabled={currentStep === 0}
           onClick={handlePrev}
-          className="h-12 w-28 rounded-xl border border-gray-200 bg-white text-16-bold text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30"
+          className="text-16-bold h-12 w-28 rounded-xl border border-gray-200 bg-white text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30"
         >
           이전
         </button>
@@ -124,7 +124,7 @@ const RecommendationTest = () => {
             type="button"
             disabled={!isSelectedCurrentAnswer}
             onClick={handleShowResult}
-            className="h-12 w-32 rounded-xl bg-primary-500 text-16-bold text-white transition hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="bg-primary-500 text-16-bold hover:bg-primary-600 h-12 w-32 rounded-xl text-white transition disabled:cursor-not-allowed disabled:bg-gray-300"
           >
             결과보기
           </button>
@@ -133,7 +133,7 @@ const RecommendationTest = () => {
             type="button"
             disabled={!isSelectedCurrentAnswer}
             onClick={handleNext}
-            className="h-12 w-28 rounded-xl bg-primary-500 text-16-bold text-white transition hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="bg-primary-500 text-16-bold hover:bg-primary-600 h-12 w-28 rounded-xl text-white transition disabled:cursor-not-allowed disabled:bg-gray-300"
           >
             다음
           </button>

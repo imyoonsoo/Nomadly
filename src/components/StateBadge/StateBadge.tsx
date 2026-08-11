@@ -34,20 +34,7 @@ const StateBadge = ({ status, className = "" }: ExtendedStateBadgeProps) => {
 
   return (
     <span
-      className={`
-      inline-flex
-      items-center
-      justify-center
-      rounded-full
-      w-15.75
-      h-6
-      text-13-bold
-      leading-none
-      tracking-[-0.5px]
-      cursor-default
-      ${state.className}
-      ${className}
-    `}
+      className={`text-13-bold inline-flex h-6 w-15.75 cursor-default items-center justify-center rounded-full leading-none tracking-[-0.5px] ${state.className} ${className} `}
     >
       {state.label}
     </span>

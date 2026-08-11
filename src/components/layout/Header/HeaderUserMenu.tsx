@@ -73,20 +73,20 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-5">
+    <div className="flex items-center justify-center gap-5">
       <div className="relative">
         <button
           type="button"
           aria-label="알림"
           onClick={() => setIsNotificationOpen((prev) => !prev)}
-          className={`p-2 rounded-lg text-gray-600  duration-200 hover:-rotate-12 hover:text-primary-500 active:opacity-70 transition ${
+          className={`hover:text-primary-500 rounded-lg p-2 text-gray-600 transition duration-200 hover:-rotate-12 active:opacity-70 ${
             isNotificationOpen ? "text-primary-500" : "text-gray-600"
           }`}
         >
-          <BellIcon className="w-5 h-5 md:w-6 md:h-6" />
+          <BellIcon className="h-5 w-5 md:h-6 md:w-6" />
 
           {hasNotification && (
-            <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white" />
+            <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-500" />
           )}
         </button>
 
@@ -100,13 +100,13 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
         )}
       </div>
       <div
-        className={`w-px h-4 rounded-full ${isScrolled ? "bg-gray-100" : "bg-gray-400"}`}
+        className={`h-4 w-px rounded-full ${isScrolled ? "bg-gray-100" : "bg-gray-400"}`}
       />
       <Dropdown options={profileMenus}>
         {({ toggle }) => (
           <button
             onClick={toggle}
-            className={`flex justify-center items-center gap-2.5 p-2 rounded-lg active:opacity-70 transition ${
+            className={`flex items-center justify-center gap-2.5 rounded-lg p-2 transition active:opacity-70 ${
               isScrolled ? "hover:bg-gray-50" : "hover:bg-white/10"
             }`}
           >
@@ -116,12 +116,12 @@ const HeaderUserMenu = ({ user, isScrolled }: HeaderUserMenuProps) => {
                 alt="프로필 이미지"
                 width={30}
                 height={30}
-                className="w-7.5 h-7.5 rounded-full object-cover"
+                className="h-7.5 w-7.5 rounded-full object-cover"
               />
             ) : (
               <DefaultProfileImage width={30} height={30} />
             )}
-            <span className="text-14-medium text-gray-950 hidden md:block">
+            <span className="text-14-medium hidden text-gray-950 md:block">
               {user.nickname}
             </span>
           </button>

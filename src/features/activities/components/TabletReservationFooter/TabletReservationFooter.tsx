@@ -71,7 +71,7 @@ const TabletReservationFooter = ({
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-50 hidden flex-col gap-3 border-t border-gray-300 bg-white px-6 py-4.5 md:flex lg:hidden">
+      <div className="fixed right-0 bottom-0 left-0 z-50 hidden flex-col gap-3 border-t border-gray-300 bg-white px-6 py-4.5 md:flex lg:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <span className="text-18-bold text-gray-950">
@@ -84,7 +84,7 @@ const TabletReservationFooter = ({
           <button
             type="button"
             onClick={handleOpenModal}
-            className="text-16-bold text-primary-500 border-b-2 border-primary-500"
+            className="text-16-bold text-primary-500 border-primary-500 border-b-2"
           >
             {selectedSchedule
               ? `${formatDisplayDate(selectedSchedule.date)} ${selectedSchedule.startTime} ~ ${selectedSchedule.endTime}`

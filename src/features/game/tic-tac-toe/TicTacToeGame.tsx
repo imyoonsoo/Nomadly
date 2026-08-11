@@ -75,7 +75,7 @@ const TicTacToeGame = () => {
   return (
     <div className="flex flex-col items-center gap-6">
       <p
-        className={`rounded-3xl border border-primary-500 bg-white px-6 py-1 md:px-8 shadow-md text-20-bold md:text-24-bold ${statusColor}`}
+        className={`border-primary-500 text-20-bold md:text-24-bold rounded-3xl border bg-white px-6 py-1 shadow-md md:px-8 ${statusColor}`}
       >
         {statusText}
       </p>
@@ -104,7 +104,7 @@ const TicTacToeGame = () => {
               key={idx}
               type="button"
               onClick={() => handleCellClick(idx)}
-              className={`flex h-24 w-24 items-center justify-center rounded-2xl text-32-bold shadow-md transition-all duration-300 md:h-28 md:w-28 ${cellStyle}`}
+              className={`text-32-bold flex h-24 w-24 items-center justify-center rounded-2xl shadow-md transition-all duration-300 md:h-28 md:w-28 ${cellStyle}`}
             >
               {cell}
             </button>
@@ -116,7 +116,7 @@ const TicTacToeGame = () => {
         <button
           type="button"
           onClick={handleReset}
-          className="h-12 w-32 rounded-xl bg-primary-500 text-16-bold text-white"
+          className="bg-primary-500 text-16-bold h-12 w-32 rounded-xl text-white"
         >
           다시하기
         </button>

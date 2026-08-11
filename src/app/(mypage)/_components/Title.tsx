@@ -14,10 +14,10 @@ const Title = ({
   onButtonClick,
 }: TitleProps) => {
   return (
-    <div className="flex flex-col justify-center items-start gap-3.5 mb-3.25 md:mb-7.5 md:flex-row md:justify-between md:items-center">
-      <div className="flex flex-col justify-center items-start gap-2.5">
+    <div className="mb-3.25 flex flex-col items-start justify-center gap-3.5 md:mb-7.5 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col items-start justify-center gap-2.5">
         <h1 className="text-18-bold text-gray-950">{title}</h1>
-        <p className="text-14-medium text-gray-500 whitespace-nowrap">
+        <p className="text-14-medium whitespace-nowrap text-gray-500">
           {description}
         </p>
       </div>
@@ -26,7 +26,7 @@ const Title = ({
           variant="mainBlue"
           height="47md"
           onClick={onButtonClick}
-          className="w-full md:w-auto whitespace-nowrap"
+          className="w-full whitespace-nowrap md:w-auto"
         >
           {buttonText}
         </Button>
