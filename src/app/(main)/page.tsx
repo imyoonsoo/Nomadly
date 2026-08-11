@@ -13,6 +13,7 @@ const Home = () => {
   const [activities, setActivities] = useState<CardItem[]>([]);
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() => {
     if (typeof window !== "undefined") {
@@ -24,16 +25,20 @@ const Home = () => {
 
   useEffect(() => {
     const getActivities = async () => {
-      const res = await api.get("/activities", {
-        params: {
-          method: "offset",
-        },
-      });
+      try {
+        const res = await api.get("/activities", {
+          params: {
+            method: "offset",
+          },
+        });
 
-      res.data.activities.map((item: CardItem) => {
-        item.isBookmarked = bookmarkedIds.includes(item.id);
-      });
-      setActivities(res.data.activities);
+        res.data.activities.map((item: CardItem) => {
+          item.isBookmarked = bookmarkedIds.includes(item.id);
+        });
+        setActivities(res.data.activities);
+      } finally {
+        setIsLoading(false); // 성공/실패 상관없이 로딩 종료
+      }
     };
 
     getActivities();
@@ -127,7 +132,11 @@ const Home = () => {
         )}
 
         <div className="mb-[218px] flex">
-          <ActivitiesList items={getFiltered} keyword={keyword} />
+          <ActivitiesList
+            items={getFiltered}
+            keyword={keyword}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </div>
