@@ -69,7 +69,7 @@ const ActivitiesCard = ({
             src={imgSrc}
             alt={title}
             fill
-            sizes="(max-width:768px) 50vw, 25vw"
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 300px"
             className="object-cover"
             onError={() => {
               setImgSrc(NoImg);

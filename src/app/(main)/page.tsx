@@ -8,6 +8,7 @@ import { Cloud } from "@/constants/images";
 import { useEffect, useState } from "react";
 import { CardItem } from "./components/type";
 import api from "@/lib/api/axios";
+import { showToast } from "@/lib/utils/toast";
 
 const Home = () => {
   const [activities, setActivities] = useState<CardItem[]>([]);
@@ -36,6 +37,10 @@ const Home = () => {
           item.isBookmarked = bookmarkedIds.includes(item.id);
         });
         setActivities(res.data.activities);
+      } catch {
+        showToast.error(
+          "체험 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+        );
       } finally {
         setIsLoading(false); // 성공/실패 상관없이 로딩 종료
       }
@@ -69,7 +74,7 @@ const Home = () => {
   const getFiltered = getFilter();
 
   return (
-    <div
+    <main
       className="cloud-bg bg-cover bg-center"
       style={{
         backgroundImage: `url(${Cloud.src}), linear-gradient(to top, transparent 70%, #BBDDFF)`,
@@ -139,7 +144,7 @@ const Home = () => {
           />
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

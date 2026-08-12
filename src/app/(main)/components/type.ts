@@ -13,11 +13,11 @@ export type CardItem = {
   isBookmarked?: boolean;
 };
 
-export type CardListProps = {
+export interface CardListProps {
   items: CardItem[];
   keyword?: string;
   isLoading?: boolean; // 로딩 중 스켈레톤 표시 판단용
-};
+}
 
 export type ActivitiesCardProps = CardItem & {
   keyword?: string;
