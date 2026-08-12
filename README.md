@@ -43,8 +43,8 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 
 호스트가 체험 설명에 입력한 줄바꿈이 화면에서는 모두 무시돼 한 문단으로 붙어 보였습니다. 설명 영역에 `whitespace-pre-wrap`을 적용해 입력한 줄바꿈이 그대로 나오도록 하고, `break-keep`으로 한글 단어가 어절 중간에서 끊기지 않도록 했습니다.
 
-| 적용 전 | 적용 후 |
-| :---: | :---: |
+|                                  적용 전                                   |                                  적용 후                                  |
+| :------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
 | <img src="docs/description-before.png" width="360" alt="줄바꿈 적용 전" /> | <img src="docs/description-after.png" width="360" alt="줄바꿈 적용 후" /> |
 
 ### 레이아웃 시프트 제거 (CLS 0.45 → 0)
@@ -70,8 +70,6 @@ Pretendard를 외부에서 불러오던 것을 `next/font/local`로 self-host했
 ### GitHub Actions 워크플로우 구축
 
 PR을 열면 코드 리뷰와 검사가 자동으로 실행되도록 GitHub Actions를 구성하고, Prettier 플러그인으로 Tailwind 클래스 순서를 자동 정렬했습니다. 여기에 `git blame` 제외 설정과 `.gitattributes` 기반 LF 정규화를 더해 협업 환경을 정비했습니다.
-
-> 관련 PR: [#23 성능·a11y](https://github.com/imyoonsoo/nomadly/pull/23) · [#26 코드리뷰봇](https://github.com/imyoonsoo/nomadly/pull/26) · [#29 개행 통일](https://github.com/imyoonsoo/nomadly/pull/29)
 
 <br>
 
