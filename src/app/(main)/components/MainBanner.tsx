@@ -10,8 +10,19 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { NoImg } from "@/constants/images";
 
-const MainBanner = ({ items }: CardListProps) => {
+const MainBanner = ({ items, isLoading }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
+  if (isLoading) {
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className="aspect-[1/0.6] w-full animate-pulse rounded-3xl bg-gray-200 md:aspect-[1/0.5]"
+      >
+        <span className="sr-only">배너를 불러오는 중입니다</span>
+      </div>
+    );
+  }
   if (items.length === 0) {
     return null;
   }
@@ -33,7 +44,8 @@ const MainBanner = ({ items }: CardListProps) => {
         }}
         className="overflow-hidden rounded-3xl"
       >
-        {bestItems.map((item) => (
+        {/* index로 첫 배너 판별 ➝ priority 우선 로딩해 LCP 개선 */}
+        {bestItems.map((item, index) => (
           <SwiperSlide key={item.id}>
             <div className="relative aspect-[1/0.6] w-full md:aspect-[1/0.5]">
               <Link href={`/activities/${item.id}`}>
@@ -43,6 +55,8 @@ const MainBanner = ({ items }: CardListProps) => {
                     alt={item.title}
                     className="object-cover"
                     fill
+                    priority={index === 0}
+                    sizes="(max-width: 1200px) 100vw, 1200px"
                   />
                   <div className="absolute top-0 left-0 h-full w-full bg-linear-to-t from-black to-transparent opacity-80"></div>
                 </div>
@@ -65,6 +79,7 @@ const MainBanner = ({ items }: CardListProps) => {
         type="button"
         className="hover:bg-primary-500 absolute top-1/2 -right-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slideNext()}
+        aria-label="다음 배너"
       >
         <ArrowRight />
       </button>
@@ -73,6 +88,7 @@ const MainBanner = ({ items }: CardListProps) => {
         type="button"
         className="hover:bg-primary-500 absolute top-1/2 -left-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slidePrev()}
+        aria-label="이전 배너"
       >
         <ArrowRight className="rotate-180" />
       </button>
