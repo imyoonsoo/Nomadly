@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import type { HeaderProps } from "./type";
 import Link from "next/link";
+
+import BackButton from "@/components/BackButton/BackButton";
 
 import HeaderUserMenu from "./HeaderUserMenu";
 import HeaderGuestMenu from "./HeaderGuestMenu";
@@ -15,6 +18,8 @@ import Game from "@/assets/icons/game.svg";
 
 const Header = ({ user }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,20 +43,23 @@ const Header = ({ user }: HeaderProps) => {
       }`}
     >
       <div className="mx-auto flex w-full max-w-380 items-center justify-between px-6 md:px-7.5">
-        <Link href="/" className="flex cursor-pointer items-center py-2.5">
-          <LogoVertical
-            aria-label="로고"
-            width={200}
-            height={32}
-            className="hidden md:block"
-          />
-          <LogoSymbol
-            aria-label="로고"
-            width={28}
-            height={28}
-            className="block md:hidden"
-          />
-        </Link>
+        <div className="flex items-center gap-1 md:gap-2">
+          {!isHome && <BackButton label="" />}
+          <Link href="/" className="flex cursor-pointer items-center py-2.5">
+            <LogoVertical
+              aria-label="로고"
+              width={200}
+              height={32}
+              className="hidden md:block"
+            />
+            <LogoSymbol
+              aria-label="로고"
+              width={28}
+              height={28}
+              className="block md:hidden"
+            />
+          </Link>
+        </div>
         <nav className="flex items-center gap-4 md:gap-6">
           <Link
             href="/recommendation"
