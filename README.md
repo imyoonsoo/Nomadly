@@ -1,4 +1,4 @@
-# 🌏 Nomadly
+# 🗺 Nomadly
 
 > **Forked from:** [GlobalNomad](https://github.com/Hanbh97/GlobalNomad)
 >
@@ -35,13 +35,14 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 
 <div id="improvements"></div>
 
-## ⚡ Fork 이후 개선 작업
+## 🚧 Fork 이후 개선 작업
 
 팀 프로젝트를 포크한 뒤 진행한 주요 개선 작업입니다.
 
-### 체험 설명 줄바꿈 처리
+### 체험상품 설명 줄바꿈 처리
 
-호스트가 체험 설명에 입력한 줄바꿈이 화면에서는 모두 무시돼 한 문단으로 붙어 보였습니다. 설명 영역에 `whitespace-pre-wrap`을 적용해 입력한 줄바꿈이 그대로 나오도록 하고, `break-keep`으로 한글 단어가 어절 중간에서 끊기지 않도록 했습니다.
+기존에는 호스트가 정성껏 나눠 쓴 설명이 게스트 화면에선 한 덩어리로 뭉쳐 보여 가독성이 떨어졌습니다.
+`DescriptionSection` 컴포넌트에 `whitespace-pre-wrap`을 적용해 입력한 줄바꿈이 그대로 나오도록 하고, `break-keep`으로 한글 단어가 어절 중간에서 끊기지 않도록 했습니다.
 
 |                                  적용 전                                   |                                  적용 후                                  |
 | :------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
@@ -67,9 +68,13 @@ Pretendard를 외부에서 불러오던 것을 `next/font/local`로 self-host했
 
 로딩 스켈레톤에 `role="status"`·`aria-live`를 부여해 스크린 리더가 로딩 상태를 읽도록 하고, 아이콘만 있는 버튼에는 `aria-label`을, 페이지에는 `<main>` 랜드마크를 정리해 넣었습니다.
 
-### GitHub Actions 워크플로우 구축
+### CI 파이프라인 구축
 
-PR을 열면 코드 리뷰와 검사가 자동으로 실행되도록 GitHub Actions를 구성하고, Prettier 플러그인으로 Tailwind 클래스 순서를 자동 정렬했습니다. 여기에 `git blame` 제외 설정과 `.gitattributes` 기반 LF 정규화를 더해 협업 환경을 정비했습니다.
+PR 생성 시 코드 리뷰와 검사가 자동으로 실행되는 CI 파이프라인을 GitHub Actions로 구성하고, Prettier 플러그인으로 Tailwind 클래스 순서를 자동 정렬했습니다.
+
+### 개발환경 정비
+
+`git blame` 제외 설정과 `.gitattributes` 기반 LF 정규화를 더해, 대량 포맷팅 커밋이 이력 추적을 가리지 않고 줄바꿈도 일관되게 유지되도록 정비했습니다.
 
 <br>
 
@@ -152,7 +157,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 
 <div id="convention"></div>
 
-## 📍 컨벤션
+## 🗞 컨벤션
 
 프로젝트 컨벤션은 [`conventions/`](conventions) 폴더의 문서를 참고하세요.
 
