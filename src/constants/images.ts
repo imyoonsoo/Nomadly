@@ -2,20 +2,7 @@ import DefaultProfile from "@/assets/images/default-profile.svg";
 import Empty from "@/assets/images/empty.svg";
 import LogoPcTablet from "@/assets/images/logo-text.svg";
 import LogoMobile from "@/assets/images/logo-symbol.svg";
-import MockImage1 from "@/assets/images/mock-image1.png";
-import MockImage2 from "@/assets/images/mock-image2.png";
-import MockImage3 from "@/assets/images/mock-image3.png";
 import Cloud from "@/assets/images/bg-cloude.png";
 import NoImg from "@/assets/images/no-img.png";
 
-export {
-  DefaultProfile,
-  Empty,
-  MockImage1,
-  MockImage2,
-  MockImage3,
-  LogoPcTablet,
-  LogoMobile,
-  Cloud,
-  NoImg,
-};
+export { DefaultProfile, Empty, LogoPcTablet, LogoMobile, Cloud, NoImg };

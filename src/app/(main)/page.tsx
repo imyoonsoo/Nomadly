@@ -8,11 +8,13 @@ import { Cloud } from "@/constants/images";
 import { useEffect, useState } from "react";
 import { CardItem } from "./components/type";
 import api from "@/lib/api/axios";
+import { showToast } from "@/lib/utils/toast";
 
 const Home = () => {
   const [activities, setActivities] = useState<CardItem[]>([]);
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() => {
     if (typeof window !== "undefined") {
@@ -24,16 +26,24 @@ const Home = () => {
 
   useEffect(() => {
     const getActivities = async () => {
-      const res = await api.get("/activities", {
-        params: {
-          method: "offset",
-        },
-      });
+      try {
+        const res = await api.get("/activities", {
+          params: {
+            method: "offset",
+          },
+        });
 
-      res.data.activities.map((item: CardItem) => {
-        item.isBookmarked = bookmarkedIds.includes(item.id);
-      });
-      setActivities(res.data.activities);
+        res.data.activities.map((item: CardItem) => {
+          item.isBookmarked = bookmarkedIds.includes(item.id);
+        });
+        setActivities(res.data.activities);
+      } catch {
+        showToast.error(
+          "체험 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+        );
+      } finally {
+        setIsLoading(false); // 성공/실패 상관없이 로딩 종료
+      }
     };
 
     getActivities();
@@ -64,7 +74,7 @@ const Home = () => {
   const getFiltered = getFilter();
 
   return (
-    <div
+    <main
       className="cloud-bg bg-cover bg-center"
       style={{
         backgroundImage: `url(${Cloud.src}), linear-gradient(to top, transparent 70%, #BBDDFF)`,
@@ -75,7 +85,7 @@ const Home = () => {
     >
       {/* 메인배너 */}
       <div className="mx-auto max-w-[1200px] px-6 pt-[122px] md:px-10 md:pt-[183px]">
-        <MainBanner items={activities} />
+        <MainBanner items={activities} isLoading={isLoading} />
       </div>
       {/* 체험검색 */}
       <div className="mx-auto my-4 my-10 max-w-[1120px] px-5 py-4 md:my-12 md:px-10 md:py-8">
@@ -96,7 +106,7 @@ const Home = () => {
               🔥 인기 체험
             </h2>
             <div className="flex">
-              <BestList items={activities} />
+              <BestList items={activities} isLoading={isLoading} />
             </div>
           </div>
         )}
@@ -127,10 +137,14 @@ const Home = () => {
         )}
 
         <div className="mb-[218px] flex">
-          <ActivitiesList items={getFiltered} keyword={keyword} />
+          <ActivitiesList
+            items={getFiltered}
+            keyword={keyword}
+            isLoading={isLoading}
+          />
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

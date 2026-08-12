@@ -1,6 +1,7 @@
 "use client";
 import FilterButton from "@/components/FilterButton/FilterButton";
 import ActivitiesCard from "./ActivitiesCard";
+import { ActivitiesCardSkeleton } from "./ActivitiesCardSkeleton";
 import { CardListProps } from "./type";
 import { AltDown } from "@/constants/icons";
 import { useEffect, useState, useRef } from "react";
@@ -43,7 +44,7 @@ const CATEGORIES = [
   },
 ];
 
-const ActivitiesList = ({ items, keyword }: CardListProps) => {
+const ActivitiesList = ({ items, keyword, isLoading }: CardListProps) => {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
@@ -212,7 +213,25 @@ const ActivitiesList = ({ items, keyword }: CardListProps) => {
         </div>
       )}
       <div>
-        {!isSearchMode && sortedItems.length === 0 ? (
+        {/* 로딩 중엔 sortedItems가 비어 "없습니다"가 잘못 뜸 ➝ isLoading을 먼저 검사해 스켈레톤 우선 */}
+        {isLoading ? (
+          <div
+            role="status"
+            aria-live="polite"
+            className="flex flex-wrap gap-4 md:gap-6"
+          >
+            <span className="sr-only">체험 목록을 불러오는 중입니다</span>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                aria-hidden="true"
+                className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
+              >
+                <ActivitiesCardSkeleton />
+              </div>
+            ))}
+          </div>
+        ) : !isSearchMode && sortedItems.length === 0 ? (
           <div className="flex flex-col items-center pt-30">
             <p className="text-center text-gray-400">
               {selectedCategory}에 등록된 체험이 없습니다.
