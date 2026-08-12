@@ -215,10 +215,16 @@ const ActivitiesList = ({ items, keyword, isLoading }: CardListProps) => {
       <div>
         {/* 로딩 중엔 sortedItems가 비어 "없습니다"가 잘못 뜸 ➝ isLoading을 먼저 검사해 스켈레톤 우선 */}
         {isLoading ? (
-          <div className="flex flex-wrap gap-4 md:gap-6">
+          <div
+            role="status"
+            aria-live="polite"
+            className="flex flex-wrap gap-4 md:gap-6"
+          >
+            <span className="sr-only">체험 목록을 불러오는 중입니다</span>
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
+                aria-hidden="true"
                 className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/4)]"
               >
                 <ActivitiesCardSkeleton />

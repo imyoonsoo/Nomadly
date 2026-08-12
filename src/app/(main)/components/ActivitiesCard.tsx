@@ -40,6 +40,7 @@ const ActivitiesCard = ({
     <div className="relative w-full rounded-[18px] shadow-[0_2px_6px_0_rgba(0,0,0,0.1)] transition ease-in hover:transform-[translateY(-5px)] md:rounded-4xl">
       <button
         type="button"
+        aria-label={bookmarked ? "관심 체험 취소" : "관심 체험 등록"}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
