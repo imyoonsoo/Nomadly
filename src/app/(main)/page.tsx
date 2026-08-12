@@ -80,7 +80,7 @@ const Home = () => {
     >
       {/* 메인배너 */}
       <div className="mx-auto max-w-[1200px] px-6 pt-[122px] md:px-10 md:pt-[183px]">
-        <MainBanner items={activities} />
+        <MainBanner items={activities} isLoading={isLoading} />
       </div>
       {/* 체험검색 */}
       <div className="mx-auto my-4 my-10 max-w-[1120px] px-5 py-4 md:my-12 md:px-10 md:py-8">
@@ -101,7 +101,7 @@ const Home = () => {
               🔥 인기 체험
             </h2>
             <div className="flex">
-              <BestList items={activities} />
+              <BestList items={activities} isLoading={isLoading} />
             </div>
           </div>
         )}

@@ -10,12 +10,21 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { NoImg } from "@/constants/images";
 
-const MainBanner = ({ items }: CardListProps) => {
+const MainBanner = ({ items, isLoading }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
-  if (items.length === 0) {
+  if (isLoading) {
     return (
-      <div className="aspect-[1/0.6] w-full animate-pulse rounded-3xl bg-gray-200 md:aspect-[1/0.5]" />
+      <div
+        role="status"
+        aria-live="polite"
+        className="aspect-[1/0.6] w-full animate-pulse rounded-3xl bg-gray-200 md:aspect-[1/0.5]"
+      >
+        <span className="sr-only">배너를 불러오는 중입니다</span>
+      </div>
     );
+  }
+  if (items.length === 0) {
+    return null;
   }
 
   const bestItems = [...items]
@@ -70,6 +79,7 @@ const MainBanner = ({ items }: CardListProps) => {
         type="button"
         className="hover:bg-primary-500 absolute top-1/2 -right-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slideNext()}
+        aria-label="다음 배너"
       >
         <ArrowRight />
       </button>
@@ -78,6 +88,7 @@ const MainBanner = ({ items }: CardListProps) => {
         type="button"
         className="hover:bg-primary-500 absolute top-1/2 -left-5 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slidePrev()}
+        aria-label="이전 배너"
       >
         <ArrowRight className="rotate-180" />
       </button>
