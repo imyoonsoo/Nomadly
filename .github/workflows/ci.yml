@@ -4,9 +4,15 @@ on:
   pull_request:
     branches: [main, develop]
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -18,6 +24,8 @@ jobs:
       - run: npm ci
 
       - run: npm run lint
+
+      - run: npm run format:check
 
       # 빌드 통과 여부만 확인하므로 실제 키가 아닌 더미 값을 사용합니다.
       - run: npm run build
