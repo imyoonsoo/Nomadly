@@ -21,7 +21,6 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 - [프로젝트 구조](#structure)
 - [시작하기](#getting-started)
 - [컨벤션](#convention)
-- [팀원 및 역할](#team)
 
 ---
 
@@ -29,10 +28,10 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 
 ## 📋 개요
 
-| 구분                    | 개발기간             | 내용                                                                                                                                                         |
-| ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **원본 팀 프로젝트**    | 2026.05.26 ~ 06.24   | 6인 팀 · 담당: 회원가입 페이지 · 내 정보 페이지 · 공통 컴포넌트(Button · Filter Button · AuthLayout) · [GlobalNomad](https://github.com/Hanbh97/GlobalNomad) |
-| **Fork 이후 개인 작업** | 2026.06.24 ~ 진행 중 | 아래 [Fork 이후 개선 작업](#improvements) 참조                                                                                                               |
+| 구분                    | 개발기간             | 내용                                                                                                 |
+| ----------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- |
+| **원본 팀 프로젝트**    | 2026.05.26 ~ 06.24   | 6인 팀 · 담당: 회원가입 페이지 · 내 정보 페이지 · 공통 컴포넌트(Button · Filter Button · AuthLayout) |
+| **Fork 이후 개인 작업** | 2026.06.24 ~ 진행 중 | 아래 [Fork 이후 개선 작업](#improvements) 참조                                                       |
 
 - [**Vercel 배포**](https://nomadly-imyoonsoo.vercel.app)
 
@@ -227,70 +226,3 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 - [디렉터리 구조](conventions/디렉터리%20구조.md)
 - [네이밍 규칙](conventions/네이밍%20규칙.md)
 - [코드 스타일](conventions/코드%20스타일.md)
-
-<br>
-
-<div id="team"></div>
-
-## 👥 팀원 및 역할
-
-<table>
-<tr>
-<td align="center" width="150px">
-<a href="https://github.com/Hanbh97">
-<img src="https://github.com/Hanbh97.png" width="100px" style="border-radius:50%"/>
-</a>
-<br/>
-<b>한병현 (팀장)</b>
-<br/>
-<sub>체험 상세 페이지<br/>Image Input · Dropdown · Reservation Modal<br/>협업 문서 정리</sub>
-</td>
-<td align="center" width="150px">
-<a href="https://github.com/JuHeonParkk">
-<img src="https://github.com/JuHeonParkk.png" width="100px" style="border-radius:50%"/>
-</a>
-<br/>
-<b>박주헌</b>
-<br/>
-<sub>내 체험 관리 · 등록 · 수정<br/>Layout · Sidemenu · Toast<br/>무한 스크롤 · 폼 이탈 방지</sub>
-</td>
-<td align="center" width="150px">
-<a href="https://github.com/Eugenekmp">
-<img src="https://github.com/Eugenekmp.png" width="100px" style="border-radius:50%"/>
-</a>
-<br/>
-<b>박경민</b>
-<br/>
-<sub>예약 내역 페이지<br/>Modal · Footer<br/>인증 · 카카오 OAuth · fetch 레이어</sub>
-</td>
-</tr>
-<tr>
-<td align="center" width="150px">
-<a href="https://github.com/hhhnseo">
-<img src="https://github.com/hhhnseo.png" width="100px" style="border-radius:50%"/>
-</a>
-<br/>
-<b>장현서</b>
-<br/>
-<sub>예약 현황 · 추천 · 게임 페이지<br/>State Badge · Pagination<br/>알림</sub>
-</td>
-<td align="center" width="150px">
-<a href="https://github.com/ejlee6742-source">
-<img src="https://github.com/ejlee6742-source.png" width="100px" style="border-radius:50%"/>
-</a>
-<br/>
-<b>이은지</b>
-<br/>
-<sub>메인 · 관심 체험 페이지<br/>Style System · Input<br/>북마크 · favicon · OG 이미지</sub>
-</td>
-<td align="center" width="150px">
-<a href="https://github.com/imyoonsoo">
-<img src="https://github.com/imyoonsoo.png" width="100px" style="border-radius:50%"/>
-</a>
-<br/>
-<b>서윤수</b>
-<br/>
-<sub>회원가입 · 내 정보 페이지<br/>Button · Filter Button · AuthLayout</sub>
-</td>
-</tr>
-</table>
