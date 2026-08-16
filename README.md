@@ -243,7 +243,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 <br/>
 <b>한병현 (팀장)</b>
 <br/>
-<sub>체험 상세 페이지<br/>Image Input · Dropdown<br/>협업 문서 정리</sub>
+<sub>체험 상세 페이지<br/>Image Input · Dropdown · Reservation Modal<br/>협업 문서 정리</sub>
 </td>
 <td align="center" width="150px">
 <a href="https://github.com/JuHeonParkk">
@@ -252,7 +252,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 <br/>
 <b>박주헌</b>
 <br/>
-<sub>내 체험 관리<br/>체험 등록 · 수정<br/>무한 스크롤</sub>
+<sub>내 체험 관리 · 등록 · 수정<br/>Layout · Sidemenu · Toast<br/>무한 스크롤 · 폼 이탈 방지</sub>
 </td>
 <td align="center" width="150px">
 <a href="https://github.com/Eugenekmp">
@@ -261,7 +261,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 <br/>
 <b>박경민</b>
 <br/>
-<sub>예약 내역 페이지<br/>인증 · 카카오 OAuth<br/>fetch 레이어</sub>
+<sub>예약 내역 페이지<br/>Modal · Footer<br/>인증 · 카카오 OAuth · fetch 레이어</sub>
 </td>
 </tr>
 <tr>
@@ -272,7 +272,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 <br/>
 <b>장현서</b>
 <br/>
-<sub>예약 현황 페이지<br/>추천 · 게임<br/>알림</sub>
+<sub>예약 현황 · 추천 · 게임 페이지<br/>State Badge · Pagination<br/>알림</sub>
 </td>
 <td align="center" width="150px">
 <a href="https://github.com/ejlee6742-source">
@@ -281,7 +281,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 <br/>
 <b>이은지</b>
 <br/>
-<sub>메인 페이지<br/>관심 체험 페이지<br/>스타일 시스템</sub>
+<sub>메인 · 관심 체험 페이지<br/>Style System · Input<br/>북마크 · favicon · OG 이미지</sub>
 </td>
 <td align="center" width="150px">
 <a href="https://github.com/imyoonsoo">
@@ -290,7 +290,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 <br/>
 <b>서윤수</b>
 <br/>
-<sub>회원가입 페이지<br/>내 정보 페이지<br/>Button · Filter Button · AuthLayout</sub>
+<sub>회원가입 · 내 정보 페이지<br/>Button · Filter Button · AuthLayout</sub>
 </td>
 </tr>
 </table>
