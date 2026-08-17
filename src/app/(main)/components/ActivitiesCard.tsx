@@ -6,11 +6,12 @@ import { Heart, HeartOn, StarOn } from "@/constants/icons";
 import { NoImg } from "@/constants/images";
 import { useState } from "react";
 import { showToast } from "@/lib/utils/toast";
-import useBookmarkedIds, {
+import {
   toggleBookmark,
+  useBookmarkedIds,
 } from "@/features/activities/hooks/useBookmarkedIds";
 
-const ActivitiesCard = ({
+export const ActivitiesCard = ({
   title,
   bannerImageUrl,
   id,
@@ -87,5 +88,3 @@ const ActivitiesCard = ({
     </div>
   );
 };
-
-export default ActivitiesCard;

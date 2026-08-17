@@ -1,6 +1,6 @@
 "use client";
 
-import ActivitiesCard from "./ActivitiesCard";
+import { ActivitiesCard } from "./ActivitiesCard";
 import { ActivitiesCardSkeleton } from "./ActivitiesCardSkeleton";
 import { CardListProps } from "./type";
 import { useRef } from "react";

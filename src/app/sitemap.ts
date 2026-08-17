@@ -25,7 +25,12 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   }));
 
   try {
-    const { activities } = await getActivities({ size: 100 });
+    // 체험 추가 대비해 totalCount만큼 요청
+    const first = await getActivities();
+    const activities =
+      first.activities.length < first.totalCount
+        ? (await getActivities({ size: first.totalCount })).activities
+        : first.activities;
 
     const activityEntries: MetadataRoute.Sitemap = activities.map(
       (activity) => ({

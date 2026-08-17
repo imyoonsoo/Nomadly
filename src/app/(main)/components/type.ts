@@ -1,8 +1,6 @@
 import { ActivitySummary } from "@/features/activities/type";
 
-export type CardItem = ActivitySummary & {
-  isBookmarked?: boolean;
-};
+export type CardItem = ActivitySummary;
 
 export interface CardListProps {
   items: CardItem[];
@@ -10,7 +8,6 @@ export interface CardListProps {
   isLoading?: boolean; // 로딩 중 스켈레톤 표시 판단용
 }
 
-export type ActivitiesCardProps = CardItem & {
+export interface ActivitiesCardProps extends CardItem {
   keyword?: string;
-  onToggleBookmark?: (id: number) => void;
-};
+}

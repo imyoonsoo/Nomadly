@@ -1,7 +1,8 @@
 // 검색어를 다루는 메인화면
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { showToast } from "@/lib/utils/toast";
 import SearchBox from "./SearchBox";
 import MainBanner from "./MainBanner";
 import BestList from "./BestList";
@@ -11,11 +12,21 @@ import { CardItem } from "./type";
 
 interface HomeContentProps {
   activities: CardItem[];
+  loadFailed?: boolean;
 }
 
-const HomeContent = ({ activities }: HomeContentProps) => {
+export const HomeContent = ({ activities, loadFailed }: HomeContentProps) => {
   const [search, setSearch] = useState("");
   const [keyword, setKeyword] = useState("");
+
+  // 빈 화면 시 토스트메시지 보이기
+  useEffect(() => {
+    if (loadFailed) {
+      showToast.error(
+        "체험 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      );
+    }
+  }, [loadFailed]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -108,5 +119,3 @@ const HomeContent = ({ activities }: HomeContentProps) => {
     </main>
   );
 };
-
-export default HomeContent;

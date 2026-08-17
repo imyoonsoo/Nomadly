@@ -1,6 +1,6 @@
 "use client";
 import FilterButton from "@/components/FilterButton/FilterButton";
-import ActivitiesCard from "./ActivitiesCard";
+import { ActivitiesCard } from "./ActivitiesCard";
 import { ActivitiesCardSkeleton } from "./ActivitiesCardSkeleton";
 import { CardListProps } from "./type";
 import { AltDown } from "@/constants/icons";

@@ -59,7 +59,5 @@ export const toggleBookmark = (id: number) => {
   emit();
 };
 
-const useBookmarkedIds = (): number[] =>
+export const useBookmarkedIds = (): number[] =>
   useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
-export default useBookmarkedIds;

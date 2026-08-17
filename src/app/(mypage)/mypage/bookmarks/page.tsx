@@ -1,21 +1,17 @@
 "use client";
 import { CardItem } from "@/app/(main)/components/type";
 import Title from "../../_components/Title";
-import ActivitiesCard from "@/app/(main)/components/ActivitiesCard";
+import { ActivitiesCard } from "@/app/(main)/components/ActivitiesCard";
 import { useEffect, useState } from "react";
 import { Pagination } from "@/components/Pagination/Pagination";
 import api from "@/lib/api/axios";
+import { useBookmarkedIds } from "@/features/activities/hooks/useBookmarkedIds";
 
 const Page = () => {
   const [page, setPage] = useState(1);
   const [activities, setActivities] = useState<CardItem[]>([]);
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("bookmarkedActivities");
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
+  // 북마크 취소 시 목록에서 제거되도록
+  const bookmarkedIds = useBookmarkedIds();
 
   useEffect(() => {
     const getActivities = async () => {
@@ -25,27 +21,11 @@ const Page = () => {
         },
       });
 
-      res.data.activities.map((item: CardItem) => {
-        item.isBookmarked = bookmarkedIds.includes(item.id);
-      });
-
       setActivities(res.data.activities);
     };
 
     getActivities();
   }, []);
-
-  const handleToggleBookmark = (id: number) => {
-    setBookmarkedIds((prev) => {
-      const next = prev.includes(id)
-        ? prev.filter((bookmarkId) => bookmarkId !== id)
-        : [...prev, id];
-
-      localStorage.setItem("bookmarkedActivities", JSON.stringify(next));
-
-      return next;
-    });
-  };
 
   const bookmarkedActivities = activities.filter((item) =>
     bookmarkedIds.includes(item.id),
@@ -77,10 +57,7 @@ const Page = () => {
               key={item.id}
               className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/3)]"
             >
-              <ActivitiesCard
-                {...item}
-                onToggleBookmark={handleToggleBookmark}
-              />
+              <ActivitiesCard {...item} />
             </div>
           ))}
         </div>
