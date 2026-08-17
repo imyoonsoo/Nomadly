@@ -1,15 +1,6 @@
-export type CardItem = {
-  id: number;
-  title: string;
-  description?: string;
-  category: string;
-  price: number;
-  bannerImageUrl: string;
-  link: string;
-  reviewCount: number;
-  rating: number;
-  createdAt: string;
-  updatedAt: string;
+import { ActivitySummary } from "@/features/activities/type";
+
+export type CardItem = ActivitySummary & {
   isBookmarked?: boolean;
 };
 
