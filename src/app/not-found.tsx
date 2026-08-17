@@ -15,7 +15,6 @@ const NotFound = () => {
           alt="404 지구 일러스트"
           width={180}
           height={180}
-          priority
           className="w-[360px] md:w-[400px] lg:w-[506px]"
         />
 
