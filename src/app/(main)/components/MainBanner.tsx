@@ -49,7 +49,7 @@ const MainBanner = ({ items, isLoading }: CardListProps) => {
           <SwiperSlide key={item.id}>
             <div className="relative aspect-[1/0.6] w-full md:aspect-[1/0.5]">
               <Link href={`/activities/${item.id}`}>
-                <div className="h-full w-full">
+                <div className="relative h-full w-full">
                   <Image
                     src={item.bannerImageUrl || NoImg}
                     alt={item.title}
