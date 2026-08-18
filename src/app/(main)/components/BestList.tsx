@@ -10,7 +10,7 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
-const BestList = ({ items, isLoading }: CardListProps) => {
+export const BestList = ({ items, isLoading }: CardListProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   const bestItems = [...items]
@@ -89,5 +89,3 @@ const BestList = ({ items, isLoading }: CardListProps) => {
     </div>
   );
 };
-
-export default BestList;

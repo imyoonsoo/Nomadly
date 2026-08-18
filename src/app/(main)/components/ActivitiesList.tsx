@@ -44,7 +44,11 @@ const CATEGORIES = [
   },
 ];
 
-const ActivitiesList = ({ items, keyword, isLoading }: CardListProps) => {
+export const ActivitiesList = ({
+  items,
+  keyword,
+  isLoading,
+}: CardListProps) => {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
@@ -262,5 +266,3 @@ const ActivitiesList = ({ items, keyword, isLoading }: CardListProps) => {
     </div>
   );
 };
-
-export default ActivitiesList;

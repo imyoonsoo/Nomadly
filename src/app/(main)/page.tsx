@@ -16,7 +16,13 @@ const getInitialActivities = async (): Promise<{
   loadFailed: boolean;
 }> => {
   try {
-    const { activities } = await getActivities();
+    // 전체 데이터 불러오기
+    const first = await getActivities();
+    const activities =
+      first.activities.length < first.totalCount
+        ? (await getActivities({ size: first.totalCount })).activities
+        : first.activities;
+
     return { activities, loadFailed: false };
   } catch (error) {
     console.error("[Home] 체험 목록을 불러오지 못했습니다.", error);

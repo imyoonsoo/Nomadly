@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { showToast } from "@/lib/utils/toast";
 import SearchBox from "./SearchBox";
 import MainBanner from "./MainBanner";
-import BestList from "./BestList";
-import ActivitiesList from "./ActivitiesList";
+import { BestList } from "./BestList";
+import { ActivitiesList } from "./ActivitiesList";
 import { Cloud } from "@/constants/images";
 import { CardItem } from "./type";
 

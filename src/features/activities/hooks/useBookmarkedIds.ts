@@ -37,8 +37,12 @@ const getSnapshot = (): number[] => {
   cachedRaw = raw;
 
   try {
+    // localStorage 런타임 검증
     const parsed = raw ? JSON.parse(raw) : EMPTY;
-    cachedIds = Array.isArray(parsed) ? parsed : EMPTY;
+    cachedIds =
+      Array.isArray(parsed) && parsed.every((v) => typeof v === "number")
+        ? parsed
+        : EMPTY;
   } catch {
     cachedIds = EMPTY;
   }
