@@ -1,3 +1,28 @@
+export interface ActivitySummary {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GetActivitiesParams {
+  method?: "offset" | "cursor";
+  size?: number;
+}
+
+export interface ActivitiesResponse {
+  activities: ActivitySummary[];
+  totalCount: number;
+}
+
 export interface GetActivityReviewsParams {
   activityId: number;
   page?: number;

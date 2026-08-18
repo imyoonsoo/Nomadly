@@ -4,48 +4,38 @@ import Link from "next/link";
 import { ActivitiesCardProps } from "./type";
 import { Heart, HeartOn, StarOn } from "@/constants/icons";
 import { NoImg } from "@/constants/images";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { showToast } from "@/lib/utils/toast";
+import {
+  toggleBookmark,
+  useBookmarkedIds,
+} from "@/features/activities/hooks/useBookmarkedIds";
 
-const ActivitiesCard = ({
+export const ActivitiesCard = ({
   title,
   bannerImageUrl,
   id,
   price,
   rating,
   reviewCount,
-  isBookmarked,
 }: ActivitiesCardProps) => {
-  const [bookmarked, setBookmarked] = useState<boolean>(isBookmarked || false);
+  // localStorage를 직접 읽으면 서버 렌더 값과 달라져서 훅으로 가져오기
+  const bookmarkedIds = useBookmarkedIds();
+  const bookmarked = bookmarkedIds.includes(id);
 
   const [imgSrc, setImgSrc] = useState(bannerImageUrl || NoImg);
-
-  const handleToggleBookmark = (id: number) => {
-    const value = localStorage.getItem("bookmarkedActivities");
-    const saved: number[] = value ? JSON.parse(value) : [];
-
-    if (saved.includes(id)) {
-      const newSaved = saved.filter((item) => item != id);
-      localStorage.setItem("bookmarkedActivities", JSON.stringify(newSaved));
-    } else {
-      saved.push(id);
-      localStorage.setItem("bookmarkedActivities", JSON.stringify(saved));
-    }
-    setBookmarked((prev) => !prev);
-  };
-
-  useEffect(() => {}, [bookmarked]);
 
   return (
     <div className="relative w-full rounded-[18px] shadow-[0_2px_6px_0_rgba(0,0,0,0.1)] transition ease-in hover:transform-[translateY(-5px)] md:rounded-4xl">
       <button
         type="button"
         aria-label={bookmarked ? "관심 체험 취소" : "관심 체험 등록"}
+        aria-pressed={bookmarked}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
 
-          handleToggleBookmark(id);
+          toggleBookmark(id);
 
           if (!bookmarked) {
             showToast.success(`"관심 체험으로 등록했습니다."`);
@@ -98,5 +88,3 @@ const ActivitiesCard = ({
     </div>
   );
 };
-
-export default ActivitiesCard;
