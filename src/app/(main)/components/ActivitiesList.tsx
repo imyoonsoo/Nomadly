@@ -1,6 +1,6 @@
 "use client";
 import FilterButton from "@/components/FilterButton/FilterButton";
-import ActivitiesCard from "./ActivitiesCard";
+import { ActivitiesCard } from "./ActivitiesCard";
 import { ActivitiesCardSkeleton } from "./ActivitiesCardSkeleton";
 import { CardListProps } from "./type";
 import { AltDown } from "@/constants/icons";
@@ -44,7 +44,11 @@ const CATEGORIES = [
   },
 ];
 
-const ActivitiesList = ({ items, keyword, isLoading }: CardListProps) => {
+export const ActivitiesList = ({
+  items,
+  keyword,
+  isLoading,
+}: CardListProps) => {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
@@ -262,5 +266,3 @@ const ActivitiesList = ({ items, keyword, isLoading }: CardListProps) => {
     </div>
   );
 };
-
-export default ActivitiesList;

@@ -1,61 +1,46 @@
 "use client";
 import { CardItem } from "@/app/(main)/components/type";
 import Title from "../../_components/Title";
-import ActivitiesCard from "@/app/(main)/components/ActivitiesCard";
+import { ActivitiesCard } from "@/app/(main)/components/ActivitiesCard";
 import { useEffect, useState } from "react";
 import { Pagination } from "@/components/Pagination/Pagination";
 import api from "@/lib/api/axios";
+import { useBookmarkedIds } from "@/features/activities/hooks/useBookmarkedIds";
 
 const Page = () => {
   const [page, setPage] = useState(1);
   const [activities, setActivities] = useState<CardItem[]>([]);
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("bookmarkedActivities");
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
-  });
+  // 북마크 취소 시 목록에서 제거되도록
+  const bookmarkedIds = useBookmarkedIds();
 
   useEffect(() => {
-    const getActivities = async () => {
-      const res = await api.get("/activities", {
-        params: {
-          method: "offset",
-        },
-      });
+    const getBookmarkedActivities = async () => {
+      // Promise.all 전체 실패 방지를 위해 개별 catch로 처리 및 삭제된 404는 null 리턴
+      const results = await Promise.all(
+        bookmarkedIds.map((id) =>
+          api
+            .get<CardItem>(`/activities/${id}`)
+            .then((res) => res.data)
+            .catch(() => null),
+        ),
+      );
 
-      res.data.activities.map((item: CardItem) => {
-        item.isBookmarked = bookmarkedIds.includes(item.id);
-      });
+      // 삭제/로딩 실패로 인한 null 데이터 제거 및 타입추론 보장
+      const validActivities = results.filter(
+        (item): item is CardItem => item !== null,
+      );
 
-      setActivities(res.data.activities);
+      setActivities(validActivities);
     };
 
-    getActivities();
-  }, []);
-
-  const handleToggleBookmark = (id: number) => {
-    setBookmarkedIds((prev) => {
-      const next = prev.includes(id)
-        ? prev.filter((bookmarkId) => bookmarkId !== id)
-        : [...prev, id];
-
-      localStorage.setItem("bookmarkedActivities", JSON.stringify(next));
-
-      return next;
-    });
-  };
-
-  const bookmarkedActivities = activities.filter((item) =>
-    bookmarkedIds.includes(item.id),
-  );
+    getBookmarkedActivities();
+  }, [bookmarkedIds]);
 
   const ITEMS_PER_PAGE = 9;
-  const totalPages = Math.ceil(bookmarkedActivities.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(activities.length / ITEMS_PER_PAGE);
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedItems = bookmarkedActivities.slice(startIndex, endIndex);
+  const paginatedItems = activities.slice(startIndex, endIndex);
 
   return (
     <div className="max-sm:px-5">
@@ -66,7 +51,7 @@ const Page = () => {
         />
       </header>
 
-      {bookmarkedActivities.length === 0 ? (
+      {activities.length === 0 ? (
         <p className="mt-10 text-center text-gray-400">
           북마크한 체험이 없습니다.
         </p>
@@ -77,16 +62,13 @@ const Page = () => {
               key={item.id}
               className="w-[calc((100%-16px)/2)] md:w-[calc((100%-72px)/3)]"
             >
-              <ActivitiesCard
-                {...item}
-                onToggleBookmark={handleToggleBookmark}
-              />
+              <ActivitiesCard {...item} />
             </div>
           ))}
         </div>
       )}
 
-      {bookmarkedActivities.length > 0 && totalPages > 1 && (
+      {activities.length > 0 && totalPages > 1 && (
         <div className="mt-7.5 flex justify-center">
           <Pagination
             currentPage={page}

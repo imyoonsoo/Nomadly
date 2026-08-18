@@ -4,6 +4,13 @@ import "./globals.css";
 import Providers from "@/lib/query/providers";
 import { Toaster } from "react-hot-toast";
 import localFont from "next/font/local";
+import {
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/constants/site";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -12,28 +19,38 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  ),
-  title: "Nomadly",
-  description: "Nomadly",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "체험 예약",
+    "액티비티",
+    "원데이 클래스",
+    "투어",
+    "레저",
+    "Nomadly",
+  ],
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
     type: "website",
     url: "/",
-    title: "Nomadly",
-    description: "Nomadly 다양한 체험 예약하기",
-    siteName: "Nomadly",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Nomadly 서비스 이미지",
-      },
-    ],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
+    locale: "ko_KR",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
 };
 

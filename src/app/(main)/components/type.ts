@@ -1,17 +1,6 @@
-export type CardItem = {
-  id: number;
-  title: string;
-  description?: string;
-  category: string;
-  price: number;
-  bannerImageUrl: string;
-  link: string;
-  reviewCount: number;
-  rating: number;
-  createdAt: string;
-  updatedAt: string;
-  isBookmarked?: boolean;
-};
+import { ActivitySummary } from "@/features/activities/type";
+
+export type CardItem = ActivitySummary;
 
 export interface CardListProps {
   items: CardItem[];
@@ -19,7 +8,6 @@ export interface CardListProps {
   isLoading?: boolean; // 로딩 중 스켈레톤 표시 판단용
 }
 
-export type ActivitiesCardProps = CardItem & {
+export interface ActivitiesCardProps extends CardItem {
   keyword?: string;
-  onToggleBookmark?: (id: number) => void;
-};
+}

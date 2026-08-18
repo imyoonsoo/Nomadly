@@ -1,4 +1,4 @@
-# 🌏 Nomadly
+# 🗺 Nomadly
 
 > **Forked from:** [GlobalNomad](https://github.com/Hanbh97/GlobalNomad)
 >
@@ -13,69 +13,85 @@ Nomadly는 일상 밖의 특별한 체험을 탐색하고 예약할 수 있는 �
 
 ## 📍 목차
 
-- [프로젝트 기간 & 배포링크](#info)
+- [개요](#overview)
 - [Fork 이후 개선 작업](#improvements)
 - [주요 기능](#features)
 - [기술 스택](#stack)
+- [시스템 아키텍처](#architecture)
 - [프로젝트 구조](#structure)
-- [개발환경 세팅](#setup)
+- [시작하기](#getting-started)
 - [컨벤션](#convention)
 
 ---
 
-<div id="info"></div>
+<div id="overview"></div>
 
-## 📅 프로젝트 기간 & 배포링크
+## 📋 개요
 
-- **원본 팀 프로젝트**: 2026년 5월 26일 ~ 2026년 6월 24일
-- **Fork 이후 개인 개선**: 2026년 6월 24일 ~ 진행 중
+| 구분                    | 개발기간             | 내용                                                                                                 |
+| ----------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- |
+| **원본 팀 프로젝트**    | 2026.05.26 ~ 06.24   | 6인 팀 · 담당: 회원가입 페이지 · 내 정보 페이지 · 공통 컴포넌트(Button · Filter Button · AuthLayout) |
+| **Fork 이후 개인 작업** | 2026.06.24 ~ 진행 중 | 아래 [Fork 이후 개선 작업](#improvements) 참조                                                       |
+
 - [**Vercel 배포**](https://nomadly-imyoonsoo.vercel.app)
 
 <br>
 
 <div id="improvements"></div>
 
-## ⚡ Fork 이후 개선 작업
+## 📈 Fork 이후 개선 작업
 
 팀 프로젝트를 포크한 뒤 진행한 주요 개선 작업입니다.
 
+### 레이아웃 시프트 제거
+
+배포본 기준 CLS가 모바일 0.451 · 데스크탑 0.413에서 **모두 0**으로 떨어졌습니다.
+
+로딩이 끝나고 배너와 카드가 들어오는 순간 아래 내용이 밀려 내려갔습니다. 스켈레톤을 실제 화면과 같은 크기로 만들어 자리를 먼저 잡았습니다. 틀 크기가 그대로라 안쪽 내용만 채워집니다.
+
+| 요소             | 스켈레톤                               | 실제 화면 |
+| ---------------- | -------------------------------------- | --------- |
+| 메인 배너        | `aspect-[1/0.6]` · `md:aspect-[1/0.5]` | 같음      |
+| 체험 카드 이미지 | `aspect-[1/1.1]`                       | 같음      |
+
+카드는 이미지 자리뿐 아니라 그 위로 겹쳐 올라오는 텍스트 영역(`-mt-12.5`)까지 같이 잡아둬서 전체 높이가 같습니다.
+
+### 이미지 로딩 최적화
+
+화면이 작든 크든 이미지가 원본 크기 그대로 내려오고 있었습니다. `next/image`의 `sizes`를 화면에서 실제로 차지하는 폭에 맞춰 지정하고, 가장 먼저 보이는 배너에는 `priority`를 붙여 먼저 불러오게 했습니다.
+
+| 위치      | `sizes`                                                    |
+| --------- | ---------------------------------------------------------- |
+| 메인 배너 | `(max-width: 1200px) 100vw, 1200px`                        |
+| 체험 카드 | `(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 300px` |
+| 상세 배너 | `50vw`                                                     |
+
+### 웹 접근성 개선
+
+로딩 중이라는 걸 눈으로만 알 수 있었습니다. 스켈레톤 세 곳에 `role="status"`와 `aria-live="polite"`를 넣어 스크린 리더가 읽도록 하고, `sr-only` 텍스트로 무엇을 기다리는 중인지 알려줍니다.
+
+아이콘만 있어 이름이 없던 버튼 30곳에 `aria-label`을 붙이고, 페이지마다 `<main>`을 정리했습니다.
+
 ### 체험 설명 줄바꿈 처리
 
-호스트가 체험 설명에 입력한 줄바꿈이 화면에서는 모두 무시돼 한 문단으로 붙어 보였습니다. 설명 영역에 `whitespace-pre-wrap`을 적용해 입력한 줄바꿈이 그대로 나오도록 하고, `break-keep`으로 한글 단어가 어절 중간에서 끊기지 않도록 했습니다.
+판매자가 체험 상품 설명을 문단으로 나눠 작성해도, 실제 화면에서는 전부 한 덩어리로 붙어 나왔습니다. `whitespace-pre-wrap`으로 입력한 줄바꿈을 살리고, `break-keep`으로 한글 단어가 어절 중간에서 잘리지 않게 했습니다.
 
 |                                  적용 전                                   |                                  적용 후                                  |
 | :------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
 | <img src="docs/description-before.png" width="360" alt="줄바꿈 적용 전" /> | <img src="docs/description-after.png" width="360" alt="줄바꿈 적용 후" /> |
 
-### 레이아웃 시프트 제거 (CLS 0.45 → 0)
+### 그 외
 
-로딩이 끝난 뒤 배너·카드가 뒤늦게 삽입되며 화면이 아래로 밀렸습니다. 로딩 중에도 최종 레이아웃과 동일한 공간을 미리 차지하는 스켈레톤 UI를 적용해, 콘텐츠가 채워질 때 자리가 밀리지 않도록 했습니다. 배포본 기준 CLS가 모바일 0.451·데스크탑 0.413에서 모두 0으로 떨어졌습니다.
-
-### 이미지 로딩 최적화
-
-목록·배너 이미지가 화면 크기와 무관하게 큰 해상도로 내려오고 있었습니다. `next/image`의 `sizes`로 뷰포트 폭에 맞는 해상도만 받도록 하고, 가장 먼저 보이는 배너 이미지에는 `priority`를 지정해 LCP 대상 이미지를 우선 로드하도록 했습니다.
-
-### 번들 크기 절감
-
-저장소에 22MB에 달하는 목업 이미지가 포함돼 있어 이를 제거하고, 개발용으로만 쓰이는 React Query Devtools를 `dynamic import`로 분리해 프로덕션 번들에서 빠지도록 했습니다.
-
-### 폰트 self-host
-
-Pretendard를 외부에서 불러오던 것을 `next/font/local`로 self-host했습니다. 외부 요청이 사라지고, 폰트가 교체되는 순간 글자 크기가 달라지며 발생하던 레이아웃 밀림도 함께 제거됐습니다.
-
-### 웹 접근성 개선
-
-로딩 스켈레톤에 `role="status"`·`aria-live`를 부여해 스크린 리더가 로딩 상태를 읽도록 하고, 아이콘만 있는 버튼에는 `aria-label`을, 페이지에는 `<main>` 랜드마크를 정리해 넣었습니다.
-
-### GitHub Actions 워크플로우 구축
-
-PR을 열면 코드 리뷰와 검사가 자동으로 실행되도록 GitHub Actions를 구성하고, Prettier 플러그인으로 Tailwind 클래스 순서를 자동 정렬했습니다. 여기에 `git blame` 제외 설정과 `.gitattributes` 기반 LF 정규화를 더해 협업 환경을 정비했습니다.
+- **번들 크기 절감** — 저장소에 남아 있던 22MB 목업 이미지를 제거하고, React Query Devtools를 `dynamic import`로 분리해 프로덕션 번들에서 뺐습니다.
+- **폰트 self-host** — Pretendard를 `next/font/local`로 전환했습니다. 외부 요청이 사라지고, 폰트가 교체되는 순간 글자 크기가 달라지며 생기던 밀림도 함께 없어졌습니다.
+- **CI 파이프라인 구축** — PR을 열면 lint와 프로덕션 빌드가 자동으로 검증됩니다. 여기에 Claude가 인라인 코멘트로 리뷰하고, 요약을 Notion 데이터베이스에 기록합니다.
+- **개발환경 정비** — `git blame` 제외 설정과 `.gitattributes` LF 정규화, Prettier 플러그인 기반 Tailwind 클래스 자동 정렬을 더했습니다.
 
 <br>
 
 <div id="features"></div>
 
-## 🔌 주요 기능
+## ✨ 주요 기능
 
 - **인증** — 회원가입 / 로그인, 카카오 OAuth 소셜 로그인
 - **체험 둘러보기** — 체험 목록 조회, 상세 페이지, 후기 확인
@@ -97,7 +113,7 @@ PR을 열면 코드 리뷰와 검사가 자동으로 실행되도록 GitHub Acti
 | **Framework**      | Next.js 16 (App Router) |
 | **Library**        | React 19                |
 | **Language**       | TypeScript              |
-| **Styling**        | Tailwind CSS            |
+| **Styling**        | Tailwind CSS v4         |
 | **Server State**   | TanStack Query          |
 | **HTTP Client**    | Axios                   |
 | **Form**           | React Hook Form         |
@@ -106,6 +122,40 @@ PR을 열면 코드 리뷰와 검사가 자동으로 실행되도록 GitHub Acti
 | **Notification**   | React Hot Toast         |
 | **UI**             | Swiper                  |
 | **Code Quality**   | ESLint, Prettier        |
+
+<br>
+
+<div id="architecture"></div>
+
+## 🏗️ 시스템 아키텍처
+
+백엔드 REST API는 외부에서 제공되며, 이 저장소는 프론트엔드를 담당합니다.
+다만 브라우저가 API를 직접 호출하지 않고, **Next.js 서버가 인증과 API 중계를 맡는 BFF 계층**을 두었습니다.
+
+```mermaid
+graph TD
+    B["브라우저 · React 19<br/>TanStack Query 캐싱"]
+
+    subgraph NEXT["Next.js 서버 (Vercel)"]
+        MW["proxy.ts<br/>JWT exp 검사 · 만료 10초 전 선제 재발급<br/>/mypage 라우트 가드"]
+        RSC["Server Component / Server Action<br/>serverFetch · serverFetchAuth"]
+        BFF["/api/proxy/[...path]<br/>쿠키에서 토큰 꺼내 Bearer 주입<br/>401 → 재발급 → 원 요청 재시도"]
+    end
+
+    API["GlobalNomad REST API"]
+    S3["AWS S3 · 이미지"]
+    KAKAO["Kakao OAuth · Maps SDK"]
+    DAUM["Daum 우편번호"]
+
+    B -->|"페이지 요청"| MW
+    B -->|"axios · baseURL /api/proxy"| BFF
+    MW -->|"POST /auth/tokens"| API
+    RSC --> API
+    BFF -->|"Authorization: Bearer"| API
+    API --> S3
+    B --> KAKAO
+    B --> DAUM
+```
 
 <br>
 
@@ -136,11 +186,27 @@ src/
 
 <br>
 
-<div id="setup"></div>
+<div id="getting-started"></div>
 
-## ⚙️ 개발환경 세팅
+## 🚀 시작하기
 
-클론 후 아래 명령을 한 번 실행하세요.
+```bash
+npm install
+npm run dev      # 개발 서버
+npm run build    # 프로덕션 빌드
+```
+
+프로젝트 루트에 `.env.local`을 만들고 아래 값을 채워주세요.
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=      # 백엔드 REST API 주소
+NEXT_PUBLIC_SITE_URL=          # 배포 주소 (OG 메타데이터 기준)
+NEXT_PUBLIC_KAKAO_MAP_KEY=     # 카카오 지도 JavaScript 키
+NEXT_PUBLIC_KAKAO_REST_API_KEY=  # 카카오 OAuth REST API 키
+NEXT_PUBLIC_KAKAO_REDIRECT_URI=  # 카카오 OAuth 리다이렉트 주소
+```
+
+클론 직후 아래 명령도 한 번 실행해주세요.
 
 ```bash
 git config blame.ignoreRevsFile .git-blame-ignore-revs
@@ -152,7 +218,7 @@ Tailwind 클래스 자동 정렬처럼 전체 파일을 건드리는 대량 포�
 
 <div id="convention"></div>
 
-## 📍 컨벤션
+## 🗞 컨벤션
 
 프로젝트 컨벤션은 [`conventions/`](conventions) 폴더의 문서를 참고하세요.
 

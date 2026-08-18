@@ -4,7 +4,24 @@ import {
   ActivityDetailResponse,
   GetActivityReviewsParams,
   ActivityReviewsResponse,
+  GetActivitiesParams,
+  ActivitiesResponse,
 } from "@/features/activities/type";
+
+export const getActivities = async ({
+  method = "offset",
+  size,
+}: GetActivitiesParams = {}): Promise<ActivitiesResponse> => {
+  const searchParams = new URLSearchParams({ method });
+
+  if (size !== undefined) {
+    searchParams.set("size", String(size));
+  }
+
+  return serverFetch<ActivitiesResponse>(`/activities?${searchParams}`, {
+    next: { revalidate: 60 },
+  });
+};
 
 export const getActivityDetail = async ({
   activityId,
