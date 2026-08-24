@@ -34,7 +34,7 @@ const WarningModal = ({
         <Button
           variant="whitenGray"
           height="custom"
-          className="h-10 w-28 rounded-xl px-5 py-1 text-[14px] md:h-11.75 md:w-34 md:px-10 md:py-3 md:py-3.5"
+          className="h-10 w-28 rounded-xl px-5 py-1 text-[14px] md:h-11.75 md:w-34 md:px-10 md:py-3.5"
           onClick={onClose}
         >
           {buttonTextLeft}
@@ -42,7 +42,7 @@ const WarningModal = ({
         <Button
           variant="mainBlue"
           height="custom"
-          className="h-10 w-28 rounded-xl px-5 py-1 text-[14px] md:h-12 md:w-34 md:px-10 md:py-3 md:py-3.5"
+          className="h-10 w-28 rounded-xl px-5 py-1 text-[14px] md:h-12 md:w-34 md:px-10 md:py-3.5"
           onClick={onConfirm}
         >
           {buttonTextRight}
