@@ -9,20 +9,20 @@ const NotFound = () => {
         backgroundImage: "url('/notFound/404-bg.svg')",
       }}
     >
-      <div className="mt-[58px] flex flex-col items-center md:mt-[90px] lg:mt-[95px]">
+      <div className="mt-14.5 flex flex-col items-center md:mt-22.5 lg:mt-23.75">
         <Image
           src="/notFound/404-earth.svg"
           alt="404 지구 일러스트"
           width={180}
           height={180}
-          className="w-[360px] md:w-[400px] lg:w-[506px]"
+          className="w-90 md:w-100 lg:w-126.5"
         />
 
         <h1 className="text-[24px] font-bold text-black md:text-[40px]">
           요청하신 페이지를 찾을 수 없습니다.
         </h1>
 
-        <div className="mt-12 flex flex-col gap-[26px] text-[14px] leading-[22px] text-gray-500 md:mt-[45px] md:gap-[24px] md:text-[16px] lg:mt-[53px]">
+        <div className="mt-12 flex flex-col gap-6.5 text-[14px] leading-[22px] text-gray-500 md:mt-11.25 md:gap-6 md:text-[16px] lg:mt-13.25">
           <p>
             페이지 주소가 잘못 입력되었거나, 주소가 변경 또는 삭제되어
             <br />

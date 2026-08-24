@@ -62,14 +62,14 @@ const ReviewSubmitModal = ({
       size="lg"
       isOpen={isOpen}
       onClose={onClose}
-      className="h-[479px] w-[327px]"
+      className="h-119.75 w-81.75"
     >
       <form
         onSubmit={handleSubmit(onSubmitForm)}
-        className="flex flex-col gap-[20px]"
+        className="flex flex-col gap-5"
       >
-        <div className="flex flex-col gap-[14px]">
-          <div className="flex flex-col gap-[8px]">
+        <div className="flex flex-col gap-3.5">
+          <div className="flex flex-col gap-2">
             <div className="flex justify-end">
               <button type="button" onClick={onClose}>
                 <DeleteIcon width={24} height={24} />
@@ -85,7 +85,7 @@ const ReviewSubmitModal = ({
             name="rating"
             control={control}
             render={({ field }) => (
-              <div className="flex justify-center gap-[6px]">
+              <div className="flex justify-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
@@ -98,13 +98,13 @@ const ReviewSubmitModal = ({
                       <StarOn
                         width={36}
                         height={36}
-                        className="md:h-[42px] md:w-[42px]"
+                        className="md:h-10.5 md:w-10.5"
                       />
                     ) : (
                       <StarOff
                         width={36}
                         height={36}
-                        className="md:h-[42px] md:w-[42px]"
+                        className="md:h-10.5 md:w-10.5"
                       />
                     )}
                   </button>
@@ -114,12 +114,12 @@ const ReviewSubmitModal = ({
           />
         </div>
 
-        <div className="flex flex-col gap-[4px]">
+        <div className="flex flex-col gap-1">
           <TextArea
             label="소중한 경험을 들려주세요"
             placeholder="체험에서 느낀 경험을 자유롭게 남겨주세요"
             textCount
-            textareaClassName="h-[179px]"
+            textareaClassName="h-44.75"
             {...register("content", { required: "리뷰를 입력해주세요" })}
           />
           {errors.content && (
@@ -131,7 +131,7 @@ const ReviewSubmitModal = ({
           type="submit"
           variant="mainBlue"
           height="custom"
-          className="h-[41px] w-full rounded-xl md:h-[54px]"
+          className="h-10.25 w-full rounded-xl md:h-13.5"
         >
           작성하기
         </Button>

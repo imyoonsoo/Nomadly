@@ -242,7 +242,7 @@ const EarthJumpGame = () => {
           ref={canvasRef}
           width={CANVAS_WIDTH}
           height={CANVAS_HEIGHT}
-          className="w-full max-w-[320px] rounded-2xl border border-gray-700 bg-gray-800 shadow-lg md:max-w-[360px] xl:max-w-[400px]"
+          className="w-full max-w-80 rounded-2xl border border-gray-700 bg-gray-800 shadow-lg md:max-w-90 xl:max-w-100"
         />
 
         {!isStarted && (

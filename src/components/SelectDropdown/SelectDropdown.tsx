@@ -55,7 +55,7 @@ const SelectDropdown = ({
       </button>
 
       {isOpen && (
-        <ul className="absolute top-full left-0 z-20 mt-2 flex max-h-[284px] w-full flex-col gap-1 overflow-y-auto rounded-xl border border-gray-100 bg-white py-3 shadow-lg">
+        <ul className="absolute top-full left-0 z-20 mt-2 flex max-h-71 w-full flex-col gap-1 overflow-y-auto rounded-xl border border-gray-100 bg-white py-3 shadow-lg">
           {options.map((option) => (
             <li key={option.value}>
               <button

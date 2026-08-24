@@ -12,7 +12,7 @@ const BalanceQuestion = ({ left, right, onSelect }: BalanceQuestionProps) => {
       <button
         type="button"
         onClick={() => onSelect(left)}
-        className="flex min-h-[180px] flex-col items-center justify-center rounded-3xl bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
+        className="flex min-h-45 flex-col items-center justify-center rounded-3xl bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
       >
         <span className="text-48-bold">{left.emoji}</span>
         <span className="text-18-bold mt-4 text-gray-900">{left.label}</span>
@@ -28,7 +28,7 @@ const BalanceQuestion = ({ left, right, onSelect }: BalanceQuestionProps) => {
       <button
         type="button"
         onClick={() => onSelect(right)}
-        className="flex min-h-[180px] flex-col items-center justify-center rounded-3xl bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
+        className="flex min-h-45 flex-col items-center justify-center rounded-3xl bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
       >
         <span className="text-48-bold">{right.emoji}</span>
         <span className="text-18-bold mt-4 text-gray-900">{right.label}</span>

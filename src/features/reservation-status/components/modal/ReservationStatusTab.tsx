@@ -43,7 +43,7 @@ const ReservationStatusTab = ({
       </div>
 
       <span
-        className="bg-primary-500 absolute bottom-[-1px] left-0 h-[2px] w-1/3 rounded-full transition-transform duration-300 ease-out"
+        className="bg-primary-500 absolute -bottom-0.25 left-0 h-0.5 w-1/3 rounded-full transition-transform duration-300 ease-out"
         style={{
           transform: `translateX(${selectedIndex * 100}%)`,
         }}

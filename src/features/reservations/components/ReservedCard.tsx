@@ -73,8 +73,8 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
     <>
       <div className="flex flex-col gap-3 pt-5 md:w-[90%] lg:w-full">
         <p className="text-16-bold lg:text-18-bold text-gray-800">{date}</p>
-        <div className="relative h-34 w-full overflow-hidden rounded-4xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] lg:h-45 lg:max-w-[640px]">
-          <div className="relative z-10 flex h-full w-[70%] flex-col justify-between rounded-4xl bg-white p-5 lg:px-10 lg:py-[30px]">
+        <div className="relative h-34 w-full overflow-hidden rounded-4xl shadow-[0_4px_24px_rgba(156,180,202,0.3)] lg:h-45 lg:max-w-160">
+          <div className="relative z-10 flex h-full w-[70%] flex-col justify-between rounded-4xl bg-white p-5 lg:px-10 lg:py-7.5">
             <StateBadge status={status} />
             <div className="flex flex-col">
               <h1 className="text-14-bold lg:text-18-bold text-gray-950">
@@ -96,7 +96,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                   <Button
                     variant="whitenGray"
                     height="h29"
-                    className="!border px-[10px] py-[6px]"
+                    className="!border px-2.5 py-1.5"
                     onClick={handleEditReservationButtonClick}
                   >
                     예약 변경
@@ -104,7 +104,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                   <Button
                     variant="onlyGray"
                     height="custom"
-                    className="text-14-medium h-[29px] rounded-lg px-[10px] py-[6px] !text-gray-600"
+                    className="text-14-medium h-7.25 rounded-lg px-2.5 py-1.5 !text-gray-600"
                     onClick={handleWarningModalButtonClick}
                   >
                     예약 취소
@@ -115,7 +115,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
                 <Button
                   variant="mainBlue"
                   height="custom"
-                  className="text-14-medium hidden h-[29px] rounded-lg px-[10px] lg:block"
+                  className="text-14-medium hidden h-7.25 rounded-lg px-2.5 lg:block"
                   onClick={
                     reviewSubmitted
                       ? () => showToast.error("이미 후기를 작성했습니다.")
@@ -141,7 +141,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             <Button
               variant="whitenGray"
               height="custom"
-              className="h-[37px] flex-1 rounded-lg p-[10px]"
+              className="h-9.25 flex-1 rounded-lg p-2.5"
               onClick={handleEditReservationButtonClick}
             >
               예약 변경
@@ -149,7 +149,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
             <Button
               variant="onlyGray"
               height="custom"
-              className="h-[37px] flex-1 rounded-lg p-[10px]"
+              className="h-9.25 flex-1 rounded-lg p-2.5"
               onClick={handleWarningModalButtonClick}
             >
               예약 취소
@@ -160,7 +160,7 @@ const ReservedCard = ({ reservation }: ReservedCardProps) => {
           <Button
             variant="mainBlue"
             height="custom"
-            className="h-[37px] w-full rounded-lg px-[10px] sm:block md:block lg:hidden"
+            className="h-9.25 w-full rounded-lg px-2.5 sm:block md:block lg:hidden"
             onClick={
               reviewSubmitted
                 ? () => showToast.error("이미 후기를 작성했습니다.")
