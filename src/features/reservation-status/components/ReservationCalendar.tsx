@@ -58,8 +58,8 @@ const ReservationCalendar = ({
   };
 
   return (
-    <div className="w-full max-w-[640px] overflow-hidden rounded-3xl bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-      <div className="relative mb-2 flex h-11 items-center justify-center px-7 md:mt-5 md:mb-[30px]">
+    <div className="w-full max-w-160 overflow-hidden rounded-3xl bg-white md:shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+      <div className="relative mb-2 flex h-11 items-center justify-center px-7 md:mt-5 md:mb-7.5">
         <div className="flex items-center gap-8">
           <button
             type="button"
@@ -95,7 +95,7 @@ const ReservationCalendar = ({
         {WEEK_DAYS.map((day, i) => (
           <div
             key={`${day}-${i}`}
-            className="text-13-bold md:text-16-bold h-11 text-center leading-10 text-gray-900 md:h-[55px] md:pb-3"
+            className="text-13-bold md:text-16-bold h-11 text-center leading-10 text-gray-900 md:h-13.75 md:pb-3"
           >
             {day}
           </div>

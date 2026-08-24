@@ -26,7 +26,7 @@ const CalendarCell = ({
     <button
       type="button"
       onClick={() => onClickDate(dateKey)}
-      className={`hover:bg-primary-100 flex h-[104px] w-full flex-col items-center border-b border-gray-100 px-1 transition md:h-31 md:px-3 ${
+      className={`hover:bg-primary-100 flex h-26 w-full flex-col items-center border-b border-gray-100 px-1 transition md:h-31 md:px-3 ${
         isToday ? "pt-1 md:pt-3" : "pt-2 pb-1 md:pt-4 md:pb-2"
       }`}
     >

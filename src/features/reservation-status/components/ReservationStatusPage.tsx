@@ -57,7 +57,7 @@ const ReservationStatusPage = () => {
   if (isActivitiesLoading) {
     return (
       <EmptyReservationStatus
-        image={<Loading className="h-[182px] w-[182px]" />}
+        image={<Loading className="h-45.5 w-45.5" />}
         message="불러오는 중..."
       />
     );
@@ -66,7 +66,7 @@ const ReservationStatusPage = () => {
   if (isActivitiesError) {
     return (
       <EmptyReservationStatus
-        image={<Error className="h-[182px] w-[182px]" />}
+        image={<Error className="h-45.5 w-45.5" />}
         message="체험 목록을 불러오지 못했습니다."
       />
     );
@@ -79,14 +79,14 @@ const ReservationStatusPage = () => {
   if (isDashboardLoading && !hasDashboardData) {
     dashboardContent = (
       <EmptyReservationStatus
-        image={<Loading className="h-[182px] w-[182px]" />}
+        image={<Loading className="h-45.5 w-45.5" />}
         message="예약 현황을 불러오는 중..."
       />
     );
   } else if (isDashboardError) {
     dashboardContent = (
       <EmptyReservationStatus
-        image={<Error className="h-[182px] w-[182px]" />}
+        image={<Error className="h-45.5 w-45.5" />}
         message="예약 현황을 불러오지 못했습니다."
       />
     );
@@ -104,12 +104,12 @@ const ReservationStatusPage = () => {
   }
 
   return (
-    <section className="w-full max-w-[800px]">
+    <section className="w-full max-w-200">
       {!hasActivities ? (
         <EmptyReservationStatus message="아직 등록한 체험이 없어요" />
       ) : (
         <>
-          <div className="max-w-[640px] pb-[18px] md:pb-6 xl:pb-[30px]">
+          <div className="max-w-160 pb-4.5 md:pb-6 xl:pb-7.5">
             <SelectDropdown
               options={activityOptions}
               selectedValue={selectedActivityId}

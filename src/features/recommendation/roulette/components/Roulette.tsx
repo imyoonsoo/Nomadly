@@ -40,7 +40,7 @@ const RouletteGame = () => {
 
   return (
     <section className="flex w-full flex-col items-center">
-      <div className="relative mt-6 flex h-[300px] w-[300px] items-center justify-center md:h-[400px] md:w-[400px]">
+      <div className="relative mt-6 flex h-75 w-75 items-center justify-center md:h-100 md:w-100">
         <div className="absolute -top-2 z-20 h-0 w-0 border-x-[16px] border-t-[28px] border-x-transparent border-t-red-500" />
 
         <div
@@ -70,7 +70,7 @@ const RouletteGame = () => {
         </div>
       </div>
 
-      <div className="mt-6 grid w-full max-w-[420px] grid-cols-2 gap-2 md:grid-cols-3">
+      <div className="mt-6 grid w-full max-w-105 grid-cols-2 gap-2 md:grid-cols-3">
         {ROULETTE_ITEMS.map((item, index) => (
           <div
             key={item.category}
@@ -91,7 +91,7 @@ const RouletteGame = () => {
       </button>
 
       {selectedItem && (
-        <div className="mt-8 w-full max-w-[420px] rounded-3xl bg-white p-6 text-center shadow-md">
+        <div className="mt-8 w-full max-w-105 rounded-3xl bg-white p-6 text-center shadow-md">
           <p className="text-40-bold">{selectedItem.emoji}</p>
           <h2 className="text-24-bold mt-2 text-gray-900">
             {selectedItem.category}

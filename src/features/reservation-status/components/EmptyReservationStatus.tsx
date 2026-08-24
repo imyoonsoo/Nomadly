@@ -7,10 +7,10 @@ interface EmptyReservationStatusProps {
 
 const EmptyReservationStatus = ({
   message,
-  image = <Empty className="h-[182px] w-[182px]" />,
+  image = <Empty className="h-45.5 w-45.5" />,
 }: EmptyReservationStatusProps) => {
   return (
-    <div className="flex min-h-[360px] flex-col items-center justify-center">
+    <div className="flex min-h-90 flex-col items-center justify-center">
       {image}
 
       <p className="text-18-medium mt-6 text-gray-600">{message}</p>

@@ -29,7 +29,7 @@ const ReservationCard = ({
           </span>
         </div>
 
-        <div className="mt-2 flex items-center gap-[22px]">
+        <div className="mt-2 flex items-center gap-5.5">
           <span className="text-14-bold xl:text-16-bold text-gray-500">
             인원
           </span>

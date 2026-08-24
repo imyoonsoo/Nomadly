@@ -4,14 +4,14 @@ import { FilterButtonProps } from "./type";
 
 const sizes = {
   pcTb: {
-    padding: "py-[10px] px-4",
-    gap: "gap-[6px]",
+    padding: "py-2.5 px-4",
+    gap: "gap-1.5",
     iconSize: "[&_svg]:size-6",
     fontSize: "text-base",
     letterSpacing: "tracking-[-0.4px]",
   },
   mo: {
-    padding: "py-[10px] px-[14px]",
+    padding: "py-2.5 px-3.5",
     gap: "gap-1",
     iconSize: "[&_svg]:size-4",
     fontSize: "text-sm",

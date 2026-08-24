@@ -43,7 +43,7 @@ const BalanceGame = () => {
   }
 
   return (
-    <section className="w-full max-w-[780px]">
+    <section className="w-full max-w-195">
       <div className="mb-8 text-center md:mt-20">
         <h2 className="text-24-bold text-gray-900">여행지 밸런스 게임</h2>
         <p className="text-16-medium mt-2 text-gray-500">
