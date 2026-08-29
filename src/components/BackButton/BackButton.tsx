@@ -1,30 +1,34 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Back } from "@/constants/icons";
+import { ChevronLeft } from "@/constants/icons";
+import { BackButtonProps } from "./type";
 
-interface BackButtonProps {
-  /** 버튼 옆 텍스트 (기본 "뒤로가기", 빈 문자열이면 아이콘만) */
-  label?: string;
-  className?: string;
-}
-
-const BackButton = ({ label = "뒤로가기", className = "" }: BackButtonProps) => {
+export const BackButton = ({
+  label = "",
+  className = "",
+}: BackButtonProps) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    if (window.history.length > 1) {
+      router.back();
+      return;
+    }
+    router.push("/");
+  };
 
   return (
     <button
       type="button"
-      onClick={() => router.back()}
-      aria-label="뒤로 가기"
-      className={`flex items-center gap-1 text-gray-700 transition hover:text-gray-950 ${className}`}
+      onClick={handleClick}
+      aria-label="뒤로가기 버튼"
+      className={`-ml-2 flex items-center gap-1 p-1 text-gray-900 transition-opacity hover:opacity-60 md:-ml-1 ${className}`}
     >
-      <Back />
+      <ChevronLeft className="h-8.25 w-8.25 md:h-9 md:w-9" />
       {label && (
         <span className="text-14-medium md:text-16-medium">{label}</span>
       )}
     </button>
   );
 };
-
-export default BackButton;

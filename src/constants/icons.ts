@@ -9,6 +9,7 @@ import Bell from "@/assets/icons/bell.svg";
 import Bus from "@/assets/icons/bus.svg";
 import Calendar from "@/assets/icons/calendar.svg";
 import ChevronDown from "@/assets/icons/chevron-down.svg";
+import ChevronLeft from "@/assets/icons/chevron-left.svg";
 import Delete from "@/assets/icons/delete.svg";
 import Edit from "@/assets/icons/edit.svg";
 import EyeOff from "@/assets/icons/eye-off.svg";
@@ -52,6 +53,7 @@ export {
   Bus,
   Calendar,
   ChevronDown,
+  ChevronLeft,
   Delete,
   Edit,
   EyeOff,

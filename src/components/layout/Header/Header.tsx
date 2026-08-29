@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import type { HeaderProps } from "./type";
 import Link from "next/link";
 
-import BackButton from "@/components/BackButton/BackButton";
+import { BackButton } from "@/components/BackButton/BackButton";
 
 import HeaderUserMenu from "./HeaderUserMenu";
 import HeaderGuestMenu from "./HeaderGuestMenu";
@@ -18,8 +18,7 @@ import Game from "@/assets/icons/game.svg";
 
 const Header = ({ user }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = usePathname() === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,8 +42,8 @@ const Header = ({ user }: HeaderProps) => {
       }`}
     >
       <div className="mx-auto flex w-full max-w-380 items-center justify-between px-6 md:px-7.5">
-        <div className="flex items-center gap-1 md:gap-2">
-          {!isHome && <BackButton label="" />}
+        <div className="flex items-center gap-3 md:gap-4">
+          {!isHome && <BackButton />}
           <Link href="/" className="flex cursor-pointer items-center py-2.5">
             <LogoVertical
               aria-label="로고"
