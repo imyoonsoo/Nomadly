@@ -2,16 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import { ChevronLeft } from "@/constants/icons";
+import { IN_APP_NAV_COUNT_KEY } from "@/constants/session";
 import { BackButtonProps } from "./type";
 
 export const BackButton = ({ label = "", className = "" }: BackButtonProps) => {
   const router = useRouter();
 
   const handleBackButtonClick = () => {
+    // 앱 안에서 한 번이라도 이동했으면 뒤로가기, 아니면 홈으로
     const isFromInApp =
-      Number(sessionStorage.getItem("inAppNavCount") ?? "0") > 1;
+      Number(sessionStorage.getItem(IN_APP_NAV_COUNT_KEY) ?? "0") > 0;
 
-    if (isFromInApp) {
+    // 카운트와 별개로 실제 히스토리가 있어야 뒤로가기 가능
+    if (isFromInApp && window.history.length > 1) {
       router.back();
       return;
     }

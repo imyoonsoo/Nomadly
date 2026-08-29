@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { QueryClientProvider } from "@tanstack/react-query";
 import UserSessionHydrator from "@/features/auth/components/UserSessionHydrator";
+import { useInAppNavCount } from "@/hooks/useInAppNavCount";
 import { getQueryClient } from "./get-query-client";
 import dynamic from "next/dynamic";
 
@@ -19,13 +18,9 @@ const ReactQueryDevtools =
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const queryClient = getQueryClient();
-  const pathname = usePathname();
 
-  // 뒤로가기 판단 횟수
-  useEffect(() => {
-    const navCount = Number(sessionStorage.getItem("inAppNavCount") ?? "0");
-    sessionStorage.setItem("inAppNavCount", String(navCount + 1));
-  }, [pathname]);
+  // BackButton 뒤로가기 판단용 내부 이동 카운트
+  useInAppNavCount();
 
   return (
     <QueryClientProvider client={queryClient}>
