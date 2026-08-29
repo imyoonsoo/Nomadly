@@ -80,9 +80,18 @@ export const BestList = ({ items, isLoading }: CardListProps) => {
 
       <button
         type="button"
+        className="hover:bg-primary-500 absolute top-1/2 -left-3 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
+        onClick={() => swiperRef.current?.slidePrev()}
+        aria-label="이전 인기체험"
+      >
+        <ArrowRight className="rotate-180" />
+      </button>
+
+      <button
+        type="button"
         className="hover:bg-primary-500 absolute top-1/2 -right-3 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] [&_svg]:size-5 [&_svg]:text-gray-900 hover:[&_svg]:text-white"
         onClick={() => swiperRef.current?.slideNext()}
-        aria-label="다음 인기 체험"
+        aria-label="다음 인기체험"
       >
         <ArrowRight />
       </button>

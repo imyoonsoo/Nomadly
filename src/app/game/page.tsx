@@ -35,7 +35,7 @@ const GAME_LIST = [
 const GamePage = () => {
   return (
     <main className="min-h-screen bg-gray-50 px-6 pt-24 pb-10">
-      <section className="mx-auto w-full max-w-[960px]">
+      <section className="mx-auto w-full max-w-240">
         <div className="mb-6">
           <Link
             href="/"

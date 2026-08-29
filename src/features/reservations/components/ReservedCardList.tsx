@@ -72,7 +72,7 @@ const ReservedCardList = () => {
 
   if (!activeFilter && !reservations?.length) {
     return (
-      <div className="mt-[10px] flex h-full w-full flex-col items-center justify-center gap-[30px]">
+      <div className="mt-2.5 flex h-full w-full flex-col items-center justify-center gap-7.5">
         <div>
           <EmptyIcon width={180} height={203} />
           <p>아직 예약된 체험이 없어요</p>
@@ -90,7 +90,7 @@ const ReservedCardList = () => {
   }
 
   return (
-    <div className="flex flex-col gap-[30px]">
+    <div className="flex flex-col gap-7.5">
       <div className="scrollbar-hide flex gap-2 overflow-x-auto">
         {FILTERS.map((filter) => (
           <FilterButton
@@ -102,7 +102,7 @@ const ReservedCardList = () => {
           </FilterButton>
         ))}
       </div>
-      <div className="flex flex-col gap-[30px]">
+      <div className="flex flex-col gap-7.5">
         {reservations.map((reservation) => (
           <ReservedCard key={reservation.id} reservation={reservation} />
         ))}

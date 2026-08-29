@@ -21,7 +21,7 @@ const NotificationModal = ({
   onNotificationClick,
 }: NotificationModalProps) => {
   return (
-    <div className="absolute top-12 right-0 z-50 w-[330px] overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] max-md:fixed max-md:top-[49px] max-md:right-4 max-md:left-4 max-md:z-[130] max-md:w-auto">
+    <div className="absolute top-12 right-0 z-50 w-82.5 overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] max-md:fixed max-md:top-12.25 max-md:right-4 max-md:left-4 max-md:z-[130] max-md:w-auto">
       <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
         <h2 className="text-16-bold text-gray-950">알림 {totalCount}개</h2>
 
@@ -35,7 +35,7 @@ const NotificationModal = ({
         </button>
       </div>
 
-      <div className="max-h-[250px] overflow-y-auto">
+      <div className="max-h-62.5 overflow-y-auto">
         {notifications.length === 0 ? (
           <p className="text-14-medium px-5 py-8 text-center text-gray-700">
             알림이 없어요.

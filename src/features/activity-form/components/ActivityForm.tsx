@@ -127,7 +127,7 @@ const ActivityForm = ({ mode, defaultValues, onSubmit }: ActivityFormProps) => {
           })}
           label="설명"
           placeholder="체험에 대한 설명을 입력해 주세요"
-          textareaClassName="h-[140px] md:h-[200px]"
+          textareaClassName="h-35 md:h-50"
           errorMessage={errors.description?.message}
           labelClassName="text-16-bold"
         />

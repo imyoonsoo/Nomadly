@@ -18,7 +18,7 @@ const BalanceResult = ({ results, onRestart }: BalanceResultProps) => {
   const topResult = results[0];
 
   return (
-    <section className="w-full max-w-[700px]">
+    <section className="w-full max-w-175">
       <h2 className="text-24-bold text-center text-gray-900">
         당신의 여행 취향
       </h2>

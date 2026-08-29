@@ -62,11 +62,11 @@ export const HomeContent = ({ activities, loadFailed }: HomeContentProps) => {
       }}
     >
       {/* 메인배너 */}
-      <div className="mx-auto max-w-[1200px] px-6 pt-[122px] md:px-10 md:pt-[183px]">
+      <div className="mx-auto max-w-300 px-6 pt-30.5 md:px-10 md:pt-45.75">
         <MainBanner items={activities} />
       </div>
       {/* 체험검색 */}
-      <div className="mx-auto my-10 max-w-[1120px] px-5 py-4 md:my-12 md:px-10 md:py-8">
+      <div className="mx-auto my-10 max-w-280 px-5 py-4 md:my-12 md:px-10 md:py-8">
         <h1 className="text-16-bold md:text-32-bold mb-3 text-center md:mb-9">
           무엇을 체험하고 싶으신가요?
         </h1>
@@ -78,7 +78,7 @@ export const HomeContent = ({ activities, loadFailed }: HomeContentProps) => {
       </div>
       {/* 인기체험 */}
       {keyword === "" && (
-        <div className="mx-auto max-w-[1200px] px-6 md:px-10">
+        <div className="mx-auto max-w-300 px-6 md:px-10">
           <h2 className="text-18-bold md:text-32-bold mb-3.5 md:mb-5">
             🔥 인기 체험
           </h2>
@@ -88,7 +88,7 @@ export const HomeContent = ({ activities, loadFailed }: HomeContentProps) => {
         </div>
       )}
       {/* 모든체험 */}
-      <div className="mx-auto mt-10 max-w-[1200px] px-6 md:px-10">
+      <div className="mx-auto mt-10 max-w-300 px-6 md:px-10">
         {keyword === "" ? (
           <h2 className="text-18-bold md:text-32-bold mb-5">🎈 모든 체험</h2>
         ) : filteredActivities.length === 0 ? (
@@ -112,7 +112,7 @@ export const HomeContent = ({ activities, loadFailed }: HomeContentProps) => {
           </div>
         )}
 
-        <div className="mb-[218px] flex">
+        <div className="mb-54.5 flex">
           <ActivitiesList items={filteredActivities} keyword={keyword} />
         </div>
       </div>

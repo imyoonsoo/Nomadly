@@ -50,7 +50,7 @@ const RecommendationTest = () => {
     const results = getRecommendationResult(selectedAnswers);
 
     return (
-      <section className="mx-auto w-full max-w-[700px]">
+      <section className="mx-auto w-full max-w-175">
         <h1 className="text-28-bold md:text-32-bold text-center text-gray-900">
           🎉 추천 결과
         </h1>
@@ -77,7 +77,7 @@ const RecommendationTest = () => {
   }
 
   return (
-    <section className="mx-auto w-full max-w-[700px]">
+    <section className="mx-auto w-full max-w-175">
       <h1 className="text-28-bold md:text-32-bold text-center text-gray-900">
         체험 추천 테스트
       </h1>

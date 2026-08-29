@@ -154,18 +154,18 @@ const ProfileEditForm = () => {
     return (
       <div className="mx-auto flex w-full flex-col items-center gap-6 px-4 md:w-119 lg:w-160">
         <div className="mb-3.25 flex animate-pulse flex-col gap-2.5 self-stretch md:mb-7.5">
-          <div className="h-[22px] w-16 rounded bg-gray-200" />
-          <div className="h-[20px] w-60 rounded bg-gray-200" />
+          <div className="h-5.5 w-16 rounded bg-gray-200" />
+          <div className="h-5 w-60 rounded bg-gray-200" />
         </div>
         <EmptyLoading width={180} height={180} />
         <div className="flex animate-pulse flex-col items-center gap-6 self-stretch">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="flex flex-col gap-2.5 self-stretch">
               <div className="h-6 w-14 rounded bg-gray-200" />
-              <div className="h-[54px] rounded-2xl bg-gray-200" />
+              <div className="h-13.5 rounded-2xl bg-gray-200" />
             </div>
           ))}
-          <div className="h-[47px] w-full rounded-[14px] bg-gray-200" />
+          <div className="h-11.75 w-full rounded-[14px] bg-gray-200" />
         </div>
       </div>
     );

@@ -37,7 +37,7 @@ const MbtiRecommendation = () => {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[700px]">
+    <section className="mx-auto w-full max-w-175">
       <h1 className="text-24-bold md:text-32-bold text-center text-gray-900">
         MBTI 체험 추천
       </h1>
