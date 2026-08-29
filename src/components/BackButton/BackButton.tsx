@@ -4,10 +4,7 @@ import { useRouter } from "next/navigation";
 import { ChevronLeft } from "@/constants/icons";
 import { BackButtonProps } from "./type";
 
-export const BackButton = ({
-  label = "",
-  className = "",
-}: BackButtonProps) => {
+export const BackButton = ({ label = "", className = "" }: BackButtonProps) => {
   const router = useRouter();
 
   const handleClick = () => {
