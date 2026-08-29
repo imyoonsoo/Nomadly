@@ -7,12 +7,11 @@ import { BackButtonProps } from "./type";
 export const BackButton = ({ label = "", className = "" }: BackButtonProps) => {
   const router = useRouter();
 
-  const handleClick = () => {
-    const cameFromInApp =
-      document.referrer !== "" &&
-      new URL(document.referrer).origin === window.location.origin;
+  const handleBackButtonClick = () => {
+    const isFromInApp =
+      Number(sessionStorage.getItem("inAppNavCount") ?? "0") > 1;
 
-    if (cameFromInApp && window.history.length > 1) {
+    if (isFromInApp) {
       router.back();
       return;
     }
@@ -22,7 +21,7 @@ export const BackButton = ({ label = "", className = "" }: BackButtonProps) => {
   return (
     <button
       type="button"
-      onClick={handleClick}
+      onClick={handleBackButtonClick}
       aria-label={label ? undefined : "뒤로가기"}
       className={`-ml-2 flex items-center gap-1 p-1 text-gray-900 transition-opacity hover:opacity-60 md:-ml-1 ${className}`}
     >
